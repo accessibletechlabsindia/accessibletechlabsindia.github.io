@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PDF Merger - Accessible Tech Labs India</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../css/style.css">
+<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+</head>
+
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header role="banner">
+<h1>Accessible Tech Labs India</h1>
+
+<nav aria-label="Main navigation">
+<a href="../../index.html">Home</a>
+<a href="../../software.html">Software</a>
+<a href="../../tools.html">Tools</a>
+<a href="../../about.html">About</a>
+<a href="../../contact.html">Contact</a>
+<a href="../../social.html">Social</a>
+</nav>
+</header>
+
+<main id="main">
+
+<h2>PDF Merger</h2>
+
+<p>
+Merge multiple PDF documents into a single PDF directly in your browser. No uploads. Everything happens locally on your device.
+</p>
+
+<form aria-label="PDF merger form">
+
+<label for="pdfFiles">Select PDF files</label><br>
+<input id="pdfFiles" type="file" accept="application/pdf" multiple aria-required="true"><br><br>
+
+<label for="outputName">Output file name</label><br>
+<input id="outputName" type="text" value="merged_pdf"><br><br>
+
+<button type="button" id="mergeBtn" aria-label="Merge selected PDF files">Merge PDFs</button>
+
+</form>
+
+<p id="status" aria-live="polite"></p>
+
+<a id="downloadLink" style="display:none;" aria-label="Download merged PDF">Download merged PDF</a>
+
+</main>
+
+<footer role="contentinfo">
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+
+<script>
+
+const { PDFDocument } = PDFLib;
+
+document.getElementById("mergeBtn").addEventListener("click", async () => {
+
+const files = document.getElementById("pdfFiles").files;
+const outputName = document.getElementById("outputName").value || "merged_pdf";
+
+if(files.length < 2){
+alert("Please select at least two PDF files.");
+return;
+}
+
+document.getElementById("status").innerText = "Merging PDFs, please wait...";
+
+const mergedPdf = await PDFDocument.create();
+
+for(const file of files){
+const buffer = await file.arrayBuffer();
+const pdf = await PDFDocument.load(buffer);
+const pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+pages.forEach(page => mergedPdf.addPage(page));
+}
+
+const finalPdf = await mergedPdf.save();
+const blob = new Blob([finalPdf], { type:"application/pdf" });
+const url = URL.createObjectURL(blob);
+
+const link = document.getElementById("downloadLink");
+link.href = url;
+link.download = outputName + ".pdf";
+link.style.display = "block";
+
+document.getElementById("status").innerText = "PDF ready. Download link available.";
+
+});
+
+</script>
+
+</body>
+</html>

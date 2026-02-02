@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Image to PDF - Accessible Tech Labs India</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/style.css">
+<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+</head>
+
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header role="banner">
+<h1>Accessible Tech Labs India</h1>
+
+<nav aria-label="Main navigation">
+<a href="../index.html">Home</a>
+<a href="../software.html">Software</a>
+<a href="../tools.html">Tools</a>
+<a href="../about.html">About</a>
+<a href="../contact.html">Contact</a>
+<a href="../social.html">Social</a>
+</nav>
+</header>
+
+<main id="main">
+
+<h2>Image to PDF Converter</h2>
+
+<p>
+Select one or more images and convert them into a single PDF file.
+</p>
+
+<form aria-label="Image to PDF form">
+
+<label for="imageFiles">Select image files</label><br>
+<input id="imageFiles" type="file" accept="image/*" multiple aria-required="true"><br><br>
+
+<label for="outputName">Output PDF file name</label><br>
+<input id="outputName" type="text" value="images_pdf"><br><br>
+
+<button type="button" id="convertBtn" aria-label="Convert images to PDF">Convert to PDF</button>
+
+</form>
+
+<p id="status" aria-live="polite"></p>
+
+<a id="downloadLink" style="display:none;" aria-label="Download generated PDF">Download PDF</a>
+
+</main>
+
+<footer role="contentinfo">
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+
+<script>
+
+const { PDFDocument } = PDFLib;
+
+document.getElementById("convertBtn").addEventListener("click", async () => {
+
+const files = document.getElementById("imageFiles").files;
+const outputName = document.getElementById("outputName").value || "images_pdf";
+
+if(files.length === 0){
+alert("Please select at least one image.");
+return;
+}
+
+document.getElementById("status").innerText = "Creating PDF from images, please wait...";
+
+const pdfDoc = await PDFDocument.create();
+
+for(const file of files){
+
+const bytes = await file.arrayBuffer();
+
+let img;
+
+if(file.type.includes("png")){
+img = await pdfDoc.embedPng(bytes);
+}else{
+img = await pdfDoc.embedJpg(bytes);
+}
+
+const page = pdfDoc.addPage([img.width, img.height]);
+page.drawImage(img, { x:0, y:0, width:img.width, height:img.height });
+
+}
+
+const pdfBytes = await pdfDoc.save();
+
+const blob = new Blob([pdfBytes], {type:"application/pdf"});
+const url = URL.createObjectURL(blob);
+
+const link = document.getElementById("downloadLink");
+link.href = url;
+link.download = outputName + ".pdf";
+link.style.display = "block";
+
+document.getElementById("status").innerText = "PDF created successfully. Download link available.";
+
+});
+
+</script>
+
+</body>
+</html>

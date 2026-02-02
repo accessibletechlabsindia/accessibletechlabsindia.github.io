@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PDF to Image - Accessible Tech Labs India</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+</head>
+
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header role="banner">
+<h1>Accessible Tech Labs India</h1>
+
+<nav aria-label="Main navigation">
+<a href="../index.html">Home</a>
+<a href="../software.html">Software</a>
+<a href="../tools.html">Tools</a>
+<a href="../about.html">About</a>
+<a href="../contact.html">Contact</a>
+<a href="../social.html">Social</a>
+</nav>
+</header>
+
+<main id="main">
+
+<h2>PDF to Image Converter</h2>
+
+<p>
+Convert each page of your PDF into PNG images. If your PDF has one page, you will receive a single image. If it has multiple pages, all images will be downloaded as a ZIP file.
+</p>
+
+<form aria-label="PDF to image form">
+
+<label for="pdfFile">Select PDF file</label><br>
+<input id="pdfFile" type="file" accept="application/pdf" aria-required="true"><br><br>
+
+<label for="outputName">Output file name</label><br>
+<input id="outputName" type="text" value="pdf_images"><br><br>
+
+<button type="button" id="convertBtn" aria-label="Convert PDF pages to images">Convert to Images</button>
+
+</form>
+
+<p id="status" aria-live="polite"></p>
+
+<a id="downloadLink" style="display:none;" aria-label="Download result">Download</a>
+
+</main>
+
+<footer role="contentinfo">
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+
+<script>
+
+pdfjsLib.GlobalWorkerOptions.workerSrc =
+"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+document.getElementById("convertBtn").addEventListener("click", async () => {
+
+const file = document.getElementById("pdfFile").files[0];
+const outputName = document.getElementById("outputName").value || "pdf_images";
+
+if(!file){
+alert("Please select a PDF file.");
+return;
+}
+
+document.getElementById("status").innerText = "Converting PDF pages to images, please wait...";
+
+const buffer = await file.arrayBuffer();
+const pdf = await pdfjsLib.getDocument({data:buffer}).promise;
+
+if(pdf.numPages === 1){
+
+const page = await pdf.getPage(1);
+const viewport = page.getViewport({scale:2});
+const canvas = document.createElement("canvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = viewport.width;
+canvas.height = viewport.height;
+
+await page.render({canvasContext:ctx, viewport:viewport}).promise;
+
+const dataUrl = canvas.toDataURL("image/png");
+const blob = await (await fetch(dataUrl)).blob();
+const url = URL.createObjectURL(blob);
+
+const link = document.getElementById("downloadLink");
+link.href = url;
+link.download = outputName + ".png";
+link.style.display = "block";
+
+document.getElementById("status").innerText = "Image ready. Download link available.";
+
+}else{
+
+const zip = new JSZip();
+
+for(let i=1;i<=pdf.numPages;i++){
+
+const page = await pdf.getPage(i);
+const viewport = page.getViewport({scale:2});
+const canvas = document.createElement("canvas");
+const ctx = canvas.getContext("2d");
+
+canvas.width = viewport.width;
+canvas.height = viewport.height;
+
+await page.render({canvasContext:ctx, viewport:viewport}).promise;
+
+const dataUrl = canvas.toDataURL("image/png");
+const base64 = dataUrl.split(",")[1];
+
+zip.file("page_"+i+".png", base64, {base64:true});
+
+}
+
+const zipBlob = await zip.generateAsync({type:"blob"});
+const url = URL.createObjectURL(zipBlob);
+
+const link = document.getElementById("downloadLink");
+link.href = url;
+link.download = outputName + ".zip";
+link.style.display = "block";
+
+document.getElementById("status").innerText = "Images ready. ZIP download available.";
+
+}
+
+});
+
+</script>
+
+</body>
+</html>

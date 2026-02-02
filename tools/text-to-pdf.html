@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Text to PDF - Accessible Tech Labs India</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/style.css">
+<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+</head>
+
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header role="banner">
+<h1>Accessible Tech Labs India</h1>
+
+<nav aria-label="Main navigation">
+<a href="../index.html">Home</a>
+<a href="../software.html">Software</a>
+<a href="../tools.html">Tools</a>
+<a href="../about.html">About</a>
+<a href="../contact.html">Contact</a>
+<a href="../social.html">Social</a>
+</nav>
+</header>
+
+<main id="main">
+
+<h2>Text to PDF Converter</h2>
+
+<p>
+You can either paste text below or upload a TXT file. The content will be converted into a downloadable PDF.
+</p>
+
+<form aria-label="Text to PDF form">
+
+<label for="textInput">Enter text (optional)</label><br>
+<textarea id="textInput" rows="10" style="width:100%;"></textarea><br><br>
+
+<label for="txtFile">Or upload TXT file</label><br>
+<input id="txtFile" type="file" accept=".txt"><br><br>
+
+<label for="outputName">Output PDF file name</label><br>
+<input id="outputName" type="text" value="text_document"><br><br>
+
+<button type="button" id="convertBtn" aria-label="Convert text or file to PDF">Convert to PDF</button>
+
+</form>
+
+<p id="status" aria-live="polite"></p>
+
+<a id="downloadLink" style="display:none;" aria-label="Download generated PDF">Download PDF</a>
+
+</main>
+
+<footer role="contentinfo">
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+
+<script>
+
+const { PDFDocument, StandardFonts } = PDFLib;
+
+document.getElementById("convertBtn").addEventListener("click", async () => {
+
+const manualText = document.getElementById("textInput").value;
+const file = document.getElementById("txtFile").files[0];
+const outputName = document.getElementById("outputName").value || "text_document";
+
+let finalText = "";
+
+if(file){
+finalText = await file.text();
+}else{
+finalText = manualText;
+}
+
+if(!finalText.trim()){
+alert("Please enter text or upload a TXT file.");
+return;
+}
+
+document.getElementById("status").innerText = "Creating PDF, please wait...";
+
+const pdfDoc = await PDFDocument.create();
+const page = pdfDoc.addPage();
+const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+
+const { height } = page.getSize();
+
+let y = height - 50;
+const lines = finalText.split("\n");
+
+lines.forEach(line => {
+page.drawText(line, { x:50, y:y, size:12, font:font });
+y -= 18;
+});
+
+const pdfBytes = await pdfDoc.save();
+
+const blob = new Blob([pdfBytes], {type:"application/pdf"});
+const url = URL.createObjectURL(blob);
+
+const link = document.getElementById("downloadLink");
+link.href = url;
+link.download = outputName + ".pdf";
+link.style.display = "block";
+
+document.getElementById("status").innerText = "PDF created successfully. Download link available.";
+
+});
+
+</script>
+
+</body>
+</html>
