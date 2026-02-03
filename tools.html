@@ -25,6 +25,23 @@
 </header>
 
 <main id="main">
+<div class="search-box">
+
+<label for="toolSearch">Search tools</label>
+
+<input
+type="text"
+id="toolSearch"
+placeholder="Enter tool name"
+aria-label="Search tools">
+
+<button onclick="searchTools()">Search</button>
+
+<button onclick="clearToolSearch()">Clear</button>
+
+<p id="toolSearchStatus" aria-live="polite"></p>
+
+</div>
 
 <h2>Accessible Document Tools</h2>
 
@@ -79,6 +96,17 @@ Combine multiple TXT files into one single text document. This tool is helpful f
 </p>
 <a href="tools/txt-merger.html">Open Tool</a>
 </div>
+<div class="tool-card" role="region" aria-label="Accessible PDF Reader tool">
+
+<h3>Accessible PDF Reader</h3>
+
+<p>
+Browser based PDF reading tool with zoom, high contrast and text to speech support designed for blind and low vision users.
+</p>
+
+<a href="tools/pdf-reader.html">Open Tool</a>
+
+</div>
 
 <div class="tool-card" role="region" aria-label="Accessibility information">
 <h3>Accessibility First</h3>
@@ -97,6 +125,67 @@ All tools are designed with accessibility in mind. Each page includes clear labe
 
 <p>© 2026 Accessible Tech Labs India</p>
 </footer>
+<script>
+
+function showAllTools() {
+let cards = document.getElementsByClassName("tool-card");
+for (let i = 0; i < cards.length; i++) {
+cards[i].style.display = "block";
+}
+}
+
+function searchTools() {
+
+let input = document.getElementById("toolSearch");
+let filter = input.value.toLowerCase().trim();
+let cards = document.getElementsByClassName("tool-card");
+let status = document.getElementById("toolSearchStatus");
+
+if (filter === "") {
+showAllTools();
+status.innerText = "";
+return;
+}
+
+let found = false;
+
+for (let i = 0; i < cards.length; i++) {
+
+let text = cards[i].innerText.toLowerCase();
+
+if (text.includes(filter)) {
+cards[i].style.display = "block";
+found = true;
+} else {
+cards[i].style.display = "none";
+}
+
+}
+
+if (found) {
+status.innerText = "Search completed. Matching tools displayed.";
+} else {
+status.innerText = "No tools found with this name on this website.";
+}
+
+}
+
+function clearToolSearch() {
+
+document.getElementById("toolSearch").value = "";
+showAllTools();
+document.getElementById("toolSearchStatus").innerText =
+"Search cleared. All tools displayed.";
+
+}
+
+document.getElementById("toolSearch").addEventListener("keydown", function(e) {
+if (e.key === "Enter") {
+searchTools();
+}
+});
+
+</script>
 
 </body>
 </html>

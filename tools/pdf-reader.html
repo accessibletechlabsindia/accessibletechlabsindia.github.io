@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Advanced Accessible PDF Reader</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+<style>
+.large-ui button, .large-ui select, .large-ui input {
+font-size:20px;
+padding:10px;
+}
+.highlight {
+background: #fff3a0;
+}
+</style>
+
+</head>
+
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header>
+<h1>Accessible Tech Labs India</h1>
+<nav>
+<a href="../index.html">Home</a>
+<a href="../software.html">Software</a>
+<a href="../tools.html">Tools</a>
+<a href="../about.html">About</a>
+<a href="../contact.html">Contact</a>
+<a href="../social.html">Social</a>
+</nav>
+</header>
+
+<main id="main">
+
+<h2>Advanced Accessible PDF Reader</h2>
+
+<p>
+This professional browser based PDF reader is designed for blind and low vision users. It allows secure local PDF opening, automatic page announcements, keyboard navigation, speech reading, adjustable speed and volume, zoom, contrast, line spacing and large UI mode. Reading highlight improves tracking for low vision users. Everything runs locally with full privacy and NVDA friendly feedback.
+</p>
+
+<hr>
+
+<input type="file" id="pdfFile" accept="application/pdf">
+
+<div id="status" aria-live="polite"></div>
+
+<hr>
+
+<button id="prev">Previous Page</button>
+<button id="next">Next Page</button>
+
+<input type="number" id="pageJump" min="1">
+<button id="goPage">Go</button>
+
+<p id="pageInfo"></p>
+
+<hr>
+
+<select id="voices"></select>
+
+<br><br>
+
+<button id="speedBtn">Speed: Normal</button>
+
+<br><br>
+
+<label>Volume</label><br>
+<input type="range" id="volume" min="0" max="100" value="100">
+
+<br><br>
+
+<label>Line Spacing</label><br>
+<input type="range" id="spacing" min="1" max="3" step="0.2" value="1.5">
+
+<hr>
+
+<button id="readBtn">Read Aloud</button>
+<button id="pauseBtn">Pause</button>
+
+<hr>
+
+<button id="zoomIn">Zoom +</button>
+<button id="zoomOut">Zoom -</button>
+<button id="contrast">High Contrast</button>
+<button id="largeUi">Large UI</button>
+
+<hr>
+
+<div id="textArea" style="min-height:300px;line-height:1.5;"></div>
+
+</main>
+
+<footer>
+<p><a href="../privacy.html">Privacy Policy</a></p>
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+
+<script>
+
+pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+let pdfDoc=null,page=1,scale=1;
+let voices=[];
+let speeds=[1,1.5,2,2.5,3,3.5,4,4.5,5];
+let speedIndex=0;
+let utterance=null;
+let paused=false;
+let large=false;
+
+const status=document.getElementById("status");
+const textArea=document.getElementById("textArea");
+const voiceSel=document.getElementById("voices");
+
+function announce(m){status.textContent=m;}
+
+pdfFile.onchange=e=>{
+const f=e.target.files[0];
+if(!f)return;
+const r=new FileReader();
+r.onload=()=>pdfjsLib.getDocument(r.result).promise.then(pdf=>{
+pdfDoc=pdf;
+page=1;
+announce("PDF loaded. Total pages "+pdf.numPages);
+render();
+});
+r.readAsArrayBuffer(f);
+};
+
+function render(){
+pdfDoc.getPage(page).then(p=>{
+p.getTextContent().then(tc=>{
+let t="";
+tc.items.forEach(i=>t+=i.str+" ");
+textArea.textContent=t;
+pageInfo.textContent="Page "+page+" of "+pdfDoc.numPages;
+announce("Page "+page+" of "+pdfDoc.numPages);
+});
+});
+}
+
+next.onclick=()=>{if(pdfDoc&&page<pdfDoc.numPages){page++;render();}};
+prev.onclick=()=>{if(pdfDoc&&page>1){page--;render();}};
+goPage.onclick=()=>{let p=parseInt(pageJump.value);if(pdfDoc&&p>=1&&p<=pdfDoc.numPages){page=p;render();}};
+
+function loadVoices(){
+voiceSel.innerHTML="";
+voices=[];
+speechSynthesis.getVoices().forEach(v=>{
+if(v.lang.startsWith("en")||v.lang.startsWith("hi")){
+voices.push(v);
+let o=document.createElement("option");
+o.textContent=v.name;
+voiceSel.appendChild(o);
+}
+});
+}
+speechSynthesis.onvoiceschanged=loadVoices;
+loadVoices();
+
+readBtn.onclick=()=>{
+speechSynthesis.cancel();
+utterance=new SpeechSynthesisUtterance(textArea.textContent);
+utterance.voice=voices[voiceSel.selectedIndex]||voices[0];
+utterance.rate=speeds[speedIndex];
+utterance.volume=parseInt(volume.value)/100;
+utterance.onend=()=>announce("Reading completed");
+speechSynthesis.speak(utterance);
+paused=false;
+pauseBtn.textContent="Pause";
+announce("Reading started");
+};
+
+pauseBtn.onclick=()=>{
+if(!speechSynthesis.speaking)return;
+if(!paused){
+speechSynthesis.pause();
+pauseBtn.textContent="Play";
+announce("Paused");
+paused=true;
+}else{
+speechSynthesis.resume();
+pauseBtn.textContent="Pause";
+announce("Resumed");
+paused=false;
+}
+};
+
+speedBtn.onclick=()=>{
+speedIndex++;if(speedIndex>=speeds.length)speedIndex=0;
+speedBtn.textContent="Speed: "+(speeds[speedIndex]==1?"Normal":speeds[speedIndex]+"x");
+announce(speedBtn.textContent);
+};
+
+spacing.oninput=()=>textArea.style.lineHeight=spacing.value;
+
+let hc=false;
+contrast.onclick=()=>{hc=!hc;document.body.style.background=hc?"black":"";document.body.style.color=hc?"white":"";announce(hc?"High contrast on":"High contrast off");};
+
+zoomIn.onclick=()=>{scale+=0.2;textArea.style.fontSize=(scale*100)+"%";};
+zoomOut.onclick=()=>{scale=Math.max(0.6,scale-0.2);textArea.style.fontSize=(scale*100)+"%";};
+
+largeUi.onclick=()=>{large=!large;document.body.classList.toggle("large-ui");announce(large?"Large UI enabled":"Large UI disabled");};
+
+</script>
+
+</body>
+</html>
