@@ -1,10 +1,10 @@
 * {
-box-sizing: border-box;
+box-sizing:border-box;
 }
 
 body {
 margin:0;
-font-family: Arial, sans-serif;
+font-family:Arial,sans-serif;
 background:#0d1117;
 color:#ffffff;
 line-height:1.6;
@@ -14,13 +14,13 @@ line-height:1.6;
 
 .skip-link {
 position:absolute;
-top:-50px;
+top:-60px;
 left:10px;
 background:#58a6ff;
 color:#000;
 padding:10px 14px;
 z-index:1000;
-border-radius:4px;
+border-radius:6px;
 }
 
 .skip-link:focus {
@@ -42,17 +42,19 @@ font-size:26px;
 /* Navigation */
 
 nav {
-margin-top:12px;
+margin-top:15px;
 display:flex;
+align-items:center;
 flex-wrap:wrap;
-gap:20px;
+gap:25px;
 }
 
 nav a {
 color:#58a6ff;
 text-decoration:none;
 font-weight:bold;
-padding:6px 4px;
+padding:6px 8px;
+border-radius:4px;
 }
 
 nav a:hover,
@@ -60,6 +62,13 @@ nav a:focus {
 text-decoration:underline;
 outline:2px solid #58a6ff;
 outline-offset:3px;
+}
+
+/* Active tab highlight */
+
+nav a.active {
+background:#58a6ff;
+color:#000;
 }
 
 /* Main */
@@ -83,7 +92,7 @@ input, button, textarea, select {
 font-size:16px;
 padding:10px;
 margin-top:8px;
-border-radius:4px;
+border-radius:6px;
 }
 
 /* Buttons */
@@ -112,17 +121,18 @@ padding-left:25px;
 
 .tool-card {
 background:#161b22;
-padding:18px;
+padding:20px;
 margin-bottom:25px;
-border-radius:10px;
+border-radius:12px;
 }
 
 .tool-card h3 {
 margin-top:0;
+color:#58a6ff;
 }
 
 .tool-card p {
-max-width:800px;
+max-width:900px;
 }
 
 .tool-card a {
@@ -143,7 +153,7 @@ footer {
 background:#161b22;
 padding:20px;
 text-align:center;
-margin-top:50px;
+margin-top:60px;
 }
 
 /* Status / aria live */
@@ -163,7 +173,8 @@ font-size:22px;
 
 nav {
 flex-direction:column;
-gap:10px;
+align-items:flex-start;
+gap:12px;
 }
 
 main {
@@ -171,7 +182,17 @@ padding:18px;
 }
 
 .tool-card {
-padding:14px;
+padding:15px;
+}
+
+}
+
+/* Tablet */
+
+@media (min-width:769px) and (max-width:1024px) {
+
+main {
+max-width:1000px;
 }
 
 }
