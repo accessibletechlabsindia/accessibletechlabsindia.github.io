@@ -1,222 +1,218 @@
-* {
+*{
 box-sizing:border-box;
 }
 
-body {
+body{
 margin:0;
-font-family:Arial,sans-serif;
+font-family:Segoe UI,Arial,sans-serif;
 background:#0d1117;
 color:#ffffff;
-line-height:1.6;
+line-height:1.7;
 }
 
 /* Skip link */
 
-.skip-link {
+.skip-link{
 position:absolute;
-top:-60px;
+top:-80px;
 left:10px;
 background:#58a6ff;
 color:#000;
-padding:10px 14px;
-z-index:1000;
+padding:10px 16px;
 border-radius:6px;
+z-index:9999;
 }
 
-.skip-link:focus {
+.skip-link:focus{
 top:10px;
 }
 
 /* Header */
 
-header {
+header{
 background:#161b22;
-padding:20px;
+padding:22px;
+box-shadow:0 2px 10px rgba(0,0,0,.4);
 }
 
-header h1 {
+header h1{
 margin:0;
 font-size:26px;
 }
 
 /* Navigation */
 
-nav {
-margin-top:15px;
+nav{
+margin-top:14px;
 display:flex;
-align-items:center;
 flex-wrap:wrap;
-gap:25px;
+gap:22px;
+align-items:center;
 }
 
-nav a {
+nav a{
 color:#58a6ff;
 text-decoration:none;
-font-weight:bold;
-padding:6px 8px;
-border-radius:4px;
+font-weight:600;
+padding:6px 10px;
+border-radius:6px;
+transition:.2s;
 }
 
 nav a:hover,
-nav a:focus {
-text-decoration:underline;
-outline:2px solid #58a6ff;
-outline-offset:3px;
+nav a:focus{
+background:#58a6ff;
+color:#000;
+outline:none;
 }
 
-/* Active tab highlight */
+/* Active page */
 
-nav a.active {
+nav a[aria-current="page"]{
 background:#58a6ff;
 color:#000;
 }
 
 /* Main */
 
-main {
-padding:25px;
-max-width:1100px;
+main{
+padding:28px;
+max-width:1200px;
 margin:auto;
 }
 
 /* Headings */
 
-h2 {
+h2{
 color:#58a6ff;
 margin-top:0;
 }
 
-/* Forms */
+/* Inputs */
 
-input, button, textarea, select {
+input,button,select,textarea{
 font-size:16px;
 padding:10px;
-margin-top:8px;
 border-radius:6px;
 }
 
 /* Buttons */
 
-button {
+button{
 background:#58a6ff;
 border:none;
-cursor:pointer;
 font-weight:bold;
+cursor:pointer;
 color:#000;
 }
 
 button:hover,
-button:focus {
+button:focus{
 outline:2px solid white;
 outline-offset:2px;
 }
 
-/* Lists */
+/* Cards */
 
-ul {
-padding-left:25px;
-}
-
-/* Tool Cards */
-
-.tool-card {
+.tool-card{
 background:#161b22;
-padding:20px;
-margin-bottom:25px;
-border-radius:12px;
+padding:22px;
+margin-bottom:28px;
+border-radius:14px;
+box-shadow:0 6px 18px rgba(0,0,0,.4);
 }
 
-.tool-card h3 {
+.tool-card h3{
 margin-top:0;
 color:#58a6ff;
 }
 
-.tool-card p {
+.tool-card p{
 max-width:900px;
 }
 
-.tool-card a {
+.tool-card a{
 display:inline-block;
 margin-top:12px;
-color:#58a6ff;
 font-weight:bold;
+color:#58a6ff;
 }
 
-.tool-card a:focus {
-outline:2px solid #58a6ff;
-outline-offset:3px;
+.tool-card a:hover,
+.tool-card a:focus{
+text-decoration:underline;
 }
 
 /* Footer */
 
-footer {
+footer{
 background:#161b22;
-padding:20px;
+padding:22px;
 text-align:center;
 margin-top:60px;
 }
 
-/* Status / aria live */
+/* Status */
 
-#status {
-margin-top:10px;
+#status{
 font-weight:bold;
+margin-top:10px;
 }
 
-/* Mobile */
+/* MOBILE – keep horizontal menu */
 
-@media (max-width:768px) {
+@media(max-width:768px){
 
-header h1 {
+header h1{
 font-size:22px;
 }
 
-nav {
-flex-direction:column;
-align-items:flex-start;
-gap:12px;
+nav{
+justify-content:center;
 }
 
-main {
+nav a{
+font-size:15px;
+}
+
+main{
 padding:18px;
 }
 
-.tool-card {
-padding:15px;
+.tool-card{
+padding:16px;
 }
 
 }
 
-/* Tablet */
+/* Tablets */
 
-@media (min-width:769px) and (max-width:1024px) {
-
-main {
-max-width:1000px;
+@media(min-width:769px) and (max-width:1024px){
+main{
+max-width:1050px;
 }
-
 }
 
 /* Large screens */
 
-@media (min-width:1200px) {
+@media(min-width:1200px){
 
-body {
+body{
 font-size:18px;
 }
 
-main {
-max-width:1300px;
+main{
+max-width:1400px;
 }
 
 }
 
-/* Extra keyboard clarity */
+/* Keyboard clarity */
 
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
-select:focus-visible {
+select:focus-visible{
 outline:3px solid #58a6ff;
 outline-offset:3px;
 }
