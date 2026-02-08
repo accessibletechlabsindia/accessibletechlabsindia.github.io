@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="manifest" href="site.webmanifest">
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta charset="UTF-8">
 <title>Accessible Tech Labs India</title>
 <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
@@ -14,7 +17,7 @@
 </head>
 
 <body>
-
+<button onclick="installApp()">Install Accessible Tech Labs India</button>
 <a class="skip-link" href="#main">Skip to main content</a>
 
 <header role="banner">
@@ -27,12 +30,12 @@ width="120"
 style="display:block;margin-top:10px;">
 
 <nav aria-label="Main navigation">
-<a href="index.html" aria-current="page">Home</a>
-<a href="software.html">Software</a>
-<a href="tools.html">Tools</a>
-<a href="about.html">About</a>
-<a href="contact.html">Contact</a>
-<a href="social.html">Social</a>
+<a href="index.html" accesskey="h" aria-label="Home, Alt plus H">Home</a>
+<a href="software.html" accesskey="s" aria-label="Software, Alt plus S">Software</a>
+<a href="tools.html" accesskey="t" aria-label="Tools, Alt plus T">Tools</a>
+<a href="about.html" accesskey="a" aria-label="About, Alt plus A">About</a>
+<a href="contact.html" accesskey="c" aria-label="Contact, Alt plus C">Contact</a>
+<a href="social.html" accesskey="l" aria-label="Social, Alt plus L">Social</a>
 </nav>
 
 </header>
@@ -74,14 +77,30 @@ You will also find updates, contact options, and collaboration opportunities so 
 </main>
 
 <footer role="contentinfo">
-
-<p><a href="privacy.html">Privacy Policy</a></p>
-
+<p>
+<a href="privacy.html" accesskey="p" aria-label="Privacy Policy, Alt plus P">
+Privacy Policy
+</a>
+</p>
 <p>© 2026 Accessible Tech Labs India</p>
 
 <p>Email and social links available in Contact section.</p>
 
 </footer>
+<script>
+let deferredPrompt;
 
+window.addEventListener('beforeinstallprompt', e => {
+e.preventDefault();
+deferredPrompt = e;
+});
+
+function installApp(){
+if(deferredPrompt){
+deferredPrompt.prompt();
+deferredPrompt.userChoice.then(()=>deferredPrompt=null);
+}
+}
+</script>
 </body>
 </html>
