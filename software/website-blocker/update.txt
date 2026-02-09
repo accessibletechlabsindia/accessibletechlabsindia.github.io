@@ -1,4 +1,4 @@
-version=1.0.1
+version=1.0
 status=latest
 message=You are already using the latest version of Website Blocker.
 download_url=
