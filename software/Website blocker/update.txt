@@ -1,0 +1,2 @@
+version=1.0.1
+download=https://github.com/accessibletechlabsindia/accessibletechlabsindia.github.io/releases/download/v1.0.1/WebsiteBlockerSetup.exe
