@@ -1,2 +1,4 @@
 version=1.0.1
-download=https://github.com/accessibletechlabsindia/accessibletechlabsindia.github.io/releases/download/v1.0.1/WebsiteBlockerSetup.exe
+status=latest
+message=You are already using the latest version of Website Blocker.
+download_url=
