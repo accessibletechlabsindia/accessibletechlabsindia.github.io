@@ -1,12 +1,3 @@
-Version=1.1
-AppName=YouTube Downloader
-UpdateAvailable=yes
+Version=1.0
 DownloadURL=https://github.com/accessibletechlabsindia/accessibletechlabsindia.github.io/releases/download/v1.1/Youtube.downloader.exe
-ReleaseType=installer
 MandatoryUpdate=no
-WhatsNew=
-• Installer based release
-• Improved accessibility and screen reader support
-• Silent background download process
-• Professional update system added
-• Bug fixes and stability improvements
