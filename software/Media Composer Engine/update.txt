@@ -1,4 +1,4 @@
-Version=1.1
+Version=1.0
 AppName=Media Composer Engine
 DownloadURL=https://github.com/accessibletechlabsindia/accessibletechlabsindia.github.io/releases/download/v1.1.1/Media.Composer.Engine.exe
 MandatoryUpdate=no
