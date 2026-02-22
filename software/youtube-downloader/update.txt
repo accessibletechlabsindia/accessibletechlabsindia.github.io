@@ -1,4 +1,4 @@
-Version=1.2
+Version=2026.2
 AppName=YouTube Downloader
-DownloadURL=https://github.com/accessibletechlabsindia/accessibletechlabsindia.github.io/releases/download/v1.2/youtube.downloader.exe
+DownloadURL=https://github.com/accessibletechlabsindia/accessibletechlabsindia.github.io/releases/download/v2026.2.1/YouTubeDownloaderSetup.exe
 MandatoryUpdate=no
