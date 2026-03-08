@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Professional Math Challenge | Accessible Tech Labs India</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        :root {
+            --primary-bg: #0f172a;
+            --card-bg: #1e293b;
+            --accent-blue: #3b82f6;
+            --accent-success: #22c55e;
+            --text-light: #f8fafc;
+        }
+        .high-contrast {
+            --primary-bg: #000;
+            --card-bg: #000;
+            --accent-blue: #ffff00;
+            --text-light: #fff;
+        }
+        body {
+            background-color: var(--primary-bg);
+            color: var(--text-light);
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            margin: 0; padding: 0;
+        }
+        .large-ui { font-size: 1.5rem !important; }
+        header, footer { background: #000; padding: 20px; text-align: center; border-bottom: 2px solid var(--accent-blue); }
+        nav a { color: var(--accent-blue); margin: 0 15px; text-decoration: none; font-weight: bold; }
+        #main-wrapper { max-width: 900px; margin: 40px auto; padding: 20px; }
+        .glass-card { background: var(--card-bg); padding: 40px; border-radius: 16px; border: 2px solid rgba(255,255,255,0.1); }
+.screen { display: none; }
+.screen.active { display: block !important; }
+        select, input[type="text"] {
+            width: 100%; padding: 15px; margin: 15px 0; border-radius: 8px;
+            border: 2px solid var(--accent-blue); background: #000; color: #00ff00; font-size: 1.2rem;
+        }
+        .action-btn {
+            padding: 18px; border: 2px solid var(--accent-blue); background: transparent;
+            color: var(--text-light); font-weight: bold; border-radius: 8px; cursor: pointer;
+            width: 100%; font-size: 1.1rem; margin-top: 10px;
+        }
+        .action-btn:hover { background: var(--accent-blue); color: #000; }
+        .option-label {
+            display: block; background: rgba(255,255,255,0.05); padding: 20px;
+            margin: 12px 0; border-radius: 10px; cursor: pointer; border: 2px solid transparent;
+        }
+        .option-label:hover { border-color: var(--accent-blue); }
+        #timer-box { font-size: 2.5rem; font-weight: bold; color: #fbbf24; }
+        .summary-box { background: #000; padding: 20px; border-radius: 10px; border-left: 5px solid var(--accent-blue); margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Accessible Tech Labs India</h1>
+    <nav>
+        <a href="../index.html" accesskey="h" aria-label="Home, Alt plus H">Home</a>
+        <a href="../software.html" accesskey="s" aria-label="Software, Alt plus S">Software</a>
+        <a href="../tools.html" accesskey="t" aria-label="Tools, Alt plus T">Tools</a>
+        <a href="../about.html" accesskey="a" aria-label="About, Alt plus A">About</a>
+        <a href="../contact.html" accesskey="c" aria-label="Contact, Alt plus C">Contact</a>
+        <a href="../social.html" accesskey="l" aria-label="Social, Alt plus L">Social</a>
+    </nav>
+</header>
+
+<main id="main-wrapper">
+    <div id="status-live" aria-live="polite" style="position: absolute; left: -9999px;"></div>
+
+    <div id="step-1" class="screen active glass-card">
+        <h2>Professional Math Challenge</h2>
+        <p>This Professional Math Challenge, developed by Accessible Tech Labs India, is an advanced educational tool designed for users who seek to enhance their mental calculation speed. It features an Adaptive Difficulty Engine that monitors your accuracy; if you answer correctly in succession, the numbers scale up to 100,000, while frequent errors prompt the system to simplify the equations for a better learning curve. The application is fully optimized for screen reader users with dedicated ARIA live regions, keyboard shortcuts (Alt + keys), and high-contrast visuals. Our goal is to provide a standardized, distraction-free environment for competitive exam preparation and cognitive training. Please enter your name to begin your assessment session.</p>
+        <label for="user-name">Professional Name:</label>
+        <input type="text" id="user-name" placeholder="Enter your full name">
+<div style="display: flex; flex-direction: column; gap: 10px;">
+    <button type="button" class="action-btn" onclick="toStep2()">Next</button>
+</div> 
+</div> <div id="step-2" class="screen glass-card">
+        <h2>Select Operation Mode</h2>
+        <p>Choose the mathematical operation you wish to master. Each mode is calibrated to test specific cognitive functions and numerical logic. Mixed mode provides a random sequence for advanced users.</p>
+        <select id="mode-select">
+            <option value="+">Addition (+)</option>
+            <option value="-">Subtraction (-)</option>
+            <option value="*">Multiplication (*)</option>
+            <option value="/">Division (/)</option>
+            <option value="mixed">Mixed Mode (All Operations)</option>
+            <option value="%">Remainder (%)</option>
+        </select>
+        <button class="action-btn" onclick="toStep3()">Next</button>
+    </div>
+
+    <div id="step-3" class="screen glass-card">
+        <h2>Configure Question Volume</h2>
+        <p>Specify the number of questions for this session. Available volumes range from 5 to 100. Select a volume that aligns with your current training objectives and available time.</p>
+        <select id="count-select"></select>
+        <button class="action-btn" onclick="preStart()">Start Final Game</button>
+    </div>
+
+    <div id="loading-screen" class="screen glass-card">
+        <h2>System Initialization</h2>
+        <p>Finalizing your professional assessment environment. Please wait for the audio sequence to complete.</p>
+        <div id="load-timer" style="font-size: 5rem; text-align: center; color: #fbbf24; font-weight: bold;"></div>
+    </div>
+
+    <div id="game-screen" class="screen glass-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <div id="timer-box">30</div>
+        </div>
+        <h3 id="question-text" style="font-size: 2.5rem; margin-bottom: 25px;"></h3>
+        <div id="options-container" role="radiogroup" aria-labelledby="question-text"></div>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 30px;">
+    <button class="action-btn" style="grid-column: span 2;" onclick="checkAnswer()">Submit Answer</button>
+    <button id="contrast-btn" class="action-btn" onclick="toggleContrast()">High Contrast</button>
+    <button id="large-ui-btn" class="action-btn" onclick="toggleLargeUI()">Large UI</button>
+    <button class="action-btn" style="grid-column: span 2; background: #475569;" onclick="location.reload()">Exit Game</button>
+</div>
+    </div>
+
+    <div id="result-screen" class="screen glass-card">
+        <h2>Performance Report</h2>
+        <div id="result-data" class="summary-box"></div>
+        <div id="aria-report" aria-live="assertive" style="position: absolute; left: -9999px;"></div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 25px;">
+            <button class="action-btn" onclick="readFullReport()">Read Result</button>
+            <button class="action-btn" onclick="copyToClipboard()">Copy Result</button>
+            <button class="action-btn" onclick="downloadReport()">Download TXT</button>
+            <button class="action-btn" style="background: #475569;" onclick="location.reload()">New Game</button>
+        </div>
+    </div>
+</main>
+<footer>
+    <div style="margin-bottom: 10px;">
+        <a href="../privacy.html" accesskey="p" style="color: var(--accent-blue); text-decoration: none; font-weight: bold;" aria-label="Privacy Policy, Alt plus P">Privacy Policy</a>
+    </div>
+    <p style="margin: 0;">© 2026 Accessible Tech Labs India</p>
+</footer>
+<script>
+    let userName, gameMode, questionCount, currentQuestion = 0, score = 0;
+    let timer, timeLeft = 30, startTime, difficulty = 1, correctStreak = 0, wrongCount = 0;
+    let currentCorrectAnswer, gameLog = [];
+
+    window.onload = () => {
+        const sel = document.getElementById('count-select');
+        const opts = [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+        opts.forEach(o => {
+            let opt = document.createElement('option');
+            opt.value = o; opt.textContent = o + " Questions";
+            sel.appendChild(opt);
+        });
+    };
+
+    function announce(m) { 
+        const l = document.getElementById('status-live'); 
+        l.textContent = ""; 
+        setTimeout(() => l.textContent = m, 50); 
+    }
+function toggleContrast() { 
+    const isDark = document.body.classList.toggle('high-contrast'); 
+    announce("High Contrast " + (isDark ? "Enabled" : "Disabled"));
+}
+
+function toggleLargeUI() { 
+    const isLarge = document.getElementById('main-wrapper').classList.toggle('large-ui'); 
+    announce("Large UI " + (isLarge ? "Enabled" : "Disabled"));
+}
+
+
+    function toStep2() {
+        userName = document.getElementById('user-name').value.trim();
+        if(!userName) { announce("Error: Please enter your name"); return; }
+        switchScreen('step-2');
+    }
+
+    function toStep3() {
+        gameMode = document.getElementById('mode-select').value;
+        switchScreen('step-3');
+    }
+
+function switchScreen(id) {
+    document.querySelectorAll('.screen').forEach(s => {
+        s.classList.remove('active');
+        s.style.display = 'none';
+    });
+    const target = document.getElementById(id);
+    if(target) {
+        target.classList.add('active');
+        target.style.display = 'block';
+        announce("Screen changed to " + id);
+    }
+}
+    function preStart() {
+        questionCount = parseInt(document.getElementById('count-select').value);
+        switchScreen('loading-screen');
+        
+        let soundFile, wait;
+        if(gameMode === '+' || gameMode === 'mixed') { soundFile = "plus_sound.wav"; wait = 10; }
+        else if(gameMode === '-' || gameMode === '%') { soundFile = "minus_sound.wav"; wait = 15; }
+        else { soundFile = "star_sound.wav"; wait = 20; }
+        
+        new Audio("Games-sounds/" + soundFile).play().catch(() => {});
+        
+        let lt = document.getElementById('load-timer');
+        let inter = setInterval(() => {
+            lt.textContent = wait;
+            announce("Preparing game in " + wait + " seconds");
+            wait--;
+            if(wait < 0) {
+                clearInterval(inter);
+                setTimeout(startGame, 2000);
+            }
+        }, 1000);
+    }
+
+    function startGame() {
+        startTime = Date.now();
+        switchScreen('game-screen');
+        nextQuestion();
+    }
+
+    function nextQuestion() {
+        if(currentQuestion >= questionCount) { finishGame(); return; }
+        currentQuestion++;
+        let max = Math.min(10 * Math.pow(10, difficulty), 100000);
+        let a = Math.floor(Math.random() * max) + 1;
+        let b = Math.floor(Math.random() * max) + 1;
+        let op = gameMode === 'mixed' ? ['+','-','*','/'][Math.floor(Math.random()*4)] : gameMode;
+        
+        let qText, ans;
+        if(op === '+') { ans = a + b; qText = `${a} plus ${b}`; }
+        else if(op === '-') { if(a < b) [a, b] = [b, a]; ans = a - b; qText = `${a} minus ${b}`; }
+        else if(op === '*') { ans = a * b; qText = `${a} multiplied by ${b}`; }
+        else if(op === '/') { ans = a; a = a * b; qText = `${a} divided by ${b}`; }
+        else { ans = a % b; qText = `${a} remainder ${b}`; }
+
+        currentCorrectAnswer = ans;
+        document.getElementById('question-text').textContent = qText.replace('plus','+').replace('minus','-').replace('multiplied by','*').replace('divided by','/') + " = ?";
+        announce("Question " + currentQuestion + ": " + qText);
+
+        let opts = [ans, ans+1, ans-1, ans+2];
+        opts = [...new Set(opts)].sort(() => Math.random() - 0.5);
+
+        const container = document.getElementById('options-container');
+        container.innerHTML = "";
+        opts.forEach((o, i) => {
+            let l = document.createElement('label');
+            l.className = 'option-label';
+            l.innerHTML = `<input type="radio" name="opt" value="${o}"> Option ${String.fromCharCode(65+i)}: ${o}`;
+            container.appendChild(l);
+        });
+
+        timeLeft = 30;
+const submitBtn = document.querySelector('button[onclick="checkAnswer()"]');
+    if (currentQuestion === questionCount) {
+        submitBtn.textContent = "Submit Final Answer";
+        submitBtn.style.background = "var(--accent-success)";
+    } else {
+        submitBtn.textContent = "Submit Answer";
+        submitBtn.style.background = "transparent";
+    }
+        startTimer();
+    }
+
+    function startTimer() {
+        clearInterval(timer);
+        timer = setInterval(() => {
+            timeLeft--;
+            document.getElementById('timer-box').textContent = timeLeft;
+            if(timeLeft === 5) announce("Warning: 5 seconds remaining");
+            if(timeLeft <= 0) { clearInterval(timer); checkAnswer(true); }
+        }, 1000);
+    }
+function checkAnswer(isTimeout = false) {
+    clearInterval(timer);
+    const sel = document.querySelector('input[name="opt"]:checked');
+    
+    if(!sel && !isTimeout) {
+        announce("Action Blocked: Please select an option first");
+        startTimer();
+        return;
+    }
+
+    const allOpts = document.querySelectorAll('input[name="opt"]');
+    let userLetter = "N/A";
+    let correctLetter = "";
+    
+    allOpts.forEach((input, index) => {
+        if (parseInt(input.value) === currentCorrectAnswer) {
+            correctLetter = String.fromCharCode(65 + index);
+        }
+        if (sel && input === sel) {
+            userLetter = String.fromCharCode(65 + index);
+        }
+    });
+
+    let userAns = sel ? parseInt(sel.value) : "Timed Out";
+    let isCorrect = userAns === currentCorrectAnswer;
+
+    if(isCorrect) {
+        new Audio("Games-sounds/write-answer.mp3").play().catch(() => {});
+        score++; correctStreak++; wrongCount = 0;
+        if(correctStreak >= 3) { difficulty++; correctStreak = 0; }
+        announce("Correct response");
+    } else {
+        new Audio("Games-sounds/rong-answer.mp3").play().catch(() => {});
+        wrongCount++; correctStreak = 0;
+        if(wrongCount >= 5) { difficulty = Math.max(1, difficulty - 1); wrongCount = 0; }
+
+        if (isTimeout) {
+            announce("Time expired for this question");
+        } else {
+            announce("Incorrect. Correct answer is option " + correctLetter + " which is " + currentCorrectAnswer);
+        }
+    }
+
+    gameLog.push({ 
+        q: document.getElementById('question-text').textContent, 
+        uL: userLetter, 
+        cL: correctLetter, 
+        uV: userAns, 
+        cV: currentCorrectAnswer, 
+        s: isCorrect 
+    });
+    setTimeout(nextQuestion, 2000);
+}
+    function formatTime(ms) {
+        let totalSeconds = Math.floor(ms / 1000);
+        let m = Math.floor(totalSeconds / 60);
+        let s = totalSeconds % 60;
+        return `${m} Minute${m!==1?'s':''} and ${s} Second${s!==1?'s':''}`;
+    }
+function finishGame() {
+    let wait = 10;
+    switchScreen('loading-screen');
+    new Audio("Games-sounds/result.mp3").play().catch(() => {});
+    
+    let lt = document.getElementById('load-timer');
+    let statusText = document.querySelector('#loading-screen h2');
+    let statusPara = document.querySelector('#loading-screen p');
+    
+    statusText.textContent = "Generating Assessment Report";
+    statusPara.textContent = "Please wait while our engine synchronizes your performance data and finalizes the report.";
+
+    let inter = setInterval(() => {
+        lt.textContent = wait;
+        announce("Finalizing report in " + wait + " seconds");
+        wait--;
+        if(wait < 0) {
+            clearInterval(inter);
+            renderFinalResult();
+        }
+    }, 1000);
+}
+function renderFinalResult() {
+    switchScreen('result-screen');
+    let totalElapsedMs = Date.now() - startTime;
+    window.finalTimeStr = formatTime(totalElapsedMs);
+    
+    let logText = gameLog.map((item, i) => {
+        return `${i+1}. Q: ${item.q}\n   Your Choice: Option ${item.uL} (${item.uV})\n   Correct Choice: Option ${item.cL} (${item.cV})\n   Result: ${item.s ? 'PASSED' : 'FAILED'}\n`;
+    }).join('\n--------------------------\n');
+
+    let accuracy = (score / questionCount) * 100;
+    let performanceLevel, advice;
+
+    if(accuracy >= 90) { performanceLevel = "Expert"; advice = "Excellent! Your mental agility is top-tier."; }
+    else if(accuracy >= 70) { performanceLevel = "Advanced"; advice = "Great job! Minor focus on speed will make you an expert."; }
+    else if(accuracy >= 50) { performanceLevel = "Intermediate"; advice = "Good effort. Regular practice will improve your accuracy."; }
+    else { performanceLevel = "Beginner"; advice = "Consistency is key. Try practicing with smaller numbers first."; }
+
+    document.getElementById('result-data').innerHTML = `
+        <div style="text-align: center; margin-bottom: 15px; color: var(--accent-success);">
+            <h3 tabindex="-1" id="report-heading">Official Assessment Finalized</h3>
+        </div>
+        <p>Dear ${userName}, thank you for using Accessible Tech Labs India. We maintain the highest standards of accessibility. Your data has been processed securely.</p>
+        <hr>
+        <p><strong>Performance Level:</strong> ${performanceLevel}</p>
+        <p><strong>Accuracy:</strong> ${score} / ${questionCount} (${accuracy.toFixed(1)}%)</p>
+        <p><strong>Status:</strong> ${advice}</p>
+        <p><strong>Total Duration:</strong> ${window.finalTimeStr}</p>
+        <hr>
+        <div style="text-align: left; font-family: monospace; max-height: 250px; overflow-y: auto; border: 1px solid rgba(255,255,255,0.1); padding: 10px;">
+            ${logText.replace(/\n/g, '<br>')}
+        </div>
+    `;
+    document.getElementById('report-heading').focus();
+    announce("Assessment complete. Your performance level is " + performanceLevel);
+}
+function readFullReport() {
+    let content = document.getElementById('result-data').innerText;
+    let reportArea = document.getElementById('aria-report');
+    reportArea.textContent = ""; 
+    setTimeout(() => {
+        reportArea.textContent = content;
+        announce("Reading full performance report now.");
+    }, 200);
+}
+    function copyToClipboard() {
+        navigator.clipboard.writeText(document.getElementById('result-data').innerText);
+        announce("Report copied to clipboard successfully.");
+    }
+function downloadReport() {
+    
+    let header = "==========================================\n";
+    header += "      ACCESSIBLE TECH LABS INDIA\n";
+    header += "==========================================\n\n";
+    header += "Thank you for playing our Professional Math Challenge.\n";
+    header += "This tool is developed by Accessible Tech Labs India to empower\n";
+    header += "users with advanced cognitive and accessibility tools.\n\n";
+    header += "Visit our official website for more software and tools:\n";
+    header += "https://accessibletechlabsindia.github.io\n\n";
+    header += "Join our mission to make technology accessible for all.\n";
+    header += "------------------------------------------\n\n";
+    header += "OFFICIAL ASSESSMENT REPORT\n";
+    header += "Candidate: " + userName + "\n";
+    header += "Score: " + score + " out of " + questionCount + "\n";
+    header += "Time Spent: " + formatTime(Date.now() - startTime) + "\n\n";
+    header += "DETAILED EVALUATION:\n";
+    
+    let logText = gameLog.map((item, i) => {
+        return `${i+1}. Question: ${item.q}\n   User Choice: Option ${item.uL} (${item.uV})\n   Correct Answer: Option ${item.cL} (${item.cV})\n   Status: ${item.s ? 'CORRECT' : 'INCORRECT'}\n`;
+    }).join('\n');
+
+    let content = header + logText + "\n\n--- End of Report ---";
+    let blob = new Blob([content], {type: "text/plain"});
+    let a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `${userName}_Math_Assessment.txt`;
+    a.click();
+}
+</script>
+</body>
+</html>

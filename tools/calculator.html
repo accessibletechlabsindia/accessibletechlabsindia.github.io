@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Advanced Precision Calculator for Accessibility | Tech Labs India</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+:root {
+--bg-color: #121212;
+--card-bg: rgba(255, 255, 255, 0.05);
+--text-color: #ffffff;
+--accent-blue: #2196f3;
+--accent-orange: #ff9800;
+--accent-green: #4caf50;
+--accent-red: #f44336;
+--border-radius: 12px;
+}
+body.light-mode {
+--bg-color: #f5f5f5;
+--card-bg: #ffffff;
+--text-color: #121212;
+}
+#calculator-container {
+max-width: 450px;
+margin: 40px auto;
+padding: 25px;
+background: var(--card-bg);
+backdrop-filter: blur(10px);
+border-radius: var(--border-radius);
+box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+border: 1px solid rgba(255,255,255,0.1);
+}
+.display-wrapper {
+background: #000;
+padding: 20px;
+border-radius: var(--border-radius);
+margin-bottom: 25px;
+text-align: right;
+border: 2px solid var(--accent-blue);
+overflow-x: auto;
+}
+#display {
+font-size: 32px;
+color: #00ff00;
+font-family: 'Courier New', monospace;
+min-height: 40px;
+white-space: nowrap;
+}
+.grid {
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 12px;
+}
+button {
+padding: 20px;
+font-size: 20px;
+font-weight: bold;
+border: none;
+border-radius: var(--border-radius);
+cursor: pointer;
+transition: all 0.2s;
+background: #333;
+color: white;
+}
+button:focus {
+outline: 4px solid yellow;
+outline-offset: 2px;
+}
+.num-btn { background: #444; }
+.op-btn { background: var(--accent-blue); }
+.clear-btn { background: var(--accent-red); grid-column: span 2; }
+.back-btn { background: var(--accent-orange); grid-column: span 2; }
+.copy-btn { background: #607d8b; grid-column: span 4; margin-bottom: 10px; }
+.equal-btn { background: var(--accent-green); grid-column: span 4; margin-top: 10px; }
+.description-section {
+margin: 30px 0;
+line-height: 1.8;
+text-align: justify;
+}
+.large-ui button {
+padding: 30px;
+font-size: 28px;
+}
+.large-ui #display {
+font-size: 45px;
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<header>
+<h1>Accessible Tech Labs India</h1>
+<nav>
+<a href="../index.html" accesskey="h" aria-label="Home, Alt plus H">Home</a>
+<a href="../software.html" accesskey="s" aria-label="Software, Alt plus S">Software</a>
+<a href="../tools.html" accesskey="t" aria-label="Tools, Alt plus T">Tools</a>
+<a href="../Games.html" accesskey="g" aria-label="Games, Alt plus G">Games</a>
+<a href="../about.html" accesskey="a" aria-label="About, Alt plus A">About</a>
+<a href="../contact.html" accesskey="c" aria-label="Contact, Alt plus C">Contact</a>
+<a href="../social.html" accesskey="l" aria-label="Social, Alt plus L">Social</a>
+</nav>
+</header>
+<main id="main">
+<h2>Professional Accessible Standard Calculator</h2>
+<section class="description-section">
+<p>
+The Accessible Standard Calculator is a high-performance, browser-based tool meticulously engineered for blind and low-vision users. Developed by Accessible Tech Labs India, this utility prioritizes keyboard-centric navigation and seamless screen reader compatibility (NVDA, JAWS, TalkBack). Featuring a high-contrast interface with glassmorphism aesthetics, it ensures maximum legibility for users with visual impairments. Every interaction is optimized with ARIA live regions to provide real-time auditory feedback of inputs and results. Unlike standard calculators, this tool eliminates complex shortcuts in favor of a clear, structured button layout, making mathematical operations intuitive and stress-free. Designed with a Privacy-First approach, all calculations are processed locally within your browser, ensuring no data ever leaves your device. This professional utility is part of our mission to bridge the digital divide through inclusive and accessible software solutions.
+</p>
+</section>
+<div id="status" aria-live="assertive" aria-atomic="true" style="position: absolute; left: -9999px;"></div>
+<div id="calculator-container">
+<div class="display-wrapper">
+<div id="display" aria-hidden="true">0</div>
+</div>
+<div class="grid">
+<button class="copy-btn" onclick="copyResult()" aria-label="Copy Result">Copy Result</button>
+<button class="clear-btn" onclick="clearDisplay()" aria-label="Clear All">Clear</button>
+<button class="back-btn" onclick="backspace()" aria-label="Backspace">Backspace</button>
+<button class="num-btn" onclick="append(7)" aria-label="7">7</button>
+<button class="num-btn" onclick="append(8)" aria-label="8">8</button>
+<button class="num-btn" onclick="append(9)" aria-label="9">9</button>
+<button class="op-btn" onclick="append('/')" aria-label="Divide">÷</button>
+<button class="num-btn" onclick="append(4)" aria-label="4">4</button>
+<button class="num-btn" onclick="append(5)" aria-label="5">5</button>
+<button class="num-btn" onclick="append(6)" aria-label="6">6</button>
+<button class="op-btn" onclick="append('*')" aria-label="Multiply">×</button>
+<button class="num-btn" onclick="append(1)" aria-label="1">1</button>
+<button class="num-btn" onclick="append(2)" aria-label="2">2</button>
+<button class="num-btn" onclick="append(3)" aria-label="3">3</button>
+<button class="op-btn" onclick="append('-')" aria-label="Minus">−</button>
+<button class="num-btn" onclick="append(0)" aria-label="0">0</button>
+<button class="num-btn" onclick="append('.')" aria-label="Decimal point">.</button>
+<button class="op-btn" onclick="append('%')" aria-label="Percentage">%</button>
+<button class="op-btn" onclick="append('+')" aria-label="Plus">+</button>
+<button class="equal-btn" onclick="calculate()" aria-label="Calculate Equal To">=</button>
+</div>
+<div style="margin-top: 25px; display: flex; gap: 10px; flex-wrap: wrap;">
+<button id="contrast" style="flex: 1; font-size: 14px;" aria-label="Toggle High Contrast">High Contrast Mode</button>
+<button id="largeUi" style="flex: 1; font-size: 14px;" aria-label="Toggle Large UI">Large UI Mode</button>
+</div>
+</div>
+</main>
+<footer>
+<p><a href="../privacy.html">Privacy Policy</a></p>
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+<script>
+let currentInput = "0";
+let lastLabel = "";
+const display = document.getElementById("display");
+const status = document.getElementById("status");
+function announce(m) {
+status.textContent = "";
+setTimeout(() => {
+status.textContent = m;
+}, 50);
+}
+function updateDisplay() {
+display.textContent = currentInput;
+}
+function append(val) {
+let char = val.toString();
+const ops = ['+', '-', '*', '/', '%', '.'];
+if (ops.includes(char) && ops.includes(currentInput.slice(-1))) {
+announce("Operator already selected");
+return;
+}
+if (currentInput === "0" && !isNaN(val)) {
+currentInput = char;
+} else {
+currentInput += char;
+}
+updateDisplay();
+let label = char;
+if(char === '*') label = "Multiply";
+if(char === '/') label = "Divide";
+if(char === '+') label = "Plus";
+if(char === '-') label = "Minus";
+if(char === '.') label = "Point";
+announce(label);
+}
+function clearDisplay() {
+if (currentInput === "0") {
+announce("Display is already empty");
+} else {
+currentInput = "0";
+updateDisplay();
+announce("Cleared");
+}
+}
+function backspace() {
+    if (currentInput === "0") {
+        announce("No characters to delete");
+        return;
+    }
+    let removed = currentInput.slice(-1);
+    if (currentInput.length > 1) {
+        currentInput = currentInput.slice(0, -1);
+    } else {
+        currentInput = "0";
+    }
+    updateDisplay();
+    let label = removed;
+    if(removed === '*') label = "Multiply";
+    if(removed === '/') label = "Divide";
+    if(removed === '+') label = "Plus";
+    if(removed === '-') label = "Minus";
+    if(removed === '.') label = "Point";  
+    announce(label + " deleted");
+}
+function calculate() {
+try {
+let expression = currentInput.replace(/×/g, '*').replace(/÷/g, '/').replace(/%/g, '/100');
+let finalResult = new Function('return ' + expression)();
+if (!isFinite(finalResult)) {
+announce("Calculation too large");
+return;
+}
+currentInput = finalResult.toString();
+updateDisplay();
+announce("Result is " + currentInput);
+} catch (e) {
+announce("Error in calculation");
+currentInput = "0";
+updateDisplay();
+}
+}
+function copyResult() {
+if (currentInput === "0") {
+announce("Nothing to copy");
+} else {
+navigator.clipboard.writeText(currentInput).then(() => {
+announce("Result " + currentInput + " copied to clipboard");
+});
+}
+}
+document.getElementById("contrast").onclick = () => {
+let active = document.body.classList.toggle("light-mode");
+announce("High Contrast " + (active ? "Enabled" : "Disabled"));
+};
+document.getElementById("largeUi").onclick = () => {
+let active = document.body.classList.toggle("large-ui");
+announce("Large UI " + (active ? "Enabled" : "Disabled"));
+};
+document.addEventListener("keydown", (e) => {
+const key = e.key;
+if (!isNaN(key)) append(key);
+else if (key === "+") append("+");
+else if (key === "-") append("-");
+else if (key === "*") append("*");
+else if (key === "/") append("/");
+else if (key === ".") append(".");
+else if (key === "%") append("%");
+else if (key === "Enter") { e.preventDefault(); calculate(); }
+else if (key === "Backspace") backspace();
+else if (key === "Escape") clearDisplay();
+});
+</script>
+</body>
+</html>

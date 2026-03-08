@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Professional Personalized Age Dashboard | Accessible Tech Labs India</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+:root {
+--bg-color: #0f172a;
+--card-bg: #1e293b;
+--text-main: #f8fafc;
+--accent-primary: #3b82f6;
+--accent-success: #22c55e;
+--accent-warning: #f59e0b;
+--border-radius: 16px;
+}
+body {
+background-color: var(--bg-color);
+color: var(--text-main);
+font-family: 'Segoe UI', system-ui, sans-serif;
+margin: 0;
+padding: 0;
+}
+#main-container {
+max-width: 800px;
+margin: 40px auto;
+background: var(--card-bg);
+padding: 40px;
+border-radius: var(--border-radius);
+box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+border: 1px solid rgba(255,255,255,0.1);
+}
+.description-section {
+margin: 30px 0;
+line-height: 1.8;
+text-align: justify;
+background: rgba(255,255,255,0.03);
+padding: 20px;
+border-radius: 8px;
+}
+.input-section {
+display: grid;
+gap: 25px;
+margin-bottom: 35px;
+}
+.field-group {
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+label {
+font-weight: 600;
+font-size: 1.1rem;
+color: var(--accent-primary);
+}
+input {
+padding: 15px;
+border-radius: 8px;
+border: 2px solid #334155;
+background: #000;
+color: #00ff00;
+font-size: 1.1rem;
+}
+input:focus {
+outline: 4px solid #fbbf24;
+border-color: var(--accent-primary);
+}
+.controls {
+display: flex;
+gap: 15px;
+flex-wrap: wrap;
+}
+button {
+flex: 1;
+padding: 16px;
+border: none;
+border-radius: 8px;
+font-weight: 700;
+font-size: 1rem;
+cursor: pointer;
+transition: all 0.2s;
+text-transform: uppercase;
+}
+.btn-calc { background: var(--accent-success); color: #000; }
+.btn-reset { background: #64748b; color: white; }
+.btn-copy { background: var(--accent-primary); color: white; display: none; }
+.btn-report { background: var(--accent-warning); color: #000; display: none; margin-top: 15px; width: 100%; }
+#result-area {
+display: none;
+margin-top: 40px;
+border-top: 2px solid #334155;
+padding-top: 30px;
+}
+h2, h3 { color: var(--accent-primary); margin-top: 30px; }
+.stat-card {
+background: rgba(0,0,0,0.2);
+padding: 20px;
+border-radius: 12px;
+border-left: 4px solid var(--accent-primary);
+margin-bottom: 15px;
+}
+.progress-container {
+margin: 20px 0;
+background: #000;
+border-radius: 20px;
+height: 30px;
+overflow: hidden;
+border: 1px solid #334155;
+}
+#life-bar {
+height: 100%;
+background: linear-gradient(90deg, #22c55e, #3b82f6);
+width: 0%;
+transition: width 1s ease-in-out;
+}
+header, footer {
+background: #000;
+padding: 20px;
+text-align: center;
+}
+nav a {
+color: var(--accent-primary);
+margin: 0 15px;
+text-decoration: none;
+font-weight: bold;
+}
+nav a:focus { outline: 2px solid yellow; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main" style="position: absolute; left: -9999px; background: #fbbf24; color: #000; padding: 10px; z-index: 100;">Skip to main content</a>
+<header>
+<h1>Accessible Tech Labs India</h1>
+<nav>
+<a href="../index.html" accesskey="h" aria-label="Home, Alt plus H">Home</a>
+<a href="../software.html" accesskey="s" aria-label="Software, Alt plus S">Software</a>
+<a href="../tools.html" accesskey="t" aria-label="Tools, Alt plus T">Tools</a>
+<a href="../Games.html" accesskey="g" aria-label="Games, Alt plus G">Games</a>
+<a href="../about.html" accesskey="a" aria-label="About, Alt plus A">About</a>
+<a href="../contact.html" accesskey="c" aria-label="Contact, Alt plus C">Contact</a>
+<a href="../social.html" accesskey="l" aria-label="Social, Alt plus L">Social</a>
+</nav>
+</header>
+<main id="main">
+<div id="status" aria-live="assertive" style="position: absolute; left: -9999px;"></div>
+<div id="main-container">
+<h2>Professional Age & Milestone Tracker</h2>
+<section class="description-section">
+<p>
+The Personalized Professional Age Calculator by Accessible Tech Labs India offers an advanced, identity-aware chronological analysis tool. Engineered for high-precision time tracking, this utility requires user identification to provide a tailored auditory and visual experience. Beyond standard age calculation, it delivers a granular breakdown of time in years, months, days, hours, minutes, and seconds. The integrated Birthday Intelligence Module tracks upcoming or past anniversary dates, providing specific weekday contextualization for future planning. Built with rigorous ARIA compliance and screen-reader optimization, this tool ensures a dignified and efficient interface for blind and low-vision users, maintaining a strictly client-side architecture for maximum data privacy. All calculations are handled locally within your browser environment.
+</p>
+</section>
+<div class="input-section">
+<div class="field-group">
+<label for="userName">Enter Your Name</label>
+<input type="text" id="userName" placeholder="Type name here" aria-required="true">
+</div>
+<div class="field-group">
+<label for="dob">Enter or Select Birth Date</label>
+<input type="date" id="dob" aria-required="true">
+</div>
+</div>
+<div class="controls">
+<button class="btn-calc" onclick="generateReport()">Generate Report</button>
+<button class="btn-reset" onclick="resetForm()">Reset Dashboard</button>
+<button id="copyBtn" class="btn-copy" onclick="copyReport()">Copy Full Report</button>
+</div>
+<button id="reportBtn" class="btn-report" onclick="readFullReport()">Read Full Report Once</button>
+<div id="result-area">
+<h2 id="greetHeader"></h2>
+<section>
+<h3>Summary Age</h3>
+<div id="summaryText" class="stat-card"></div>
+</section>
+<section>
+<h3>Vital Statistics (Scientific Estimations)</h3>
+<div class="stat-card">
+<p><strong>Heartbeats:</strong> <span id="heartCount"></span></p>
+<p><strong>Breaths Taken:</strong> <span id="breathCount"></span></p>
+<p><strong>Years Spent Sleeping:</strong> <span id="sleepTime"></span></p>
+</div>
+</section>
+<section>
+<h3>Life Progress (80 Year Average)</h3>
+<div class="progress-container"><div id="life-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div></div>
+<p id="progressText" class="stat-card"></p>
+</section>
+<section>
+<h3>Milestones & Birthday Status</h3>
+<div id="milestoneList" class="stat-card"></div>
+<div id="bdayInfo" class="stat-card"></div>
+</section>
+<section id="astro-section">
+    <h3>Astrological & Life Profile</h3>
+    <div class="stat-card" style="border-left-color: #a855f7;">
+        <p><strong>Zodiac Sign (Western):</strong> <span id="zodiacSign"></span></p>
+        <p><strong>Chinese Animal Year:</strong> <span id="chineseYear"></span></p>
+        <p><strong>Current Life Phase:</strong> <span id="lifePhase"></span></p>
+    </div>
+</section>
+<section>
+<h3>Exact Chronological Precision</h3>
+<div id="precisionText" class="stat-card"></div>
+</section>
+</div>
+</div>
+</main>
+<footer>
+    <p><a href="../privacy.html" accesskey="p" aria-label="Privacy Policy, Alt plus P" style="color: white; text-decoration: underline;">Privacy Policy</a></p>
+    <p>© 2026 Accessible Tech Labs India</p>
+</footer>
+<script>
+let fullReportString = "";
+const status = document.getElementById("status");
+function announce(m) {
+status.textContent = "";
+setTimeout(() => { status.textContent = m; }, 50);
+}
+function resetForm() {
+document.getElementById("userName").value = "";
+document.getElementById("dob").value = "";
+document.getElementById("result-area").style.display = "none";
+document.getElementById("copyBtn").style.display = "none";
+document.getElementById("reportBtn").style.display = "none";
+announce("Dashboard reset.");
+}
+function copyReport() {
+if (!fullReportString) { announce("Nothing to copy."); return; }
+navigator.clipboard.writeText(fullReportString).then(() => { announce("Full report copied."); });
+}
+function readFullReport() { announce(fullReportString); }
+function generateReport() {
+const name = document.getElementById("userName").value.trim();
+const dobVal = document.getElementById("dob").value;
+if (!name) { announce("Name is required."); return; }
+if (!dobVal) { announce("Date is required."); return; }
+const dob = new Date(dobVal);
+const now = new Date();
+if (dob > now) { announce("Invalid date."); return; }
+let years = now.getFullYear() - dob.getFullYear();
+let months = now.getMonth() - dob.getMonth();
+let days = now.getDate() - dob.getDate();
+if (days < 0) { months--; days += new Date(now.getFullYear(), now.getMonth(), 0).getDate(); }
+if (months < 0) { years--; months += 12; }
+const diffMs = now - dob;
+const totalSecs = Math.floor(diffMs / 1000);
+const totalMins = Math.floor(totalSecs / 60);
+const totalHrs = Math.floor(totalMins / 60);
+const totalDays = Math.floor(totalHrs / 24);
+const heartbeats = (totalMins * 72).toLocaleString();
+const breaths = (totalMins * 16).toLocaleString();
+const sleepYears = (years / 3).toFixed(1);
+const progress = Math.min(((years / 80) * 100), 100).toFixed(1);
+let thisYearBday = new Date(now.getFullYear(), dob.getMonth(), dob.getDate());
+const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+let bdayReport = "";
+const currentDayName = dayNames[thisYearBday.getDay()];
+if (now.getMonth() === dob.getMonth() && now.getDate() === dob.getDate()) {
+bdayReport = "Happy Birthday, " + name + "! Today is your day.";
+} else if (thisYearBday < now) {
+bdayReport = "Your birthday for this year passed on a " + currentDayName + ".";
+let nextYearBday = new Date(now.getFullYear() + 1, dob.getMonth(), dob.getDate());
+let dLeft = Math.ceil((nextYearBday - now) / (1000 * 60 * 60 * 24));
+bdayReport += " Next one is on a " + dayNames[nextYearBday.getDay()] + " in " + dLeft + " days.";
+} else {
+let dLeft = Math.ceil((thisYearBday - now) / (1000 * 60 * 60 * 24));
+bdayReport = "Your birthday is in " + dLeft + " days on a " + currentDayName + ".";
+}
+const month = dob.getMonth() + 1;
+const day = dob.getDate();
+const birthYear = dob.getFullYear();
+let zodiac = "";
+let emoji = "";
+if ((month == 3 && day >= 21) || (month == 4 && day <= 19)) { zodiac = "Aries"; emoji = "♈"; }
+else if ((month == 4 && day >= 20) || (month == 5 && day <= 20)) { zodiac = "Taurus"; emoji = "♉"; }
+else if ((month == 5 && day >= 21) || (month == 6 && day <= 20)) { zodiac = "Gemini"; emoji = "♊"; }
+else if ((month == 6 && day >= 21) || (month == 7 && day <= 22)) { zodiac = "Cancer"; emoji = "♋"; }
+else if ((month == 7 && day >= 23) || (month == 8 && day <= 22)) { zodiac = "Leo"; emoji = "♌"; }
+else if ((month == 8 && day >= 23) || (month == 9 && day <= 22)) { zodiac = "Virgo"; emoji = "♍"; }
+else if ((month == 9 && day >= 23) || (month == 10 && day <= 22)) { zodiac = "Libra"; emoji = "♎"; }
+else if ((month == 10 && day >= 23) || (month == 11 && day <= 21)) { zodiac = "Scorpio"; emoji = "♏"; }
+else if ((month == 11 && day >= 22) || (month == 12 && day <= 21)) { zodiac = "Sagittarius"; emoji = "♐"; }
+else if ((month == 12 && day >= 22) || (month == 1 && day <= 19)) { zodiac = "Capricorn"; emoji = "♑"; }
+else if ((month == 1 && day >= 20) || (month == 2 && day <= 18)) { zodiac = "Aquarius"; emoji = "♒"; }
+else { zodiac = "Pisces"; emoji = "♓"; }
+const animals = ["Rat 🐀", "Ox 🐂", "Tiger 🐅", "Rabbit 🐇", "Dragon 🐉", "Snake 🐍", "Horse 🐎", "Goat 🐐", "Monkey 🐒", "Rooster 🐓", "Dog 🐕", "Pig 🐖"];
+const cYear = animals[(birthYear - 4) % 12];
+let phase = "";
+if (years < 13) phase = "Childhood 🎈";
+else if (years < 20) phase = "Teenage 🎓";
+else if (years < 40) phase = "Early Adulthood 🚀";
+else if (years < 60) phase = "Middle Adulthood 💼";
+else phase = "Senior Years 🧘";
+document.getElementById("zodiacSign").textContent = zodiac + " " + emoji;
+document.getElementById("chineseYear").textContent = cYear;
+document.getElementById("lifePhase").textContent = phase;
+let miles = "";
+if (years >= 18) miles += "• Legal Adult. ";
+if (years >= 25) miles += "• Full Brain Maturity. ";
+else miles += "• Milestone: " + (25-years) + " years left for full brain maturity. ";
+document.getElementById("greetHeader").textContent = "Report for " + name;
+document.getElementById("summaryText").textContent = years + " Years, " + months + " Months, " + days + " Days.";
+document.getElementById("heartCount").textContent = heartbeats;
+document.getElementById("breathCount").textContent = breaths;
+document.getElementById("sleepTime").textContent = sleepYears + " Years";
+document.getElementById("life-bar").style.width = progress + "%";
+document.getElementById("progressText").textContent = "Life Progress: " + progress + "% of 80 years.";
+document.getElementById("milestoneList").textContent = miles;
+document.getElementById("bdayInfo").textContent = bdayReport;
+document.getElementById("precisionText").textContent = totalDays.toLocaleString() + " days, " + totalHrs.toLocaleString() + " hours, and " + totalSecs.toLocaleString() + " seconds lived.";
+fullReportString = `Hello ${name}. Age: ${years} years, ${months} months, ${days} days. ${bdayReport} Vital stats: ${heartbeats} heartbeats, ${breaths} breaths. Zodiac: ${zodiac}, Chinese Year: ${cYear}, Life Phase: ${phase}. Total lived: ${totalDays} days, ${totalHrs} hours, and ${totalSecs} seconds. ${miles}`;
+document.getElementById("result-area").style.display = "block";
+document.getElementById("copyBtn").style.display = "inline-block";
+document.getElementById("reportBtn").style.display = "block";
+announce("Success! Check Summary heading for results.");
+}
+</script>
+</body>
+</html>
