@@ -101,145 +101,206 @@ This professional browser based PDF reader is designed for blind and low vision 
 <p>© 2026 Accessible Tech Labs India</p>
 </footer>
 <script>
-
 pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
-let pdfDoc=null,page=1,scale=1;
-let voices=[],utterance=null,reading=false,paused=false;
-let speeds=[1,1.5,2,2.5,3,3.5,4,4.5,5];
-let speedIndex=0;
+let pdfDoc = null, page = 1, scale = 1;
+let voices = [], utterance = null, reading = false, paused = false;
+let speeds = [1, 1.25, 1.5, 1.75, 2];
+let speedIndex = 0;
 
-const status=document.getElementById("status");
-const textArea=document.getElementById("textArea");
-const voiceSel=document.getElementById("voices");
+const status = document.getElementById("status");
+const textArea = document.getElementById("textArea");
+const voiceSel = document.getElementById("voices");
+const pdfFileInput = document.getElementById("pdfFile");
 
-const uploadSound=new Audio("tools-sounds/upload.mp3");
-const nextSound=new Audio("tools-sounds/next.mp3");
-const prevSound=new Audio("tools-sounds/prev.mp3");
+const uploadSound = new Audio("tools-sounds/upload.mp3");
+const nextSound = new Audio("tools-sounds/next.mp3");
+const prevSound = new Audio("tools-sounds/prev.mp3");
 
-function announce(m){status.textContent=m;}
+function safePlay(audio) {
+    audio.play().catch(() => {
+        console.log("Audio feedback pending user interaction");
+    });
+}
 
-pdfFile.onchange=e=>{
-uploadSound.play();
-const f=e.target.files[0];
-if(!f)return;
-const r=new FileReader();
-r.onload=()=>pdfjsLib.getDocument(r.result).promise.then(pdf=>{
-pdfDoc=pdf;
-page=1;
-announce("PDF loaded. Total pages "+pdf.numPages);
-render();
-});
-r.readAsArrayBuffer(f);
+function announce(m) { 
+    status.textContent = m; 
+}
+
+pdfFileInput.onchange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    safePlay(uploadSound);
+    announce("Loading document, please wait...");
+
+    const reader = new FileReader();
+    reader.onload = async () => {
+        try {
+            const loadingTask = pdfjsLib.getDocument(reader.result);
+            pdfDoc = await loadingTask.promise;
+            page = 1;
+            announce(`Success. PDF loaded with ${pdfDoc.numPages} pages.`);
+            render();
+        } catch (error) {
+            if (error.name === "PasswordException") {
+                announce("This file is password protected. Please upload an unprotected file.");
+                alert("This file is password protected. Please upload an unprotected file.");
+            } else {
+                announce("Error loading PDF. The file might be corrupted.");
+            }
+            pdfFileInput.value = "";
+        }
+    };
+    reader.readAsArrayBuffer(file);
 };
 
-function render(){
-pdfDoc.getPage(page).then(p=>{
-p.getTextContent().then(tc=>{
-let t="";
-tc.items.forEach(i=>t+=i.str+" ");
-textArea.textContent=t;
-pageInfo.textContent="Page "+page+" of "+pdfDoc.numPages;
-announce("Page "+page+" of "+pdfDoc.numPages);
-if(reading) speakPage();
-});
-});
+async function render() {
+    try {
+        const p = await pdfDoc.getPage(page);
+        const tc = await p.getTextContent();
+        let text = "";
+        tc.items.forEach(i => text += i.str + " ");
+        
+        textArea.textContent = text;
+        textArea.tabIndex = -1;
+        textArea.focus();
+        
+        document.getElementById("pageInfo").textContent = `Page ${page} of ${pdfDoc.numPages}`;
+        announce(`Displayed Page ${page} of ${pdfDoc.numPages}`);
+        
+        if (reading) speakPage();
+    } catch (error) {
+        announce("Error rendering page content.");
+    }
 }
 
-next.onclick=()=>{if(pdfDoc&&page<pdfDoc.numPages){page++;nextSound.play();render();}};
-prev.onclick=()=>{if(pdfDoc&&page>1){page--;prevSound.play();render();}};
-
-goPage.onclick=()=>{
-let p=parseInt(pageJump.value);
-if(pdfDoc&&p>=1&&p<=pdfDoc.numPages){page=p;render();}
+document.getElementById("next").onclick = () => {
+    if (pdfDoc && page < pdfDoc.numPages) {
+        page++;
+        safePlay(nextSound);
+        render();
+    }
 };
 
-function loadVoices(){
-voiceSel.innerHTML="";
-voices=[];
-speechSynthesis.getVoices().forEach(v=>{
-if(v.lang.startsWith("en")||v.lang.startsWith("hi")){
-voices.push(v);
-let o=document.createElement("option");
-o.textContent=v.name;
-voiceSel.appendChild(o);
+document.getElementById("prev").onclick = () => {
+    if (pdfDoc && page > 1) {
+        page--;
+        safePlay(prevSound);
+        render();
+    }
+};
+
+document.getElementById("goPage").onclick = () => {
+    let p = parseInt(document.getElementById("pageJump").value);
+    if (pdfDoc && p >= 1 && p <= pdfDoc.numPages) {
+        page = p;
+        render();
+    }
+};
+
+function loadVoices() {
+    voiceSel.innerHTML = "";
+    voices = speechSynthesis.getVoices();
+    voices.forEach((v, i) => {
+        if (v.lang.startsWith("en") || v.lang.startsWith("hi")) {
+            let o = document.createElement("option");
+            o.textContent = `${v.name} (${v.lang})`;
+            o.value = i;
+            voiceSel.appendChild(o);
+        }
+    });
 }
-});
+
+if (speechSynthesis.onvoiceschanged !== undefined) {
+    speechSynthesis.onvoiceschanged = loadVoices;
 }
-speechSynthesis.onvoiceschanged=loadVoices;
 loadVoices();
 
-function speakPage(){
-speechSynthesis.cancel();
-utterance=new SpeechSynthesisUtterance(textArea.textContent);
-utterance.voice=voices[voiceSel.selectedIndex]||voices[0];
-utterance.rate=speeds[speedIndex];
-utterance.volume=parseInt(volume.value)/100;
+function speakPage() {
+    speechSynthesis.cancel();
+    utterance = new SpeechSynthesisUtterance(textArea.textContent);
+    
+    const selectedVoiceIndex = voiceSel.value;
+    utterance.voice = voices[selectedVoiceIndex] || voices[0];
+    utterance.rate = speeds[speedIndex];
+    utterance.volume = parseInt(document.getElementById("volume").value) / 100;
 
-utterance.onend=()=>{
-if(reading && page<pdfDoc.numPages){
-page++;
-nextSound.play();
-render();
-}else{
-announce("Reading completed");
-reading=false;
+    utterance.onend = () => {
+        if (reading && page < pdfDoc.numPages) {
+            page++;
+            safePlay(nextSound);
+            render();
+        } else {
+            announce("End of document reached.");
+            reading = false;
+        }
+    };
+
+    speechSynthesis.speak(utterance);
 }
+
+document.getElementById("readBtn").onclick = () => {
+    if (!pdfDoc) return;
+    reading = true;
+    paused = false;
+    document.getElementById("pauseBtn").textContent = "Pause";
+    announce("Started reading aloud.");
+    speakPage();
 };
 
-speechSynthesis.speak(utterance);
-}
-
-readBtn.onclick=()=>{
-reading=true;
-paused=false;
-pauseBtn.textContent="Pause";
-announce("Reading started");
-speakPage();
+document.getElementById("pauseBtn").onclick = () => {
+    if (!reading) return;
+    if (!paused) {
+        speechSynthesis.pause();
+        document.getElementById("pauseBtn").textContent = "Resume";
+        paused = true;
+        announce("Reading paused.");
+    } else {
+        speechSynthesis.resume();
+        document.getElementById("pauseBtn").textContent = "Pause";
+        paused = false;
+        announce("Reading resumed.");
+    }
 };
 
-pauseBtn.onclick=()=>{
-if(!reading)return;
-if(!paused){
-speechSynthesis.pause();
-pauseBtn.textContent="Play";
-paused=true;
-}else{
-speechSynthesis.resume();
-pauseBtn.textContent="Pause";
-paused=false;
-}
+document.getElementById("speedBtn").onclick = () => {
+    speedIndex++;
+    if (speedIndex >= speeds.length) speedIndex = 0;
+    const label = speeds[speedIndex] === 1 ? "Normal" : speeds[speedIndex] + "x";
+    document.getElementById("speedBtn").textContent = `Speed: ${label}`;
+    if (reading) speakPage();
+    announce(`Speech speed set to ${label}`);
 };
 
-speedBtn.onclick=()=>{
-speedIndex++;if(speedIndex>=speeds.length)speedIndex=0;
-speedBtn.textContent="Speed: "+(speeds[speedIndex]==1?"Normal":speeds[speedIndex]+"x");
-if(utterance) utterance.rate=speeds[speedIndex];
-announce(speedBtn.textContent);
+document.getElementById("spacing").oninput = (e) => {
+    textArea.style.lineHeight = e.target.value;
 };
 
-volume.oninput=()=>{ if(utterance) utterance.volume=parseInt(volume.value)/100; };
+let hc = false, large = false;
 
-spacing.oninput=()=>textArea.style.lineHeight=spacing.value;
-
-let hc=false,large=false;
-
-contrast.onclick=()=>{
-hc=!hc;
-document.body.style.background=hc?"black":"";
-document.body.style.color=hc?"white":"";
-announce(hc?"High contrast on":"High contrast off");
+document.getElementById("contrast").onclick = () => {
+    hc = !hc;
+    document.body.style.backgroundColor = hc ? "#000000" : "";
+    document.body.style.color = hc ? "#FFFFFF" : "";
+    announce(hc ? "High contrast enabled" : "High contrast disabled");
 };
 
-zoomIn.onclick=()=>{scale+=0.2;textArea.style.fontSize=(scale*100)+"%";};
-zoomOut.onclick=()=>{scale=Math.max(0.6,scale-0.2);textArea.style.fontSize=(scale*100)+"%";};
-
-largeUi.onclick=()=>{
-large=!large;
-document.body.classList.toggle("large-ui");
-announce(large?"Large UI enabled":"Large UI disabled");
+document.getElementById("zoomIn").onclick = () => {
+    scale += 0.2;
+    textArea.style.fontSize = (scale * 100) + "%";
 };
 
+document.getElementById("zoomOut").onclick = () => {
+    scale = Math.max(0.6, scale - 0.2);
+    textArea.style.fontSize = (scale * 100) + "%";
+};
+
+document.getElementById("largeUi").onclick = () => {
+    large = !large;
+    document.body.classList.toggle("large-ui");
+    announce(large ? "Large user interface enabled" : "Large user interface disabled");
+};
 </script>
 </body>
 </html>

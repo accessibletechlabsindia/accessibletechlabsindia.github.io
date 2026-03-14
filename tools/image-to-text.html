@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Advanced Image to Text OCR - Accessible Tech Labs India</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/4.1.1/tesseract.min.js"></script>
+<style>
+#textPreview {
+    width: 100%;
+    height: 350px;
+    margin-top: 20px;
+    padding: 15px;
+    border: 2px solid #005a9c;
+    border-radius: 8px;
+    background: #ffffff;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    display: none;
+    font-family: inherit;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+#textPreview:focus {
+    outline: 3px solid #ffbf00;
+}
+.control-group {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    border-left: 5px solid #005a9c;
+    margin-bottom: 20px;
+}
+.action-buttons {
+    display: flex; gap: 10px; margin-top: 15px; flex-wrap: wrap;
+}
+#imgPreview {
+    max-width: 100%; max-height: 300px; display: none; margin: 15px 0; border: 1px solid #ddd; border-radius: 4px;
+}
+progress {
+    width: 100%; height: 25px; display: none; margin: 10px 0;
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header role="banner">
+<h1>Accessible Tech Labs India</h1>
+<nav aria-label="Main navigation">
+<a href="../index.html" accesskey="h" aria-label="Home, Alt plus H">Home</a>
+<a href="../software.html" accesskey="s" aria-label="Software, Alt plus S">Software</a>
+<a href="../tools.html" accesskey="t" aria-label="Tools, Alt plus T">Tools</a>
+<a href="../Games.html" accesskey="g" aria-label="Games, Alt plus G">Games</a>
+<a href="../about.html" accesskey="a" aria-label="About, Alt plus A">About</a>
+<a href="../contact.html" accesskey="c" aria-label="Contact, Alt plus C">Contact</a>
+<a href="../social.html" accesskey="l" aria-label="Social, Alt plus L">Social</a>
+</nav>
+</header>
+
+<main id="main">
+<h2>Advanced Image to Text (OCR) Converter</h2>
+<p>
+The Professional Image to Text OCR Converter by Accessible Tech Labs India is a high-utility solution designed to extract clean, readable text from any image or screenshot. By processing data locally, it ensures total privacy and accessibility for all users.
+</p>
+
+<div class="control-group">
+<form aria-label="OCR converter form">
+<label for="imageInput">Select Image (JPG, PNG, BMP)</label><br>
+<input id="imageInput" type="file" accept="image/*" aria-required="true"><br><br>
+
+<img id="imgPreview" alt="Upload preview">
+
+<label for="langSelect">Select Document Language</label><br>
+<select id="langSelect">
+<option value="eng">English</option>
+<option value="hin">Hindi</option>
+<option value="eng+hin">English & Hindi Mixed</option>
+</select><br><br>
+
+<label for="outputName">Output file name</label><br>
+<input id="outputName" type="text" value="extracted_text"><br><br>
+
+<button type="button" id="startBtn">Convert Image to Text</button>
+</form>
+</div>
+
+<progress id="ocrProgress" value="0" max="100"></progress>
+<p id="status" aria-live="polite"></p>
+
+<div id="textPreview" tabindex="0" aria-label="Extracted text preview"></div>
+
+<div class="action-buttons">
+<a id="downloadLink" style="display:none;" aria-label="Download text file">Download TXT</a>
+<button id="copyBtn" style="display:none;" aria-label="Copy text to clipboard">Copy Text</button>
+</div>
+</main>
+
+<footer role="contentinfo">
+<p><a href="../privacy.html" accesskey="p" style="color: white; text-decoration: underline;">Privacy Policy</a></p>
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+
+<script>
+const imageInput = document.getElementById("imageInput");
+const imgPreview = document.getElementById("imgPreview");
+const startBtn = document.getElementById("startBtn");
+const status = document.getElementById("status");
+const progress = document.getElementById("ocrProgress");
+const preview = document.getElementById("textPreview");
+const downloadLink = document.getElementById("downloadLink");
+const copyBtn = document.getElementById("copyBtn");
+
+imageInput.addEventListener("change", (e) => {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = (event) => {
+            imgPreview.src = event.target.result;
+            imgPreview.style.display = "block";
+            status.innerText = "Image loaded. Press Convert to extract text.";
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+startBtn.addEventListener("click", async () => {
+    const file = imageInput.files[0];
+    const lang = document.getElementById("langSelect").value;
+    if (!file) { alert("Please select an image."); return; }
+
+    status.innerText = "Processing... Please wait.";
+    startBtn.disabled = true;
+    preview.style.display = "none";
+    progress.style.display = "block";
+
+    try {
+        const worker = await Tesseract.createWorker({
+            logger: m => {
+                if (m.status === "recognizing text") {
+                    progress.value = Math.floor(m.progress * 100);
+                    status.innerText = `Recognizing: ${progress.value}%`;
+                }
+            }
+        });
+
+        await worker.loadLanguage(lang);
+        await worker.initialize(lang);
+        const { data: { text } } = await worker.recognize(file);
+        await worker.terminate();
+
+        const cleanText = text.split('\n')
+            .map(line => line.trim())
+            .filter(line => line.length > 3 && /[a-zA-Z0-9]/.test(line))
+            .join('\n\n');
+
+        if (!cleanText) {
+            status.innerText = "No readable text found. Try a clearer image.";
+        } else {
+            preview.textContent = cleanText;
+            preview.style.display = "block";
+            preview.focus();
+            
+            const blob = new Blob([cleanText], { type: "text/plain" });
+            downloadLink.href = URL.createObjectURL(blob);
+            downloadLink.download = document.getElementById("outputName").value + ".txt";
+            downloadLink.style.display = "inline-block";
+            copyBtn.style.display = "inline-block";
+            status.innerText = "Text extracted successfully.";
+        }
+    } catch (e) { status.innerText = "Error in OCR process."; }
+    finally { startBtn.disabled = false; progress.style.display = "none"; }
+});
+
+copyBtn.onclick = () => {
+    navigator.clipboard.writeText(preview.textContent);
+    status.innerText = "Copied to clipboard!";
+};
+</script>
+</body>
+</html>

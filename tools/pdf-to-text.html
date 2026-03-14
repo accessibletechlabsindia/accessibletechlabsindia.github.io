@@ -1,13 +1,159 @@
-<!DOCTYPE html> <html lang="en"> <head> <meta charset="UTF-8"> <title>PDF to Text - Accessible Tech Labs India</title> <meta name="viewport" content="width=device-width, initial-scale=1"> <link rel="stylesheet" href="../css/style.css"> <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script> </head> <body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Professional PDF to Text - Accessible Tech Labs India</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<style>
+#textPreview {
+    width: 100%;
+    height: 300px;
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    display: none;
+}
+#textPreview:focus {
+    outline: 2px solid #005a9c;
+}
+.button-group {
+    margin-top: 10px;
+}
+</style>
+</head>
+<body>
+
 <a class="skip-link" href="#main">Skip to main content</a>
-<header role="banner"> <h1>Accessible Tech Labs India</h1> <nav aria-label="Main navigation"> <a href="../index.html">Home</a> <a href="../software.html">Software</a> <a href="../tools.html">Tools</a>
+
+<header role="banner">
+<h1>Accessible Tech Labs India</h1>
+<nav aria-label="Main navigation">
+<a href="../index.html" accesskey="h" aria-label="Home, Alt plus H">Home</a>
+<a href="../software.html" accesskey="s" aria-label="Software, Alt plus S">Software</a>
+<a href="../tools.html" accesskey="t" aria-label="Tools, Alt plus T">Tools</a>
 <a href="../Games.html" accesskey="g" aria-label="Games, Alt plus G">Games</a>
- <a href="../about.html">About</a> <a href="../contact.html">Contact</a> <a href="../social.html">Social</a> </nav> </header> <main id="main"> <h2>PDF to Text Converter</h2> <p> Convert your PDF document into plain text directly in your browser. This works for normal selectable PDFs. Scanned image PDFs are not supported. </p> <form aria-label="PDF to text form">
+<a href="../about.html" accesskey="a" aria-label="About, Alt plus A">About</a>
+<a href="../contact.html" accesskey="c" aria-label="Contact, Alt plus C">Contact</a>
+<a href="../social.html" accesskey="l" aria-label="Social, Alt plus L">Social</a>
+</nav>
+</header>
+
+<main id="main">
+<h2>Advanced PDF to Text Converter</h2>
+<p>
+The Advanced Accessible PDF to Text Converter by Accessible Tech Labs India is a high-performance, browser-based utility engineered to provide seamless text extraction from PDF documents without compromising data security. Designed with a deep focus on digital inclusion, this tool ensures that blind and low-vision users can effortlessly convert complex PDF files into clean, readable plain text compatible with all major screen readers like NVDA and TalkBack.
+Key features include a robust Secure Local Processing engine, which means your documents never leave your device, ensuring total privacy. The tool incorporates an Active Progress Tracking system that provides real-time ARIA-live announcements during the conversion process, informing the user of the exact page being processed. It also features a Smart Text Reconstruction logic that maintains paragraph integrity and page separation, preventing the "jumbled text" issue common in basic converters.
+For enhanced user experience, we have integrated a Dynamic Preview Area and a One-Click Clipboard Copy function, allowing users to verify and utilize extracted data instantly before downloading. The interface is fully optimized for keyboard navigation, featuring high-contrast support and a logical focus management system that directs the user to the extracted content immediately upon completion. This professional-grade tool transforms inaccessible PDF data into a universally compatible text format, making information truly accessible to everyone.
+</p>
+<p>
+Extract plain text from your PDF documents securely. This tool processes files locally for maximum privacy. It supports standard PDFs with selectable text; scanned documents are not supported.
+</p>
+
+<form aria-label="PDF to text converter form">
 <label for="pdfFile">Select PDF file</label><br>
 <input id="pdfFile" type="file" accept="application/pdf" aria-required="true"><br><br>
+
 <label for="outputName">Output file name</label><br>
-<input id="outputName" type="text" value="converted_text"><br><br>
-<button type="button" id="convertBtn" aria-label="Convert PDF to text">Convert to TXT</button>
-</form> <p id="status" aria-live="polite"></p>
-<a id="downloadLink" style="display:none;" aria-label="Download text file">Download Text File</a>
-</main> <footer role="contentinfo"> <p>© 2026 Accessible Tech Labs India</p> </footer> <script> pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"; document.getElementById("convertBtn").addEventListener("click", async () => { const file = document.getElementById("pdfFile").files[0]; const outputName = document.getElementById("outputName").value || "converted_text"; if(!file){ alert("Please select a PDF file."); return; } document.getElementById("status").innerText = "Converting PDF to text, please wait..."; const arrayBuffer = await file.arrayBuffer(); const pdf = await pdfjsLib.getDocument({data:arrayBuffer}).promise; let finalText = ""; for(let i=1;i<=pdf.numPages;i++){ const page = await pdf.getPage(i); const content = await page.getTextContent(); content.items.forEach(item=>{ finalText += item.str + " "; }); finalText += "\n\n"; } const blob = new Blob([finalText],{type:"text/plain"}); const url = URL.createObjectURL(blob); const link = document.getElementById("downloadLink"); link.href = url; link.download = outputName + ".txt"; link.style.display = "block"; document.getElementById("status").innerText = "Conversion completed. Download link available."; }); </script> </body> </html>
+<input id="outputName" type="text" value="extracted_content"><br><br>
+
+<button type="button" id="convertBtn">Convert to Text</button>
+</form>
+
+<p id="status" aria-live="polite"></p>
+
+<div id="textPreview" tabindex="0" aria-label="Extracted text preview"></div>
+
+<div class="button-group">
+<a id="downloadLink" style="display:none;" aria-label="Download text file">Download TXT File</a>
+<button id="copyBtn" style="display:none;" aria-label="Copy extracted text to clipboard">Copy Text</button>
+</div>
+</main>
+
+<footer role="contentinfo">
+<p><a href="../privacy.html" accesskey="p" style="color: white; text-decoration: underline;">Privacy Policy</a></p>
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+const convertBtn = document.getElementById("convertBtn");
+const status = document.getElementById("status");
+const preview = document.getElementById("textPreview");
+const downloadLink = document.getElementById("downloadLink");
+const copyBtn = document.getElementById("copyBtn");
+
+convertBtn.addEventListener("click", async () => {
+    const fileInput = document.getElementById("pdfFile");
+    const outputName = document.getElementById("outputName").value || "extracted_content";
+
+    if (!fileInput.files[0]) {
+        alert("Please select a PDF file first.");
+        return;
+    }
+
+    const file = fileInput.files[0];
+    status.innerText = "Processing document...";
+    preview.style.display = "none";
+    downloadLink.style.display = "none";
+    copyBtn.style.display = "none";
+
+    try {
+        const arrayBuffer = await file.arrayBuffer();
+        const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+        const pdf = await loadingTask.promise;
+        const totalPages = pdf.numPages;
+        let finalText = "";
+
+        for (let i = 1; i <= totalPages; i++) {
+            status.innerText = `Extracting text from page ${i} of ${totalPages}...`;
+            const page = await pdf.getPage(i);
+            const content = await page.getTextContent();
+            
+            let lastY;
+            let pageText = "";
+            for (let item of content.items) {
+                if (lastY !== undefined && lastY !== item.transform[5]) {
+                    pageText += "\n";
+                }
+                pageText += item.str + " ";
+                lastY = item.transform[5];
+            }
+            finalText += pageText + "\n\n--- Page " + i + " ---\n\n";
+        }
+
+        preview.textContent = finalText;
+        preview.style.display = "block";
+        preview.focus();
+
+        const blob = new Blob([finalText], { type: "text/plain" });
+        const url = URL.createObjectURL(blob);
+
+        downloadLink.href = url;
+        downloadLink.download = outputName + ".txt";
+        downloadLink.style.display = "inline-block";
+        
+        copyBtn.style.display = "inline-block";
+        copyBtn.onclick = () => {
+            navigator.clipboard.writeText(finalText);
+            status.innerText = "Text copied to clipboard.";
+        };
+
+        status.innerText = "Extraction complete. You can preview, copy, or download the text below.";
+    } catch (error) {
+        if (error.name === "PasswordException") {
+            status.innerText = "This file is password protected.";
+            alert("This file is password protected. Please provide an unprotected PDF.");
+        } else {
+            status.innerText = "An error occurred during extraction.";
+        }
+    }
+});
+</script>
+</body>
+</html>

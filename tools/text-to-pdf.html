@@ -5,7 +5,6 @@
 <title>Text to PDF - Accessible Tech Labs India</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="../css/style.css">
-<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
 </head>
 
 <body>
@@ -29,9 +28,8 @@
 <main id="main">
 
 <h2>Text to PDF Converter</h2>
-
 <p>
-You can either paste text below or upload a TXT file. The content will be converted into a downloadable PDF.
+Welcome to the professional Text to PDF Converter, a specialized utility developed by Accessible Tech Labs India to empower users with seamless document creation. Our mission in building this tool was to ensure that high-quality PDF generation is accessible, fast, and reliable for everyone, including those using assistive technologies. You can convert your content in two convenient ways: either by directly pasting your text into the input area or by uploading a local TXT file. This tool is engineered to handle long-form content with automatic pagination and supports a wide range of characters and symbols, ensuring your final document is perfectly formatted and ready for professional use. Experience the efficiency of a tool designed with inclusivity and high performance at its core.
 </p>
 
 <form aria-label="Text to PDF form">
@@ -56,62 +54,101 @@ You can either paste text below or upload a TXT file. The content will be conver
 </main>
 
 <footer role="contentinfo">
+    <p><a href="../privacy.html" accesskey="p" aria-label="Privacy Policy, Alt plus P" style="color: white; text-decoration: underline;">Privacy Policy</a></p>
 <p>© 2026 Accessible Tech Labs India</p>
 </footer>
 
-<script>
+<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script src="https://unpkg.com/@pdf-lib/fontkit@1.1.1/dist/fontkit.umd.min.js"></script>
 
-const { PDFDocument, StandardFonts } = PDFLib;
+<script>
+const { PDFDocument } = PDFLib;
 
 document.getElementById("convertBtn").addEventListener("click", async () => {
+    const manualText = document.getElementById("textInput").value;
+    const file = document.getElementById("txtFile").files[0];
+    const outputName = document.getElementById("outputName").value || "text_document";
+    const status = document.getElementById("status");
+    const downloadLink = document.getElementById("downloadLink");
 
-const manualText = document.getElementById("textInput").value;
-const file = document.getElementById("txtFile").files[0];
-const outputName = document.getElementById("outputName").value || "text_document";
+    let finalText = "";
+    if (file) {
+        finalText = await file.text();
+    } else {
+        finalText = manualText;
+    }
 
-let finalText = "";
+    if (!finalText.trim()) {
+        alert("Please enter text or upload a TXT file.");
+        return;
+    }
 
-if(file){
-finalText = await file.text();
-}else{
-finalText = manualText;
-}
+    status.innerText = "Processing...";
+    downloadLink.style.display = "none";
 
-if(!finalText.trim()){
-alert("Please enter text or upload a TXT file.");
-return;
-}
+    try {
+        const pdfDoc = await PDFDocument.create();
+        pdfDoc.registerFontkit(fontkit);
 
-document.getElementById("status").innerText = "Creating PDF, please wait...";
+        const fontUrl = "https://raw.githubusercontent.com/googlefonts/noto-fonts/master/hinted/ttf/NotoSans/NotoSans-Regular.ttf";
+        const fontBytes = await fetch(fontUrl).then(res => res.arrayBuffer());
+        const customFont = await pdfDoc.embedFont(fontBytes);
 
-const pdfDoc = await PDFDocument.create();
-const page = pdfDoc.addPage();
-const font = await pdfDoc.embedFont(StandardFonts.Helvetica);
+        let page = pdfDoc.addPage();
+        const { width, height } = page.getSize();
+        const margin = 50;
+        const fontSize = 12;
+        let y = height - margin;
 
-const { height } = page.getSize();
+        const paragraphs = finalText.split("\n");
 
-let y = height - 50;
-const lines = finalText.split("\n");
+        for (const paragraph of paragraphs) {
+            const words = paragraph.split(" ");
+            let currentLine = "";
 
-lines.forEach(line => {
-page.drawText(line, { x:50, y:y, size:12, font:font });
-y -= 18;
+            for (const word of words) {
+                const testLine = currentLine === "" ? word : currentLine + " " + word;
+                const textWidth = customFont.widthOfTextAtSize(testLine, fontSize);
+
+                if (textWidth > width - (margin * 2)) {
+                    page.drawText(currentLine, { x: margin, y: y, size: fontSize, font: customFont });
+                    y -= 20;
+                    currentLine = word;
+
+                    if (y < margin) {
+                        page = pdfDoc.addPage();
+                        y = height - margin;
+                    }
+                } else {
+                    currentLine = testLine;
+                }
+            }
+
+            if (currentLine.trim() !== "") {
+                page.drawText(currentLine, { x: margin, y: y, size: fontSize, font: customFont });
+                y -= 20;
+                if (y < margin) {
+                    page = pdfDoc.addPage();
+                    y = height - margin;
+                }
+            }
+        }
+
+        const pdfBytes = await pdfDoc.save();
+        const blob = new Blob([pdfBytes], { type: "application/pdf" });
+        const url = URL.createObjectURL(blob);
+
+        downloadLink.href = url;
+        downloadLink.download = outputName + ".pdf";
+        downloadLink.style.display = "block";
+        downloadLink.innerText = "Download " + outputName + ".pdf";
+        status.innerText = "Completed";
+
+    } catch (error) {
+        console.error(error);
+        status.innerText = "Error occurred";
+    }
 });
-
-const pdfBytes = await pdfDoc.save();
-
-const blob = new Blob([pdfBytes], {type:"application/pdf"});
-const url = URL.createObjectURL(blob);
-
-const link = document.getElementById("downloadLink");
-link.href = url;
-link.download = outputName + ".pdf";
-link.style.display = "block";
-
-document.getElementById("status").innerText = "PDF created successfully. Download link available.";
-
-});
-
 </script>
 
 </body>

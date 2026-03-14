@@ -54,89 +54,89 @@ Convert each page of your PDF into PNG images. If your PDF has one page, you wil
 </main>
 
 <footer role="contentinfo">
+    <p><a href="../privacy.html" accesskey="p" aria-label="Privacy Policy, Alt plus P" style="color: white; text-decoration: underline;">Privacy Policy</a></p>
 <p>© 2026 Accessible Tech Labs India</p>
 </footer>
-
 <script>
-
-pdfjsLib.GlobalWorkerOptions.workerSrc =
-"https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+pdfjsLib.GlobalWorkerOptions.workerSrc = "https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
 document.getElementById("convertBtn").addEventListener("click", async () => {
+    const fileInput = document.getElementById("pdfFile");
+    const outputName = document.getElementById("outputName").value || "pdf_images";
+    const status = document.getElementById("status");
+    const downloadLink = document.getElementById("downloadLink");
 
-const file = document.getElementById("pdfFile").files[0];
-const outputName = document.getElementById("outputName").value || "pdf_images";
+    if (!fileInput.files[0]) {
+        alert("Please select a PDF file.");
+        return;
+    }
 
-if(!file){
-alert("Please select a PDF file.");
-return;
-}
+    const file = fileInput.files[0];
+    status.innerText = "Initializing conversion...";
+    downloadLink.style.display = "none";
 
-document.getElementById("status").innerText = "Converting PDF pages to images, please wait...";
+    try {
+        const buffer = await file.arrayBuffer();
+        const loadingTask = pdfjsLib.getDocument({ data: buffer });
+        const pdf = await loadingTask.promise;
+        const totalPages = pdf.numPages;
 
-const buffer = await file.arrayBuffer();
-const pdf = await pdfjsLib.getDocument({data:buffer}).promise;
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
 
-if(pdf.numPages === 1){
+        if (totalPages === 1) {
+            status.innerText = "Processing single page...";
+            const page = await pdf.getPage(1);
+            const viewport = page.getViewport({ scale: 2 });
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
 
-const page = await pdf.getPage(1);
-const viewport = page.getViewport({scale:2});
-const canvas = document.createElement("canvas");
-const ctx = canvas.getContext("2d");
+            await page.render({ canvasContext: ctx, viewport: viewport }).promise;
 
-canvas.width = viewport.width;
-canvas.height = viewport.height;
+            canvas.toBlob((blob) => {
+                const url = URL.createObjectURL(blob);
+                downloadLink.href = url;
+                downloadLink.download = `${outputName}.png`;
+                downloadLink.style.display = "block";
+                downloadLink.innerText = `Download ${outputName}.png`;
+                status.innerText = "Conversion complete.";
+            }, "image/png");
 
-await page.render({canvasContext:ctx, viewport:viewport}).promise;
+        } else {
+            const zip = new JSZip();
+            for (let i = 1; i <= totalPages; i++) {
+                status.innerText = `Converting page ${i} of ${totalPages}...`;
+                const page = await pdf.getPage(i);
+                const viewport = page.getViewport({ scale: 2 });
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
 
-const dataUrl = canvas.toDataURL("image/png");
-const blob = await (await fetch(dataUrl)).blob();
-const url = URL.createObjectURL(blob);
+                await page.render({ canvasContext: ctx, viewport: viewport }).promise;
 
-const link = document.getElementById("downloadLink");
-link.href = url;
-link.download = outputName + ".png";
-link.style.display = "block";
+                const imageData = canvas.toDataURL("image/png").split(",")[1];
+                zip.file(`${outputName}_page_${i}.png`, imageData, { base64: true });
+            }
 
-document.getElementById("status").innerText = "Image ready. Download link available.";
+            status.innerText = "Generating ZIP archive...";
+            const zipBlob = await zip.generateAsync({ type: "blob" });
+            const url = URL.createObjectURL(zipBlob);
 
-}else{
-
-const zip = new JSZip();
-
-for(let i=1;i<=pdf.numPages;i++){
-
-const page = await pdf.getPage(i);
-const viewport = page.getViewport({scale:2});
-const canvas = document.createElement("canvas");
-const ctx = canvas.getContext("2d");
-
-canvas.width = viewport.width;
-canvas.height = viewport.height;
-
-await page.render({canvasContext:ctx, viewport:viewport}).promise;
-
-const dataUrl = canvas.toDataURL("image/png");
-const base64 = dataUrl.split(",")[1];
-
-zip.file("page_"+i+".png", base64, {base64:true});
-
-}
-
-const zipBlob = await zip.generateAsync({type:"blob"});
-const url = URL.createObjectURL(zipBlob);
-
-const link = document.getElementById("downloadLink");
-link.href = url;
-link.download = outputName + ".zip";
-link.style.display = "block";
-
-document.getElementById("status").innerText = "Images ready. ZIP download available.";
-
-}
-
+            downloadLink.href = url;
+            downloadLink.download = `${outputName}.zip`;
+            downloadLink.style.display = "block";
+            downloadLink.innerText = `Download ${outputName}.zip`;
+            status.innerText = "All pages converted successfully.";
+        }
+    } catch (error) {
+        if (error.name === "PasswordException") {
+            status.innerText = "Error: This PDF is password protected.";
+            alert("This file is password protected. Please provide an unprotected file.");
+        } else {
+            status.innerText = "Error: Failed to process the PDF file.";
+            console.error(error);
+        }
+    }
 });
-
 </script>
 
 </body>

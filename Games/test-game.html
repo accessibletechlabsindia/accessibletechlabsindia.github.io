@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATL Engine - Final Fix</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/peerjs/1.5.2/peerjs.min.js"></script>
+    <style>
+        body { font-family: sans-serif; background: #070f2b; color: #9290c3; text-align: center; padding: 10px; }
+        .box { background: #1b1a55; border: 2px solid #535c91; border-radius: 15px; padding: 20px; max-width: 400px; margin: auto; }
+        .status-bar { padding: 10px; margin-bottom: 10px; border-radius: 5px; font-weight: bold; background: #070f2b; }
+        input { width: 85%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; background: #000; color: #00ff00; }
+        button { width: 100%; padding: 12px; margin: 5px 0; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; }
+        #btn-connect { background: #535c91; color: white; }
+        #btn-voice { background: #e94560; color: white; height: 80px; display: none; font-size: 1.2rem; }
+        #log { background: #000; color: #00ff00; height: 100px; overflow-y: scroll; font-size: 12px; text-align: left; padding: 5px; margin-top: 10px; border: 1px solid #535c91; }
+        .recording-active { background: #ffea00 !important; color: #000 !important; }
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <h3>ATL GLOBAL ENGINE v3</h3>
+        <div id="status" class="status-bar">Server: Connecting...</div>
+        <div id="my-id-display" style="font-size: 14px; margin-bottom: 10px; color: #fff;">Your ID: Loading...</div>
+        
+        <input type="text" id="remote-id" placeholder="Dost ki ID daalein">
+        <button id="btn-connect" onclick="connectToFriend()">Connect To Friend</button>
+        
+        <div id="log">--- System Logs ---<br></div>
+        
+        <button id="btn-voice">🎤 HOLD TO TALK</button>
+    </div>
+
+<script>
+    let peer, conn, mediaRecorder, stream;
+    let chunks = [];
+
+    // 1. Unique ID - Bilkul Simple
+    const myID = 'ATL' + Math.floor(1000 + Math.random() * 9000);
+    document.getElementById('my-id-display').innerText = "Your ID: " + myID;
+
+    // 2. Peer Setup
+    peer = new Peer(myID);
+
+    peer.on('open', (id) => {
+        log("Server Connected! Your ID is: " + id);
+        document.getElementById('status').innerText = "Status: Online ✅";
+        document.getElementById('status').style.color = "#00ff00";
+    });
+
+    peer.on('error', (err) => {
+        log("Error: " + err.type);
+        alert("Galti hui: " + err.type);
+    });
+
+    // Incoming Connection
+    peer.on('connection', (c) => {
+        conn = c;
+        setupEvents();
+        log("Friend connected to you!");
+    });
+
+    // 3. Connection Logic
+    function connectToFriend() {
+        const rID = document.getElementById('remote-id').value;
+        if(!rID) return alert("ID likho bhai");
+        log("Connecting to " + rID + "...");
+        conn = peer.connect(rID);
+        setupEvents();
+    }
+
+    function setupEvents() {
+        conn.on('open', () => {
+            log("Connected! You can talk now.");
+            document.getElementById('btn-voice').style.display = "block";
+            document.getElementById('status').innerText = "CONNECTED 🤝";
+            conn.send("HELLO_FRIEND");
+        });
+
+        conn.on('data', (data) => {
+            if(data instanceof Blob || data.type === 'audio') {
+                log("Received Voice Message!");
+                const blob = data.blob || data; 
+                playAudio(blob);
+            } else {
+                log("Friend says: " + data);
+            }
+        });
+    }
+
+    // 4. Voice Logic
+    const vBtn = document.getElementById('btn-voice');
+
+    async function initMic() {
+        try {
+            stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            mediaRecorder = new MediaRecorder(stream);
+            
+            mediaRecorder.ondataavailable = (e) => chunks.push(e.data);
+            
+            mediaRecorder.onstop = () => {
+                const audioBlob = new Blob(chunks, { type: 'audio/ogg; codecs=opus' });
+                chunks = [];
+                // Play for self
+                playAudio(audioBlob);
+                // Send
+                if(conn && conn.open) {
+                    conn.send({ type: 'audio', blob: audioBlob });
+                    log("Voice Sent!");
+                }
+            };
+            log("Mic Ready! Press and hold the red button.");
+        } catch (err) {
+            log("Mic Error: " + err.message);
+        }
+    }
+
+    vBtn.onmousedown = () => { 
+        if(!mediaRecorder) return;
+        mediaRecorder.start(); 
+        vBtn.classList.add('recording-active');
+        vBtn.innerText = "🎤 RECORDING...";
+    };
+    
+    vBtn.onmouseup = () => { 
+        if(!mediaRecorder || mediaRecorder.state === "inactive") return;
+        mediaRecorder.stop(); 
+        vBtn.classList.remove('recording-active');
+        vBtn.innerText = "🎤 HOLD TO TALK";
+    };
+
+    // Mobile Support
+    vBtn.ontouchstart = (e) => { e.preventDefault(); vBtn.onmousedown(); };
+    vBtn.ontouchend = (e) => { e.preventDefault(); vBtn.onmouseup(); };
+
+    function playAudio(blob) {
+        const url = URL.createObjectURL(blob);
+        const audio = new Audio(url);
+        audio.play();
+    }
+
+    function log(msg) {
+        const l = document.getElementById('log');
+        l.innerHTML += "> " + msg + "<br>";
+        l.scrollTop = l.scrollHeight;
+    }
+
+    // Initialize Mic on Load
+    initMic();
+
+</script>
+</body>
+</html>

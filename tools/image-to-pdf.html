@@ -53,6 +53,8 @@ Select one or more images and convert them into a single PDF file.
 </main>
 
 <footer role="contentinfo">
+    <p><a href="../privacy.html" accesskey="p" aria-label="Privacy Policy, Alt plus P" style="color: white; text-decoration: underline;">Privacy Policy</a></p>
+
 <p>© 2026 Accessible Tech Labs India</p>
 </footer>
 
@@ -85,9 +87,15 @@ img = await pdfDoc.embedPng(bytes);
 }else{
 img = await pdfDoc.embedJpg(bytes);
 }
-
-const page = pdfDoc.addPage([img.width, img.height]);
-page.drawImage(img, { x:0, y:0, width:img.width, height:img.height });
+const page = pdfDoc.addPage([595.28, 841.89]);
+const { width, height } = page.getSize();
+const dims = img.scaleToFit(width - 40, height - 40);
+page.drawImage(img, {
+x: (width - dims.width) / 2,
+y: (height - dims.height) / 2,
+width: dims.width,
+height: dims.height,
+});
 
 }
 
