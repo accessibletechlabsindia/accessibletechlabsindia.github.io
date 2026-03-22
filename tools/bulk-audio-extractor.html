@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Industrial Bulk Multimedia Audio Extractor - Accessible Tech Labs India</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+header, nav, footer { display: block; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: #f4f7f9; color: #333; line-height: 1.6; }
+.skip-link { position: absolute; top: -40px; left: 0; background: #005a9c; color: white; padding: 8px; z-index: 100; transition: top 0.3s; }
+.skip-link:focus { top: 0; }
+header { background-color: #005a9c; color: white; padding: 25px 0; text-align: center; }
+header h1 { margin: 0; font-size: 2.2em; }
+nav { background-color: #004477; padding: 12px 0; text-align: center; }
+nav a { color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-size: 1.1em; }
+nav a:hover, nav a:focus { color: #ffdd00; outline: 2px solid #ffdd00; outline-offset: 4px; }
+.main-container { max-width: 1000px; margin: 40px auto; padding: 40px; background: #ffffff; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border-top: 10px solid #005a9c; }
+.tool-description { background: #f0f7ff; padding: 30px; border-radius: 12px; margin-bottom: 30px; border-left: 6px solid #005a9c; }
+.tool-description h2 { color: #005a9c; margin-top: 0; }
+.tool-description p { font-size: 1.1em; color: #444; text-align: justify; }
+.control-panel { background: #f8f9fa; padding: 35px; border-radius: 15px; border: 1px solid #dee2e6; text-align: center; margin-bottom: 30px; }
+.file-selector-label { display: block; font-size: 1.4em; font-weight: bold; color: #005a9c; margin-bottom: 20px; }
+input[type="file"] { padding: 15px; background: white; border: 2px dashed #005a9c; border-radius: 8px; cursor: pointer; width: 80%; max-width: 500px; margin-bottom: 25px; font-size: 1em; }
+.btn-action { padding: 18px 45px; border-radius: 10px; border: none; font-weight: bold; font-size: 1.3em; cursor: pointer; transition: 0.3s; display: inline-block; }
+.btn-primary { background: #005a9c; color: white; }
+.btn-primary:hover:not(:disabled), .btn-primary:focus { background: #004477; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(0,90,156,0.3); outline: 3px solid #ffdd00; }
+.btn-primary:disabled { background: #a0c4df; cursor: not-allowed; }
+.progress-section { display: none; margin: 40px 0; padding: 25px; background: #fff; border-radius: 12px; box-shadow: inset 0 2px 10px rgba(0,0,0,0.05); }
+progress { width: 100%; height: 35px; border-radius: 10px; appearance: none; margin-bottom: 15px; }
+progress::-webkit-progress-bar { background-color: #eee; border-radius: 10px; }
+progress::-webkit-progress-value { background-color: #005a9c; border-radius: 10px; }
+.status-text { display: block; font-size: 1.5em; font-weight: bold; color: #005a9c; }
+.result-section { display: none; background: #e7f3ff; padding: 35px; border-radius: 15px; text-align: center; border: 2px solid #b6d4fe; }
+.btn-download { background: #28a745; color: white; text-decoration: none; padding: 15px 35px; border-radius: 8px; display: inline-block; font-weight: bold; font-size: 1.2em; margin: 10px; }
+.btn-download:hover, .btn-download:focus { background: #218838; outline: 3px solid #ffdd00; }
+.btn-reset { background: #6c757d; color: white; border: none; padding: 15px 35px; border-radius: 8px; font-weight: bold; font-size: 1.2em; cursor: pointer; margin: 10px; }
+footer { background-color: #333; color: white; padding: 40px 0; text-align: center; margin-top: 60px; }
+footer a { color: #ffdd00; text-decoration: underline; }
+@media (max-width: 600px) { .main-container { padding: 20px; } .btn-action { width: 100%; } }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<header role="banner">
+<h1>Accessible Tech Labs India</h1>
+<nav aria-label="Main Navigation">
+<a href="../index.html" accesskey="h" aria-label="Home, Alt plus H">Home</a>
+<a href="../software.html" accesskey="s" aria-label="Software, Alt plus S">Software</a>
+<a href="../tools.html" accesskey="t" aria-label="Tools, Alt plus T">Tools</a>
+<a href="../Games.html" accesskey="g" aria-label="Games, Alt plus G">Games</a>
+<a href="../about.html" accesskey="a" aria-label="About, Alt plus A">About</a>
+<a href="../contact.html" accesskey="c" aria-label="Contact, Alt plus C">Contact</a>
+<a href="../social.html" accesskey="l" aria-label="Social, Alt plus L">Social</a>
+</nav>
+</header>
+
+<main id="main-content" class="main-container">
+<section class="tool-description">
+<h2>Industrial Bulk Multimedia Audio Extractor</h2>
+<p>
+The Industrial Bulk Multimedia Audio Extractor is a high-performance utility developed by Accessible Tech Labs India, specifically engineered for rapid audio stream isolation from multiple video containers. This professional engine operates entirely within your local browser environment using advanced Web Audio decoding, ensuring that your sensitive media files are never transmitted to external servers. Designed with a steadfast commitment to universal accessibility, the interface provides comprehensive ARIA support and high-contrast visuals for seamless navigation by users with visual impairments. Whether you are processing a single file or a large batch, the system maintains original metadata integrity and provides lossless WAV output. Experience professional-grade multimedia processing with total data sovereignty and uncompromising digital accessibility.
+</p>
+</section>
+
+<div class="control-panel">
+<label for="videoUpload" class="file-selector-label">Select Video Files for Extraction</label>
+<input type="file" id="videoUpload" accept="video/*" multiple aria-required="true">
+<br>
+<button id="startExtractionBtn" class="btn-action btn-primary" onclick="beginExtraction()" disabled>Start Extracting Audio</button>
+</div>
+
+<div id="progressArea" class="progress-section" role="region" aria-labelledby="statusLabel">
+<progress id="batchProgress" value="0" max="100"></progress>
+<span id="statusLabel" class="status-text" aria-live="polite">Ready to begin...</span>
+</div>
+
+<div id="resultArea" class="result-section">
+<h3 id="resultTitle">Processing Complete</h3>
+<p id="resultSummary" style="font-size:1.1em;"></p>
+<div id="downloadContainer"></div>
+<br>
+<button class="btn-reset" onclick="location.reload()">Clear All and Convert New Videos</button>
+</div>
+</main>
+
+<div id="screenReaderAlert" aria-live="assertive" style="position:absolute; left:-9999px;"></div>
+<footer role="contentinfo">
+    <p><a href="../privacy.html" accesskey="p" aria-label="Privacy Policy, Alt plus P" style="color: white; text-decoration: underline;">Privacy Policy</a></p>
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+
+
+<script>
+const videoUpload = document.getElementById('videoUpload');
+const startBtn = document.getElementById('startExtractionBtn');
+const statusLabel = document.getElementById('statusLabel');
+const progressArea = document.getElementById('progressArea');
+const resultArea = document.getElementById('resultArea');
+const srAlert = document.getElementById('screenReaderAlert');
+const progBar = document.getElementById('batchProgress');
+
+function notifyUser(msg) {
+srAlert.innerText = '';
+setTimeout(() => { srAlert.innerText = msg; }, 50);
+}
+
+videoUpload.addEventListener('change', () => {
+if (videoUpload.files.length > 0) {
+startBtn.disabled = false;
+notifyUser(videoUpload.files.length + " video files selected. Extraction ready.");
+} else {
+startBtn.disabled = true;
+}
+});
+
+async function beginExtraction() {
+const files = Array.from(videoUpload.files);
+const zip = new JSZip();
+startBtn.disabled = true;
+videoUpload.disabled = true;
+progressArea.style.display = 'block';
+
+try {
+for (let i = 0; i < files.length; i++) {
+const file = files[i];
+const currentPos = i + 1;
+statusLabel.innerText = "Processing Video " + currentPos + " of " + files.length + "...";
+notifyUser("Processing Video " + currentPos + " of " + files.length);
+
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+const arrayBuffer = await file.arrayBuffer();
+const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+const wavBlob = convertToWav(audioBuffer);
+
+const originalName = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
+const outputName = originalName + ".wav";
+
+if (files.length === 1) {
+displaySingleResult(wavBlob, outputName);
+} else {
+zip.file(outputName, wavBlob);
+}
+
+const percent = Math.round((currentPos / files.length) * 100);
+progBar.value = percent;
+}
+
+if (files.length > 1) {
+statusLabel.innerText = "Finalizing Archive...";
+notifyUser("Creating ZIP archive for your files.");
+const zipContent = await zip.generateAsync({type: "blob"});
+displayZipResult(zipContent, files.length);
+}
+
+progressArea.style.display = 'none';
+resultArea.style.display = 'block';
+resultArea.scrollIntoView({behavior: 'smooth'});
+
+} catch (err) {
+statusLabel.innerText = "Error: File format not supported.";
+statusLabel.style.color = "red";
+notifyUser("An error occurred. Extraction stopped.");
+startBtn.disabled = false;
+}
+}
+
+function displaySingleResult(blob, name) {
+const url = URL.createObjectURL(blob);
+const container = document.getElementById('downloadContainer');
+container.innerHTML = `
+<p><strong>File:</strong> ${name}</p>
+<audio src="${url}" controls style="width:100%; margin-bottom:20px;"></audio><br>
+<a href="${url}" download="${name}" class="btn-download">Download Audio File</a>
+`;
+document.getElementById('resultSummary').innerText = "Your audio has been successfully extracted.";
+}
+
+function displayZipResult(blob, count) {
+const url = URL.createObjectURL(blob);
+const container = document.getElementById('downloadContainer');
+container.innerHTML = `
+<a href="${url}" download="ATL_Bulk_Audio_Export.zip" class="btn-download">Download All ${count} Files (ZIP)</a>
+`;
+document.getElementById('resultSummary').innerText = "All " + count + " videos have been processed and packed into a ZIP archive.";
+}
+
+function convertToWav(audioBuffer) {
+const numOfChan = audioBuffer.numberOfChannels;
+const length = audioBuffer.length * numOfChan * 2 + 44;
+const buffer = new ArrayBuffer(length);
+const view = new DataView(buffer);
+const channels = [];
+let offset = 0;
+let pos = 0;
+
+function setUint16(data) { view.setUint16(pos, data, true); pos += 2; }
+function setUint32(data) { view.setUint32(pos, data, true); pos += 4; }
+
+setUint32(0x46464952);
+setUint32(length - 8);
+setUint32(0x45564157);
+setUint32(0x20746d66);
+setUint32(16);
+setUint16(1);
+setUint16(numOfChan);
+setUint32(audioBuffer.sampleRate);
+setUint32(audioBuffer.sampleRate * 2 * numOfChan);
+setUint16(numOfChan * 2);
+setUint16(16);
+setUint32(0x61746164);
+setUint32(length - pos - 4);
+
+for(let i=0; i<numOfChan; i++) channels.push(audioBuffer.getChannelData(i));
+
+while(pos < length) {
+for(let i=0; i<numOfChan; i++) {
+let sample = Math.max(-1, Math.min(1, channels[i][offset]));
+sample = (0.5 + sample < 0 ? sample * 32768 : sample * 32767)|0;
+view.setInt16(pos, sample, true);
+pos += 2;
+}
+offset++;
+}
+return new Blob([buffer], {type: "audio/wav"});
+}
+</script>
+</body>
+</html>

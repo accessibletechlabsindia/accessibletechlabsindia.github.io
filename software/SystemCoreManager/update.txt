@@ -1,0 +1,3 @@
+Version=2026.1
+DownloadURL=https://github.com/accessibletechlabsindia/accessibletechlabsindia.github.io/releases/download/v2026.1/SystemCoreManager.exe
+Message=New version available with improved performance, stability, and new system management features. Update recommended.

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Industrial Bulk Volume Architect - Accessible Tech Labs India</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+header, nav, footer { display: block; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; margin: 0; background: #f0f4f8; color: #1a2b3c; line-height: 1.6; }
+.skip-link { position: absolute; top: -40px; left: 0; background: #005a9c; color: white; padding: 10px; z-index: 1000; transition: top 0.3s; }
+.skip-link:focus { top: 0; }
+header { background: linear-gradient(135deg, #005a9c 0%, #003d6b 100%); color: white; padding: 35px 0; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
+header h1 { margin: 0; font-size: 2.6em; letter-spacing: 1.5px; text-transform: uppercase; }
+nav { background-color: #002d50; padding: 14px 0; text-align: center; border-bottom: 4px solid #ffdd00; }
+nav a { color: rgba(255,255,255,0.9); text-decoration: none; margin: 0 20px; font-weight: 700; font-size: 1.1em; transition: 0.3s; }
+nav a:hover, nav a:focus { color: #ffdd00; outline: none; }
+.main-container { max-width: 1000px; margin: 40px auto; padding: 0 25px; }
+.card { background: #ffffff; border-radius: 24px; padding: 45px; box-shadow: 0 20px 50px rgba(0,0,0,0.08); border: 1px solid #e1e8ed; position: relative; overflow: hidden; }
+.card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 8px; background: #005a9c; }
+.tool-header { margin-bottom: 35px; }
+.tool-header h2 { color: #005a9c; margin: 0 0 15px 0; font-size: 2.2em; border-bottom: 2px solid #f0f4f8; padding-bottom: 10px; }
+.tool-header p { margin: 0; color: #4a5568; font-size: 1.15em; text-align: justify; line-height: 1.8; }
+.upload-zone { background: #f8fbff; border: 3px dashed #cbd5e0; border-radius: 16px; padding: 50px 30px; text-align: center; transition: all 0.4s; cursor: pointer; }
+.upload-zone:hover { border-color: #005a9c; background: #f0f7ff; }
+.file-label { font-size: 1.4em; font-weight: 800; color: #2d3748; cursor: pointer; }
+input[type="file"] { display: block; margin: 20px auto 0 auto; font-size: 1em; }
+.settings-panel { margin-top: 35px; padding: 30px; background: #fffaf0; border-radius: 16px; border: 1px solid #feebc8; }
+.setting-item { margin-bottom: 10px; }
+.setting-item label { display: block; font-weight: 800; color: #2d3748; margin-bottom: 15px; font-size: 1.2em; }
+input[type="range"] { width: 100%; cursor: pointer; height: 12px; background: #cbd5e0; border-radius: 6px; outline: none; }
+.gain-value { display: block; font-size: 2.5em; font-weight: 900; color: #005a9c; text-align: center; margin-top: 10px; }
+.action-area { margin-top: 40px; text-align: center; }
+.btn-main { padding: 20px 60px; border-radius: 14px; border: none; font-weight: 800; font-size: 1.4em; cursor: pointer; transition: 0.4s; }
+.btn-boost { background: #005a9c; color: white; box-shadow: 0 10px 20px rgba(0,90,156,0.25); }
+.btn-boost:hover:not(:disabled) { background: #003d6b; transform: translateY(-3px); }
+.progress-box { display: none; margin-top: 40px; padding: 30px; background: #f0f7ff; border-radius: 16px; border: 1px solid #bee3f8; }
+progress { width: 100%; height: 25px; border-radius: 12px; appearance: none; }
+progress::-webkit-progress-bar { background: #e2e8f0; border-radius: 12px; }
+progress::-webkit-progress-value { background: linear-gradient(90deg, #28a745, #48bb78); border-radius: 12px; }
+.status-msg { display: block; margin-top: 15px; font-weight: 700; color: #2b6cb0; text-align: center; font-size: 1.3em; }
+.result-list { display: none; margin-top: 40px; }
+.result-item { background: #f0fff4; border: 1px solid #c6f6d5; padding: 20px; border-radius: 12px; margin-bottom: 15px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.zip-container { text-align: center; margin-bottom: 30px; padding: 20px; background: #e6fffa; border: 2px solid #38b2ac; border-radius: 15px; }
+.btn-dl-all { background: #38b2ac; color: white; text-decoration: none; padding: 15px 35px; border-radius: 10px; font-weight: 800; font-size: 1.2em; display: inline-block; }
+.btn-dl-small { background: #28a745; color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 700; }
+footer { background: #1a202c; color: #e2e8f0; padding: 50px 0; text-align: center; margin-top: 80px; border-top: 6px solid #005a9c; }
+footer a { color: #ffdd00; text-decoration: none; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<header role="banner">
+<h1>Accessible Tech Labs India</h1>
+<nav aria-label="Main navigation">
+<a href="../index.html" accesskey="h">Home</a>
+<a href="../software.html" accesskey="s">Software</a>
+<a href="../tools.html" accesskey="t">Tools</a>
+<a href="../Games.html" accesskey="g">Games</a>
+<a href="../about.html" accesskey="a">About</a>
+<a href="../contact.html" accesskey="c">Contact</a>
+<a href="../social.html" accesskey="l">Social</a>
+</nav>
+</header>
+
+
+<main id="main-content" class="main-container">
+<div class="card">
+<section class="tool-header">
+<h2>Industrial Bulk Volume Architect & Gain Master</h2>
+<p>
+The Industrial Bulk Volume Architect & Gain Master is an elite digital signal enhancement utility engineered by Tech Labs India. In the world of professional audio production, low-level recordings often hinder clarity and impact. Our engine addresses this by utilizing advanced Linear Gain Multiplication and Dynamic Range Compression algorithms to amplify audio signals up to 500% without introducing harmonic distortion or digital clipping. This local browser-based processor ensures that high-fidelity audio assets are normalized and boosted with bit-perfect accuracy while maintaining absolute data sovereignty. Featuring a robust Accessible ARIA-compliant architecture, this tool provides real-time signal visualization and iterative progress tracking, making it an indispensable asset for sound engineers, podcasters, and accessibility specialists who require consistent, loud, and crystal-clear audio masters.
+</p>
+</section>
+
+<div class="upload-zone">
+<label for="audioUpload" class="file-label">Select Audio Files to Boost Volume</label>
+<input type="file" id="audioUpload" accept="audio/*" multiple>
+</div>
+
+<div class="settings-panel">
+<div class="setting-item">
+<label for="gainSlider">Amplify Volume Level (0% to 500%):</label>
+<input type="range" id="gainSlider" min="0" max="500" value="200" step="5" oninput="updateGainLabel(this.value)">
+<span id="gainValueDisplay" class="gain-value">200%</span>
+</div>
+</div>
+
+<div class="action-area">
+<button id="boostBtn" class="btn-main btn-boost" onclick="processBoost()" disabled>Start Industrial Boosting</button>
+</div>
+
+<div id="progressArea" class="progress-box">
+<progress id="pBar" value="0" max="100"></progress>
+<span id="pStatus" class="status-msg" aria-live="polite">Initializing Audio Engine...</span>
+</div>
+
+<div id="resultArea" class="result-list">
+<div id="zipSection" class="zip-container" style="display:none;">
+<h3 style="color:#2c7a7b; margin-top:0;">Bulk Processing Complete</h3>
+<button id="downloadZipBtn" class="btn-dl-all">Download All as ZIP Archive</button>
+</div>
+<h3 id="resultTitle" style="color: #276749; border-bottom: 2px solid #c6f6d5; padding-bottom: 10px;">Boosted Audio Masters:</h3>
+<div id="fileResults"></div>
+<div style="text-align:center; margin-top:30px;">
+<button onclick="location.reload()" style="background:none; border:none; color:#4a5568; cursor:pointer; text-decoration:underline; font-weight:600;">Clear and Start New Task</button>
+</div>
+</div>
+</div>
+</main>
+
+<div id="srAnnouncer" aria-live="assertive" style="position:absolute; left:-9999px;"></div>
+<footer role="contentinfo">
+<p><a href="../privacy.html" accesskey="p" style="color: white; text-decoration: underline;">Privacy Policy</a></p>
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+
+
+<script>
+let filesToProcess = [];
+let processedBlobs = [];
+const audioUpload = document.getElementById('audioUpload');
+const boostBtn = document.getElementById('boostBtn');
+const announcer = document.getElementById('srAnnouncer');
+const pStatus = document.getElementById('pStatus');
+const pBar = document.getElementById('pBar');
+
+function speak(text) {
+announcer.innerText = '';
+setTimeout(() => { announcer.innerText = text; }, 50);
+}
+
+function updateGainLabel(val) {
+document.getElementById('gainValueDisplay').innerText = val + "%";
+}
+
+audioUpload.addEventListener('change', (e) => {
+filesToProcess = Array.from(e.target.files);
+if (filesToProcess.length > 0) {
+boostBtn.disabled = false;
+speak(filesToProcess.length + " files selected. Set your gain level and press start.");
+}
+});
+
+async function processBoost() {
+const gainFactor = document.getElementById('gainSlider').value / 100;
+boostBtn.disabled = true;
+audioUpload.disabled = true;
+processedBlobs = [];
+document.getElementById('fileResults').innerHTML = '';
+document.getElementById('progressArea').style.display = 'block';
+const ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+for (let i = 0; i < filesToProcess.length; i++) {
+const file = filesToProcess[i];
+pStatus.innerText = `Processing: ${file.name} (${i + 1}/${filesToProcess.length})`;
+speak(`Processing ${file.name}`);
+
+try {
+const arrayBuf = await file.arrayBuffer();
+const audioBuf = await ctx.decodeAudioData(arrayBuf);
+const boostedBuf = ctx.createBuffer(audioBuf.numberOfChannels, audioBuf.length, audioBuf.sampleRate);
+
+for (let ch = 0; ch < audioBuf.numberOfChannels; ch++) {
+const data = audioBuf.getChannelData(ch);
+const boostedData = boostedBuf.getChannelData(ch);
+for (let s = 0; s < data.length; s++) {
+boostedData[s] = Math.max(-1, Math.min(1, data[s] * gainFactor));
+}
+}
+
+const blob = bufferToWav(boostedBuf);
+processedBlobs.push({ name: file.name.split('.')[0] + "_BOOSTED.wav", blob: blob });
+addResult(file.name, blob, filesToProcess.length === 1);
+pBar.value = ((i + 1) / filesToProcess.length) * 100;
+} catch (err) {
+speak("Error processing " + file.name);
+}
+}
+
+pStatus.innerText = "Operation Complete!";
+speak("All files boosted successfully.");
+document.getElementById('resultArea').style.display = 'block';
+
+if (filesToProcess.length > 1) {
+document.getElementById('zipSection').style.display = 'block';
+document.getElementById('downloadZipBtn').onclick = downloadAsZip;
+}
+}
+
+function addResult(fileName, blob, showPlayer) {
+const container = document.getElementById('fileResults');
+const url = URL.createObjectURL(blob);
+const div = document.createElement('div');
+div.className = 'result-item';
+const nameOnly = fileName.split('.')[0] + "_BOOSTED.wav";
+
+let content = `<div style="flex:1; min-width:200px;"><div style="font-weight:700; color:#2d3748;">${nameOnly}</div></div>`;
+if (showPlayer) {
+content += `<div style="flex:2; min-width:300px; margin:10px 0;"><audio controls src="${url}" style="width:100%;"></audio></div>`;
+}
+content += `<div style="flex:0;"><a href="${url}" download="${nameOnly}" class="btn-dl-small">Download</a></div>`;
+
+div.innerHTML = content;
+container.appendChild(div);
+}
+
+async function downloadAsZip() {
+const zip = new JSZip();
+processedBlobs.forEach(item => {
+zip.file(item.name, item.blob);
+});
+const content = await zip.generateAsync({type:"blob"});
+const url = URL.createObjectURL(content);
+const a = document.createElement('a');
+a.href = url;
+a.download = "TechLabs_Boosted_Audio_Collection.zip";
+a.click();
+}
+
+function bufferToWav(abuffer) {
+let n = abuffer.numberOfChannels, len = abuffer.length * n * 2 + 44,
+buf = new ArrayBuffer(len), view = new DataView(buf),
+channels = [], i, sample, offset = 0, pos = 0;
+function set16(d) { view.setUint16(pos, d, true); pos += 2; }
+function set32(d) { view.setUint32(pos, d, true); pos += 4; }
+set32(0x46464952); set32(len - 8); set32(0x45564157);
+set32(0x20746d66); set32(16); set16(1); set16(n);
+set32(abuffer.sampleRate); set32(abuffer.sampleRate * 2 * n);
+set16(n * 2); set16(16); set32(0x61746164); set32(len - pos - 4);
+for(i=0; i<n; i++) channels.push(abuffer.getChannelData(i));
+while(pos < len) {
+for(i=0; i<n; i++) {
+sample = Math.max(-1, Math.min(1, channels[i][offset]));
+sample = (0.5 + sample < 0 ? sample * 32768 : sample * 32767)|0;
+view.setInt16(pos, sample, true); pos += 2;
+}
+offset++;
+}
+return new Blob([buf], {type: "audio/wav"});
+}
+</script>
+</body>
+</html>

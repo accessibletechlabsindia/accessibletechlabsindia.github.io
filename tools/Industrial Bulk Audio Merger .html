@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Industrial Bulk Audio Merger - Accessible Tech Labs India</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+header, nav, footer { display: block; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; margin: 0; background: #f0f4f8; color: #1a2b3c; line-height: 1.6; }
+.skip-link { position: absolute; top: -40px; left: 0; background: #005a9c; color: white; padding: 10px; z-index: 1000; transition: top 0.3s; }
+.skip-link:focus { top: 0; }
+header { background: linear-gradient(135deg, #005a9c 0%, #003d6b 100%); color: white; padding: 35px 0; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
+header h1 { margin: 0; font-size: 2.6em; letter-spacing: 1.5px; text-transform: uppercase; }
+nav { background-color: #002d50; padding: 14px 0; text-align: center; border-bottom: 4px solid #ffdd00; }
+nav a { color: rgba(255,255,255,0.9); text-decoration: none; margin: 0 20px; font-weight: 700; font-size: 1.1em; transition: 0.3s; }
+nav a:hover, nav a:focus { color: #ffdd00; outline: none; }
+.main-container { max-width: 1000px; margin: 40px auto; padding: 0 25px; }
+.card { background: #ffffff; border-radius: 24px; padding: 45px; box-shadow: 0 20px 50px rgba(0,0,0,0.08); border: 1px solid #e1e8ed; position: relative; overflow: hidden; }
+.card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 8px; background: #005a9c; }
+.tool-header { margin-bottom: 35px; }
+.tool-header h2 { color: #005a9c; margin: 0 0 15px 0; font-size: 2.2em; border-bottom: 2px solid #f0f4f8; padding-bottom: 10px; }
+.tool-header p { margin: 0; color: #4a5568; font-size: 1.15em; text-align: justify; line-height: 1.8; }
+.upload-zone { background: #f8fbff; border: 3px dashed #cbd5e0; border-radius: 16px; padding: 50px 30px; text-align: center; transition: all 0.4s; cursor: pointer; }
+.upload-zone:hover { border-color: #005a9c; background: #f0f7ff; }
+.file-label { font-size: 1.4em; font-weight: 800; color: #2d3748; cursor: pointer; }
+input[type="file"] { display: block; margin: 20px auto 0 auto; font-size: 1em; }
+#fileListContainer { margin: 35px 0; display: none; background: #f7fafc; padding: 25px; border-radius: 12px; border: 1px solid #edf2f7; }
+.audio-item { display: flex; align-items: center; background: #fff; border: 1px solid #e2e8f0; padding: 15px 20px; margin-bottom: 12px; border-radius: 10px; justify-content: space-between; box-shadow: 0 2px 4px rgba(0,0,0,0.02); }
+.file-info { display: flex; align-items: center; gap: 15px; font-weight: 600; color: #4a5568; }
+.move-btn { background: #edf2f7; border: 1px solid #cbd5e0; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: 700; transition: 0.2s; }
+.move-btn:hover:not(:disabled) { background: #005a9c; color: white; border-color: #005a9c; }
+.move-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+#nameSettingSection { display: none; margin-top: 30px; padding: 25px; background: #fffaf0; border-radius: 12px; border: 1px solid #feebc8; }
+.input-field { width: 100%; max-width: 500px; padding: 15px; border: 2px solid #cbd5e0; border-radius: 10px; font-size: 1.1em; margin-top: 10px; }
+.input-field:focus { border-color: #005a9c; outline: none; box-shadow: 0 0 0 4px rgba(0,90,156,0.15); }
+.action-area { margin-top: 40px; text-align: center; }
+.btn-main { padding: 20px 60px; border-radius: 14px; border: none; font-weight: 800; font-size: 1.4em; cursor: pointer; transition: 0.4s; }
+.btn-merge { background: #005a9c; color: white; box-shadow: 0 10px 20px rgba(0,90,156,0.25); }
+.btn-merge:hover:not(:disabled) { background: #003d6b; transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0,90,156,0.35); }
+.btn-merge:disabled { background: #a0aec0; cursor: not-allowed; box-shadow: none; transform: none; }
+.progress-box { display: none; margin-top: 40px; padding: 30px; background: #f0f7ff; border-radius: 16px; border: 1px solid #bee3f8; }
+progress { width: 100%; height: 20px; border-radius: 10px; appearance: none; }
+progress::-webkit-progress-bar { background: #e2e8f0; border-radius: 10px; }
+progress::-webkit-progress-value { background: linear-gradient(90deg, #28a745, #48bb78); border-radius: 10px; }
+.status-msg { display: block; margin-top: 15px; font-weight: 700; color: #2b6cb0; text-align: center; font-size: 1.2em; }
+.result-card { display: none; margin-top: 40px; background: #f0fff4; border: 2px solid #68d391; padding: 40px; border-radius: 20px; text-align: center; }
+.btn-dl { background: #28a745; color: white; text-decoration: none; padding: 18px 45px; border-radius: 12px; display: inline-block; font-weight: 800; font-size: 1.2em; margin-top: 20px; transition: 0.3s; }
+.btn-dl:hover { background: #22543d; transform: scale(1.05); }
+footer { background: #1a202c; color: #e2e8f0; padding: 50px 0; text-align: center; margin-top: 80px; border-top: 6px solid #005a9c; }
+footer a { color: #ffdd00; text-decoration: none; font-weight: 700; border-bottom: 1px solid #ffdd00; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<header>
+<h1> Accessible Tech Labs India</h1>
+<nav aria-label="Main navigation">
+<a href="../index.html" accesskey="h">Home</a>
+<a href="../software.html" accesskey="s">Software</a>
+<a href="../tools.html" accesskey="t">Tools</a>
+<a href="../Games.html" accesskey="g">Games</a>
+<a href="../about.html" accesskey="a">About</a>
+<a href="../contact.html" accesskey="c">Contact</a>
+<a href="../social.html" accesskey="l">Social</a>
+</nav>
+</header>
+
+<main id="main-content" class="main-container">
+<div class="card">
+<section class="tool-header">
+<h2>Industrial Bulk Audio Merger & Sequence Engine</h2>
+<p>
+The Industrial Bulk Audio Merger & Sequence Engine is a high-performance multimedia utility developed by Accessible Tech Labs India, specifically engineered for the seamless integration of multiple audio streams into a single, high-fidelity WAV container. This professional-grade architecture operates entirely within the client-side browser environment, utilizing advanced Web Audio API decoding and buffer management to ensure that your sensitive data remains private and never transits external servers. Our system features a dynamic sequencing engine that allows users to precisely arrange tracks, maintaining bit-perfect synchronization across various sample rates and channel configurations. Designed with a steadfast commitment to universal digital accessibility, the interface provides comprehensive ARIA support, assertive live regions, and high-contrast visual elements, ensuring an uncompromising experience for users of assistive technologies. Whether you are assembling complex podcasts, music stems, or industrial voice logs, this tool delivers lossless output with maximum efficiency and data sovereignty.
+</p>
+</section>
+
+<div class="upload-zone">
+<label for="audioUpload" class="file-label">Select Audio Files to Begin Process</label>
+<input type="file" id="audioUpload" accept="audio/*" multiple aria-required="true">
+</div>
+
+<div id="fileListContainer" role="region" aria-label="Audio track sequence">
+<h3 style="color: #2d3748; margin-bottom: 20px; font-size: 1.5em;">Selected Tracks & Arrangement:</h3>
+<div id="fileList"></div>
+</div>
+
+<div id="nameSettingSection">
+<label for="outputFileName" style="font-weight: 800; color: #2d3748; font-size: 1.1em;">Final Export Filename:</label><br>
+<input type="text" id="outputFileName" class="input-field" placeholder="Enter output name here">
+</div>
+
+<div class="action-area">
+<button id="mergeBtn" class="btn-main btn-merge" onclick="runMerger()" disabled>Merge All Tracks</button>
+</div>
+
+<div id="progressArea" class="progress-box">
+<progress id="pBar" value="0" max="100"></progress>
+<span id="pStatus" class="status-msg" aria-live="polite">Engine Ready...</span>
+</div>
+
+<div id="resultArea" class="result-card">
+<h3 style="color: #22543d; font-size: 1.8em; margin: 0;">Merging Success</h3>
+<p id="finalSummary" style="color: #276749; font-size: 1.2em; font-weight: 600;"></p>
+<audio id="player" controls style="width:100%; margin: 25px 0;"></audio><br>
+<a id="downloadLink" class="btn-dl">Download Merged WAV Master</a>
+<br>
+<button onclick="location.reload()" style="background:none; border:none; color:#4a5568; cursor:pointer; text-decoration:underline; margin-top:25px; font-weight:600;">Clear and Start New Project</button>
+</div>
+</div>
+</main>
+
+<div id="srAnnouncer" aria-live="assertive" style="position:absolute; left:-9999px;"></div>
+<footer role="contentinfo">
+<p><a href="../privacy.html" accesskey="p" style="color: white; text-decoration: underline;">Privacy Policy</a></p>
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+<script>
+let selectedFiles = [];
+const audioUpload = document.getElementById('audioUpload');
+const fileList = document.getElementById('fileList');
+const listContainer = document.getElementById('fileListContainer');
+const nameSection = document.getElementById('nameSettingSection');
+const mergeBtn = document.getElementById('mergeBtn');
+const announcer = document.getElementById('srAnnouncer');
+
+function speak(text) {
+announcer.innerText = '';
+setTimeout(() => { announcer.innerText = text; }, 50);
+}
+
+audioUpload.addEventListener('change', (e) => {
+const newFiles = Array.from(e.target.files);
+if (newFiles.length === 1) {
+speak("Warning: Please select at least two files to perform a merge operation.");
+alert("Please select at least two audio files to merge.");
+selectedFiles = [];
+listContainer.style.display = 'none';
+nameSection.style.display = 'none';
+mergeBtn.disabled = true;
+return;
+}
+if (newFiles.length > 1) {
+selectedFiles = newFiles;
+renderFileList();
+listContainer.style.display = 'block';
+nameSection.style.display = 'block';
+mergeBtn.disabled = false;
+document.getElementById('outputFileName').value = selectedFiles[0].name.split('.')[0] + "_merged_export";
+speak(selectedFiles.length + " tracks loaded. You can now reorder the sequence.");
+}
+});
+
+function renderFileList() {
+fileList.innerHTML = '';
+selectedFiles.forEach((file, index) => {
+const item = document.createElement('div');
+item.className = 'audio-item';
+item.innerHTML = `
+<div class="file-info">
+<span style="background:#005a9c; color:white; border-radius:8px; width:30px; height:30px; display:inline-flex; align-items:center; justify-content:center; font-size:0.9em;">${index + 1}</span>
+<span style="word-break: break-all;">${file.name}</span>
+</div>
+<div>
+<button class="move-btn" onclick="moveItem(${index}, -1)" ${index === 0 ? 'disabled' : ''} aria-label="Move Track Up">Move Up</button>
+<button class="move-btn" onclick="moveItem(${index}, 1)" ${index === selectedFiles.length - 1 ? 'disabled' : ''} aria-label="Move Track Down">Move Down</button>
+</div>
+`;
+fileList.appendChild(item);
+});
+}
+
+function moveItem(index, direction) {
+const newIndex = index + direction;
+if (newIndex >= 0 && newIndex < selectedFiles.length) {
+const temp = selectedFiles[index];
+selectedFiles[index] = selectedFiles[newIndex];
+selectedFiles[newIndex] = temp;
+renderFileList();
+speak(temp.name + " moved to position " + (newIndex + 1));
+}
+}
+
+async function runMerger() {
+mergeBtn.disabled = true;
+audioUpload.disabled = true;
+document.getElementById('progressArea').style.display = 'block';
+const pBar = document.getElementById('pBar');
+const pStatus = document.getElementById('pStatus');
+const ctx = new (window.AudioContext || window.webkitAudioContext)();
+let buffers = [];
+let totalLength = 0;
+
+try {
+for (let i = 0; i < selectedFiles.length; i++) {
+pStatus.innerText = `Processing Track ${i+1}/${selectedFiles.length}: ${selectedFiles[i].name}`;
+speak(`Decoding track ${i+1}`);
+const arrayBuffer = await selectedFiles[i].arrayBuffer();
+const audioBuffer = await ctx.decodeAudioData(arrayBuffer);
+buffers.push(audioBuffer);
+totalLength += audioBuffer.length;
+pBar.value = (i + 1) / selectedFiles.length * 50;
+}
+
+pStatus.innerText = "Synchronizing and stitching audio buffers...";
+speak("Stitching audio buffers.");
+const outputBuffer = ctx.createBuffer(buffers[0].numberOfChannels, totalLength, buffers[0].sampleRate);
+let offset = 0;
+
+for (let i = 0; i < buffers.length; i++) {
+for (let ch = 0; ch < outputBuffer.numberOfChannels; ch++) {
+outputBuffer.getChannelData(ch).set(buffers[i].getChannelData(ch), offset);
+}
+offset += buffers[i].length;
+pBar.value = 50 + ((i + 1) / buffers.length * 40);
+}
+
+pStatus.innerText = "Encoding Lossless WAV Master...";
+const wavBlob = bufferToWav(outputBuffer);
+const url = URL.createObjectURL(wavBlob);
+
+pBar.value = 100;
+document.getElementById('progressArea').style.display = 'none';
+document.getElementById('resultArea').style.display = 'block';
+document.getElementById('player').src = url;
+document.getElementById('downloadLink').href = url;
+document.getElementById('downloadLink').download = (document.getElementById('outputFileName').value || "merged_master") + ".wav";
+document.getElementById('finalSummary').innerText = `Process Success: ${selectedFiles.length} tracks integrated into final master.`;
+speak("Merging operation successful. Final master is ready for download.");
+
+} catch (err) {
+pStatus.innerText = "Critical Error: Unsupported Format or Buffer Overflow.";
+pStatus.style.color = "#c53030";
+speak("Critical error occurred during audio processing.");
+mergeBtn.disabled = false;
+}
+}
+
+function bufferToWav(abuffer) {
+let n = abuffer.numberOfChannels, len = abuffer.length * n * 2 + 44,
+buf = new ArrayBuffer(len), view = new DataView(buf),
+channels = [], i, sample, offset = 0, pos = 0;
+function set16(d) { view.setUint16(pos, d, true); pos += 2; }
+function set32(d) { view.setUint32(pos, d, true); pos += 4; }
+set32(0x46464952); set32(len - 8); set32(0x45564157);
+set32(0x20746d66); set32(16); set16(1); set16(n);
+set32(abuffer.sampleRate); set32(abuffer.sampleRate * 2 * n);
+set16(n * 2); set16(16); set32(0x61746164); set32(len - pos - 4);
+for(i=0; i<n; i++) channels.push(abuffer.getChannelData(i));
+while(pos < len) {
+for(i=0; i<n; i++) {
+sample = Math.max(-1, Math.min(1, channels[i][offset]));
+sample = (0.5 + sample < 0 ? sample * 32768 : sample * 32767)|0;
+view.setInt16(pos, sample, true); pos += 2;
+}
+offset++;
+}
+return new Blob([buf], {type: "audio/wav"});
+}
+</script>
+</body>
+</html>

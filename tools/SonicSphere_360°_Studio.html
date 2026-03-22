@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>360° Spatial & Channel Workstation - Accessible  Tech Labs India</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+header, nav, footer { display: block; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; margin: 0; background: #f0f4f8; color: #1a2b3c; line-height: 1.6; }
+.skip-link { position: absolute; top: -40px; left: 0; background: #005a9c; color: white; padding: 10px; z-index: 1000; transition: top 0.3s; font-weight: bold; }
+.skip-link:focus { top: 0; }
+header { background: linear-gradient(135deg, #005a9c 0%, #003d6b 100%); color: white; padding: 35px 0; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
+header h1 { margin: 0; font-size: 2.6em; letter-spacing: 1.5px; text-transform: uppercase; }
+nav { background-color: #002d50; padding: 14px 0; text-align: center; border-bottom: 4px solid #ffdd00; }
+nav a { color: rgba(255,255,255,0.9); text-decoration: none; margin: 0 20px; font-weight: 700; font-size: 1.1em; transition: 0.3s; }
+nav a:hover, nav a:focus { color: #ffdd00; outline: none; }
+.main-container { max-width: 1100px; margin: 40px auto; padding: 0 25px; }
+.card { background: #ffffff; border-radius: 24px; padding: 45px; box-shadow: 0 20px 50px rgba(0,0,0,0.08); border: 1px solid #e1e8ed; position: relative; overflow: hidden; }
+.card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 8px; background: #005a9c; }
+.tool-header { margin-bottom: 35px; }
+.tool-header h2 { color: #005a9c; margin: 0 0 15px 0; font-size: 2.2em; border-bottom: 2px solid #f0f4f8; padding-bottom: 10px; }
+.tool-header p { margin: 0; color: #4a5568; font-size: 1.15em; text-align: justify; line-height: 1.8; }
+.upload-section { background: #f8fbff; border: 3px dashed #cbd5e0; border-radius: 16px; padding: 50px; text-align: center; transition: 0.4s; margin-bottom: 30px; }
+.upload-section:focus-within { border-color: #005a9c; background: #f0f7ff; }
+.file-label { font-size: 1.6em; font-weight: 800; color: #005a9c; cursor: pointer; display: block; margin-bottom: 15px; }
+.file-input { padding: 10px; background: white; border: 1px solid #cbd5e0; border-radius: 8px; font-size: 1em; width: 100%; max-width: 400px; }
+#workspaceArea { display: none; }
+.control-panel { background: #f7fafc; padding: 30px; border-radius: 20px; border: 1px solid #edf2f7; margin-bottom: 30px; }
+.control-group { margin-bottom: 25px; }
+.control-group:last-child { margin-bottom: 0; }
+.control-label { display: block; font-weight: 800; font-size: 1.3em; color: #2d3748; margin-bottom: 10px; }
+.styled-select { width: 100%; padding: 15px 20px; font-size: 1.1em; font-weight: 700; border-radius: 12px; border: 2px solid #cbd5e0; background: white; color: #1a202c; cursor: pointer; }
+.styled-select:focus { outline: 3px solid #005a9c; border-color: #005a9c; }
+.btn-process { background: #d69e2e; color: white; padding: 20px; border-radius: 14px; border: none; font-weight: 900; font-size: 1.3em; cursor: pointer; width: 100%; transition: 0.3s; box-shadow: 0 10px 20px rgba(214,158,46,0.2); }
+.btn-process:hover, .btn-process:focus { background: #b7791f; outline: 3px solid #1a202c; transform: translateY(-2px); }
+.progress-container { margin-top: 30px; display: none; text-align: center; }
+.progress-bar-bg { background: #e2e8f0; border-radius: 15px; height: 25px; overflow: hidden; width: 100%; position: relative; }
+.progress-fill { background: linear-gradient(90deg, #d69e2e, #b7791f); height: 100%; width: 0%; transition: width 0.2s; }
+.progress-text { font-weight: 800; color: #2d3748; margin-top: 10px; font-size: 1.2em; display: block; }
+.export-zone { margin-top: 40px; display: none; padding: 35px; background: #f0fff4; border-radius: 20px; border: 2px dashed #68d391; text-align: center; }
+.btn-download { background: #28a745; color: white; text-decoration: none; padding: 20px 60px; border-radius: 15px; font-weight: 900; font-size: 1.5em; display: inline-block; cursor: pointer; box-shadow: 0 10px 20px rgba(40,167,69,0.2); margin-top: 20px; transition: 0.3s; }
+.btn-download:hover, .btn-download:focus { background: #218838; outline: 3px solid #1a202c; transform: translateY(-2px); }
+.btn-discard { background: none; border: none; color: #e53e3e; text-decoration: underline; font-weight: 800; cursor: pointer; font-size: 1.1em; margin-top: 25px; }
+footer { background: #1a202c; color: #e2e8f0; padding: 50px 0; text-align: center; margin-top: 80px; border-top: 6px solid #005a9c; }
+footer a { color: #ffdd00; text-decoration: none; font-weight: 700; border-bottom: 1px solid #ffdd00; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<header>
+<h1> Accessible Tech Labs India</h1>
+<nav aria-label="Main navigation">
+<a href="../index.html" accesskey="h">Home</a>
+<a href="../software.html" accesskey="s">Software</a>
+<a href="../tools.html" accesskey="t">Tools</a>
+<a href="../Games.html" accesskey="g">Games</a>
+<a href="../about.html" accesskey="a">About</a>
+<a href="../contact.html" accesskey="c">Contact</a>
+<a href="../social.html" accesskey="l">Social</a>
+</nav>
+</header>
+
+<main id="main-content" class="main-container">
+<div class="card">
+<section class="tool-header">
+<h2 id="toolTitle" tabindex="-1">360° Spatial & Channel Workstation</h2>
+<p>
+The 360° Spatial & Channel Workstation is a state-of-the-art digital audio processing environment engineered by Accessible Tech Labs India. Designed strictly with a zero-knowledge local browser architecture, this utility ensures your media files never leave your system. It empowers visually impaired users and professional audio engineers alike to execute complex spatial transformations with absolute ease. Features include surgical Mono-to-Stereo and Stereo-to-Mono conversions, phase-aligned Stereo Widening, and our flagship 8D Orbital Spatial Engine. Utilizing high-fidelity Web Audio API protocols, the tool applies mathematically precise Low-Frequency Oscillators (LFO) and dynamic reverberation models to create an immersive, cinematic 360-degree auditory experience. Navigate seamlessly via keyboard shortcuts and ARIA-optimized controls, ensuring complete data sovereignty and bit-perfect acoustic integrity without external dependencies.
+</p>
+</section>
+
+<div class="upload-section">
+<label for="audioUpload" class="file-label">Select Audio Master File</label>
+<input type="file" id="audioUpload" accept="audio/*" class="file-input" multiple>
+<p id="fileStatus" style="margin-top:15px; font-weight:700; color:#4a5568;" aria-live="polite">Status: Waiting for Input</p>
+</div>
+
+<div id="workspaceArea">
+<div class="control-panel">
+<div class="control-group">
+<label for="processMode" class="control-label">Select Acoustic Transformation:</label>
+<select id="processMode" class="styled-select" onchange="announceModeChange()">
+<option value="8d">Create 8D Spatial Audio Experience</option>
+<option value="mono">Convert to Pure Mono</option>
+<option value="widen">Expand Stereo Width (Distance Effect)</option>
+</select>
+</div>
+
+<div class="control-group" id="speedControlGroup">
+<label for="orbitSpeed" class="control-label">8D Orbital Speed:</label>
+<select id="orbitSpeed" class="styled-select" onchange="announceSpeedChange()">
+<option value="10">Slow (10 Seconds per Orbit)</option>
+<option value="5" selected>Medium (5 Seconds per Orbit)</option>
+<option value="2.5">Fast (2.5 Seconds per Orbit)</option>
+</select>
+</div>
+<div class="control-group" id="echoControlGroup" style="display:none;">
+<label for="echoLevel" class="control-label">Stereo Echo / Depth Level:</label>
+<select id="echoLevel" class="styled-select" onchange="speak('Echo level set to ' + this.options[this.selectedIndex].text)">
+<option value="0.1">Low Echo (Subtle Depth)</option>
+<option value="0.4" selected>Medium Echo (Standard Room)</option>
+<option value="0.8">High Echo (Large Hall)</option>
+<option value="1.5">Long Reflective Echo (Open Space Reflection)</option>
+</select>
+</div>
+</div>
+
+<button class="btn-process" onclick="initiateProcessing()" aria-label="Start audio processing">Engage Audio Processor</button>
+
+<div id="progressZone" class="progress-container" aria-live="assertive">
+<div class="progress-bar-bg"><div id="pFill" class="progress-fill"></div></div>
+<span id="pText" class="progress-text">Rendering Engine: 0%</span>
+</div>
+
+<div id="exportZone" class="export-zone">
+<h3 style="color:#2f855a; margin-top:0; font-size:1.8em;">Transformation Complete</h3>
+<audio id="resultPlayer" controls style="width:100%;"></audio>
+<br>
+<a id="downloadBtn" class="btn-download">Download Mastered File</a>
+<br>
+<button class="btn-discard" onclick="resetWorkstation()">Discard and Load New File</button>
+</div>
+</div>
+</div>
+</main>
+
+<div id="srAnnouncer" aria-live="assertive" style="position:absolute; left:-9999px;"></div>
+<footer role="contentinfo">
+<p><a href="../privacy.html" accesskey="p" style="color: white; text-decoration: underline;">Privacy Policy</a></p>
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+<script>
+let uploadedFiles = [];
+let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+const announcer = document.getElementById('srAnnouncer');
+function speak(text) {
+announcer.innerText = '';
+setTimeout(() => { announcer.innerText = text; }, 50);
+}
+document.getElementById('audioUpload').addEventListener('change', (e) => {
+uploadedFiles = Array.from(e.target.files);
+if (uploadedFiles.length === 0) return;
+document.getElementById('fileStatus').innerText = "Selected " + uploadedFiles.length + " master file(s).";
+speak(uploadedFiles.length + " files selected. Workspace is now active.");
+document.getElementById('workspaceArea').style.display = 'block';
+document.getElementById('processMode').focus();
+});
+function announceModeChange() {
+const mode = document.getElementById('processMode');
+const speedGroup = document.getElementById('speedControlGroup');
+const echoGroup = document.getElementById('echoControlGroup');
+speak("Transformation mode set to " + mode.options[mode.selectedIndex].text);
+speedGroup.style.display = mode.value === '8d' ? 'block' : 'none';
+echoGroup.style.display = mode.value === 'widen' ? 'block' : 'none';
+}
+function announceSpeedChange() {
+const speed = document.getElementById('orbitSpeed');
+speak("Orbit speed set to " + speed.options[speed.selectedIndex].text);
+}
+function resetWorkstation() {
+const player = document.getElementById('resultPlayer');
+player.pause();
+player.src = "";
+uploadedFiles = [];
+document.getElementById('audioUpload').value = "";
+document.getElementById('fileStatus').innerText = "Status: Waiting for Input";
+document.getElementById('workspaceArea').style.display = 'none';
+document.getElementById('exportZone').style.display = 'none';
+document.getElementById('progressZone').style.display = 'none';
+document.getElementById('toolTitle').focus();
+speak("Workstation reset. Audio stopped and ready for new files.");
+}
+async function initiateProcessing() {
+    if (uploadedFiles.length === 0) {
+        speak("No audio loaded.");
+        return;
+    }
+    const mode = document.getElementById('processMode').value;
+    const speed = parseFloat(document.getElementById('orbitSpeed').value);
+    const echoLevel = parseFloat(document.getElementById('echoLevel').value);
+    const pZone = document.getElementById('progressZone');
+    const pFill = document.getElementById('pFill');
+    const pText = document.getElementById('pText');
+    const eZone = document.getElementById('exportZone');
+    const player = document.getElementById('resultPlayer');
+    
+    eZone.style.display = 'none';
+    pZone.style.display = 'block';
+    speak("Audio processing engaged for " + uploadedFiles.length + " files.");
+    
+    let progress = 0;
+    const uiInterval = setInterval(() => {
+        progress += 5;
+        if (progress > 90) progress = 90;
+        pFill.style.width = progress + "%";
+        pText.innerText = "Rendering Engine: " + progress + "%";
+    }, 300);
+
+    try {
+        const zip = new JSZip();
+        let singleFileUrl = "";
+        let singleFileName = "";
+
+        for (let f = 0; f < uploadedFiles.length; f++) {
+            const file = uploadedFiles[f];
+            const arrayBuffer = await file.arrayBuffer();
+            const fileBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+            const offCtx = new OfflineAudioContext(2, fileBuffer.length, fileBuffer.sampleRate);
+            const source = offCtx.createBufferSource();
+            source.buffer = fileBuffer;
+            
+            const finalDry = offCtx.createGain();
+            const finalWet = offCtx.createGain();
+            finalDry.gain.value = 1;
+            finalWet.gain.value = 0;
+
+            if (mode === 'mono') {
+                const splitter = offCtx.createChannelSplitter(2);
+                const merger = offCtx.createChannelMerger(2);
+                const gain = offCtx.createGain();
+                gain.gain.value = 0.5;
+                source.connect(splitter);
+                splitter.connect(gain, 0);
+                splitter.connect(gain, 1);
+                gain.connect(merger, 0, 0);
+                gain.connect(merger, 0, 1);
+                merger.connect(finalDry);
+} else if (mode === '8d') {
+                const panner = offCtx.createPanner();
+                panner.panningModel = 'HRTF';
+                panner.distanceModel = 'inverse';
+
+                const lfoX = offCtx.createOscillator();
+                const lfoZ = offCtx.createOscillator();
+                
+                const gainX = offCtx.createGain();
+                const gainZ = offCtx.createGain();
+
+                lfoX.frequency.value = 1 / speed;
+                lfoZ.frequency.value = 1 / speed;
+
+                lfoZ.setPeriodicWave(offCtx.createPeriodicWave(new Float32Array([0, 0]), new Float32Array([0, 1])));
+                lfoX.setPeriodicWave(offCtx.createPeriodicWave(new Float32Array([0, 1]), new Float32Array([0, 0])));
+
+                gainX.gain.value = 5; 
+                gainZ.gain.value = 5;
+
+                lfoX.connect(gainX);
+                gainX.connect(panner.positionX);
+
+                lfoZ.connect(gainZ);
+                gainZ.connect(panner.positionZ);
+
+                lfoX.start(0);
+                lfoZ.start(0);
+
+                const reverb = offCtx.createConvolver();
+                const len = offCtx.sampleRate * 2.5;
+                const imp = offCtx.createBuffer(2, len, offCtx.sampleRate);
+                for (let i = 0; i < 2; i++) {
+                    const cd = imp.getChannelData(i);
+                    for (let j = 0; j < len; j++) {
+                        cd[j] = (Math.random() * 2 - 1) * Math.pow(1 - j / len, 3.0);
+                    }
+                }
+                reverb.buffer = imp;
+                
+                finalDry.gain.value = 0.85;
+                finalWet.gain.value = 0.25;
+                
+                source.connect(panner);
+                panner.connect(finalDry);
+                panner.connect(reverb);
+                reverb.connect(finalWet);
+            } else if (mode === 'widen') {
+                const splitter = offCtx.createChannelSplitter(2);
+                const merger = offCtx.createChannelMerger(2);
+                const lGain = offCtx.createGain();
+                const rGain = offCtx.createGain();
+                const lDelay = offCtx.createDelay();
+                const rDelay = offCtx.createDelay();
+                lDelay.delayTime.value = 0.015;
+                rDelay.delayTime.value = 0.020;
+                source.connect(splitter);
+                splitter.connect(lGain, 0);
+                splitter.connect(rGain, 1);
+                splitter.connect(lDelay, 1);
+                splitter.connect(rDelay, 0);
+                const crossLGain = offCtx.createGain();
+                const crossRGain = offCtx.createGain();
+                crossLGain.gain.value = -0.3;
+                crossRGain.gain.value = -0.3;
+                lDelay.connect(crossLGain);
+                rDelay.connect(crossRGain);
+                lGain.connect(merger, 0, 0);
+                crossLGain.connect(merger, 0, 0);
+                rGain.connect(merger, 0, 1);
+                crossRGain.connect(merger, 0, 1);
+                const reverb = offCtx.createConvolver();
+                const len = offCtx.sampleRate * 2.0;
+                const imp = offCtx.createBuffer(2, len, offCtx.sampleRate);
+                for (let i = 0; i < 2; i++) {
+                    const cd = imp.getChannelData(i);
+                    for (let j = 0; j < len; j++) {
+                        cd[j] = (Math.random() * 2 - 1) * Math.pow(1 - j / len, 3.0);
+                    }
+                }
+                reverb.buffer = imp;
+                const echoGain = offCtx.createGain();
+                echoGain.gain.value = echoLevel;
+                merger.connect(finalDry);
+                merger.connect(reverb);
+                reverb.connect(echoGain);
+                echoGain.connect(finalWet);
+            }
+const compressor = offCtx.createDynamicsCompressor();
+            compressor.threshold.value = -1.0;
+            compressor.knee.value = 40;
+            compressor.ratio.value = 12;
+            compressor.attack.value = 0;
+            compressor.release.value = 0.25;
+
+            finalDry.connect(compressor);
+            finalWet.connect(compressor);
+            compressor.connect(offCtx.destination);
+            source.start(0);
+
+            const renderedBuffer = await offCtx.startRendering();
+            const wavBlob = createWav(renderedBuffer);
+            const processedName = file.name.split('.')[0] + "_Processed.wav";
+
+            if (uploadedFiles.length > 1) {
+                zip.file(processedName, wavBlob);
+            } else {
+                singleFileUrl = URL.createObjectURL(wavBlob);
+                singleFileName = processedName;
+            }
+        }
+
+        clearInterval(uiInterval);
+        pFill.style.width = "100%";
+        pText.innerText = "Rendering Engine: 100%";
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        if (uploadedFiles.length > 1) {
+            player.style.display = 'none';
+            const zipBlob = await zip.generateAsync({type:"blob"});
+            const zipUrl = URL.createObjectURL(zipBlob);
+            downloadBtn.href = zipUrl;
+            downloadBtn.download = "Accessible_Tech_Labs_India_Batch_Process.zip";
+            downloadBtn.innerText = "Download ZIP Archive";
+        } else {
+            player.style.display = 'block';
+            player.src = singleFileUrl;
+            downloadBtn.href = singleFileUrl;
+            downloadBtn.download = singleFileName;
+            downloadBtn.innerText = "Download Mastered File";
+        }
+
+        setTimeout(() => {
+            pZone.style.display = 'none';
+            eZone.style.display = 'block';
+            speak("Transformation complete.");
+        }, 800);
+
+    } catch (err) {
+        clearInterval(uiInterval);
+        speak("An error occurred.");
+    }
+}
+function createWav(buffer) {
+let n = buffer.numberOfChannels, len = buffer.length * n * 2 + 44,
+ab = new ArrayBuffer(len), view = new DataView(ab),
+chans = [], i, s, off = 0, p = 0;
+function s16(d) { view.setUint16(p, d, true); p += 2; }
+function s32(d) { view.setUint32(p, d, true); p += 4; }
+s32(0x46464952); s32(len - 8); s32(0x45564157);
+s32(0x20746d66); s32(16); s16(1); s16(n);
+s32(buffer.sampleRate); s32(buffer.sampleRate * 2 * n);
+s16(n * 2); s16(16); s32(0x61746164); s32(len - p - 4);
+for(i=0; i<n; i++) chans.push(buffer.getChannelData(i));
+while(p < len) {
+for(i=0; i<n; i++) {
+s = Math.max(-1, Math.min(1, chans[i][off]));
+s = (0.5 + s < 0 ? s * 32768 : s * 32767)|0;
+view.setInt16(p, s, true); p += 2;
+}
+off++;
+}
+return new Blob([ab], {type: "audio/wav"});
+}
+</script>
+</body>
+</html>

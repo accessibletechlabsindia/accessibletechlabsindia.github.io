@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Tools - Accessible Tech Labs India</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header role="banner">
+<h1>Accessible Tech Labs India</h1>
+
+<nav aria-label="Main navigation">
+<a href="index.html" accesskey="h" aria-label="Home, Alt plus H">Home</a>
+<a href="software.html" accesskey="s" aria-label="Software, Alt plus S">Software</a>
+<a href="tools.html" accesskey="t" aria-label="Tools, Alt plus T">Tools</a>
+<a href="Games.html" accesskey="g" aria-label="Games, Alt plus G">Games</a>
+<a href="about.html" accesskey="a" aria-label="About, Alt plus A">About</a>
+<a href="contact.html" accesskey="c" aria-label="Contact, Alt plus C">Contact</a>
+<a href="social.html" accesskey="l" aria-label="Social, Alt plus L">Social</a>
+</nav>
+</header>
+
+<main id="main">
+<div class="search-box">
+
+<label for="toolSearch">Search tools</label>
+
+<input
+type="text"
+id="toolSearch"
+placeholder="Enter tool name"
+aria-label="Search tools">
+
+<button onclick="searchTools()">Search</button>
+
+<button onclick="clearToolSearch()">Clear</button>
+
+<p id="toolSearchStatus" aria-live="polite"></p>
+
+</div>
+
+<h2>Accessible Document Tools</h2>
+
+<p>
+Below is a collection of browser-based document utilities designed especially for screen reader users and keyboard navigation. All tools work locally on your device without uploading files to any server.
+</p>
+
+<div class="tool-card" role="region" aria-label="PDF Merger tool">
+<h3>PDF Merger</h3>
+<p>
+Merge multiple PDF documents into a single PDF file directly in your browser. This tool helps you combine notes, reports, or scanned documents into one organized file. No uploads are required and everything happens locally on your device, making it safe, fast, and privacy friendly.
+</p>
+<a href="tools/pdf-merger.html">Open Tool</a>
+</div>
+
+<div class="tool-card" role="region" aria-label="PDF to Text tool">
+<h3>PDF to Text</h3>
+<p>
+Convert standard text-based PDF files into plain TXT format. This is useful for extracting readable content from documents so you can edit, study, or reuse the text. The conversion runs inside your browser and provides a downloadable text file once completed.
+</p>
+<a href="tools/pdf-to-text.html">Open Tool</a>
+</div>
+
+<div class="tool-card" role="region" aria-label="Text to PDF tool">
+<h3>Text to PDF</h3>
+<p>
+Create PDF documents from written text or uploaded TXT files. You can either type your content directly or select an existing text file, then generate a downloadable PDF. This tool is ideal for creating simple documents, notes, or readable PDFs quickly and easily.
+</p>
+<a href="tools/text-to-pdf.html">Open Tool</a>
+</div>
+
+<div class="tool-card" role="region" aria-label="Image to PDF tool">
+<h3>Image to PDF</h3>
+<p>
+Convert one or more image files into a single PDF document. This is useful for turning photos, scanned pages, or screenshots into a clean PDF format. The tool processes images locally and produces a downloadable PDF file without sending your data anywhere online.
+</p>
+<a href="tools/image-to-pdf.html">Open Tool</a>
+</div>
+
+<div class="tool-card" role="region" aria-label="PDF to Image tool">
+<h3>PDF to Image</h3>
+<p>
+Extract images from PDF pages by converting each page into PNG format. If your PDF has one page, you will receive a single image. If it contains multiple pages, all images will be provided in a ZIP file. This helps when you need visual copies of document pages.
+</p>
+<a href="tools/pdf-to-image.html">Open Tool</a>
+</div>
+
+<div class="tool-card" role="region" aria-label="TXT Merger tool">
+<h3>TXT Merger</h3>
+<p>
+Combine multiple TXT files into one single text document. This tool is helpful for merging notes, logs, or written content into a unified file. Simply select your text files, merge them, and download the final result. Everything works locally for speed and privacy.
+</p>
+<a href="tools/txt-merger.html">Open Tool</a>
+</div>
+<div class="tool-card" role="region" aria-label="Accessible PDF Reader tool">
+
+<h3>Accessible PDF Reader</h3>
+
+<p>
+Browser based PDF reading tool with zoom, high contrast and text to speech support designed for blind and low vision users.
+</p>
+
+<a href="tools/pdf-reader.html">Open Tool</a>
+
+</div>
+<div class="tool-card" role="region" aria-label="Age Calculator tool">
+    <h3>Age Calculator</h3>
+    <p>
+        A precise chronological evaluation engine designed to calculate exact age durations across years, months, and days. Engineered for professional use cases requiring granular accuracy, this utility operates locally within the browser to maintain data privacy while providing structured feedback for assistive technology users.
+    </p>
+    <a href="tools/age-calculator.html">Open Tool</a>
+</div>
+
+<div class="tool-card" role="region" aria-label="Standard Calculator tool">
+    <h3>Accessible Calculator</h3>
+    <p>
+        A robust mathematical processing interface optimized for seamless keyboard navigation and high-speed computation. This tool eliminates complex visual distractions, focusing on core arithmetic integrity and providing standardized audio-tactile feedback protocols for a reliable, privacy-focused calculation environment.
+    </p>
+    <a href="tools/calculator.html">Open Tool</a>
+</div>
+<div class="tool-card" role="region" aria-label="Image to Text OCR tool">
+<h3>Image to Text (OCR)</h3>
+<p>
+Extract editable text from images, screenshots, and scanned documents with high precision. This professional OCR utility supports multiple languages including English and Hindi. Optimized for screen readers, it allows you to convert visual data into accessible text instantly while maintaining total local privacy.
+</p>
+<a href="tools/image-to-text.html">Open Tool</a>
+</div>
+<div class="tool-card" role="region" aria-label="Bulk Text to Image tool">
+<h3>Bulk Text to Image</h3>
+<p>
+Create professional visual content from plain text or bulk TXT files with ease. This advanced generator supports custom naming, real-time progress tracking, and multiple social media presets like YouTube thumbnails and Instagram posts. Fully accessible and designed for screen reader users, it ensures your text-to-visual conversion is fast, private, and high-quality.
+</p>
+<a href="tools/text-to-image.html">Open Tool</a>
+</div>
+<div class="tool-card" role="region" aria-label="Universal Translation Suite">
+    <h3>Universal Translation Suite</h3>
+    <p>
+        A high-performance linguistic processing suite engineered for real-time text, document, and image-based translation across 100+ global languages. Designed with a strict Zero-Knowledge architecture, this utility ensures absolute data sovereignty by executing all operations locally in the browser while providing an inclusive experience optimized for assistive technologies.
+    </p>
+    <a href="tools/translator.html">Open Tool</a>
+</div>
+<<<<<<< HEAD
+<div class="tool-card" role="region" aria-label="Industrial Precision Audio Trimmer">
+    <h3>Precision Audio Trimmer</h3>
+    <p>
+        A professional-grade digital signal processing utility engineered for absolute surgical precision in audio editing. This tool allows for nanosecond-accurate trimming and segment deletion directly within the browser, ensuring complete data sovereignty and a seamless experience for accessibility-focused sound engineers.
+    </p>
+    <a href="tools/audio-trimmer.html">Open Tool</a>
+</div>
+
+<div class="tool-card" role="region" aria-label="Bulk Audio Extractor">
+    <h3>Bulk Audio Extractor</h3>
+    <p>
+        A high-velocity multimedia processing engine designed to isolate and extract high-fidelity audio streams from multiple video containers simultaneously. Utilizing advanced client-side decoding, it ensures rapid batch processing while maintaining bit-perfect output without the need for server-side uploads.
+    </p>
+    <a href="tools/bulk-audio-extractor.html">Open Tool</a>
+</div>
+<div class="tool-card" role="region" aria-label="Industrial Bulk Audio Merger">
+    <h3>Industrial Bulk Audio Merger</h3>
+    <p>
+        An enterprise-scale audio unification workstation built for seamless concatenation of diverse sound assets. This utility facilitates the precise alignment and merging of multiple audio tracks into a single mastered file, optimized for industrial workflows and fully compatible with assistive navigation technologies.
+    </p>
+    <a href="tools/Industrial Bulk Audio Merger .html">Open Tool</a>
+</div>
+
+<div class="tool-card" role="region" aria-label="Tactical Volume Booster">
+    <h3>Tactical Volume Booster</h3>
+    <p>
+        A precision gain-staging utility engineered to amplify low-level digital signals without introducing harmonic distortion. Featuring a normalized peak-detection algorithm, this tool allows users to boost audio levels to industrial standards while preserving the dynamic range and integrity of the original source.
+    </p>
+    <a href="tools/Volume Booster .html">Open Tool</a>
+</div>
+<div class="tool-card" role="region" aria-label="SonicSphere 360° Studio tool">
+    <h3>SonicSphere 360° Studio</h3>
+    <p>
+        A high-fidelity spatial audio workstation designed for 8D orbital transformation, stereo widening, and mono-to-stereo conversion. Engineered by Accessible Tech Labs India, this utility employs local Web Audio API protocols to ensure bit-perfect processing and total data sovereignty, providing a fully accessible and immersive auditory environment for professional creators.
+    </p>
+<a href="tools/SonicSphere_360°_Studio.html">Open Tool</a>
+</div>
+<div class="tool-card" role="region" aria-label="Smart Audio Merger">
+    <h3>Smart Audio Merger</h3>
+    <p>
+        An advanced dual-track digital post-production utility designed for seamless audio blending. Engineered with an automated RMS-based ducking algorithm and precision linear fade-staging, this tool empowers creators to synchronize voiceovers with background scores in a secure, client-side environment while maintaining broadcast-quality signal integrity.
+    </p>
+    <a href="tools/Smart Audio Merger.html">Open Tool</a>
+</div>
+=======
+>>>>>>> d5615d82dda2979cb52d9d4d6dc41a5fdccc1bce
+<div class="tool-card" role="region" aria-label="Accessibility information">
+<h3>Accessibility First</h3>
+<p>
+All tools are designed with accessibility in mind. Each page includes clear labels, keyboard navigation, live status messages for screen readers, and simple layouts. Accessible Tech Labs India focuses on providing blind-friendly and beginner-friendly utilities that work smoothly on both mobile and desktop browsers.
+</p>
+</div>
+
+</main>
+
+<footer role="contentinfo">
+<footer role="contentinfo">
+<p>
+<a href="privacy.html" accesskey="p" aria-label="Privacy Policy, Alt plus P">
+Privacy Policy
+</a>
+</p>
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+<script>
+
+function showAllTools() {
+let cards = document.getElementsByClassName("tool-card");
+for (let i = 0; i < cards.length; i++) {
+cards[i].style.display = "block";
+}
+}
+
+function searchTools() {
+
+let input = document.getElementById("toolSearch");
+let filter = input.value.toLowerCase().trim();
+let cards = document.getElementsByClassName("tool-card");
+let status = document.getElementById("toolSearchStatus");
+
+if (filter === "") {
+showAllTools();
+status.innerText = "";
+return;
+}
+
+let found = false;
+
+for (let i = 0; i < cards.length; i++) {
+
+let text = cards[i].innerText.toLowerCase();
+
+if (text.includes(filter)) {
+cards[i].style.display = "block";
+found = true;
+} else {
+cards[i].style.display = "none";
+}
+
+}
+
+if (found) {
+status.innerText = "Search completed. Matching tools displayed.";
+} else {
+status.innerText = "No tools found with this name on this website.";
+}
+
+}
+
+function clearToolSearch() {
+
+document.getElementById("toolSearch").value = "";
+showAllTools();
+document.getElementById("toolSearchStatus").innerText =
+"Search cleared. All tools displayed.";
+
+}
+
+document.getElementById("toolSearch").addEventListener("keydown", function(e) {
+if (e.key === "Enter") {
+searchTools();
+}
+});
+
+</script>
+
+</body>
+</html>

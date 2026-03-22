@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Industrial Precision Audio Architect - Accessible Tech Labs India</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+header, nav, footer { display: block; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; margin: 0; background: #f0f4f8; color: #1a2b3c; line-height: 1.6; }
+.skip-link { position: absolute; top: -40px; left: 0; background: #005a9c; color: white; padding: 10px; z-index: 1000; transition: top 0.3s; }
+.skip-link:focus { top: 0; }
+header { background: linear-gradient(135deg, #005a9c 0%, #003d6b 100%); color: white; padding: 35px 0; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
+header h1 { margin: 0; font-size: 2.6em; letter-spacing: 1.5px; text-transform: uppercase; }
+nav { background-color: #002d50; padding: 14px 0; text-align: center; border-bottom: 4px solid #ffdd00; }
+nav a { color: rgba(255,255,255,0.9); text-decoration: none; margin: 0 20px; font-weight: 700; font-size: 1.1em; transition: 0.3s; }
+nav a:hover, nav a:focus { color: #ffdd00; outline: none; }
+.main-container { max-width: 1100px; margin: 40px auto; padding: 0 25px; }
+.card { background: #ffffff; border-radius: 24px; padding: 45px; box-shadow: 0 20px 50px rgba(0,0,0,0.08); border: 1px solid #e1e8ed; position: relative; overflow: hidden; }
+.card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 8px; background: #005a9c; }
+.tool-header { margin-bottom: 35px; }
+.tool-header h2 { color: #005a9c; margin: 0 0 15px 0; font-size: 2.2em; border-bottom: 2px solid #f0f4f8; padding-bottom: 10px; }
+.tool-header p { margin: 0; color: #4a5568; font-size: 1.15em; text-align: justify; line-height: 1.8; }
+.upload-section { background: #f8fbff; border: 3px dashed #cbd5e0; border-radius: 16px; padding: 50px; text-align: center; transition: 0.4s; }
+.upload-section:focus-within { border-color: #005a9c; background: #f0f7ff; }
+.file-label { font-size: 1.6em; font-weight: 800; color: #005a9c; cursor: pointer; display: block; margin-bottom: 15px; }
+.file-input { padding: 10px; background: white; border: 1px solid #cbd5e0; border-radius: 8px; font-size: 1em; }
+#editorInterface { display: none; margin-top: 40px; }
+.interval-panel { background: #fffaf0; padding: 25px; border-radius: 15px; border: 1px solid #feebc8; margin-bottom: 30px; text-align: center; }
+.interval-panel label { font-weight: 800; font-size: 1.2em; color: #744210; margin-right: 15px; }
+.interval-select { padding: 12px 20px; font-size: 1.1em; font-weight: 700; border-radius: 10px; border: 2px solid #feebc8; background: white; color: #2d3748; cursor: pointer; }
+.workstation-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; background: #f7fafc; padding: 30px; border-radius: 20px; border: 1px solid #edf2f7; }
+.control-box { background: white; padding: 25px; border-radius: 15px; border: 1px solid #e2e8f0; text-align: center; }
+.control-box h3 { margin: 0 0 15px 0; color: #005a9c; font-size: 1.4em; }
+.time-view { font-family: 'Courier New', monospace; font-size: 2.4em; font-weight: 900; color: #2d3748; background: #edf2f7; padding: 15px; border-radius: 12px; display: block; margin-bottom: 20px; }
+.btn-group { display: flex; gap: 10px; }
+.btn-nav { flex: 1; padding: 15px; border-radius: 10px; border: none; font-weight: 800; font-size: 1em; cursor: pointer; transition: 0.3s; }
+.btn-decrease { background: #fff5f5; color: #c53030; border: 1px solid #feb2b2; }
+.btn-increase { background: #ebf8ff; color: #2b6cb0; border: 1px solid #bee3f8; }
+.btn-nav:hover { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+.operation-bar { margin-top: 40px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.btn-op { padding: 20px; border-radius: 14px; border: none; font-weight: 800; font-size: 1.1em; cursor: pointer; color: white; transition: 0.4s; }
+.btn-trim { background: #3182ce; }
+.btn-delete { background: #e53e3e; }
+.btn-reset { background: #718096; }
+.btn-op:hover { transform: translateY(-3px); filter: brightness(1.1); }
+.playback-hub { margin-top: 40px; padding: 35px; background: #f0fff4; border-radius: 20px; border: 2px dashed #68d391; text-align: center; }
+.btn-play-selection { background: #2f855a; color: white; padding: 15px 40px; border-radius: 12px; border: none; font-weight: 800; font-size: 1.2em; cursor: pointer; transition: 0.3s; margin-bottom: 20px; }
+.btn-play-selection:hover { background: #276749; }
+.progress-container { margin-top: 30px; display: none; }
+.progress-bar-bg { background: #e2e8f0; border-radius: 15px; height: 25px; overflow: hidden; width: 100%; position: relative; }
+.progress-fill { background: linear-gradient(90deg, #48bb78, #38a169); height: 100%; width: 0%; transition: width 0.2s; }
+.progress-text { font-weight: 800; color: #2b6cb0; margin-top: 10px; font-size: 1.1em; display: block; }
+.final-export-zone { margin-top: 30px; display: none; padding: 25px; background: #ebf8ff; border-radius: 15px; border: 1px solid #bee3f8; }
+.btn-download { background: #28a745; color: white; text-decoration: none; padding: 20px 60px; border-radius: 15px; font-weight: 900; font-size: 1.5em; display: inline-block; cursor: pointer; box-shadow: 0 10px 20px rgba(40,167,69,0.2); }
+footer { background: #1a202c; color: #e2e8f0; padding: 50px 0; text-align: center; margin-top: 80px; border-top: 6px solid #005a9c; }
+footer a { color: #ffdd00; text-decoration: none; font-weight: 700; border-bottom: 1px solid #ffdd00; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<header>
+<h1> Accessible Tech Labs India</h1>
+<nav aria-label="Main navigation">
+<a href="../index.html" accesskey="h">Home</a>
+<a href="../software.html" accesskey="s">Software</a>
+<a href="../tools.html" accesskey="t">Tools</a>
+<a href="../Games.html" accesskey="g">Games</a>
+<a href="../about.html" accesskey="a">About</a>
+<a href="../contact.html" accesskey="c">Contact</a>
+<a href="../social.html" accesskey="l">Social</a>
+</nav>
+</header>
+<main id="main-content" class="main-container">
+<div class="card">
+<section class="tool-header">
+<h2 id="toolTitle" tabindex="-1">Industrial Precision Audio Architect & Tactical Trimmer</h2>
+<p>
+The Industrial Precision Audio Architect & Tactical Trimmer is a professional-grade digital signal processing utility developed by Accessible Tech Labs India. This workstation is engineered to facilitate absolute surgical precision in audio editing directly within the user's browser, ensuring that sensitive data never leaves the local environment. Our engine utilizes high-fidelity Web Audio API protocols to provide seamless trimming, deletion, and extraction of audio signals with nanosecond accuracy. To ensure maximum accessibility, the interface is optimized for visually impaired specialists, featuring a robust Variable Interval Engine that allows navigation through tactical jumps—from a single second up to one hour—using intuitive keyboard-friendly controls. Whether normalizing broadcast streams or refining industrial recordings, this tool guarantees bit-perfect output without harmonic compromise. By processing all multimedia assets on the client-side, we uphold the highest standards of data sovereignty, making it an indispensable asset for security-conscious sound engineers and accessibility professionals worldwide.
+</p>
+</section>
+
+<div class="upload-section">
+<label for="audioUpload" class="file-label">Select Audio Master File for Processing</label>
+<input type="file" id="audioUpload" accept="audio/*" class="file-input">
+<p id="fileInfo" style="margin-top:15px; font-weight:700; color:#4a5568;">Status: Waiting for Input</p>
+</div>
+
+<div id="editorInterface">
+<div id="workingArea">
+<div class="interval-panel">
+<label for="jumpInterval">Tactical Jump Interval:</label>
+<select id="jumpInterval" class="interval-select" onchange="updateIntervalChoice()">
+<option value="1">1 Second</option>
+<option value="5" selected>5 Seconds</option>
+<option value="10">10 Seconds</option>
+<option value="30">30 Seconds</option>
+<option value="60">1 Minute (60 Seconds)</option>
+<option value="300">5 Minutes (300 Seconds)</option>
+<option value="600">10 Minutes (600 Seconds)</option>
+<option value="1800">30 Minutes (1800 Seconds)</option>
+<option value="3600">1 Hour (3600 Seconds)</option>
+</select>
+</div>
+
+<div class="workstation-grid">
+<div class="control-box">
+<h3>Signal Start Point</h3>
+<span id="startDisplay" class="time-view">00:00:00</span>
+<div class="btn-group">
+<button class="btn-nav btn-decrease" onclick="adjustTime('start', -1)">Decrease Start Time</button>
+<button class="btn-nav btn-increase" onclick="adjustTime('start', 1)">Increase Start Time</button>
+</div>
+</div>
+<div class="control-box">
+<h3>Signal End Point</h3>
+<span id="endDisplay" class="time-view">00:00:00</span>
+<div class="btn-group">
+<button class="btn-nav btn-decrease" onclick="adjustTime('end', -1)">Decrease End Time</button>
+<button class="btn-nav btn-increase" onclick="adjustTime('end', 1)">Increase End Time</button>
+</div>
+</div>
+</div>
+
+<div class="operation-bar">
+<button class="btn-op btn-trim" onclick="startProcessing('trim')">Trim Selection Only</button>
+<button class="btn-op btn-delete" onclick="startProcessing('delete')">Delete Selection Part</button>
+<button class="btn-op btn-reset" onclick="resetToDefault()">Reset to Factory Default</button>
+</div>
+</div>
+
+<div class="playback-hub">
+<button id="previewBtn" class="btn-play-selection" onclick="playCurrentSelection(event)">Preview Chosen Fragment</button>
+<div id="progressZone" class="progress-container">
+<div class="progress-bar-bg"><div id="pFill" class="progress-fill"></div></div>
+<span id="pText" class="progress-text">Processing: 0%</span>
+</div>
+<div id="finalExport" class="final-export-zone">
+<audio id="resultPlayer" controls style="width:100%; margin-bottom:20px;"></audio>
+<br>
+<a id="downloadBtn" class="btn-download">Download Processed Master</a>
+</div>
+<div style="margin-top:25px;">
+<button onclick="discardAndReset()" style="background:none; border:none; color:#718096; text-decoration:underline; font-weight:700; cursor:pointer;">Discard and Load New File</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<div id="srAnnouncer" aria-live="assertive" style="position:absolute; left:-9999px;"></div>
+<footer role="contentinfo">
+<p><a href="../privacy.html" accesskey="p" style="color: white; text-decoration: underline;">Privacy Policy</a></p>
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+<script>
+let audioBuffer;
+let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+let jumpVal = 5;
+let startPos = 0;
+let endPos = 0;
+let totalDuration = 0;
+let activeSource = null;
+const announcer = document.getElementById('srAnnouncer');
+
+function speak(text) {
+announcer.innerText = '';
+setTimeout(() => { announcer.innerText = text; }, 50);
+}
+
+function format(seconds) {
+let h = Math.floor(seconds / 3600);
+let m = Math.floor((seconds % 3600) / 60);
+let s = Math.floor(seconds % 60);
+return [h, m, s].map(v => v < 10 ? "0" + v : v).join(":");
+}
+
+function updateIntervalChoice() {
+jumpVal = parseInt(document.getElementById('jumpInterval').value);
+speak("Interval changed to " + jumpVal + " seconds");
+}
+
+document.getElementById('audioUpload').addEventListener('change', async (e) => {
+const file = e.target.files[0];
+if (!file) return;
+document.getElementById('fileInfo').innerText = "Loading Master: " + file.name;
+const ab = await file.arrayBuffer();
+audioBuffer = await audioCtx.decodeAudioData(ab);
+totalDuration = audioBuffer.duration;
+startPos = 0;
+endPos = totalDuration;
+syncUI();
+document.getElementById('editorInterface').style.display = 'block';
+speak("Audio master loaded. Duration is " + format(totalDuration));
+});
+
+function syncUI() {
+document.getElementById('startDisplay').innerText = format(startPos);
+document.getElementById('endDisplay').innerText = format(endPos);
+}
+
+function adjustTime(mode, dir) {
+let delta = dir * jumpVal;
+if (mode === 'start') {
+startPos = Math.max(0, Math.min(endPos - 0.1, startPos + delta));
+speak("Start time set to " + format(startPos));
+} else {
+endPos = Math.max(startPos + 0.1, Math.min(totalDuration, endPos + delta));
+speak("End time set to " + format(endPos));
+}
+syncUI();
+}
+function discardAndReset() {
+if (activeSource) {
+activeSource.stop();
+activeSource = null;
+}
+audioBuffer = null;
+document.getElementById('audioUpload').value = "";
+document.getElementById('fileInfo').innerText = "Status: Waiting for Input";
+document.getElementById('editorInterface').style.display = 'none';
+document.getElementById('workingArea').style.display = 'block';
+document.getElementById('previewBtn').style.display = 'inline-block';
+document.getElementById('progressZone').style.display = 'none';
+document.getElementById('finalExport').style.display = 'none';
+
+const title = document.getElementById('toolTitle');
+title.focus();
+speak("All data cleared. Returned to top. Ready for a new file.");
+}
+function resetToDefault() {
+startPos = 0;
+endPos = totalDuration;
+syncUI();
+speak("All settings restored to original duration.");
+}
+async function playCurrentSelection(e) {
+if (audioCtx.state === 'suspended') await audioCtx.resume();
+const btn = e.target;
+if (activeSource) {
+activeSource.stop();
+activeSource = null;
+btn.innerText = "Preview Chosen Fragment";
+speak("Playback stopped.");
+return;
+}
+activeSource = audioCtx.createBufferSource();
+activeSource.buffer = audioBuffer;
+activeSource.connect(audioCtx.destination);
+activeSource.onended = () => {
+activeSource = null;
+btn.innerText = "Preview Chosen Fragment";
+};
+activeSource.start(0, startPos, endPos - startPos);
+btn.innerText = "Stop Fragment Playback";
+speak("Playing selection now.");
+}
+async function startProcessing(type) {
+const zone = document.getElementById('progressZone');
+const fill = document.getElementById('pFill');
+const text = document.getElementById('pText');
+const previewBtn = document.getElementById('previewBtn');
+
+if (activeSource) { 
+activeSource.stop(); 
+activeSource = null; 
+}
+
+let actionName = (type === 'trim') ? "Trimming" : "Deletion";
+speak(actionName + " started. Please wait while we process your audio master.");
+
+previewBtn.style.display = 'none';
+zone.style.display = 'block';
+document.getElementById('finalExport').style.display = 'none';
+
+let progress = 0;
+const interval = setInterval(() => {
+progress += 10;
+fill.style.width = progress + "%";
+text.innerText = "Surgical Processing: " + progress + "%";
+if (progress >= 100) clearInterval(interval);
+}, 100);
+
+setTimeout(() => {
+executeAudioTask(type);
+}, 1200);
+}
+function executeAudioTask(type) {
+let newBuf;
+if (type === 'trim') {
+const frames = (endPos - startPos) * audioBuffer.sampleRate;
+newBuf = audioCtx.createBuffer(audioBuffer.numberOfChannels, frames, audioBuffer.sampleRate);
+for (let c = 0; c < audioBuffer.numberOfChannels; c++) {
+newBuf.getChannelData(c).set(audioBuffer.getChannelData(c).slice(startPos * audioBuffer.sampleRate, endPos * audioBuffer.sampleRate));
+}
+} else {
+const frames = (totalDuration - (endPos - startPos)) * audioBuffer.sampleRate;
+newBuf = audioCtx.createBuffer(audioBuffer.numberOfChannels, frames, audioBuffer.sampleRate);
+for (let c = 0; c < audioBuffer.numberOfChannels; c++) {
+const data = audioBuffer.getChannelData(c);
+const p1 = data.slice(0, startPos * audioBuffer.sampleRate);
+const p2 = data.slice(endPos * audioBuffer.sampleRate);
+const comb = new Float32Array(p1.length + p2.length);
+comb.set(p1); comb.set(p2, p1.length);
+newBuf.getChannelData(c).set(comb);
+}
+}
+const blob = createWav(newBuf);
+const url = URL.createObjectURL(blob);
+document.getElementById('resultPlayer').src = url;
+document.getElementById('downloadBtn').href = url;
+document.getElementById('downloadBtn').download = document.getElementById('audioUpload').files[0].name.split('.')[0] + "_Processed.wav";
+document.getElementById('workingArea').style.display = 'none';
+document.getElementById('progressZone').style.display = 'none';
+document.getElementById('finalExport').style.display = 'block';
+speak("Surgical operation complete. Use the player below or click download.");
+}
+function createWav(buffer) {
+let n = buffer.numberOfChannels, len = buffer.length * n * 2 + 44,
+ab = new ArrayBuffer(len), view = new DataView(ab),
+chans = [], i, s, off = 0, p = 0;
+function s16(d) { view.setUint16(p, d, true); p += 2; }
+function s32(d) { view.setUint32(p, d, true); p += 4; }
+s32(0x46464952); s32(len - 8); s32(0x45564157);
+s32(0x20746d66); s32(16); s16(1); s16(n);
+s32(buffer.sampleRate); s32(buffer.sampleRate * 2 * n);
+s16(n * 2); s16(16); s32(0x61746164); s32(len - p - 4);
+for(i=0; i<n; i++) chans.push(buffer.getChannelData(i));
+while(p < len) {
+for(i=0; i<n; i++) {
+s = Math.max(-1, Math.min(1, chans[i][off]));
+s = (0.5 + s < 0 ? s * 32768 : s * 32767)|0;
+view.setInt16(p, s, true); p += 2;
+}
+off++;
+}
+return new Blob([ab], {type: "audio/wav"});
+}
+</script>
+</body>
+</html>

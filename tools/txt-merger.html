@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Professional TXT Merger - Accessible Tech Labs India</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+.file-item {
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background: #f4f4f4;
+}
+.file-item button {
+    margin-left: 5px;
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header role="banner">
+<h1>Accessible Tech Labs India</h1>
+<nav aria-label="Main navigation">
+<a href="../index.html" accesskey="h">Home</a>
+<a href="../software.html" accesskey="s">Software</a>
+<a href="../tools.html" accesskey="t">Tools</a>
+<a href="../Games.html" accesskey="g">Games</a>
+<a href="../about.html" accesskey="a">About</a>
+<a href="../contact.html" accesskey="c">Contact</a>
+<a href="../social.html" accesskey="l">Social</a>
+</nav>
+</header>
+
+<main id="main">
+<h2>Advanced TXT Merger</h2>
+<p>
+The Advanced Accessible TXT Merger by Accessible Tech Labs India is a high-utility, privacy-centric web tool designed to streamline the consolidation of multiple text documents into a single, unified file. Developed with a strict commitment to accessibility, this tool empowers blind and low-vision users to manage document workflows with unparalleled ease. Unlike standard online mergers, our solution operates entirely within the user's browser, ensuring that sensitive data never touches a server, providing 100% local data security.
+A standout feature of this tool is the Dynamic File Sequencing system. It allows users to not only select multiple .txt files but also to rearrange their order using "Move Up" and "Move Down" controls that are fully optimized for screen readers like NVDA and TalkBack. Each file action triggers a real-time ARIA-live announcement, confirming the addition, removal, or repositioning of documents. This level of interactive feedback is essential for maintaining an accurate mental model of the document structure.
+The tool features a Smart Merging Engine that automatically handles spacing and line breaks between files to prevent text overlapping, resulting in a professionally formatted output. The interface is built on a clean, high-contrast framework with logical tab indexing and descriptive ARIA labels, making it highly navigable via keyboard. Whether you are combining chapters of a book, merging code snippets, or organizing personal notes, the Advanced TXT Merger provides a reliable, accessible, and professional platform for all your document joining needs.
+</p>
+<p>
+Select multiple text files, arrange them in your preferred order, and merge them into a single document securely in your browser.
+</p>
+
+<form aria-label="TXT merger form">
+<label for="txtFiles">Select TXT files</label><br>
+<input id="txtFiles" type="file" accept=".txt" multiple aria-required="true"><br><br>
+
+<ul id="fileListContainer" aria-label="Selected files list" style="list-style:none; padding:0;"></ul>
+
+<label for="outputName">Output file name</label><br>
+<input id="outputName" type="text" value="merged_content"><br><br>
+
+<button type="button" id="mergeBtn">Merge TXT Files</button>
+</form>
+
+<p id="status" aria-live="polite"></p>
+
+<a id="downloadLink" style="display:none;" aria-label="Download merged text file">Download Merged TXT</a>
+</main>
+
+<footer role="contentinfo">
+<p><a href="../privacy.html" accesskey="p" style="color: white; text-decoration: underline;">Privacy Policy</a></p>
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+
+<script>
+let selectedFiles = [];
+
+document.getElementById("txtFiles").addEventListener("change", (e) => {
+    const files = Array.from(e.target.files);
+    selectedFiles = [...selectedFiles, ...files];
+    e.target.value = "";
+    renderFileList();
+    document.getElementById("status").innerText = files.length + " files added to the list.";
+});
+
+function renderFileList() {
+    const container = document.getElementById("fileListContainer");
+    container.innerHTML = "";
+    
+    selectedFiles.forEach((file, index) => {
+        const li = document.createElement("li");
+        li.className = "file-item";
+        
+        const info = document.createElement("span");
+        info.innerText = (index + 1) + ". " + file.name + " ";
+        
+        const upBtn = document.createElement("button");
+        upBtn.type = "button";
+        upBtn.innerText = "Move Up";
+        upBtn.setAttribute("aria-label", "Move " + file.name + " up");
+        upBtn.disabled = index === 0;
+        upBtn.onclick = () => {
+            [selectedFiles[index], selectedFiles[index - 1]] = [selectedFiles[index - 1], selectedFiles[index]];
+            renderFileList();
+        };
+
+        const downBtn = document.createElement("button");
+        downBtn.type = "button";
+        downBtn.innerText = "Move Down";
+        downBtn.setAttribute("aria-label", "Move " + file.name + " down");
+        downBtn.disabled = index === selectedFiles.length - 1;
+        downBtn.onclick = () => {
+            [selectedFiles[index], selectedFiles[index + 1]] = [selectedFiles[index + 1], selectedFiles[index]];
+            renderFileList();
+        };
+
+        const removeBtn = document.createElement("button");
+        removeBtn.type = "button";
+        removeBtn.innerText = "Remove";
+        removeBtn.setAttribute("aria-label", "Remove " + file.name);
+        removeBtn.onclick = () => {
+            selectedFiles.splice(index, 1);
+            renderFileList();
+            document.getElementById("status").innerText = "File removed.";
+        };
+
+        li.appendChild(info);
+        li.appendChild(upBtn);
+        li.appendChild(downBtn);
+        li.appendChild(removeBtn);
+        container.appendChild(li);
+    });
+}
+
+document.getElementById("mergeBtn").addEventListener("click", async () => {
+    const outputName = document.getElementById("outputName").value || "merged_content";
+    const status = document.getElementById("status");
+    const downloadLink = document.getElementById("downloadLink");
+
+    if (selectedFiles.length < 2) {
+        alert("Please select at least two TXT files to merge.");
+        return;
+    }
+
+    status.innerText = "Merging files, please wait...";
+    downloadLink.style.display = "none";
+
+    let combinedText = "";
+    for (const file of selectedFiles) {
+        const content = await file.text();
+        combinedText += content + "\n\n";
+    }
+
+    const blob = new Blob([combinedText], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+
+    downloadLink.href = url;
+    downloadLink.download = outputName + ".txt";
+    downloadLink.style.display = "block";
+    downloadLink.innerText = "Download " + outputName + ".txt";
+    
+    status.innerText = "Merge completed. " + selectedFiles.length + " files joined.";
+});
+</script>
+</body>
+</html>

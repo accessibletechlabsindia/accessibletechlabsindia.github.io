@@ -1,0 +1,218 @@
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+font-family:Segoe UI,Arial,sans-serif;
+background:#0d1117;
+color:#ffffff;
+line-height:1.7;
+}
+
+/* Skip link */
+
+.skip-link{
+position:absolute;
+top:-80px;
+left:10px;
+background:#58a6ff;
+color:#000;
+padding:10px 16px;
+border-radius:6px;
+z-index:9999;
+}
+
+.skip-link:focus{
+top:10px;
+}
+
+/* Header */
+
+header{
+background:#161b22;
+padding:22px;
+box-shadow:0 2px 10px rgba(0,0,0,.4);
+}
+
+header h1{
+margin:0;
+font-size:26px;
+}
+
+/* Navigation */
+
+nav{
+margin-top:14px;
+display:flex;
+flex-wrap:wrap;
+gap:22px;
+align-items:center;
+}
+
+nav a{
+color:#58a6ff;
+text-decoration:none;
+font-weight:600;
+padding:6px 10px;
+border-radius:6px;
+transition:.2s;
+}
+
+nav a:hover,
+nav a:focus{
+background:#58a6ff;
+color:#000;
+outline:none;
+}
+
+/* Active page */
+
+nav a[aria-current="page"]{
+background:#58a6ff;
+color:#000;
+}
+
+/* Main */
+
+main{
+padding:28px;
+max-width:1200px;
+margin:auto;
+}
+
+/* Headings */
+
+h2{
+color:#58a6ff;
+margin-top:0;
+}
+
+/* Inputs */
+
+input,button,select,textarea{
+font-size:16px;
+padding:10px;
+border-radius:6px;
+}
+
+/* Buttons */
+
+button{
+background:#58a6ff;
+border:none;
+font-weight:bold;
+cursor:pointer;
+color:#000;
+}
+
+button:hover,
+button:focus{
+outline:2px solid white;
+outline-offset:2px;
+}
+
+/* Cards */
+
+.tool-card{
+background:#161b22;
+padding:22px;
+margin-bottom:28px;
+border-radius:14px;
+box-shadow:0 6px 18px rgba(0,0,0,.4);
+}
+
+.tool-card h3{
+margin-top:0;
+color:#58a6ff;
+}
+
+.tool-card p{
+max-width:900px;
+}
+
+.tool-card a{
+display:inline-block;
+margin-top:12px;
+font-weight:bold;
+color:#58a6ff;
+}
+
+.tool-card a:hover,
+.tool-card a:focus{
+text-decoration:underline;
+}
+
+/* Footer */
+
+footer{
+background:#161b22;
+padding:22px;
+text-align:center;
+margin-top:60px;
+}
+
+/* Status */
+
+#status{
+font-weight:bold;
+margin-top:10px;
+}
+
+/* MOBILE – keep horizontal menu */
+
+@media(max-width:768px){
+
+header h1{
+font-size:22px;
+}
+
+nav{
+justify-content:center;
+}
+
+nav a{
+font-size:15px;
+}
+
+main{
+padding:18px;
+}
+
+.tool-card{
+padding:16px;
+}
+
+}
+
+/* Tablets */
+
+@media(min-width:769px) and (max-width:1024px){
+main{
+max-width:1050px;
+}
+}
+
+/* Large screens */
+
+@media(min-width:1200px){
+
+body{
+font-size:18px;
+}
+
+main{
+max-width:1400px;
+}
+
+}
+
+/* Keyboard clarity */
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible{
+outline:3px solid #58a6ff;
+outline-offset:3px;
+}

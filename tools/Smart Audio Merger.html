@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Studio Mixer - Accessible Tech Labs India</title>
+<style>
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: #0f172a; color: #f8fafc; margin: 0; line-height: 1.6; }
+.skip-link { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+.skip-link:focus { position: static; width: auto; height: auto; background: #d69e2e; color: #0f172a; padding: 10px; font-weight: bold; z-index: 9999; }
+header { background: #1e293b; padding: 30px 20px; text-align: center; border-bottom: 4px solid #d69e2e; }
+h1 { color: #d69e2e; font-size: 2.5em; margin: 0 0 15px 0; }
+nav { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; }
+nav a { color: #f8fafc; text-decoration: none; font-weight: bold; padding: 8px 15px; border-radius: 5px; border: 1px solid #64748b; }
+nav a:hover, nav a:focus { background: #38bdf8; color: #0f172a; border-color: #38bdf8; outline: 3px solid #f8fafc; }
+.intro-box { max-width: 900px; margin: 0 auto 20px auto; background: #334155; padding: 25px; border-radius: 12px; font-size: 1.05em; text-align: justify; border-left: 5px solid #38bdf8; }
+main { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+.upload-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px; }
+.upload-card { background: #1e293b; padding: 30px; border-radius: 15px; text-align: center; border: 2px dashed #64748b; }
+.upload-card:focus-within { border-color: #d69e2e; }
+.btn-upload { background: #cbd5e0; color: #0f172a; padding: 12px 25px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 1.1em; }
+.btn-upload:focus { outline: 3px solid #d69e2e; background: #f8fafc; }
+.controls { background: #1e293b; padding: 30px; border-radius: 15px; margin-bottom: 30px; }
+.control-row { margin-bottom: 25px; }
+label { display: block; font-weight: bold; margin-bottom: 10px; color: #cbd5e0; font-size: 1.1em; }
+input[type="range"] { width: 100%; cursor: pointer; height: 10px; border-radius: 5px; }
+input[type="range"]:focus { outline: 3px solid #d69e2e; }
+.val-display { float: right; color: #38bdf8; font-weight: bold; }
+.checkbox-group { display: flex; align-items: center; margin-bottom: 15px; background: #334155; padding: 15px; border-radius: 8px; }
+input[type="checkbox"] { width: 25px; height: 25px; margin-right: 15px; cursor: pointer; }
+.action-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+.btn-action { padding: 18px; border: none; border-radius: 10px; font-size: 1.2em; font-weight: bold; cursor: pointer; }
+.btn-play { background: #10b981; color: white; }
+.btn-stop { background: #ef4444; color: white; }
+.btn-export { background: #d69e2e; color: #0f172a; }
+.progress-container { display: none; margin: 30px 0; background: #1e293b; padding: 20px; border-radius: 10px; border: 1px solid #38bdf8; }
+progress { width: 100%; height: 20px; border-radius: 10px; }
+.progress-text { display: block; text-align: center; margin-top: 10px; font-weight: bold; color: #38bdf8; }
+#statusPanel { margin-top: 20px; padding: 20px; background: #047857; border-radius: 10px; font-size: 1.2em; font-weight: bold; text-align: center; }
+footer { text-align: center; padding: 20px; background: #1e293b; margin-top: 40px; border-top: 1px solid #334155; }
+@media (max-width: 768px) { .upload-grid, .action-bar { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header role="banner">
+    <h1>Accessible Tech Labs India</h1>
+<nav aria-label="Main navigation">
+<a href="../index.html" accesskey="h">Home</a>
+<a href="../software.html" accesskey="s">Software</a>
+<a href="../tools.html" accesskey="t">Tools</a>
+<a href="../Games.html" accesskey="g">Games</a>
+<a href="../about.html" accesskey="a">About</a>
+<a href="../contact.html" accesskey="c">Contact</a>
+<a href="../social.html" accesskey="l">Social</a>
+</nav>
+    <div class="intro-box" role="article" tabindex="0">
+Welcome to the Smart Studio Mixer, an elite digital audio workstation engineered by Krishna Kumar for Accessible Tech Labs India. This platform is meticulously crafted to bridge the gap between complex audio engineering and absolute digital accessibility for visually impaired creators globally. Operating on a sophisticated client-side architecture, we guarantee ultimate privacy—your audio processing happens entirely within your browser's local environment using the high-performance Web Audio API. No external servers are involved, ensuring your creative data remains yours alone. This mixer offers a seamless, zero-latency experience for high-stakes podcast production and intricate musical blending. With precision-engineered features such as real-time 5-second linear fades, intelligent auto-ducking with RMS-based detection, and gapless looping, we have eliminated the need for visual timelines. This empowers every user to master professional-grade mixes through an intuitive, screen-reader-optimized interface and keyboard-centric navigation. Experience the pinnacle of inclusive, private, and powerful audio post-production.
+    </div>
+</header>
+
+<main id="main">
+    <div class="upload-grid">
+        <div class="upload-card">
+            <label for="voiceInput" id="voiceLabel">Step 1: Upload Main Voice</label>
+            <input type="file" id="voiceInput" accept="audio/*" hidden aria-labelledby="voiceLabel">
+            <button class="btn-upload" onclick="document.getElementById('voiceInput').click()">Browse Voice File</button>
+            <p id="vName" aria-live="polite" style="color:#d69e2e; font-weight:bold; margin-top:15px;">No voice file selected</p>
+        </div>
+        <div class="upload-card">
+            <label for="bgmInput" id="bgmLabel">Step 2: Upload Background Music</label>
+            <input type="file" id="bgmInput" accept="audio/*" hidden aria-labelledby="bgmLabel">
+            <button class="btn-upload" onclick="document.getElementById('bgmInput').click()">Browse Music File</button>
+            <p id="bName" aria-live="polite" style="color:#d69e2e; font-weight:bold; margin-top:15px;">No music file selected</p>
+        </div>
+    </div>
+
+    <div class="controls" role="region" aria-label="Audio Controls">
+        <div class="control-row">
+            <label for="vVol">Main Voice Volume <span id="vVolVal" class="val-display">100%</span></label>
+            <input type="range" id="vVol" min="0" max="100" step="1" value="100" oninput="document.getElementById('vVolVal').innerText = this.value + '%'">
+        </div>
+        <div class="control-row">
+            <label for="bVol">Background Music Volume <span id="bVolVal" class="val-display">30%</span></label>
+            <input type="range" id="bVol" min="0" max="100" step="1" value="30" oninput="document.getElementById('bVolVal').innerText = this.value + '%'">
+        </div>
+        
+        <div class="checkbox-group">
+            <input type="checkbox" id="duckCheck" checked>
+            <label for="duckCheck" style="margin:0;">Enable Smart Auto-Ducking</label>
+        </div>
+        <div class="checkbox-group">
+            <input type="checkbox" id="fadeInCheck" checked>
+            <label for="fadeInCheck" style="margin:0;">Apply 5-Second Auto Fade-In</label>
+        </div>
+        <div class="checkbox-group">
+            <input type="checkbox" id="fadeOutCheck" checked>
+            <label for="fadeOutCheck" style="margin:0;">Apply 5-Second Auto Fade-Out</label>
+        </div>
+    </div>
+
+    <div class="progress-container" id="progCont">
+        <progress id="exportProgress" value="0" max="100"></progress>
+        <span id="percentLabel" class="progress-text" aria-live="assertive">0% Rendering...</span>
+    </div>
+
+    <div class="action-bar" role="toolbar">
+        <button class="btn-action btn-play" onclick="playPreview()">Play Preview</button>
+        <button class="btn-action btn-stop" onclick="stopPreview()">Stop Preview</button>
+        <button class="btn-action btn-export" id="exportBtn" onclick="exportMix()">Export Mix</button>
+    </div>
+
+    <div id="statusPanel" aria-live="assertive" role="alert">System Ready.</div>
+</main>
+<footer role="contentinfo">
+<p><a href="../privacy.html" accesskey="p" style="color: white; text-decoration: underline;">Privacy Policy</a></p>
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+
+
+<script>
+let aCtx = new (window.AudioContext || window.webkitAudioContext)();
+let vBuf = null, bBuf = null;
+let vNode = null, bNode = null;
+
+document.getElementById('voiceInput').addEventListener('change', (e) => loadAudio(e.target.files[0], 'v'));
+document.getElementById('bgmInput').addEventListener('change', (e) => loadAudio(e.target.files[0], 'b'));
+
+async function loadAudio(file, type) {
+    if (!file) return;
+    updateStatus(`Loading ${file.name}...`);
+    const arr = await file.arrayBuffer();
+    const buf = await aCtx.decodeAudioData(arr);
+    if (type === 'v') { vBuf = buf; document.getElementById('vName').innerText = file.name; }
+    if (type === 'b') { bBuf = buf; document.getElementById('bName').innerText = file.name; }
+    updateStatus(`${file.name} loaded.`);
+}
+
+function updateStatus(msg) {
+    document.getElementById('statusPanel').innerText = msg;
+}
+
+function getDuckingCurve(buffer) {
+    const raw = buffer.getChannelData(0);
+    const blockSize = Math.floor(buffer.sampleRate / 10);
+    const len = Math.max(2, Math.floor(raw.length / blockSize));
+    const curve = new Float32Array(len);
+    for (let i = 0; i < len; i++) {
+        let sum = 0;
+        for (let j = 0; j < blockSize; j++) {
+            let v = raw[(i * blockSize) + j] || 0;
+            sum += v * v;
+        }
+        let rms = Math.sqrt(sum / blockSize);
+        curve[i] = rms > 0.05 ? 0.2 : 1.0;
+    }
+    return curve;
+}
+
+function setupRouting(ctx, startTime) {
+    let vS = null, bS = null;
+    let fadeG = ctx.createGain();
+    let duckG = ctx.createGain();
+    let dur = vBuf ? vBuf.duration : (bBuf ? bBuf.duration : 0);
+    fadeG.connect(ctx.destination);
+    fadeG.gain.setValueAtTime(1, startTime);
+
+    if (vBuf) {
+        vS = ctx.createBufferSource();
+        vS.buffer = vBuf;
+        let vV = ctx.createGain();
+        vV.gain.value = parseInt(document.getElementById('vVol').value) / 100;
+        vS.connect(vV).connect(fadeG);
+    }
+    if (bBuf) {
+        bS = ctx.createBufferSource();
+        bS.buffer = bBuf;
+        if (vBuf) bS.loop = true;
+        let bV = ctx.createGain();
+        bV.gain.value = parseInt(document.getElementById('bVol').value) / 100;
+        bS.connect(bV).connect(duckG).connect(fadeG);
+    }
+    if (document.getElementById('duckCheck').checked && vBuf && bBuf) {
+        let crv = getDuckingCurve(vBuf);
+        duckG.gain.setValueCurveAtTime(crv, startTime, vBuf.duration);
+    }
+    if (dur > 6) {
+        if (document.getElementById('fadeInCheck').checked) {
+            fadeG.gain.setValueAtTime(0, startTime);
+            fadeG.gain.linearRampToValueAtTime(1, startTime + 5);
+        }
+        if (document.getElementById('fadeOutCheck').checked) {
+            fadeG.gain.setValueAtTime(1, startTime + dur - 5);
+            fadeG.gain.linearRampToValueAtTime(0, startTime + dur);
+        }
+    }
+    return { vS, bS };
+}
+
+function playPreview() {
+    stopPreview();
+    if (!vBuf && !bBuf) { updateStatus("No files loaded."); return; }
+    if (aCtx.state === 'suspended') aCtx.resume();
+    let t = aCtx.currentTime;
+    let nodes = setupRouting(aCtx, t);
+    vNode = nodes.vS; bNode = nodes.bS;
+    if (vNode) vNode.start(t);
+    if (bNode) bNode.start(t);
+    updateStatus("Preview Playing...");
+}
+function stopPreview() {
+    if (vNode) { 
+        try { vNode.stop(); vNode.disconnect(); } catch(e){} 
+        vNode = null; 
+    }
+    if (bNode) { 
+        try { bNode.stop(); bNode.disconnect(); } catch(e){} 
+        bNode = null; 
+    }
+    updateStatus("Preview Stopped.");
+}
+async function exportMix() {
+    if (!vBuf && !bBuf) { updateStatus("No files loaded."); return; }
+    const exportBtn = document.getElementById('exportBtn');
+    const progCont = document.getElementById('progCont');
+    const progBar = document.getElementById('exportProgress');
+    const percentLabel = document.getElementById('percentLabel');
+
+    exportBtn.disabled = true;
+    progCont.style.display = 'block';
+    updateStatus("Mixing Audio...");
+
+    let dur = vBuf ? vBuf.duration : bBuf.duration;
+    let oCtx = new OfflineAudioContext(2, Math.ceil(dur * 44100), 44100);
+    let nodes = setupRouting(oCtx, 0);
+    if (nodes.vS) nodes.vS.start(0);
+    if (nodes.bS) nodes.bS.start(0);
+
+    let progressInterval = setInterval(() => {
+        let prog = Math.round((oCtx.currentTime / dur) * 100);
+        if (prog > 99) prog = 99;
+        progBar.value = prog;
+progBar.setAttribute('aria-valuenow', prog);
+        percentLabel.innerText = prog + "% Rendering...";
+    }, 100);
+
+    let outBuf = await oCtx.startRendering();
+    clearInterval(progressInterval);
+    progBar.value = 100;
+    percentLabel.innerText = "100% Finalizing...";
+
+    let wav = createWavBlob(outBuf);
+    let url = URL.createObjectURL(wav);
+    let a = document.createElement('a');
+    a.href = url;
+    a.download = "ATL_Studio_Mix.wav";
+    a.click();
+
+    updateStatus("Download Complete. Resetting...");
+    setTimeout(resetInterface, 2000);
+}
+
+function resetInterface() {
+    vBuf = null; bBuf = null;
+    document.getElementById('voiceInput').value = "";
+    document.getElementById('bgmInput').value = "";
+    document.getElementById('vName').innerText = "No voice file selected";
+    document.getElementById('bName').innerText = "No music file selected";
+    document.getElementById('progCont').style.display = 'none';
+    document.getElementById('exportProgress').value = 0;
+    document.getElementById('exportBtn').disabled = false;
+    updateStatus("System Ready.");
+}
+
+function createWavBlob(buffer) {
+    let n = buffer.numberOfChannels, len = buffer.length * n * 2 + 44,
+        ab = new ArrayBuffer(len), view = new DataView(ab),
+        chans = [], i, s, off = 0, p = 0;
+    function s16(d) { view.setUint16(p, d, true); p += 2; }
+    function s32(d) { view.setUint32(p, d, true); p += 4; }
+    s32(0x46464952); s32(len - 8); s32(0x45564157);
+    s32(0x20746d66); s32(16); s16(1); s16(n);
+    s32(buffer.sampleRate); s32(buffer.sampleRate * 2 * n);
+    s16(n * 2); s16(16); s32(0x61746164); s32(len - p - 4);
+    for(i=0; i<n; i++) chans.push(buffer.getChannelData(i));
+    while(p < len) {
+        for(i=0; i<n; i++) {
+            s = Math.max(-1, Math.min(1, chans[i][off]));
+            s = (s < 0 ? s * 32768 : s * 32767) | 0;
+            view.setInt16(p, s, true); p += 2;
+        }
+        off++;
+    }
+    return new Blob([ab], {type: "audio/wav"});
+}
+</script>
+</body>
+</html>

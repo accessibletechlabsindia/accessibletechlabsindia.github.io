@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Advanced Accessible PDF Reader</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+<style>
+.large-ui button, .large-ui select, .large-ui input {
+font-size:20px;
+padding:10px;
+}
+.highlight {
+background: #fff3a0;
+}
+</style>
+
+</head>
+
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header>
+<h1>Accessible Tech Labs India</h1>
+<nav>
+<a href="../index.html" accesskey="h" aria-label="Home, Alt plus H">Home</a>
+<a href="../software.html" accesskey="s" aria-label="Software, Alt plus S">Software</a>
+<a href="../tools.html" accesskey="t" aria-label="Tools, Alt plus T">Tools</a>
+<a href="../Games.html" accesskey="g" aria-label="Games, Alt plus G">Games</a>
+<a href="../about.html" accesskey="a" aria-label="About, Alt plus A">About</a>
+<a href="../contact.html" accesskey="c" aria-label="Contact, Alt plus C">Contact</a>
+<a href="../social.html" accesskey="l" aria-label="Social, Alt plus L">Social</a>
+</nav>
+</header>
+
+<main id="main">
+
+<h2>Advanced Accessible PDF Reader</h2>
+
+<p>
+This professional browser based PDF reader is designed for blind and low vision users. It allows secure local PDF opening, automatic page announcements, keyboard navigation, speech reading, adjustable speed and volume, zoom, contrast, line spacing and large UI mode. Reading highlight improves tracking for low vision users. Everything runs locally with full privacy and NVDA friendly feedback.
+</p>
+
+<hr>
+
+<input type="file" id="pdfFile" accept="application/pdf">
+
+<div id="status" aria-live="polite"></div>
+
+<hr>
+
+<button id="prev">Previous Page</button>
+<button id="next">Next Page</button>
+
+<input type="number" id="pageJump" min="1">
+<button id="goPage">Go</button>
+
+<p id="pageInfo"></p>
+
+<hr>
+
+<select id="voices"></select>
+
+<br><br>
+
+<button id="speedBtn">Speed: Normal</button>
+
+<br><br>
+
+<label>Volume</label><br>
+<input type="range" id="volume" min="0" max="100" value="100">
+
+<br><br>
+
+<label>Line Spacing</label><br>
+<input type="range" id="spacing" min="1" max="3" step="0.2" value="1.5">
+
+<hr>
+
+<button id="readBtn">Read Aloud</button>
+<button id="pauseBtn">Pause</button>
+
+<hr>
+
+<button id="zoomIn">Zoom +</button>
+<button id="zoomOut">Zoom -</button>
+<button id="contrast">High Contrast</button>
+<button id="largeUi">Large UI</button>
+
+<hr>
+
+<div id="textArea" style="min-height:300px;line-height:1.5;"></div>
+
+</main>
+
+<footer>
+<p><a href="../privacy.html">Privacy Policy</a></p>
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+<script>
+pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
+
+let pdfDoc = null, page = 1, scale = 1;
+let voices = [], utterance = null, reading = false, paused = false;
+let speeds = [1, 1.25, 1.5, 1.75, 2];
+let speedIndex = 0;
+
+const status = document.getElementById("status");
+const textArea = document.getElementById("textArea");
+const voiceSel = document.getElementById("voices");
+const pdfFileInput = document.getElementById("pdfFile");
+
+const uploadSound = new Audio("tools-sounds/upload.mp3");
+const nextSound = new Audio("tools-sounds/next.mp3");
+const prevSound = new Audio("tools-sounds/prev.mp3");
+
+function safePlay(audio) {
+    audio.play().catch(() => {
+        console.log("Audio feedback pending user interaction");
+    });
+}
+
+function announce(m) { 
+    status.textContent = m; 
+}
+
+pdfFileInput.onchange = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    safePlay(uploadSound);
+    announce("Loading document, please wait...");
+
+    const reader = new FileReader();
+    reader.onload = async () => {
+        try {
+            const loadingTask = pdfjsLib.getDocument(reader.result);
+            pdfDoc = await loadingTask.promise;
+            page = 1;
+            announce(`Success. PDF loaded with ${pdfDoc.numPages} pages.`);
+            render();
+        } catch (error) {
+            if (error.name === "PasswordException") {
+                announce("This file is password protected. Please upload an unprotected file.");
+                alert("This file is password protected. Please upload an unprotected file.");
+            } else {
+                announce("Error loading PDF. The file might be corrupted.");
+            }
+            pdfFileInput.value = "";
+        }
+    };
+    reader.readAsArrayBuffer(file);
+};
+
+async function render() {
+    try {
+        const p = await pdfDoc.getPage(page);
+        const tc = await p.getTextContent();
+        let text = "";
+        tc.items.forEach(i => text += i.str + " ");
+        
+        textArea.textContent = text;
+        textArea.tabIndex = -1;
+        textArea.focus();
+        
+        document.getElementById("pageInfo").textContent = `Page ${page} of ${pdfDoc.numPages}`;
+        announce(`Displayed Page ${page} of ${pdfDoc.numPages}`);
+        
+        if (reading) speakPage();
+    } catch (error) {
+        announce("Error rendering page content.");
+    }
+}
+
+document.getElementById("next").onclick = () => {
+    if (pdfDoc && page < pdfDoc.numPages) {
+        page++;
+        safePlay(nextSound);
+        render();
+    }
+};
+
+document.getElementById("prev").onclick = () => {
+    if (pdfDoc && page > 1) {
+        page--;
+        safePlay(prevSound);
+        render();
+    }
+};
+
+document.getElementById("goPage").onclick = () => {
+    let p = parseInt(document.getElementById("pageJump").value);
+    if (pdfDoc && p >= 1 && p <= pdfDoc.numPages) {
+        page = p;
+        render();
+    }
+};
+
+function loadVoices() {
+    voiceSel.innerHTML = "";
+    voices = speechSynthesis.getVoices();
+    voices.forEach((v, i) => {
+        if (v.lang.startsWith("en") || v.lang.startsWith("hi")) {
+            let o = document.createElement("option");
+            o.textContent = `${v.name} (${v.lang})`;
+            o.value = i;
+            voiceSel.appendChild(o);
+        }
+    });
+}
+
+if (speechSynthesis.onvoiceschanged !== undefined) {
+    speechSynthesis.onvoiceschanged = loadVoices;
+}
+loadVoices();
+
+function speakPage() {
+    speechSynthesis.cancel();
+    utterance = new SpeechSynthesisUtterance(textArea.textContent);
+    
+    const selectedVoiceIndex = voiceSel.value;
+    utterance.voice = voices[selectedVoiceIndex] || voices[0];
+    utterance.rate = speeds[speedIndex];
+    utterance.volume = parseInt(document.getElementById("volume").value) / 100;
+
+    utterance.onend = () => {
+        if (reading && page < pdfDoc.numPages) {
+            page++;
+            safePlay(nextSound);
+            render();
+        } else {
+            announce("End of document reached.");
+            reading = false;
+        }
+    };
+
+    speechSynthesis.speak(utterance);
+}
+
+document.getElementById("readBtn").onclick = () => {
+    if (!pdfDoc) return;
+    reading = true;
+    paused = false;
+    document.getElementById("pauseBtn").textContent = "Pause";
+    announce("Started reading aloud.");
+    speakPage();
+};
+
+document.getElementById("pauseBtn").onclick = () => {
+    if (!reading) return;
+    if (!paused) {
+        speechSynthesis.pause();
+        document.getElementById("pauseBtn").textContent = "Resume";
+        paused = true;
+        announce("Reading paused.");
+    } else {
+        speechSynthesis.resume();
+        document.getElementById("pauseBtn").textContent = "Pause";
+        paused = false;
+        announce("Reading resumed.");
+    }
+};
+
+document.getElementById("speedBtn").onclick = () => {
+    speedIndex++;
+    if (speedIndex >= speeds.length) speedIndex = 0;
+    const label = speeds[speedIndex] === 1 ? "Normal" : speeds[speedIndex] + "x";
+    document.getElementById("speedBtn").textContent = `Speed: ${label}`;
+    if (reading) speakPage();
+    announce(`Speech speed set to ${label}`);
+};
+
+document.getElementById("spacing").oninput = (e) => {
+    textArea.style.lineHeight = e.target.value;
+};
+
+let hc = false, large = false;
+
+document.getElementById("contrast").onclick = () => {
+    hc = !hc;
+    document.body.style.backgroundColor = hc ? "#000000" : "";
+    document.body.style.color = hc ? "#FFFFFF" : "";
+    announce(hc ? "High contrast enabled" : "High contrast disabled");
+};
+
+document.getElementById("zoomIn").onclick = () => {
+    scale += 0.2;
+    textArea.style.fontSize = (scale * 100) + "%";
+};
+
+document.getElementById("zoomOut").onclick = () => {
+    scale = Math.max(0.6, scale - 0.2);
+    textArea.style.fontSize = (scale * 100) + "%";
+};
+
+document.getElementById("largeUi").onclick = () => {
+    large = !large;
+    document.body.classList.toggle("large-ui");
+    announce(large ? "Large user interface enabled" : "Large user interface disabled");
+};
+</script>
+</body>
+</html>

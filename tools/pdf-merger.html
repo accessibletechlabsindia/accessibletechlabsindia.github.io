@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PDF Merger - Accessible Tech Labs India</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../../css/style.css">
+<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+</head>
+
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header role="banner">
+<h1>Accessible Tech Labs India</h1>
+
+<nav aria-label="Main navigation">
+<a href="../index.html" accesskey="h" aria-label="Home, Alt plus H">Home</a>
+<a href="../software.html" accesskey="s" aria-label="Software, Alt plus S">Software</a>
+<a href="../tools.html" accesskey="t" aria-label="Tools, Alt plus T">Tools</a>
+<a href="../Games.html" accesskey="g" aria-label="Games, Alt plus G">Games</a>
+<a href="../about.html" accesskey="a" aria-label="About, Alt plus A">About</a>
+<a href="../contact.html" accesskey="c" aria-label="Contact, Alt plus C">Contact</a>
+<a href="../social.html" accesskey="l" aria-label="Social, Alt plus L">Social</a>
+</nav>
+</header>
+
+<main id="main">
+
+<h2>PDF Merger</h2>
+
+<p>
+Merge multiple PDF documents into a single PDF directly in your browser. No uploads. Everything happens locally on your device.
+</p>
+<form aria-label="PDF merger form">
+
+<label for="pdfFiles">Select PDF files</label><br>
+<input id="pdfFiles" type="file" accept="application/pdf" multiple aria-required="true"><br><br>
+
+<ul id="fileListContainer" aria-live="polite" style="list-style: none; padding: 0;"></ul><br>
+
+<label for="outputName">Output file name</label><br>
+<input id="outputName" type="text" value="merged_pdf"><br><br>
+
+<button type="button" id="mergeBtn" aria-label="Merge selected PDF files">Merge PDFs</button>
+
+</form>
+
+<p id="status" aria-live="polite"></p>
+
+<a id="downloadLink" style="display:none;" aria-label="Download merged PDF">Download merged PDF</a>
+
+</main>
+
+<footer role="contentinfo">
+    <p><a href="../privacy.html" accesskey="p" aria-label="Privacy Policy, Alt plus P" style="color: white; text-decoration: underline;">Privacy Policy</a></p>
+
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+<script>
+const { PDFDocument } = PDFLib;
+let validFiles = [];
+
+document.getElementById("pdfFiles").addEventListener("change", async (e) => {
+    const files = Array.from(e.target.files);
+    const container = document.getElementById("fileListContainer");
+    const status = document.getElementById("status");
+    
+    status.innerText = "Checking files for passwords and errors...";
+    
+    for (const file of files) {
+        try {
+            const buffer = await file.arrayBuffer();
+            await PDFDocument.load(buffer);
+            validFiles.push(file);
+        } catch (error) {
+            alert(`The file "${file.name}" is password protected or corrupted. Please upload another file.`);
+        }
+    }
+    
+    document.getElementById("pdfFiles").value = "";
+    renderFileList();
+    status.innerText = "Files are ready. You can rearrange them before merging.";
+});
+
+function renderFileList() {
+    const container = document.getElementById("fileListContainer");
+    container.innerHTML = "";
+    
+    validFiles.forEach((file, index) => {
+        const li = document.createElement("li");
+        li.style.marginBottom = "15px";
+        
+        const nameSpan = document.createElement("span");
+        nameSpan.innerText = `${index + 1}. ${file.name} `;
+        
+        const upBtn = document.createElement("button");
+        upBtn.type = "button";
+        upBtn.innerText = "Move Up";
+        upBtn.setAttribute("aria-label", `Move ${file.name} up`);
+        upBtn.onclick = () => moveFile(index, -1);
+        if (index === 0) upBtn.disabled = true;
+
+        const downBtn = document.createElement("button");
+        downBtn.type = "button";
+        downBtn.innerText = "Move Down";
+        downBtn.setAttribute("aria-label", `Move ${file.name} down`);
+        downBtn.onclick = () => moveFile(index, 1);
+        if (index === validFiles.length - 1) downBtn.disabled = true;
+
+        const removeBtn = document.createElement("button");
+        removeBtn.type = "button";
+        removeBtn.innerText = "Remove";
+        removeBtn.setAttribute("aria-label", `Remove ${file.name}`);
+        removeBtn.onclick = () => removeFile(index);
+
+        li.appendChild(nameSpan);
+        li.appendChild(upBtn);
+        li.appendChild(downBtn);
+        li.appendChild(removeBtn);
+        container.appendChild(li);
+    });
+}
+
+function moveFile(index, direction) {
+    const newIndex = index + direction;
+    if (newIndex >= 0 && newIndex < validFiles.length) {
+        const temp = validFiles[index];
+        validFiles[index] = validFiles[newIndex];
+        validFiles[newIndex] = temp;
+        renderFileList();
+        document.getElementById("status").innerText = "File list updated.";
+    }
+}
+
+function removeFile(index) {
+    validFiles.splice(index, 1);
+    renderFileList();
+    document.getElementById("status").innerText = "File removed.";
+}
+
+document.getElementById("mergeBtn").addEventListener("click", async () => {
+    const outputName = document.getElementById("outputName").value || "merged_pdf";
+    const status = document.getElementById("status");
+    const downloadLink = document.getElementById("downloadLink");
+
+    if(validFiles.length < 2){
+        alert("Please select at least two valid PDF files from the list.");
+        return;
+    }
+
+    status.innerText = "Merging PDFs, please wait...";
+    downloadLink.style.display = "none";
+
+    try {
+        const mergedPdf = await PDFDocument.create();
+
+        for(const file of validFiles){
+            const buffer = await file.arrayBuffer();
+            const pdf = await PDFDocument.load(buffer);
+            const copiedPages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+            copiedPages.forEach(page => mergedPdf.addPage(page));
+        }
+
+        const finalPdf = await mergedPdf.save();
+        const blob = new Blob([finalPdf], { type:"application/pdf" });
+        const url = URL.createObjectURL(blob);
+
+        downloadLink.href = url;
+        downloadLink.download = outputName + ".pdf";
+        downloadLink.style.display = "block";
+        downloadLink.innerText = "Download " + outputName + ".pdf";
+        
+        status.innerText = "PDF ready. Download link available.";
+        validFiles = [];
+        renderFileList();
+    } catch(error) {
+        status.innerText = "An error occurred during merging. Please check your files.";
+    }
+});
+</script>
+
+</body>
+</html>
