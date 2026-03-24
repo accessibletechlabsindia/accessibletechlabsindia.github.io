@@ -75,6 +75,8 @@ The 360° Spatial & Channel Workstation is a state-of-the-art digital audio proc
 <div class="upload-section">
 <label for="audioUpload" class="file-label">Select Audio Master File</label>
 <input type="file" id="audioUpload" accept="audio/*" class="file-input" multiple>
+<label for="folderUpload" class="file-label" style="margin-top: 25px;">Select Folder (Batch Process)</label>
+<input type="file" id="folderUpload" webkitdirectory directory accept="audio/*" class="file-input">
 <p id="fileStatus" style="margin-top:15px; font-weight:700; color:#4a5568;" aria-live="polite">Status: Waiting for Input</p>
 </div>
 
@@ -86,6 +88,8 @@ The 360° Spatial & Channel Workstation is a state-of-the-art digital audio proc
 <option value="8d">Create 8D Spatial Audio Experience</option>
 <option value="mono">Convert to Pure Mono</option>
 <option value="widen">Expand Stereo Width (Distance Effect)</option>
+<option value="remove_left">Remove Left Channel (Mute Left)</option>
+<option value="remove_right">Remove Right Channel (Mute Right)</option>
 </select>
 </div>
 
@@ -133,6 +137,8 @@ The 360° Spatial & Channel Workstation is a state-of-the-art digital audio proc
 <p>© 2026 Accessible Tech Labs India</p>
 </footer>
 <script>
+let currentFolderName = "Processed_Batch";
+let isFolderUpload = false;
 let uploadedFiles = [];
 let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 const announcer = document.getElementById('srAnnouncer');
@@ -141,12 +147,31 @@ announcer.innerText = '';
 setTimeout(() => { announcer.innerText = text; }, 50);
 }
 document.getElementById('audioUpload').addEventListener('change', (e) => {
+isFolderUpload = false;
 uploadedFiles = Array.from(e.target.files);
 if (uploadedFiles.length === 0) return;
 document.getElementById('fileStatus').innerText = "Selected " + uploadedFiles.length + " master file(s).";
 speak(uploadedFiles.length + " files selected. Workspace is now active.");
 document.getElementById('workspaceArea').style.display = 'block';
 document.getElementById('processMode').focus();
+});
+document.getElementById('folderUpload').addEventListener('change', (e) => {
+isFolderUpload = true;
+    let allFiles = Array.from(e.target.files);
+    uploadedFiles = allFiles.filter(file => file.type.startsWith('audio/'));
+    if (uploadedFiles.length > 0 && uploadedFiles[0].webkitRelativePath) {
+    currentFolderName = uploadedFiles[0].webkitRelativePath.split('/')[0];
+}
+    if (uploadedFiles.length === 0) {
+        document.getElementById('fileStatus').innerText = "Status: No audio files found in folder.";
+        speak("No audio files found in folder.");
+        return;
+    }
+
+    document.getElementById('fileStatus').innerText = "Selected " + uploadedFiles.length + " master file(s) from folder.";
+    speak(uploadedFiles.length + " files selected. Workspace is now active.");
+    document.getElementById('workspaceArea').style.display = 'block';
+    document.getElementById('processMode').focus();
 });
 function announceModeChange() {
 const mode = document.getElementById('processMode');
@@ -166,6 +191,7 @@ player.pause();
 player.src = "";
 uploadedFiles = [];
 document.getElementById('audioUpload').value = "";
+document.getElementById('folderUpload').value = "";
 document.getElementById('fileStatus').innerText = "Status: Waiting for Input";
 document.getElementById('workspaceArea').style.display = 'none';
 document.getElementById('exportZone').style.display = 'none';
@@ -189,23 +215,34 @@ async function initiateProcessing() {
     
     eZone.style.display = 'none';
     pZone.style.display = 'block';
-    speak("Audio processing engaged for " + uploadedFiles.length + " files.");
-    
-    let progress = 0;
-    const uiInterval = setInterval(() => {
-        progress += 5;
-        if (progress > 90) progress = 90;
-        pFill.style.width = progress + "%";
-        pText.innerText = "Rendering Engine: " + progress + "%";
-    }, 300);
+speak("Audio processing engaged for " + uploadedFiles.length + " files.");
+let progress = 0;
+let uiInterval = null;
+if (!isFolderUpload) {
+uiInterval = setInterval(() => {
+progress += 5;
+if (progress > 90) progress = 90;
+pFill.style.width = progress + "%";
+}, 300);
+}
 
-    try {
+try {
         const zip = new JSZip();
         let singleFileUrl = "";
         let singleFileName = "";
-
-        for (let f = 0; f < uploadedFiles.length; f++) {
-            const file = uploadedFiles[f];
+for (let f = 0; f < uploadedFiles.length; f++) {
+        if (!isFolderUpload) {
+            for (let i = 0; i <= 100; i += 10) {
+                pFill.style.width = i + "%";
+                pText.innerText = "Processing File " + (f + 1) + " of " + uploadedFiles.length + " (" + i + "%)";
+                await new Promise(r => setTimeout(r, 50));
+            }
+        } else {
+            let currentProgress = Math.round(((f + 1) / uploadedFiles.length) * 100);
+            pFill.style.width = currentProgress + "%";
+            pText.innerText = "Processed: " + (f + 1) + " | Remaining: " + (uploadedFiles.length - (f + 1)) + " | Total: " + uploadedFiles.length;
+        }
+const file = uploadedFiles[f];
             const arrayBuffer = await file.arrayBuffer();
             const fileBuffer = await audioCtx.decodeAudioData(arrayBuffer);
             const offCtx = new OfflineAudioContext(2, fileBuffer.length, fileBuffer.sampleRate);
@@ -221,7 +258,7 @@ async function initiateProcessing() {
                 const splitter = offCtx.createChannelSplitter(2);
                 const merger = offCtx.createChannelMerger(2);
                 const gain = offCtx.createGain();
-                gain.gain.value = 0.5;
+gain.gain.value = 1.0;
                 source.connect(splitter);
                 splitter.connect(gain, 0);
                 splitter.connect(gain, 1);
@@ -231,8 +268,8 @@ async function initiateProcessing() {
 } else if (mode === '8d') {
                 const panner = offCtx.createPanner();
                 panner.panningModel = 'HRTF';
-                panner.distanceModel = 'inverse';
-
+panner.distanceModel = 'inverse';
+panner.rolloffFactor = 0.1;
                 const lfoX = offCtx.createOscillator();
                 const lfoZ = offCtx.createOscillator();
                 
@@ -267,9 +304,8 @@ async function initiateProcessing() {
                     }
                 }
                 reverb.buffer = imp;
-                
-                finalDry.gain.value = 0.85;
-                finalWet.gain.value = 0.25;
+finalDry.gain.value = 1.0;
+finalWet.gain.value = 0.4;                
                 
                 source.connect(panner);
                 panner.connect(finalDry);
@@ -315,17 +351,26 @@ async function initiateProcessing() {
                 merger.connect(reverb);
                 reverb.connect(echoGain);
                 echoGain.connect(finalWet);
+} else if (mode === 'remove_left') {
+                const splitter = offCtx.createChannelSplitter(2);
+                const merger = offCtx.createChannelMerger(2);
+                source.connect(splitter);
+                splitter.connect(merger, 1, 1);
+                merger.connect(finalDry);
+            } else if (mode === 'remove_right') {
+                const splitter = offCtx.createChannelSplitter(2);
+                const merger = offCtx.createChannelMerger(2);
+                source.connect(splitter);
+                splitter.connect(merger, 0, 0);
+                merger.connect(finalDry);
             }
-const compressor = offCtx.createDynamicsCompressor();
-            compressor.threshold.value = -1.0;
-            compressor.knee.value = 40;
-            compressor.ratio.value = 12;
-            compressor.attack.value = 0;
-            compressor.release.value = 0.25;
 
-            finalDry.connect(compressor);
-            finalWet.connect(compressor);
-            compressor.connect(offCtx.destination);
+            const masterVolume = offCtx.createGain();
+masterVolume.gain.value = 2.5;
+
+finalDry.connect(masterVolume);
+finalWet.connect(masterVolume);
+masterVolume.connect(offCtx.destination);
             source.start(0);
 
             const renderedBuffer = await offCtx.startRendering();
@@ -338,21 +383,25 @@ const compressor = offCtx.createDynamicsCompressor();
                 singleFileUrl = URL.createObjectURL(wavBlob);
                 singleFileName = processedName;
             }
-        }
+}
+if (uiInterval) clearInterval(uiInterval);
+pFill.style.width = "100%";
+pText.innerText = "All " + uploadedFiles.length + " files processed successfully!";
+const downloadBtn = document.getElementById('downloadBtn');
 
-        clearInterval(uiInterval);
-        pFill.style.width = "100%";
-        pText.innerText = "Rendering Engine: 100%";
-        const downloadBtn = document.getElementById('downloadBtn');
-
-        if (uploadedFiles.length > 1) {
-            player.style.display = 'none';
-            const zipBlob = await zip.generateAsync({type:"blob"});
-            const zipUrl = URL.createObjectURL(zipBlob);
-            downloadBtn.href = zipUrl;
-            downloadBtn.download = "Accessible_Tech_Labs_India_Batch_Process.zip";
-            downloadBtn.innerText = "Download ZIP Archive";
-        } else {
+if (uploadedFiles.length > 1) {
+player.style.display = 'none';
+const zipBlob = await zip.generateAsync({type:"blob"});
+const zipUrl = URL.createObjectURL(zipBlob);
+downloadBtn.href = zipUrl;
+if (isFolderUpload) {
+downloadBtn.download = currentFolderName + "_Processed.zip";
+downloadBtn.innerText = "Download ZIP: " + currentFolderName;
+} else {
+downloadBtn.download = "Accessible_Tech_Labs_India_Batch_Process.zip";
+downloadBtn.innerText = "Download ZIP Archive";
+}
+} else {
             player.style.display = 'block';
             player.src = singleFileUrl;
             downloadBtn.href = singleFileUrl;
@@ -365,9 +414,9 @@ const compressor = offCtx.createDynamicsCompressor();
             eZone.style.display = 'block';
             speak("Transformation complete.");
         }, 800);
-
-    } catch (err) {
-        clearInterval(uiInterval);
+} catch (err) {
+        if (uiInterval) clearInterval(uiInterval);
+        pZone.style.display = 'none';
         speak("An error occurred.");
     }
 }
@@ -385,7 +434,7 @@ for(i=0; i<n; i++) chans.push(buffer.getChannelData(i));
 while(p < len) {
 for(i=0; i<n; i++) {
 s = Math.max(-1, Math.min(1, chans[i][off]));
-s = (0.5 + s < 0 ? s * 32768 : s * 32767)|0;
+s = s < 0 ? s * 32768 : s * 32767;
 view.setInt16(p, s, true); p += 2;
 }
 off++;

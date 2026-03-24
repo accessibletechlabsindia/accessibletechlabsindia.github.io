@@ -75,10 +75,11 @@ footer a { color: #ffdd00; text-decoration: none; font-weight: 700; border-botto
 The Industrial Bulk Audio Merger & Sequence Engine is a high-performance multimedia utility developed by Accessible Tech Labs India, specifically engineered for the seamless integration of multiple audio streams into a single, high-fidelity WAV container. This professional-grade architecture operates entirely within the client-side browser environment, utilizing advanced Web Audio API decoding and buffer management to ensure that your sensitive data remains private and never transits external servers. Our system features a dynamic sequencing engine that allows users to precisely arrange tracks, maintaining bit-perfect synchronization across various sample rates and channel configurations. Designed with a steadfast commitment to universal digital accessibility, the interface provides comprehensive ARIA support, assertive live regions, and high-contrast visual elements, ensuring an uncompromising experience for users of assistive technologies. Whether you are assembling complex podcasts, music stems, or industrial voice logs, this tool delivers lossless output with maximum efficiency and data sovereignty.
 </p>
 </section>
-
 <div class="upload-zone">
 <label for="audioUpload" class="file-label">Select Audio Files to Begin Process</label>
 <input type="file" id="audioUpload" accept="audio/*" multiple aria-required="true">
+<label for="folderUpload" class="file-label" style="margin-top: 25px; display: block;">Select Folder (Batch Process)</label>
+<input type="file" id="folderUpload" webkitdirectory directory accept="audio/*" class="file-label">
 </div>
 
 <div id="fileListContainer" role="region" aria-label="Audio track sequence">
@@ -118,40 +119,54 @@ The Industrial Bulk Audio Merger & Sequence Engine is a high-performance multime
 </footer>
 <script>
 let selectedFiles = [];
+let isFolderUpload = false;
+let currentFolderName = "Merged_Audio";
 const audioUpload = document.getElementById('audioUpload');
+const folderUpload = document.getElementById('folderUpload');
 const fileList = document.getElementById('fileList');
 const listContainer = document.getElementById('fileListContainer');
 const nameSection = document.getElementById('nameSettingSection');
 const mergeBtn = document.getElementById('mergeBtn');
 const announcer = document.getElementById('srAnnouncer');
-
 function speak(text) {
 announcer.innerText = '';
 setTimeout(() => { announcer.innerText = text; }, 50);
 }
+audioUpload.addEventListener('click', () => { isFolderUpload = false; });
 
 audioUpload.addEventListener('change', (e) => {
-const newFiles = Array.from(e.target.files);
-if (newFiles.length === 1) {
-speak("Warning: Please select at least two files to perform a merge operation.");
-alert("Please select at least two audio files to merge.");
-selectedFiles = [];
-listContainer.style.display = 'none';
-nameSection.style.display = 'none';
-mergeBtn.disabled = true;
-return;
-}
-if (newFiles.length > 1) {
-selectedFiles = newFiles;
-renderFileList();
-listContainer.style.display = 'block';
-nameSection.style.display = 'block';
-mergeBtn.disabled = false;
-document.getElementById('outputFileName').value = selectedFiles[0].name.split('.')[0] + "_merged_export";
-speak(selectedFiles.length + " tracks loaded. You can now reorder the sequence.");
-}
+    handleFiles(Array.from(e.target.files));
 });
 
+folderUpload.addEventListener('change', (e) => {
+    isFolderUpload = true;
+    const allFiles = Array.from(e.target.files);
+    const audioFiles = allFiles.filter(file => file.type.startsWith('audio/'));
+    if (audioFiles.length > 0 && audioFiles[0].webkitRelativePath) {
+        currentFolderName = audioFiles[0].webkitRelativePath.split('/')[0];
+    }
+    handleFiles(audioFiles);
+});
+
+function handleFiles(newFiles) {
+    if (newFiles.length < 2) {
+        speak("Warning: Please select at least two files to perform a merge operation.");
+        alert("Please select at least two audio files to merge.");
+        selectedFiles = [];
+        listContainer.style.display = 'none';
+        nameSection.style.display = 'none';
+        mergeBtn.disabled = true;
+        return;
+    }
+    selectedFiles = newFiles;
+    renderFileList();
+    listContainer.style.display = 'block';
+    nameSection.style.display = 'block';
+    mergeBtn.disabled = false;
+    let exportName = isFolderUpload ? currentFolderName + "_Merged_Master" : selectedFiles[0].name.split('.')[0] + "_merged_export";
+    document.getElementById('outputFileName').value = exportName;
+    speak(selectedFiles.length + " tracks loaded. You can now reorder the sequence.");
+}
 function renderFileList() {
 fileList.innerHTML = '';
 selectedFiles.forEach((file, index) => {
@@ -181,82 +196,111 @@ renderFileList();
 speak(temp.name + " moved to position " + (newIndex + 1));
 }
 }
-
 async function runMerger() {
-mergeBtn.disabled = true;
-audioUpload.disabled = true;
-document.getElementById('progressArea').style.display = 'block';
-const pBar = document.getElementById('pBar');
-const pStatus = document.getElementById('pStatus');
-const ctx = new (window.AudioContext || window.webkitAudioContext)();
-let buffers = [];
-let totalLength = 0;
+    mergeBtn.disabled = true;
+    audioUpload.disabled = true;
+    document.getElementById('progressArea').style.display = 'block';
+    const pBar = document.getElementById('pBar');
+    const pStatus = document.getElementById('pStatus');
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    
+    let dataChunks = [];
+    let totalPayloadLength = 0;
+    let sampleRate = 0;
+    let numChannels = 0;
 
-try {
-for (let i = 0; i < selectedFiles.length; i++) {
-pStatus.innerText = `Processing Track ${i+1}/${selectedFiles.length}: ${selectedFiles[i].name}`;
-speak(`Decoding track ${i+1}`);
-const arrayBuffer = await selectedFiles[i].arrayBuffer();
-const audioBuffer = await ctx.decodeAudioData(arrayBuffer);
-buffers.push(audioBuffer);
-totalLength += audioBuffer.length;
-pBar.value = (i + 1) / selectedFiles.length * 50;
+    try {
+        for (let i = 0; i < selectedFiles.length; i++) {
+            const currentPos = i + 1;
+
+            if (!isFolderUpload) {
+                for (let j = 0; j <= 100; j += 20) {
+                    pBar.value = (i / selectedFiles.length * 80) + (j / 100 * (80 / selectedFiles.length));
+                    pStatus.innerText = "Processing File " + currentPos + " of " + selectedFiles.length + " : Accessible Tech Labs India (" + j + "%)";
+                    await new Promise(r => setTimeout(r, 30));
+                }
+            } else {
+                pStatus.innerText = "Processed: " + currentPos + " | Remaining: " + (selectedFiles.length - currentPos) + " | Total: " + selectedFiles.length;
+                pBar.value = (currentPos / selectedFiles.length) * 80;
+            }
+
+            speak(`Decoding track ${currentPos}`);
+            const arrayBuffer = await selectedFiles[i].arrayBuffer();
+            const audioBuffer = await ctx.decodeAudioData(arrayBuffer);
+
+            if (i === 0) {
+                sampleRate = audioBuffer.sampleRate;
+                numChannels = audioBuffer.numberOfChannels;
+            }
+
+            const pcmData = audioBufferToPcm(audioBuffer);
+            dataChunks.push(pcmData);
+            totalPayloadLength += pcmData.byteLength;
+        }
+
+        pStatus.innerText = "Stitching chunks into Final Master...";
+        pBar.value = 90;
+        speak("Stitching all chunks together.");
+
+        const wavHeader = createWavHeader(totalPayloadLength, sampleRate, numChannels);
+        const finalBlob = new Blob([wavHeader, ...dataChunks], { type: "audio/wav" });
+        const url = URL.createObjectURL(finalBlob);
+
+        pBar.value = 100;
+        document.getElementById('progressArea').style.display = 'none';
+        document.getElementById('resultArea').style.display = 'block';
+        document.getElementById('player').src = url;
+        document.getElementById('downloadLink').href = url;
+        document.getElementById('downloadLink').download = (document.getElementById('outputFileName').value || "merged_master") + ".wav";
+        document.getElementById('finalSummary').innerText = `Process Success: ${selectedFiles.length} tracks merged seamlessly.`;
+        speak("Merging operation successful. Final master is ready.");
+
+    } catch (err) {
+        pStatus.innerText = "Error: Memory limit or invalid file format.";
+        pStatus.style.color = "#c53030";
+        speak("An error occurred during industrial processing.");
+        mergeBtn.disabled = false;
+    }
+}
+function audioBufferToPcm(buffer) {
+    let n = buffer.numberOfChannels;
+    let len = buffer.length * n * 2;
+    let ab = new ArrayBuffer(len);
+    let view = new DataView(ab);
+    let offset = 0;
+    let pos = 0;
+
+    while (pos < buffer.length) {
+        for (let i = 0; i < n; i++) {
+            let sample = Math.max(-1, Math.min(1, buffer.getChannelData(i)[pos]));
+            sample = (0.5 + sample < 0 ? sample * 32768 : sample * 32767) | 0;
+            view.setInt16(offset, sample, true);
+            offset += 2;
+        }
+        pos++;
+    }
+    return ab;
 }
 
-pStatus.innerText = "Synchronizing and stitching audio buffers...";
-speak("Stitching audio buffers.");
-const outputBuffer = ctx.createBuffer(buffers[0].numberOfChannels, totalLength, buffers[0].sampleRate);
-let offset = 0;
-
-for (let i = 0; i < buffers.length; i++) {
-for (let ch = 0; ch < outputBuffer.numberOfChannels; ch++) {
-outputBuffer.getChannelData(ch).set(buffers[i].getChannelData(ch), offset);
-}
-offset += buffers[i].length;
-pBar.value = 50 + ((i + 1) / buffers.length * 40);
-}
-
-pStatus.innerText = "Encoding Lossless WAV Master...";
-const wavBlob = bufferToWav(outputBuffer);
-const url = URL.createObjectURL(wavBlob);
-
-pBar.value = 100;
-document.getElementById('progressArea').style.display = 'none';
-document.getElementById('resultArea').style.display = 'block';
-document.getElementById('player').src = url;
-document.getElementById('downloadLink').href = url;
-document.getElementById('downloadLink').download = (document.getElementById('outputFileName').value || "merged_master") + ".wav";
-document.getElementById('finalSummary').innerText = `Process Success: ${selectedFiles.length} tracks integrated into final master.`;
-speak("Merging operation successful. Final master is ready for download.");
-
-} catch (err) {
-pStatus.innerText = "Critical Error: Unsupported Format or Buffer Overflow.";
-pStatus.style.color = "#c53030";
-speak("Critical error occurred during audio processing.");
-mergeBtn.disabled = false;
-}
-}
-
-function bufferToWav(abuffer) {
-let n = abuffer.numberOfChannels, len = abuffer.length * n * 2 + 44,
-buf = new ArrayBuffer(len), view = new DataView(buf),
-channels = [], i, sample, offset = 0, pos = 0;
-function set16(d) { view.setUint16(pos, d, true); pos += 2; }
-function set32(d) { view.setUint32(pos, d, true); pos += 4; }
-set32(0x46464952); set32(len - 8); set32(0x45564157);
-set32(0x20746d66); set32(16); set16(1); set16(n);
-set32(abuffer.sampleRate); set32(abuffer.sampleRate * 2 * n);
-set16(n * 2); set16(16); set32(0x61746164); set32(len - pos - 4);
-for(i=0; i<n; i++) channels.push(abuffer.getChannelData(i));
-while(pos < len) {
-for(i=0; i<n; i++) {
-sample = Math.max(-1, Math.min(1, channels[i][offset]));
-sample = (0.5 + sample < 0 ? sample * 32768 : sample * 32767)|0;
-view.setInt16(pos, sample, true); pos += 2;
-}
-offset++;
-}
-return new Blob([buf], {type: "audio/wav"});
+function createWavHeader(dataLength, sampleRate, numChannels) {
+    let b = new ArrayBuffer(44);
+    let v = new DataView(b);
+    function s32(o, d) { v.setUint32(o, d, true); }
+    function s16(o, d) { v.setUint16(o, d, true); }
+    s32(0, 0x46464952); 
+    s32(4, dataLength + 36); 
+    s32(8, 0x45564157); 
+    s32(12, 0x20746d66); 
+    s32(16, 16); 
+    s16(20, 1); 
+    s16(22, numChannels);
+    s32(24, sampleRate); 
+    s32(28, sampleRate * numChannels * 2);
+    s16(32, numChannels * 2); 
+    s16(34, 16);
+    s32(36, 0x61746164); 
+    s32(40, dataLength);
+    return b;
 }
 </script>
 </body>

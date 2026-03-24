@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Industrial Dynamic Bass Architect - Accessible Tech Labs India</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+header, nav, footer { display: block; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; margin: 0; background: #f0f4f8; color: #1a2b3c; line-height: 1.6; }
+.skip-link { position: absolute; top: -40px; left: 0; background: #005a9c; color: white; padding: 10px; z-index: 1000; transition: top 0.3s; }
+.skip-link:focus { top: 0; }
+header { background: linear-gradient(135deg, #005a9c 0%, #003d6b 100%); color: white; padding: 35px 0; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
+header h1 { margin: 0; font-size: 2.6em; letter-spacing: 1.5px; text-transform: uppercase; }
+nav { background-color: #002d50; padding: 14px 0; text-align: center; border-bottom: 4px solid #ffdd00; }
+nav a { color: rgba(255,255,255,0.9); text-decoration: none; margin: 0 20px; font-weight: 700; font-size: 1.1em; transition: 0.3s; }
+nav a:hover, nav a:focus { color: #ffdd00; outline: none; }
+.main-container { max-width: 1000px; margin: 40px auto; padding: 0 25px; }
+.card { background: #ffffff; border-radius: 24px; padding: 45px; box-shadow: 0 20px 50px rgba(0,0,0,0.08); border: 1px solid #e1e8ed; position: relative; overflow: hidden; }
+.card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 8px; background: #005a9c; }
+.tool-header { margin-bottom: 35px; }
+.tool-header h2 { color: #005a9c; margin: 0 0 15px 0; font-size: 2.2em; border-bottom: 2px solid #f0f4f8; padding-bottom: 10px; }
+.tool-header p { margin: 0; color: #4a5568; font-size: 1.15em; text-align: justify; line-height: 1.8; }
+.upload-zone { background: #f8fbff; border: 3px dashed #cbd5e0; border-radius: 16px; padding: 50px 30px; text-align: center; transition: all 0.4s; cursor: pointer; }
+.upload-zone:hover { border-color: #005a9c; background: #f0f7ff; }
+.file-label { font-size: 1.4em; font-weight: 800; color: #2d3748; cursor: pointer; }
+input[type="file"] { display: block; margin: 20px auto 0 auto; font-size: 1em; }
+.settings-panel { margin-top: 35px; padding: 30px; background: #fffaf0; border-radius: 16px; border: 1px solid #feebc8; }
+.setting-item { margin-bottom: 10px; }
+.setting-item label { display: block; font-weight: 800; color: #2d3748; margin-bottom: 15px; font-size: 1.2em; }
+input[type="range"] { width: 100%; cursor: pointer; height: 12px; background: #cbd5e0; border-radius: 6px; outline: none; }
+.gain-value { display: block; font-size: 2.5em; font-weight: 900; color: #005a9c; text-align: center; margin-top: 10px; }
+.action-area { margin-top: 40px; text-align: center; }
+.btn-main { padding: 20px 60px; border-radius: 14px; border: none; font-weight: 800; font-size: 1.4em; cursor: pointer; transition: 0.4s; }
+.btn-boost { background: #005a9c; color: white; box-shadow: 0 10px 20px rgba(0,90,156,0.25); }
+.btn-boost:hover:not(:disabled) { background: #003d6b; transform: translateY(-3px); }
+.progress-box { display: none; margin-top: 40px; padding: 30px; background: #f0f7ff; border-radius: 16px; border: 1px solid #bee3f8; }
+progress { width: 100%; height: 25px; border-radius: 12px; appearance: none; }
+progress::-webkit-progress-bar { background: #e2e8f0; border-radius: 12px; }
+progress::-webkit-progress-value { background: linear-gradient(90deg, #28a745, #48bb78); border-radius: 12px; }
+.status-msg { display: block; margin-top: 15px; font-weight: 700; color: #2b6cb0; text-align: center; font-size: 1.3em; }
+.result-list { display: none; margin-top: 40px; }
+.result-item { background: #f0fff4; border: 1px solid #c6f6d5; padding: 20px; border-radius: 12px; margin-bottom: 15px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+.zip-container { text-align: center; margin-bottom: 30px; padding: 20px; background: #e6fffa; border: 2px solid #38b2ac; border-radius: 15px; }
+.btn-dl-all { background: #38b2ac; color: white; text-decoration: none; padding: 15px 35px; border-radius: 10px; font-weight: 800; font-size: 1.2em; display: inline-block; }
+.btn-dl-small { background: #28a745; color: white; text-decoration: none; padding: 10px 20px; border-radius: 8px; font-weight: 700; }
+footer { background: #1a202c; color: #e2e8f0; padding: 50px 0; text-align: center; margin-top: 80px; border-top: 6px solid #005a9c; }
+footer a { color: #ffdd00; text-decoration: none; font-weight: 700; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<header role="banner">
+<h1>Accessible Tech Labs India</h1>
+<nav aria-label="Main navigation">
+<a href="../index.html" accesskey="h">Home</a>
+<a href="../software.html" accesskey="s">Software</a>
+<a href="../tools.html" accesskey="t">Tools</a>
+<a href="../Games.html" accesskey="g">Games</a>
+<a href="../about.html" accesskey="a">About</a>
+<a href="../contact.html" accesskey="c">Contact</a>
+<a href="../social.html" accesskey="l">Social</a>
+</nav>
+</header>
+
+<main id="main-content" class="main-container">
+<div class="card">
+<section class="tool-header">
+<h2>Industrial Dynamic Bass Architect & Subwoofer Engine</h2>
+<p>
+The Industrial Dynamic Bass Architect is a premium low-frequency enhancement utility engineered by Accessible Tech Labs India. Designed for professional audio mastering, this system utilizes a precise Low-Shelf Biquad Filter to target and amplify deep sub-harmonic frequencies (below 110Hz) without distorting the mid and high-range spectrum. Operating entirely within your local browser ecosystem, it ensures high-fidelity processing with bit-perfect accuracy and absolute data sovereignty. Built with comprehensive ARIA accessibility compliance, this engine empowers visually impaired sound designers, podcasters, and music producers to inject cinematic depth and punch into their audio tracks instantly.
+</p>
+</section>
+
+<div class="upload-zone">
+<label for="audioUpload" class="file-label">Select Audio Files to Enhance Bass</label>
+<input type="file" id="audioUpload" accept="audio/*" multiple>
+<label for="folderUpload" class="file-label" style="margin-top: 25px; display: block;">Select Folder (Batch Process)</label>
+<input type="file" id="folderUpload" webkitdirectory directory accept="audio/*" class="file-label">
+</div>
+
+<div class="settings-panel">
+<div class="setting-item">
+<label for="bassSlider">Enhance Sub-Bass Frequencies (0 dB to 40 dB):</label>
+<input type="range" id="bassSlider" min="0" max="40" value="15" step="1" oninput="updateBassLabel(this.value)">
+<span id="bassValueDisplay" class="gain-value">15 dB</span>
+</div>
+</div>
+
+<div class="action-area">
+<button id="boostBtn" class="btn-main btn-boost" onclick="processBass()" disabled>Engage Bass Amplification</button>
+</div>
+
+<div id="progressArea" class="progress-box">
+<progress id="pBar" value="0" max="100"></progress>
+<span id="pStatus" class="status-msg" aria-live="polite">Initializing Audio Engine...</span>
+</div>
+
+<div id="resultArea" class="result-list">
+<div id="zipSection" class="zip-container" style="display:none;">
+<h3 style="color:#2c7a7b; margin-top:0;">Bulk Processing Complete</h3>
+<button id="downloadZipBtn" class="btn-dl-all">Download All as ZIP Archive</button>
+</div>
+<h3 id="resultTitle" style="color: #276749; border-bottom: 2px solid #c6f6d5; padding-bottom: 10px;">Bass-Boosted Audio Masters:</h3>
+<div id="fileResults"></div>
+<div style="text-align:center; margin-top:30px;">
+<button onclick="location.reload()" style="background:none; border:none; color:#4a5568; cursor:pointer; text-decoration:underline; font-weight:600;">Clear and Start New Task</button>
+</div>
+</div>
+</div>
+</main>
+
+<div id="srAnnouncer" aria-live="assertive" style="position:absolute; left:-9999px;"></div>
+<footer role="contentinfo">
+<p><a href="../privacy.html" accesskey="p" style="color: white; text-decoration: underline;">Privacy Policy</a></p>
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+<script>
+let filesToProcess = [];
+let processedBlobs = [];
+let isFolderUpload = false;
+const audioUpload = document.getElementById('audioUpload');
+const folderUpload = document.getElementById('folderUpload');
+const boostBtn = document.getElementById('boostBtn');
+const announcer = document.getElementById('srAnnouncer');
+const pStatus = document.getElementById('pStatus');
+const pBar = document.getElementById('pBar');
+
+audioUpload.addEventListener('click', () => { isFolderUpload = false; });
+audioUpload.addEventListener('change', (e) => {
+    filesToProcess = Array.from(e.target.files);
+    if (filesToProcess.length > 0) {
+        boostBtn.disabled = false;
+        speak(filesToProcess.length + " files selected. Set your bass level and press start.");
+    }
+});
+
+folderUpload.addEventListener('change', (e) => {
+    isFolderUpload = true;
+    const allFiles = Array.from(e.target.files);
+    filesToProcess = allFiles.filter(file => file.type.startsWith('audio/'));
+    if (filesToProcess.length > 0) {
+        boostBtn.disabled = false;
+        speak(filesToProcess.length + " tracks loaded from folder.");
+    }
+});
+
+function speak(text) {
+    announcer.innerText = '';
+    setTimeout(() => { announcer.innerText = text; }, 50);
+}
+
+function updateBassLabel(val) {
+    document.getElementById('bassValueDisplay').innerText = val + " dB";
+}
+async function processBass() {
+    const bassGain = parseFloat(document.getElementById('bassSlider').value);
+    boostBtn.disabled = true;
+    audioUpload.disabled = true;
+    folderUpload.disabled = true;
+    processedBlobs = [];
+    document.getElementById('fileResults').innerHTML = '';
+    document.getElementById('progressArea').style.display = 'block';
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+
+    for (let i = 0; i < filesToProcess.length; i++) {
+        const file = filesToProcess[i];
+        const currentPos = i + 1;
+
+        if (!isFolderUpload) {
+            for (let j = 0; j <= 100; j += 20) {
+                pBar.value = (i / filesToProcess.length * 100) + (j / 100 * (100 / filesToProcess.length));
+                pStatus.innerText = "Processing File " + currentPos + " of " + filesToProcess.length + " (" + j + "%)";
+                await new Promise(r => setTimeout(r, 45));
+            }
+        } else {
+            pStatus.innerText = "Processed: " + currentPos + " | Total: " + filesToProcess.length;
+            pBar.value = (currentPos / filesToProcess.length) * 100;
+        }
+
+        speak(`Processing ${file.name}`);
+
+        try {
+            const arrayBuf = await file.arrayBuffer();
+            const audioBuf = await ctx.decodeAudioData(arrayBuf);
+            
+            const offlineCtx = new (window.OfflineAudioContext || window.webkitOfflineAudioContext)(audioBuf.numberOfChannels, audioBuf.length, audioBuf.sampleRate);
+            const source = offlineCtx.createBufferSource();
+            source.buffer = audioBuf;
+
+            const bassFilter = offlineCtx.createBiquadFilter();
+            bassFilter.type = "lowshelf";
+            bassFilter.frequency.value = 85;
+            bassFilter.gain.value = bassGain;
+
+            const limiter = offlineCtx.createDynamicsCompressor();
+            limiter.threshold.setValueAtTime(-1.0, offlineCtx.currentTime);
+            limiter.knee.setValueAtTime(0, offlineCtx.currentTime);
+            limiter.ratio.setValueAtTime(20, offlineCtx.currentTime);
+            limiter.attack.setValueAtTime(0.001, offlineCtx.currentTime);
+            limiter.release.setValueAtTime(0.1, offlineCtx.currentTime);
+
+            const gainNode = offlineCtx.createGain();
+            const reduction = Math.pow(10, -(bassGain * 0.4) / 20);
+            gainNode.gain.setValueAtTime(reduction, offlineCtx.currentTime);
+
+            source.connect(bassFilter);
+            bassFilter.connect(gainNode);
+            gainNode.connect(limiter);
+            limiter.connect(offlineCtx.destination);
+            
+            source.start(0);
+
+            const boostedBuf = await offlineCtx.startRendering();
+            const blob = bufferToWav(boostedBuf);
+            processedBlobs.push({ name: file.name.split('.')[0] + "_PRO_MASTER.wav", blob: blob });
+            
+            if (filesToProcess.length === 1) {
+                addResult(file.name, blob, true);
+            }
+        } catch (err) {
+            speak("Error processing " + file.name);
+        }
+    }
+
+    pStatus.innerText = "Industrial Mastering Complete!";
+    speak("All files mastered successfully.");
+    document.getElementById('resultArea').style.display = 'block';
+
+    const zipSection = document.getElementById('zipSection');
+    const resultTitle = document.getElementById('resultTitle');
+
+    if (filesToProcess.length > 1) {
+        zipSection.style.display = 'block';
+        resultTitle.style.display = 'none';
+        document.getElementById('downloadZipBtn').onclick = downloadAsZip;
+    } else {
+        zipSection.style.display = 'none';
+        resultTitle.style.display = 'block';
+    }
+
+    boostBtn.disabled = false;
+    audioUpload.disabled = false;
+    folderUpload.disabled = false;
+}
+function addResult(fileName, blob, showPlayer) {
+    const container = document.getElementById('fileResults');
+    const url = URL.createObjectURL(blob);
+    const div = document.createElement('div');
+    div.className = 'result-item';
+    const nameOnly = fileName.split('.')[0] + "_BASS_BOOSTED.wav";
+
+    let content = `<div style="flex:1; min-width:200px;"><div style="font-weight:700; color:#2d3748;">${nameOnly}</div></div>`;
+    if (showPlayer) {
+        content += `<div style="flex:2; min-width:300px; margin:10px 0;"><audio controls src="${url}" style="width:100%;"></audio></div>`;
+    }
+    content += `<div style="flex:0;"><a href="${url}" download="${nameOnly}" class="btn-dl-small">Download</a></div>`;
+
+    div.innerHTML = content;
+    container.appendChild(div);
+}
+
+async function downloadAsZip() {
+    const zip = new JSZip();
+    processedBlobs.forEach(item => {
+        zip.file(item.name, item.blob);
+    });
+    const content = await zip.generateAsync({type:"blob"});
+    const url = URL.createObjectURL(content);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = "TechLabs_Bass_Boosted_Collection.zip";
+    a.click();
+}
+
+function bufferToWav(abuffer) {
+    let n = abuffer.numberOfChannels, len = abuffer.length * n * 2 + 44,
+    buf = new ArrayBuffer(len), view = new DataView(buf),
+    channels = [], i, sample, offset = 0, pos = 0;
+    function set16(d) { view.setUint16(pos, d, true); pos += 2; }
+    function set32(d) { view.setUint32(pos, d, true); pos += 4; }
+set32(0x46464952); set32(len - 8); set32(0x45564157);
+    set32(0x20746d66); set32(16); set16(1); set16(n);
+    set32(abuffer.sampleRate); set32(abuffer.sampleRate * 2 * n);
+    set16(n * 2); set16(16); set32(0x61746164); set32(len - pos - 4);
+    for(i=0; i<n; i++) channels.push(abuffer.getChannelData(i));
+    while(pos < len) {
+        for(i=0; i<n; i++) {
+            sample = Math.max(-1, Math.min(1, channels[i][offset]));
+            sample = (0.5 + sample < 0 ? sample * 32768 : sample * 32767)|0;
+            view.setInt16(pos, sample, true); pos += 2;
+        }
+        offset++;
+    }
+    return new Blob([buf], {type: "audio/wav"});
+}
+</script>
+</body>
+</html>     

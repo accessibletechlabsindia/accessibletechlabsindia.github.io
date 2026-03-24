@@ -68,6 +68,8 @@ The Industrial Bulk Multimedia Audio Extractor is a high-performance utility dev
 <div class="control-panel">
 <label for="videoUpload" class="file-selector-label">Select Video Files for Extraction</label>
 <input type="file" id="videoUpload" accept="video/*" multiple aria-required="true">
+<label for="folderUpload" class="file-selector-label" style="margin-top: 25px;">Select Folder (Batch Process)</label>
+<input type="file" id="folderUpload" webkitdirectory directory accept="video/*" class="file-selector-label">
 <br>
 <button id="startExtractionBtn" class="btn-action btn-primary" onclick="beginExtraction()" disabled>Start Extracting Audio</button>
 </div>
@@ -95,13 +97,16 @@ The Industrial Bulk Multimedia Audio Extractor is a high-performance utility dev
 
 <script>
 const videoUpload = document.getElementById('videoUpload');
+const folderUpload = document.getElementById('folderUpload');
+let isFolderUpload = false;
+let currentFolderName = "Extracted_Audio";
 const startBtn = document.getElementById('startExtractionBtn');
 const statusLabel = document.getElementById('statusLabel');
 const progressArea = document.getElementById('progressArea');
 const resultArea = document.getElementById('resultArea');
 const srAlert = document.getElementById('screenReaderAlert');
 const progBar = document.getElementById('batchProgress');
-
+const zip = new JSZip();
 function notifyUser(msg) {
 srAlert.innerText = '';
 setTimeout(() => { srAlert.innerText = msg; }, 50);
@@ -115,58 +120,93 @@ notifyUser(videoUpload.files.length + " video files selected. Extraction ready."
 startBtn.disabled = true;
 }
 });
-
+folderUpload.addEventListener('change', () => {
+    isFolderUpload = true;
+    const allFiles = Array.from(folderUpload.files);
+    const videoFiles = allFiles.filter(file => file.type.startsWith('video/'));
+    if (videoFiles.length > 0) {
+        if (videoFiles[0].webkitRelativePath) {
+            currentFolderName = videoFiles[0].webkitRelativePath.split('/')[0];
+        }
+        startBtn.disabled = false;
+        notifyUser(videoFiles.length + " video files selected from folder. Extraction ready.");
+    } else {
+        startBtn.disabled = true;
+        notifyUser("No video files found in the folder.");
+    }
+});
+videoUpload.addEventListener('click', () => { isFolderUpload = false; });
 async function beginExtraction() {
-const files = Array.from(videoUpload.files);
-const zip = new JSZip();
-startBtn.disabled = true;
-videoUpload.disabled = true;
 progressArea.style.display = 'block';
-
+startBtn.disabled = true;
+resultArea.style.display = 'none';
+zip.files = {};
+let files;
+    if (isFolderUpload) {
+        files = Array.from(folderUpload.files).filter(f => f.type.startsWith('video/'));
+    } else {
+        files = Array.from(videoUpload.files);
+    }
+if (!files || files.length === 0) {
+    alert("No files selected.");
+    return;
+}
 try {
-for (let i = 0; i < files.length; i++) {
-const file = files[i];
-const currentPos = i + 1;
-statusLabel.innerText = "Processing Video " + currentPos + " of " + files.length + "...";
-notifyUser("Processing Video " + currentPos + " of " + files.length);
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        for (let i = 0; i < files.length; i++) {
+            const file = files[i];
+            const currentPos = i + 1;
 
-const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-const arrayBuffer = await file.arrayBuffer();
-const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
-const wavBlob = convertToWav(audioBuffer);
+            if (!isFolderUpload) {
+                for (let j = 0; j <= 100; j += 10) {
+                    progBar.value = j;
+                    statusLabel.innerText = "Processing File " + currentPos + " of " + files.length + " (" + j + "%)";
+                    await new Promise(r => setTimeout(r, 40));
+                }
+            } else {
+                statusLabel.innerText = "Processed: " + currentPos + " | Remaining: " + (files.length - currentPos) + " | Total: " + files.length;
+                progBar.value = Math.round((currentPos / files.length) * 100);
+            }
+            notifyUser("Processing " + currentPos + " of " + files.length);
 
-const originalName = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
-const outputName = originalName + ".wav";
+            const arrayBuffer = await file.arrayBuffer();
+            const audioBuffer = await audioCtx.decodeAudioData(arrayBuffer);
+            const wavBlob = convertToWav(audioBuffer);
 
-if (files.length === 1) {
-displaySingleResult(wavBlob, outputName);
-} else {
-zip.file(outputName, wavBlob);
-}
+            const originalName = file.name.substring(0, file.name.lastIndexOf('.')) || file.name;
+            const outputName = originalName + ".wav";
 
-const percent = Math.round((currentPos / files.length) * 100);
-progBar.value = percent;
-}
+            if (files.length === 1) {
+                displaySingleResult(wavBlob, outputName);
+            } else {
+                zip.file(outputName, wavBlob);
+            }
 
-if (files.length > 1) {
-statusLabel.innerText = "Finalizing Archive...";
-notifyUser("Creating ZIP archive for your files.");
-const zipContent = await zip.generateAsync({type: "blob"});
-displayZipResult(zipContent, files.length);
-}
+            const percent = Math.round((currentPos / files.length) * 100);
+            progBar.value = percent;
+        }
 
-progressArea.style.display = 'none';
-resultArea.style.display = 'block';
-resultArea.scrollIntoView({behavior: 'smooth'});
+        if (files.length > 1) {
+            statusLabel.innerText = "Finalizing Archive...";
+            notifyUser("Creating ZIP archive for your files.");
+            const zipContent = await zip.generateAsync({type: "blob"});
+            const url = URL.createObjectURL(zipContent);
+            const container = document.getElementById('downloadContainer');
+            const zipFileName = isFolderUpload ? currentFolderName + "_Audio_Export.zip" : "ATL_Bulk_Audio_Export.zip";
+            container.innerHTML = `<a href="${url}" download="${zipFileName}" class="btn-download">Download All ${files.length} Files (ZIP)</a>`;
+            document.getElementById('resultSummary').innerText = "All " + files.length + " videos processed successfully.";
+        }
 
-} catch (err) {
-statusLabel.innerText = "Error: File format not supported.";
-statusLabel.style.color = "red";
-notifyUser("An error occurred. Extraction stopped.");
+        resultArea.style.display = 'block';
+        progressArea.style.display = 'none';
+
+    } catch (err) {
+        statusLabel.innerText = "Error: Some files could not be processed.";
+        statusLabel.style.color = "red";
+        notifyUser("An error occurred. Extraction stopped.");
 startBtn.disabled = false;
+    }
 }
-}
-
 function displaySingleResult(blob, name) {
 const url = URL.createObjectURL(blob);
 const container = document.getElementById('downloadContainer');
@@ -176,6 +216,8 @@ container.innerHTML = `
 <a href="${url}" download="${name}" class="btn-download">Download Audio File</a>
 `;
 document.getElementById('resultSummary').innerText = "Your audio has been successfully extracted.";
+resultArea.style.display = 'block';
+progressArea.style.display = 'none';
 }
 
 function displayZipResult(blob, count) {

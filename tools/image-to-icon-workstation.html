@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Professional Image to Icon Workstation - Accessible Tech Labs India</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+header, nav, footer { display: block; }
+body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; margin: 0; background: #f0f4f8; color: #1a2b3c; line-height: 1.6; }
+.skip-link { position: absolute; top: -40px; left: 0; background: #005a9c; color: white; padding: 10px; z-index: 1000; transition: top 0.3s; font-weight: bold; }
+.skip-link:focus { top: 0; }
+header { background: linear-gradient(135deg, #005a9c 0%, #003d6b 100%); color: white; padding: 35px 0; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.15); }
+header h1 { margin: 0; font-size: 2.6em; letter-spacing: 1.5px; text-transform: uppercase; }
+nav { background-color: #002d50; padding: 14px 0; text-align: center; border-bottom: 4px solid #ffdd00; }
+nav a { color: rgba(255,255,255,0.9); text-decoration: none; margin: 0 20px; font-weight: 700; font-size: 1.1em; transition: 0.3s; }
+nav a:hover, nav a:focus { color: #ffdd00; outline: none; }
+.main-container { max-width: 1100px; margin: 40px auto; padding: 0 25px; }
+.card { background: #ffffff; border-radius: 24px; padding: 45px; box-shadow: 0 20px 50px rgba(0,0,0,0.08); border: 1px solid #e1e8ed; position: relative; overflow: hidden; }
+.card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 8px; background: #005a9c; }
+.tool-header { margin-bottom: 35px; }
+.tool-header h2 { color: #005a9c; margin: 0 0 15px 0; font-size: 2.2em; border-bottom: 2px solid #f0f4f8; padding-bottom: 10px; }
+.tool-header p { margin: 0; color: #4a5568; font-size: 1.15em; text-align: justify; line-height: 1.8; }
+.upload-section { background: #f8fbff; border: 3px dashed #cbd5e0; border-radius: 16px; padding: 50px; text-align: center; transition: 0.4s; margin-bottom: 30px; }
+.upload-section:focus-within { border-color: #005a9c; background: #f0f7ff; }
+.file-label { font-size: 1.6em; font-weight: 800; color: #005a9c; cursor: pointer; display: block; margin-bottom: 15px; }
+.file-input { padding: 10px; background: white; border: 1px solid #cbd5e0; border-radius: 8px; font-size: 1em; width: 100%; max-width: 400px; }
+#workspaceArea { display: none; }
+.control-panel { background: #f7fafc; padding: 30px; border-radius: 20px; border: 1px solid #edf2f7; margin-bottom: 30px; }
+.control-group { margin-bottom: 25px; }
+.control-label { display: block; font-weight: 800; font-size: 1.3em; color: #2d3748; margin-bottom: 10px; }
+.styled-select { width: 100%; padding: 15px 20px; font-size: 1.1em; font-weight: 700; border-radius: 12px; border: 2px solid #cbd5e0; background: white; color: #1a202c; cursor: pointer; }
+.btn-process { background: #005a9c; color: white; padding: 20px; border-radius: 14px; border: none; font-weight: 900; font-size: 1.3em; cursor: pointer; width: 100%; transition: 0.3s; box-shadow: 0 10px 20px rgba(0,90,156,0.2); }
+.btn-process:hover { background: #003d6b; transform: translateY(-2px); }
+.progress-container { margin-top: 30px; display: none; text-align: center; }
+.progress-bar-bg { background: #e2e8f0; border-radius: 15px; height: 25px; overflow: hidden; width: 100%; position: relative; }
+.progress-fill { background: linear-gradient(90deg, #005a9c, #00b4db); height: 100%; width: 0%; transition: width 0.2s; }
+.progress-text { font-weight: 800; color: #2d3748; margin-top: 10px; font-size: 1.2em; display: block; }
+.export-zone { margin-top: 40px; display: none; padding: 35px; background: #f0fff4; border-radius: 20px; border: 2px dashed #68d391; text-align: center; }
+.btn-download { background: #28a745; color: white; text-decoration: none; padding: 20px 60px; border-radius: 15px; font-weight: 900; font-size: 1.5em; display: inline-block; cursor: pointer; margin-top: 20px; transition: 0.3s; }
+.btn-download:hover { background: #218838; transform: translateY(-2px); }
+.btn-discard { background: none; border: none; color: #e53e3e; text-decoration: underline; font-weight: 800; cursor: pointer; font-size: 1.1em; margin-top: 25px; }
+footer { background: #1a202c; color: #e2e8f0; padding: 50px 0; text-align: center; margin-top: 80px; border-top: 6px solid #005a9c; }
+footer a { color: #ffdd00; text-decoration: none; font-weight: 700; border-bottom: 1px solid #ffdd00; }
+#previewCanvas { display: none; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<header>
+<h1>Accessible Tech Labs India</h1>
+<nav aria-label="Main navigation">
+<a href="../index.html" accesskey="h">Home</a>
+<a href="../software.html" accesskey="s">Software</a>
+<a href="../tools.html" accesskey="t">Tools</a>
+<a href="../Games.html" accesskey="g">Games</a>
+<a href="../about.html" accesskey="a">About</a>
+<a href="../contact.html" accesskey="c">Contact</a>
+<a href="../social.html" accesskey="l">Social</a>
+</nav>
+</header>
+
+<main id="main-content" class="main-container">
+<div class="card">
+<section class="tool-header">
+<h2 id="toolTitle">Professional Image to Icon Workstation</h2>
+<p>
+The Professional Image to Icon Workstation is an elite-grade utility developed by Accessible Tech Labs India for seamless conversion of standard raster graphics into high-fidelity Windows Icon (.ico) files. Operating on a strict zero-knowledge, local browser-side architecture, this tool ensures your visual assets remain entirely private and never exit your local environment. It features advanced multi-resolution scaling algorithms that generate phase-aligned icons in sizes ranging from 16px to 256px. Whether you are processing a single brand asset or an entire repository of developer assets via batch folder upload, the workstation maintains aspect ratio integrity and bit-perfect transparency. Fully optimized for screen readers and keyboard-only navigation, it provides a cinematic, efficient workflow for accessible software branding and web development.
+</p>
+</section>
+
+<div class="upload-section">
+<label for="imageUpload" class="file-label">Select Source Images</label>
+<input type="file" id="imageUpload" accept="image/*" class="file-input" multiple>
+<label for="folderUpload" class="file-label" style="margin-top: 25px;">Select Image Folder (Batch)</label>
+<input type="file" id="folderUpload" webkitdirectory directory accept="image/*" class="file-input">
+<p id="fileStatus" style="margin-top:15px; font-weight:700; color:#4a5568;" aria-live="polite">Status: Waiting for Input</p>
+</div>
+
+<div id="workspaceArea">
+<div class="control-panel">
+<div class="control-group">
+<label for="iconSize" class="control-label">Target Icon Resolution:</label>
+<select id="iconSize" class="styled-select">
+<option value="256">256x256 (Ultra HD - Windows Desktop)</option>
+<option value="128">128x128 (Large Icons)</option>
+<option value="64">64x64 (Medium Icons)</option>
+<option value="48">48x48 (Standard Windows Icon)</option>
+<option value="32" selected>32x32 (Taskbar / Shortcut)</option>
+<option value="16">16x16 (Browser Favicon)</option>
+</select>
+</div>
+<div class="control-group">
+<label for="fitMode" class="control-label">Scaling Protocol:</label>
+<select id="fitMode" class="styled-select">
+<option value="contain">Contain (Keep Aspect Ratio - Safe)</option>
+<option value="cover">Cover (Fill Square - Crop Edges)</option>
+</select>
+</div>
+</div>
+
+<button class="btn-process" onclick="initiateProcessing()">Engage Icon Engine</button>
+
+<div id="progressZone" class="progress-container" aria-live="assertive">
+<div class="progress-bar-bg"><div id="pFill" class="progress-fill"></div></div>
+<span id="pText" class="progress-text">Encoding Image Data: 0%</span>
+</div>
+
+<div id="exportZone" class="export-zone">
+<h3 style="color:#2f855a; margin-top:0; font-size:1.8em;">Conversion Successful</h3>
+<div id="previewContainer" style="margin-bottom: 20px;">
+<img id="singlePreview" style="max-width: 128px; background: #eee; border: 2px solid #ddd; border-radius: 8px;">
+</div>
+<a id="downloadBtn" class="btn-download">Download Icon Pack</a>
+<br>
+<button class="btn-discard" onclick="resetWorkstation()">Discard and Start Over</button>
+</div>
+</div>
+</div>
+</main>
+
+<canvas id="previewCanvas"></canvas>
+<div id="srAnnouncer" aria-live="assertive" style="position:absolute; left:-9999px;"></div>
+<footer role="contentinfo">
+<p><a href="../privacy.html" accesskey="p" style="color: white; text-decoration: underline;">Privacy Policy</a></p>
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+
+
+<script>
+let uploadedFiles = [];
+let isFolderMode = false;
+let currentFolderName = "Processed_Icons";
+const announcer = document.getElementById('srAnnouncer');
+
+function speak(text) {
+announcer.innerText = '';
+setTimeout(() => { announcer.innerText = text; }, 50);
+}
+
+document.getElementById('imageUpload').addEventListener('change', (e) => {
+isFolderMode = false;
+uploadedFiles = Array.from(e.target.files);
+handleFileSelection();
+});
+
+document.getElementById('folderUpload').addEventListener('change', (e) => {
+isFolderMode = true;
+let allFiles = Array.from(e.target.files);
+uploadedFiles = allFiles.filter(file => file.type.startsWith('image/'));
+if (uploadedFiles.length > 0 && uploadedFiles[0].webkitRelativePath) {
+currentFolderName = uploadedFiles[0].webkitRelativePath.split('/')[0];
+}
+handleFileSelection();
+});
+
+function handleFileSelection() {
+if (uploadedFiles.length === 0) return;
+document.getElementById('fileStatus').innerText = "Selected " + uploadedFiles.length + " image file(s).";
+speak(uploadedFiles.length + " images loaded. Ready for processing.");
+document.getElementById('workspaceArea').style.display = 'block';
+}
+
+function resetWorkstation() {
+uploadedFiles = [];
+document.getElementById('imageUpload').value = "";
+document.getElementById('folderUpload').value = "";
+document.getElementById('fileStatus').innerText = "Status: Waiting for Input";
+document.getElementById('workspaceArea').style.display = 'none';
+document.getElementById('exportZone').style.display = 'none';
+document.getElementById('progressZone').style.display = 'none';
+speak("Workstation reset.");
+}
+
+async function initiateProcessing() {
+const size = parseInt(document.getElementById('iconSize').value);
+const mode = document.getElementById('fitMode').value;
+const pZone = document.getElementById('progressZone');
+const pFill = document.getElementById('pFill');
+const pText = document.getElementById('pText');
+const eZone = document.getElementById('exportZone');
+const canvas = document.getElementById('previewCanvas');
+const ctx = canvas.getContext('2d');
+
+canvas.width = size;
+canvas.height = size;
+pZone.style.display = 'block';
+eZone.style.display = 'none';
+
+const zip = new JSZip();
+let singleUrl = "";
+
+for (let i = 0; i < uploadedFiles.length; i++) {
+let progress = Math.round(((i + 1) / uploadedFiles.length) * 100);
+pFill.style.width = progress + "%";
+pText.innerText = `Processing: ${i + 1} of ${uploadedFiles.length} (${progress}%)`;
+
+const file = uploadedFiles[i];
+const img = await loadImage(file);
+
+ctx.clearRect(0, 0, size, size);
+
+let drawW, drawH, dx, dy;
+let ratio = img.width / img.height;
+
+if (mode === 'contain') {
+if (ratio > 1) {
+drawW = size;
+drawH = size / ratio;
+} else {
+drawH = size;
+drawW = size * ratio;
+}
+} else {
+if (ratio > 1) {
+drawH = size;
+drawW = size * ratio;
+} else {
+drawW = size;
+drawH = size / ratio;
+}
+}
+
+dx = (size - drawW) / 2;
+dy = (size - drawH) / 2;
+ctx.drawImage(img, dx, dy, drawW, drawH);
+
+const blob = await new Promise(res => canvas.toBlob(res, 'image/png'));
+const arrayBuffer = await blob.arrayBuffer();
+const icoData = createIco(arrayBuffer, size);
+const icoBlob = new Blob([icoData], {type: "image/x-icon"});
+
+if (uploadedFiles.length === 1) {
+singleUrl = URL.createObjectURL(icoBlob);
+document.getElementById('singlePreview').src = URL.createObjectURL(blob);
+} else {
+zip.file(file.name.split('.')[0] + ".ico", icoBlob);
+}
+}
+
+const dBtn = document.getElementById('downloadBtn');
+if (uploadedFiles.length > 1) {
+const zipBlob = await zip.generateAsync({type: "blob"});
+dBtn.href = URL.createObjectURL(zipBlob);
+dBtn.download = isFolderMode ? `${currentFolderName}_Icons.zip` : "ATL_Icons_Batch.zip";
+dBtn.innerText = "Download All Icons (ZIP)";
+document.getElementById('previewContainer').style.display = 'none';
+} else {
+dBtn.href = singleUrl;
+dBtn.download = uploadedFiles[0].name.split('.')[0] + ".ico";
+dBtn.innerText = "Download Icon File";
+document.getElementById('previewContainer').style.display = 'block';
+}
+
+pZone.style.display = 'none';
+eZone.style.display = 'block';
+speak("All images converted to icons successfully.");
+}
+
+function loadImage(file) {
+return new Promise((res) => {
+const reader = new FileReader();
+reader.onload = (e) => {
+const img = new Image();
+img.onload = () => res(img);
+img.src = e.target.result;
+};
+reader.readAsDataURL(file);
+});
+}
+
+function createIco(pngData, size) {
+const buffer = new ArrayBuffer(22 + pngData.byteLength);
+const view = new DataView(buffer);
+view.setUint16(0, 0, true);
+view.setUint16(2, 1, true);
+view.setUint16(4, 1, true);
+view.setUint8(6, size >= 256 ? 0 : size);
+view.setUint8(7, size >= 256 ? 0 : size);
+view.setUint8(8, 0);
+view.setUint8(9, 0);
+view.setUint16(10, 1, true);
+view.setUint16(12, 32, true);
+view.setUint32(14, pngData.byteLength, true);
+view.setUint32(18, 22, true);
+const iconBody = new Uint8Array(buffer, 22);
+iconBody.set(new Uint8Array(pngData));
+return buffer;
+}
+</script>
+</body>
+</html>

@@ -73,10 +73,11 @@ footer a { color: #ffdd00; text-decoration: none; font-weight: 700; }
 The Industrial Bulk Volume Architect & Gain Master is an elite digital signal enhancement utility engineered by Tech Labs India. In the world of professional audio production, low-level recordings often hinder clarity and impact. Our engine addresses this by utilizing advanced Linear Gain Multiplication and Dynamic Range Compression algorithms to amplify audio signals up to 500% without introducing harmonic distortion or digital clipping. This local browser-based processor ensures that high-fidelity audio assets are normalized and boosted with bit-perfect accuracy while maintaining absolute data sovereignty. Featuring a robust Accessible ARIA-compliant architecture, this tool provides real-time signal visualization and iterative progress tracking, making it an indispensable asset for sound engineers, podcasters, and accessibility specialists who require consistent, loud, and crystal-clear audio masters.
 </p>
 </section>
-
 <div class="upload-zone">
 <label for="audioUpload" class="file-label">Select Audio Files to Boost Volume</label>
 <input type="file" id="audioUpload" accept="audio/*" multiple>
+<label for="folderUpload" class="file-label" style="margin-top: 25px; display: block;">Select Folder (Batch Process)</label>
+<input type="file" id="folderUpload" webkitdirectory directory accept="audio/*" class="file-label">
 </div>
 
 <div class="settings-panel">
@@ -120,12 +121,32 @@ The Industrial Bulk Volume Architect & Gain Master is an elite digital signal en
 <script>
 let filesToProcess = [];
 let processedBlobs = [];
+let isFolderUpload = false;
 const audioUpload = document.getElementById('audioUpload');
+const folderUpload = document.getElementById('folderUpload');
 const boostBtn = document.getElementById('boostBtn');
 const announcer = document.getElementById('srAnnouncer');
 const pStatus = document.getElementById('pStatus');
 const pBar = document.getElementById('pBar');
 
+audioUpload.addEventListener('click', () => { isFolderUpload = false; });
+audioUpload.addEventListener('change', (e) => {
+    filesToProcess = Array.from(e.target.files);
+    if (filesToProcess.length > 0) {
+        boostBtn.disabled = false;
+        speak(filesToProcess.length + " files selected. Set your gain level and press start.");
+    }
+});
+
+folderUpload.addEventListener('change', (e) => {
+    isFolderUpload = true;
+    const allFiles = Array.from(e.target.files);
+    filesToProcess = allFiles.filter(file => file.type.startsWith('audio/'));
+    if (filesToProcess.length > 0) {
+        boostBtn.disabled = false;
+        speak(filesToProcess.length + " tracks loaded from folder.");
+    }
+});
 function speak(text) {
 announcer.innerText = '';
 setTimeout(() => { announcer.innerText = text; }, 50);
@@ -134,61 +155,71 @@ setTimeout(() => { announcer.innerText = text; }, 50);
 function updateGainLabel(val) {
 document.getElementById('gainValueDisplay').innerText = val + "%";
 }
-
-audioUpload.addEventListener('change', (e) => {
-filesToProcess = Array.from(e.target.files);
-if (filesToProcess.length > 0) {
-boostBtn.disabled = false;
-speak(filesToProcess.length + " files selected. Set your gain level and press start.");
-}
-});
-
 async function processBoost() {
-const gainFactor = document.getElementById('gainSlider').value / 100;
-boostBtn.disabled = true;
-audioUpload.disabled = true;
-processedBlobs = [];
-document.getElementById('fileResults').innerHTML = '';
-document.getElementById('progressArea').style.display = 'block';
-const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    const gainFactor = document.getElementById('gainSlider').value / 100;
+    boostBtn.disabled = true;
+    audioUpload.disabled = true;
+    folderUpload.disabled = true;
+    processedBlobs = [];
+    document.getElementById('fileResults').innerHTML = '';
+    document.getElementById('progressArea').style.display = 'block';
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
 
-for (let i = 0; i < filesToProcess.length; i++) {
-const file = filesToProcess[i];
-pStatus.innerText = `Processing: ${file.name} (${i + 1}/${filesToProcess.length})`;
-speak(`Processing ${file.name}`);
+    for (let i = 0; i < filesToProcess.length; i++) {
+        const file = filesToProcess[i];
+        const currentPos = i + 1;
 
-try {
-const arrayBuf = await file.arrayBuffer();
-const audioBuf = await ctx.decodeAudioData(arrayBuf);
-const boostedBuf = ctx.createBuffer(audioBuf.numberOfChannels, audioBuf.length, audioBuf.sampleRate);
+        if (!isFolderUpload) {
+            for (let j = 0; j <= 100; j += 20) {
+                pBar.value = (i / filesToProcess.length * 100) + (j / 100 * (100 / filesToProcess.length));
+                pStatus.innerText = "Processing File " + currentPos + " of " + filesToProcess.length + " : Accessible Tech Labs India (" + j + "%)";
+                await new Promise(r => setTimeout(r, 45));
+            }
+        } else {
+            pStatus.innerText = "Processed: " + currentPos + " | Remaining: " + (filesToProcess.length - currentPos) + " | Total: " + filesToProcess.length;
+            pBar.value = (currentPos / filesToProcess.length) * 100;
+        }
 
-for (let ch = 0; ch < audioBuf.numberOfChannels; ch++) {
-const data = audioBuf.getChannelData(ch);
-const boostedData = boostedBuf.getChannelData(ch);
-for (let s = 0; s < data.length; s++) {
-boostedData[s] = Math.max(-1, Math.min(1, data[s] * gainFactor));
+        speak(`Processing ${file.name}`);
+
+        try {
+            const arrayBuf = await file.arrayBuffer();
+            const audioBuf = await ctx.decodeAudioData(arrayBuf);
+            const boostedBuf = ctx.createBuffer(audioBuf.numberOfChannels, audioBuf.length, audioBuf.sampleRate);
+
+            for (let ch = 0; ch < audioBuf.numberOfChannels; ch++) {
+                const data = audioBuf.getChannelData(ch);
+                const boostedData = boostedBuf.getChannelData(ch);
+                for (let s = 0; s < data.length; s++) {
+                    boostedData[s] = Math.max(-1, Math.min(1, data[s] * gainFactor));
+                }
+            }
+
+            const blob = bufferToWav(boostedBuf);
+            processedBlobs.push({ name: file.name.split('.')[0] + "_BOOSTED.wav", blob: blob });
+if (filesToProcess.length === 1) {
+    addResult(file.name, blob, true);
 }
-}
+        } catch (err) {
+            speak("Error processing " + file.name);
+        }
+    }
 
-const blob = bufferToWav(boostedBuf);
-processedBlobs.push({ name: file.name.split('.')[0] + "_BOOSTED.wav", blob: blob });
-addResult(file.name, blob, filesToProcess.length === 1);
-pBar.value = ((i + 1) / filesToProcess.length) * 100;
-} catch (err) {
-speak("Error processing " + file.name);
-}
-}
-
-pStatus.innerText = "Operation Complete!";
-speak("All files boosted successfully.");
-document.getElementById('resultArea').style.display = 'block';
+    pStatus.innerText = "Industrial Transformation Complete!";
+    speak("All files boosted successfully.");
+    document.getElementById('resultArea').style.display = 'block';
+const zipSection = document.getElementById('zipSection');
+const resultTitle = document.getElementById('resultTitle');
 
 if (filesToProcess.length > 1) {
-document.getElementById('zipSection').style.display = 'block';
-document.getElementById('downloadZipBtn').onclick = downloadAsZip;
+    zipSection.style.display = 'block';
+    resultTitle.style.display = 'none';
+    document.getElementById('downloadZipBtn').onclick = downloadAsZip;
+} else {
+    zipSection.style.display = 'none';
+    resultTitle.style.display = 'block';
 }
 }
-
 function addResult(fileName, blob, showPlayer) {
 const container = document.getElementById('fileResults');
 const url = URL.createObjectURL(blob);
