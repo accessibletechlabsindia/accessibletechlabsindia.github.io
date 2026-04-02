@@ -1,82 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-<!-- Main Pages -->
-
-<url>
-<loc>https://accessibletechlabsindia.github.io/</loc>
-<changefreq>weekly</changefreq>
-<priority>1.0</priority>
-</url>
-
-<url>
-<loc>https://accessibletechlabsindia.github.io/software.html</loc>
-<changefreq>weekly</changefreq>
-<priority>0.9</priority>
-</url>
-
-<url>
-<loc>https://accessibletechlabsindia.github.io/tools.html</loc>
-<changefreq>weekly</changefreq>
-<priority>0.9</priority>
-</url>
-
-<url>
-<loc>https://accessibletechlabsindia.github.io/about.html</loc>
-<changefreq>monthly</changefreq>
-<priority>0.6</priority>
-</url>
-
-<url>
-<loc>https://accessibletechlabsindia.github.io/contact.html</loc>
-<changefreq>monthly</changefreq>
-<priority>0.6</priority>
-</url>
-
-<url>
-<loc>https://accessibletechlabsindia.github.io/social.html</loc>
-<changefreq>monthly</changefreq>
-<priority>0.5</priority>
-</url>
-
-<url>
-<loc>https://accessibletechlabsindia.github.io/privacy.html</loc>
-<changefreq>yearly</changefreq>
-<priority>0.3</priority>
-</url>
-
-<!-- Software Pages -->
-
-<url><loc>https://accessibletechlabsindia.github.io/software/run-history.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-
-<url><loc>https://accessibletechlabsindia.github.io/software/temp-maintenance.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-
-<url><loc>https://accessibletechlabsindia.github.io/software/text-to-audio.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-
-<url><loc>https://accessibletechlabsindia.github.io/software/website-blocker.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-
-<url><loc>https://accessibletechlabsindia.github.io/software/wifi-password.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-
-<url><loc>https://accessibletechlabsindia.github.io/software/system-diagnostic.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-
-<url><loc>https://accessibletechlabsindia.github.io/software/audio-video.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-
-<url><loc>https://accessibletechlabsindia.github.io/software/youtube-downloader.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-
-<!-- Tools Pages -->
-
-<url><loc>https://accessibletechlabsindia.github.io/tools/image-to-pdf.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-
-<url><loc>https://accessibletechlabsindia.github.io/tools/pdf-merger.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-
-<url><loc>https://accessibletechlabsindia.github.io/tools/pdf-to-image.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-
-<url><loc>https://accessibletechlabsindia.github.io/tools/pdf-to-text.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-
-<url><loc>https://accessibletechlabsindia.github.io/tools/text-to-pdf.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-
-<url><loc>https://accessibletechlabsindia.github.io/tools/advanced-pdf-reader.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-
-<url><loc>https://accessibletechlabsindia.github.io/tools/text-to-audio-tool.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-
+  <url><loc>https://accessibletechlabsindia.github.io/</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/software.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/tools.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/Games.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/about.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/contact.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/social.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/privacy.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/software/run-history.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/software/temp-maintenance.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/software/text-to-audio.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/software/website-blocker/website-blocker.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/software/wifi-password.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/software/Media%20Composer%20Engine/Media%20Composer%20Engine.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/software/youtube-downloader/youtube-downloader.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/software/system-diagnostic.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/software/SystemCoreManager/SystemCoreManager.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/tools/pdf-merger.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/tools/pdf-to-text.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/tools/text-to-pdf.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/tools/image-to-pdf.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/tools/pdf-to-image.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/tools/txt-merger.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/tools/pdf-reader.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/tools/age-calculator.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/tools/calculator.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/tools/image-to-text.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/tools/text-to-image.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/tools/translator.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/tools/audio-trimmer.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/tools/bulk-audio-extractor.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/tools/Industrial%20Bulk%20Audio%20Merger%20.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/tools/Volume%20Booster%20.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/tools/SonicSphere_360%C2%B0_Studio.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/tools/Smart%20Audio%20Merger.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/tools/bass-booster.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/tools/image-to-icon-workstation.html</loc></url>
+  <url><loc>https://accessibletechlabsindia.github.io/Games/professional-math-challenge.html</loc></url>
 </urlset>
