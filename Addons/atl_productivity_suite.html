@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ATL Productivity Suite | Accessible Tech Labs India</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+:root {
+--bg-color: #0f172a;
+--card-bg: #1e293b;
+--text-main: #f8fafc;
+--accent-primary: #3b82f6;
+--accent-success: #22c55e;
+--accent-warning: #f59e0b;
+--border-radius: 16px;
+}
+body {
+background-color: var(--bg-color);
+color: var(--text-main);
+font-family: 'Segoe UI', system-ui, sans-serif;
+margin: 0;
+padding: 0;
+line-height: 1.7;
+}
+.skip-link {
+position: absolute;
+left: -9999px;
+background: #fbbf24;
+color: #000;
+padding: 10px;
+z-index: 100;
+font-weight: bold;
+text-decoration: none;
+}
+.skip-link:focus {
+left: 10px;
+top: 10px;
+}
+header {
+background: #000;
+padding: 25px 20px;
+text-align: center;
+border-bottom: 3px solid var(--accent-primary);
+}
+h1 {
+margin: 0 0 15px 0;
+color: var(--text-main);
+letter-spacing: 1px;
+}
+nav a {
+color: var(--accent-primary);
+margin: 0 15px;
+text-decoration: none;
+font-weight: bold;
+font-size: 1.1rem;
+padding: 5px 10px;
+border-radius: 4px;
+display: inline-block;
+}
+nav a:focus, nav a:hover {
+outline: 4px solid #fbbf24;
+background: rgba(59, 130, 246, 0.1);
+}
+#main {
+max-width: 1100px;
+margin: 40px auto;
+padding: 0 20px;
+display: grid;
+gap: 40px;
+}
+.hero-section {
+background: linear-gradient(135deg, rgba(30, 41, 59, 1) 0%, rgba(15, 23, 42, 1) 100%);
+padding: 50px 40px;
+border-radius: var(--border-radius);
+box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+border: 1px solid rgba(255,255,255,0.1);
+text-align: center;
+}
+.hero-section h2 {
+font-size: 2.8rem;
+color: var(--accent-success);
+margin-top: 0;
+margin-bottom: 15px;
+}
+.version-badge {
+background: var(--accent-primary);
+color: white;
+padding: 5px 15px;
+border-radius: 20px;
+font-weight: bold;
+font-size: 1rem;
+vertical-align: middle;
+}
+.btn-primary {
+display: inline-block;
+background: var(--accent-success);
+color: #000;
+padding: 18px 35px;
+font-size: 1.2rem;
+font-weight: 800;
+text-decoration: none;
+border-radius: 8px;
+margin-top: 25px;
+transition: transform 0.2s;
+}
+.btn-primary:focus, .btn-primary:hover {
+outline: 4px solid #fbbf24;
+transform: scale(1.05);
+}
+.content-section {
+background: var(--card-bg);
+padding: 40px;
+border-radius: var(--border-radius);
+border-left: 5px solid var(--accent-primary);
+border-right: 1px solid rgba(255,255,255,0.05);
+border-top: 1px solid rgba(255,255,255,0.05);
+border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.content-section h3 {
+color: var(--accent-primary);
+font-size: 2rem;
+margin-top: 0;
+border-bottom: 2px solid rgba(255,255,255,0.1);
+padding-bottom: 10px;
+}
+.text-content {
+font-size: 1.15rem;
+color: #cbd5e1;
+text-align: justify;
+}
+.link-grid {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+gap: 25px;
+margin-top: 20px;
+}
+.link-card {
+background: rgba(0,0,0,0.3);
+padding: 25px;
+border-radius: 12px;
+border: 1px solid rgba(255,255,255,0.1);
+}
+.link-card h4 {
+color: var(--accent-warning);
+font-size: 1.3rem;
+margin-top: 0;
+margin-bottom: 15px;
+}
+.link-card p {
+font-size: 1.05rem;
+color: #94a3b8;
+margin-bottom: 20px;
+}
+.link-card a {
+display: inline-block;
+background: #000;
+color: var(--text-main);
+padding: 12px 20px;
+text-decoration: none;
+font-weight: bold;
+border-radius: 6px;
+border: 1px solid var(--accent-primary);
+transition: all 0.2s;
+}
+.link-card a:focus, .link-card a:hover {
+background: var(--accent-primary);
+outline: 3px solid #fbbf24;
+}
+footer {
+background: #000;
+padding: 30px;
+text-align: center;
+margin-top: 20px;
+border-top: 1px solid #334155;
+}
+footer a {
+color: var(--text-main);
+font-weight: bold;
+}
+footer a:focus {
+outline: 3px solid #fbbf24;
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header role="banner">
+<h1>Accessible Tech Labs India</h1>
+<nav aria-label="Main navigation">
+<a href="../index.html" accesskey="h">Home</a>
+<a href="../software.html" accesskey="s">Software</a>
+<a href="../tools.html" accesskey="t">Tools</a>
+<a href="../Games.html" accesskey="g">Games</a>
+<a href="../about.html" accesskey="a">About</a>
+<a href="../contact.html" accesskey="c">Contact</a>
+<a href="../social.html" accesskey="l">Social</a>
+</nav>
+</header>
+
+<main id="main">
+
+<section class="hero-section" aria-labelledby="addon-title">
+<h2 id="addon-title">ATL Productivity Suite <span class="version-badge">v1.3.0</span></h2>
+<p style="font-size: 1.3rem; color: #cbd5e1; max-width: 800px; margin: 0 auto;">
+The ultimate enterprise-grade system management and optimization extension engineered exclusively for the NVDA Screen Reader community.
+</p>
+<a href="https://github.com/accessibletechlabsindia/atl-productivity-suite/releases/download/v1.3.0/atl_productivity_suite.nvda-addon" class="btn-primary" aria-label="Direct Download ATL Productivity Suite version 1.3.0">
+Download Add-on (.nvda-addon)
+</a>
+</section>
+
+<section class="content-section" aria-labelledby="about-heading">
+<h3 id="about-heading">Comprehensive Overview and Architecture</h3>
+<div class="text-content">
+<p>
+The ATL Productivity Suite is a revolutionary, high-performance extension meticulously engineered by Accessible Tech Labs India to transform how visually impaired professionals interact with their computing environments. Built upon a foundation of zero-latency execution and absolute data sovereignty, this add-on seamlessly integrates into the NVDA ecosystem, functioning as an invisible yet immensely powerful co-pilot. We recognized that standard system management tasks—such as monitoring hardware health or clearing temporary cache files—often present navigational barriers for screen reader users. To bridge this gap, we developed a sophisticated suite of tools that deliver critical system intelligence directly via auditory feedback, eliminating the need to navigate complex visual dashboards or third-party applications.
+</p>
+<p>
+At the core of this add-on lies the Advanced System Health Dashboard. With a single, intuitive keyboard shortcut, users receive an instantaneous, highly accurate vocalization of their machine's vital statistics. This includes real-time battery percentage and charging state, active RAM utilization, and precise disk storage capacity. Beyond passive monitoring, the suite introduces a state-of-the-art System Cleaner module. This industrial-grade utility safely targets and eliminates redundant temporary files, deeply buried system cache, and application residue, thereby actively restoring computational speed and optimizing overall hardware performance. The cleaning process is entirely automated, secure, and designed to prevent any disruption to critical operating system files.
+</p>
+<p>
+Furthermore, the entire architecture of the ATL Productivity Suite is strictly client-side. We prioritize your privacy above all else; therefore, the add-on operates completely locally on your hardware without requiring an internet connection, transmitting telemetry, or relying on external cloud processing. Every line of Python code within this extension has been rigorously audited to ensure maximum stability, minimal memory footprint, and perfect synchronization with the latest NVDA APIs. Whether you are a software developer requiring peak system performance, a professional managing daily workflows, or a student optimizing a personal computer, the ATL Productivity Suite provides unprecedented control, efficiency, and independence right at your fingertips.
+</p>
+</div>
+</section>
+
+<section class="content-section" aria-labelledby="links-heading">
+<h3 id="links-heading">Official Resources and Repositories</h3>
+<div class="link-grid">
+
+<div class="link-card">
+<h4>Official NVDA Add-on Store</h4>
+<p>This add-on has passed rigorous quality checks and is officially vetted by NV Access. View it on the global stable channel.</p>
+<a href="https://addonstore.nvaccess.org/?channel=stable&language=en&apiVersion=2025.3.3&addonId=atl_productivity_suite" target="_blank" rel="noopener">Open Store Page</a>
+</div>
+
+<div class="link-card">
+<h4>Community Review & Approval</h4>
+<p>Explore the official review process, technical feedback, and discussions led by international accessibility experts.</p>
+<a href="https://github.com/nvaccess/addon-datastore/discussions/8279" target="_blank" rel="noopener">Read Community Review</a>
+</div>
+
+<div class="link-card">
+<h4>Official GitHub Repository</h4>
+<p>Visit our central repository to track updates, report issues, or read the full project documentation and release notes.</p>
+<a href="https://github.com/accessibletechlabsindia/atl-productivity-suite" target="_blank" rel="noopener">Visit Repository</a>
+</div>
+
+<div class="link-card">
+<h4>View Source Code</h4>
+<p>We believe in absolute transparency. Developers are encouraged to study our Python source code and architecture.</p>
+<a href="https://github.com/accessibletechlabsindia/atl-productivity-suite" target="_blank" rel="noopener">Inspect Source Code</a>
+</div>
+
+</div>
+</section>
+
+<section class="content-section" aria-labelledby="license-heading">
+<h3 id="license-heading">Software License and Open Source Commitment</h3>
+<div class="text-content">
+<p>
+The ATL Productivity Suite is proudly released and distributed under the GNU General Public License Version 2.0 (GPL-2.0). We firmly believe in the power of open-source software and community-driven innovation. This specific license guarantees your fundamental freedom to safely run, comprehensively study, legally share, and openly modify this software without corporate restrictions. By embracing this open-source philosophy, Accessible Tech Labs India ensures that our core technology remains entirely transparent, highly collaborative, and forever accessible to the global developer community. We encourage fellow developers to fork, enhance, and build upon our work. To read the complete legal terms, conditions, and user rights, please review the official GNU license documentation provided below.
+</p>
+<a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.html" target="_blank" rel="noopener" style="display: inline-block; background: var(--accent-primary); color: white; padding: 12px 24px; text-decoration: none; font-weight: bold; border-radius: 6px; margin-top: 15px;">Read Full GPL-2.0 License</a>
+</div>
+</section>
+
+</main>
+<footer role="contentinfo">
+<p><a href="../privacy.html" accesskey="p" style="color: white; text-decoration: underline;">Privacy Policy</a></p>
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+</body>
+</html>
