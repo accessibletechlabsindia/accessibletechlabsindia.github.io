@@ -96,9 +96,19 @@
         <h2>Configure Question Volume</h2>
         <p>Specify the number of questions for this session. Available volumes range from 5 to 100. Select a volume that aligns with your current training objectives and available time.</p>
         <select id="count-select"></select>
-        <button class="action-btn" onclick="preStart()">Start Final Game</button>
+<button class="action-btn" onclick="toStep4()">Next</button>
     </div>
-
+<div id="step-4" class="screen glass-card">
+    <h2>Configure Session Timer</h2>
+    <p>Select the time allocation permitted for each individual question. Shorter durations increase cognitive load and assessment rigor, while longer durations allow for complex calculations.</p>
+    <select id="timer-select">
+        <option value="30">30 Seconds</option>
+        <option value="60">1 Minute</option>
+        <option value="120">2 Minutes</option>
+        <option value="180">3 Minutes</option>
+    </select>
+    <button class="action-btn" onclick="preStart()">Start Final Game</button>
+</div>
     <div id="loading-screen" class="screen glass-card">
         <h2>System Initialization</h2>
         <p>Finalizing your professional assessment environment. Please wait for the audio sequence to complete.</p>
@@ -178,7 +188,9 @@ function toggleLargeUI() {
         gameMode = document.getElementById('mode-select').value;
         switchScreen('step-3');
     }
-
+function toStep4() {
+    switchScreen('step-4');
+}
 function switchScreen(id) {
     document.querySelectorAll('.screen').forEach(s => {
         s.classList.remove('active');
@@ -191,7 +203,8 @@ function switchScreen(id) {
         announce("Screen changed to " + id);
     }
 }
-    function preStart() {
+function preStart() {
+    window.selectedTimeLimit = parseInt(document.getElementById('timer-select').value);
         questionCount = parseInt(document.getElementById('count-select').value);
         switchScreen('loading-screen');
         
@@ -250,8 +263,7 @@ function switchScreen(id) {
             l.innerHTML = `<input type="radio" name="opt" value="${o}"> Option ${String.fromCharCode(65+i)}: ${o}`;
             container.appendChild(l);
         });
-
-        timeLeft = 30;
+timeLeft = window.selectedTimeLimit;
 const submitBtn = document.querySelector('button[onclick="checkAnswer()"]');
     if (currentQuestion === questionCount) {
         submitBtn.textContent = "Submit Final Answer";
