@@ -407,31 +407,46 @@ function generateQRCode() {
 
 function downloadQRCode() {
     const container = document.getElementById('qrCodeElement');
+    const originalCanvas = container.querySelector('canvas');
     const img = container.querySelector('img');
-    const canvas = container.querySelector('canvas');
-    let url = "";
-
-    if (img && img.src && img.src.indexOf("data:image") === 0) {
-        url = img.src;
-    } else if (canvas) {
-        url = canvas.toDataURL("image/png");
-    }
-
-    if(!url) {
+    
+    if (!originalCanvas && (!img || !img.src)) {
         showToast("Error: No QR code available to download.");
         return;
     }
 
+    const sourceWidth = originalCanvas ? originalCanvas.width : img.width;
+    const sourceHeight = originalCanvas ? originalCanvas.height : img.height;
+    
+    const padding = 40;
+    const paddedCanvas = document.createElement('canvas');
+    paddedCanvas.width = sourceWidth + (padding * 2);
+    paddedCanvas.height = sourceHeight + (padding * 2);
+    
+    const ctx = paddedCanvas.getContext('2d');
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, paddedCanvas.width, paddedCanvas.height);
+    
+    if (originalCanvas) {
+        ctx.drawImage(originalCanvas, padding, padding);
+    } else {
+        const tempImg = new Image();
+        tempImg.src = img.src;
+        ctx.drawImage(tempImg, padding, padding);
+    }
+    
+    const url = paddedCanvas.toDataURL("image/png");
+    
     const a = document.createElement("a");
     a.href = url;
-    a.download = "ATL_QR_Code.png";
+    a.download = "ATL_Professional_QR.png";
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
+    
     announceToSR("QR code downloaded successfully.");
     showToast("Download Started");
 }
-
 function scanUploadedImage() {
     const fileInp = document.getElementById('qrImageInput');
     if(!fileInp.files || !fileInp.files[0]) {
