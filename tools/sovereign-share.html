@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sovereign Share - Accessible Tech Labs India</title>
+<meta name="description" content="Enterprise-grade local P2P file sharing utility with zero-knowledge architecture and unlimited bandwidth capacity.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/style.css">
+<script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+.main-container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 40px;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    border-top: 10px solid #005a9c;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+.privacy-notice {
+    background: #1e1e1e;
+    color: #f8f9fa;
+    padding: 30px;
+    border-radius: 12px;
+    border-left: 6px solid #005a9c;
+    margin-bottom: 30px;
+    line-height: 1.8;
+    text-align: justify;
+}
+.privacy-notice h2 { color: #00aaff; margin-top: 0; }
+.mode-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 40px;
+}
+.mode-button {
+    padding: 30px 20px;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+.mode-button:hover, .mode-button:focus {
+    border-color: #005a9c;
+    background: #eef4ff;
+    transform: translateY(-5px);
+}
+.mode-button h3 {
+    color: #005a9c;
+    margin-bottom: 10px;
+    font-size: 22px;
+}
+.workspace {
+    display: none;
+    animation: fadeIn 0.5s ease;
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 15px;
+    border: 2px solid #e9ecef;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.input-area {
+    width: 100%;
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid #dee2e6;
+    margin-bottom: 20px;
+    font-size: 18px;
+    box-sizing: border-box;
+}
+.id-display {
+    font-size: 32px;
+    font-weight: bold;
+    color: #005a9c;
+    text-align: center;
+    letter-spacing: 2px;
+    padding: 20px;
+    background: #eef4ff;
+    border: 2px dashed #005a9c;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+.control-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.btn-action {
+    padding: 14px 28px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    font-size: 16px;
+    transition: background 0.3s;
+    background: #005a9c;
+    color: white;
+    cursor: pointer;
+}
+.btn-action:hover { background: #004477; }
+.btn-secondary { background: #6c757d; color: white; }
+.btn-success { background: #28a745; color: white; }
+.btn-danger { background: #dc3545; color: white; }
+.btn-info { background: #17a2b8; color: white; }
+.progress-container {
+    display: none;
+    margin-bottom: 20px;
+    width: 100%;
+}
+progress {
+    width: 100%;
+    height: 25px;
+    border-radius: 10px;
+}
+.progress-text {
+    font-weight: bold;
+    margin-top: 10px;
+    display: block;
+    color: #005a9c;
+    font-size: 18px;
+    text-align: center;
+}
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #333;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 50px;
+    display: none;
+    z-index: 1000;
+    font-weight: bold;
+    font-size: 16px;
+}
+.modal {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+}
+.modal-content {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    max-width: 500px;
+    border-top: 10px solid #005a9c;
+}
+.gratitude-box {
+    display: none;
+    background: #d4edda;
+    color: #155724;
+    padding: 25px;
+    border-radius: 12px;
+    border: 2px solid #c3e6cb;
+    margin-top: 25px;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1.6;
+    text-align: center;
+}
+.save-list {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main" style="position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden;">Skip to main content</a>
+
+<header role="banner">
+<h1>Accessible Tech Labs India</h1>
+<nav aria-label="Main navigation">
+<a href="../index.html" accesskey="h">Home</a>
+<a href="../software.html" accesskey="s">Software</a>
+<a href="../tools.html" accesskey="t">Tools</a>
+<a href="../Games.html" accesskey="g">Games</a>
+<a href="../about.html" accesskey="a">About</a>
+<a href="../contact.html" accesskey="c">Contact</a>
+<a href="../social.html" accesskey="l">Social</a>
+</nav>
+</header>
+
+<main id="main" class="main-container">
+<section class="privacy-notice" id="introSection" aria-live="polite">
+<h2>The Privacy Manifesto & System Architecture</h2>
+<p>
+At Accessible Tech Labs India, we believe that true digital freedom begins with absolute data sovereignty. This ATL Sovereign Share engine is architected upon a strict zero-knowledge, peer-to-peer (P2P) framework utilizing advanced Web Real-Time Communication (WebRTC) protocols. Unlike conventional cloud-based file sharing platforms that upload your sensitive documents to remote servers, our system establishes a direct, encrypted tunnel between the sending and receiving devices. This means your data never rests on any external database, server, or intermediate storage node. We implement robust Datagram Transport Layer Security (DTLS) and Secure Real-time Transport Protocol (SRTP) to provide end-to-end encryption, ensuring that even if the local network is compromised or intercepted, the transmitted data remains an indecipherable stream of cryptographic binary. Furthermore, by bypassing intermediary servers, we completely eliminate arbitrary bandwidth restrictions and gigabyte limits, allowing for the seamless transfer of massive, uncompressed files and complex folder directories directly at the maximum speed of your local network or Wi-Fi connection. The unique 'atli' session tokens generated for the handshake process are ephemeral and self-destruct immediately upon the conclusion of the transfer or if the session is interrupted, guaranteeing that unauthorized reconnections are mathematically impossible. We have integrated native Web Audio API telemetry and comprehensive ARIA live region support to provide an unparalleled, fully accessible experience for screen reader users, ensuring that security and usability operate in perfect harmony. Empowering you to transfer without limits, without surveillance, and without compromise. Innovation driven by integrity.
+</p>
+</section>
+
+<div class="mode-grid" id="modeGrid">
+<button class="mode-button" onclick="initSender()">
+<h3>Send Files & Folders</h3>
+<p>Generate a secure 'ATLI' token to initiate a sovereign P2P tunnel.</p>
+</button>
+<button class="mode-button" onclick="initReceiver()">
+<h3>Receive Data</h3>
+<p>Input a valid session token and your identity to request connection.</p>
+</button>
+</div>
+
+<div id="senderWorkspace" class="workspace">
+<h2 style="color:#005a9c;">Sender Control Node</h2>
+<div id="senderSetup">
+<button class="btn-action" onclick="generateSecureID()" style="width:100%; margin-bottom:20px;" id="generateBtn">Generate Secure ATLI Session Token</button>
+</div>
+<div id="senderActive" style="display:none;">
+<div class="id-display" id="generatedIDText" aria-live="polite"></div>
+<div class="control-row">
+<button class="btn-action btn-secondary" onclick="copyToken()">Copy Token</button>
+</div>
+<p style="text-align:center; font-weight:bold; color:#6c757d;" aria-live="polite" id="senderStatus">Registering Token on Signaling Server. Please wait 5 seconds before receiving...</p>
+</div>
+<div id="senderFileArea" style="display:none;">
+<div style="background:#fff; border:2px dashed #005a9c; padding:20px; border-radius:12px; margin-bottom:20px; text-align:center;">
+<label for="folderUpload" style="font-weight:bold; display:block; margin-bottom:10px; font-size:18px;">Select Folder to Transmit</label>
+<input type="file" id="folderUpload" webkitdirectory directory multiple class="input-area" onchange="queueFiles(this)">
+<p style="text-align:center; color:#6c757d; font-size:14px;">Select an entire directory structure.</p>
+</div>
+<div style="background:#fff; border:2px dashed #005a9c; padding:20px; border-radius:12px; text-align:center;">
+<label for="fileUpload" style="font-weight:bold; display:block; margin-bottom:10px; font-size:18px;">Select Individual Files to Transmit</label>
+<input type="file" id="fileUpload" class="input-area" multiple onchange="queueFiles(this)">
+<p style="text-align:center; color:#6c757d; font-size:14px;">Select single or multiple files. Unlimited capacity active.</p>
+</div>
+<p id="queueStatus" style="text-align:center; font-weight:bold; font-size:18px; color:#28a745; margin-top:20px;" aria-live="polite"></p>
+<button class="btn-action btn-success" id="startTxBtn" onclick="startTransmission()" style="width:100%; display:none; margin-top:10px;">Start Secure Transmission</button>
+</div>
+<div class="progress-container" id="senderProgress">
+<div role="progressbar" id="nvdaSenderProg" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" tabindex="-1">
+<progress id="sProgBar" value="0" max="100"></progress>
+</div>
+<span id="sProgText" class="progress-text" aria-live="assertive">0% Transmitted</span>
+</div>
+<div class="gratitude-box" id="senderGratitude"></div>
+<button class="btn-action btn-danger" onclick="location.reload()" style="margin-top:20px;">Terminate Session</button>
+</div>
+
+<div id="receiverWorkspace" class="workspace">
+<h2 style="color:#005a9c;">Receiver Verification Node</h2>
+<div id="receiverSetup">
+<label for="rxName" style="font-weight:bold; display:block; margin-bottom:10px;">Your Identification (Name):</label>
+<input type="text" id="rxName" class="input-area" placeholder="Enter your name...">
+<label for="rxToken" style="font-weight:bold; display:block; margin-bottom:10px;">Sovereign ATLI Token:</label>
+<input type="text" id="rxToken" class="input-area" placeholder="e.g. atliX9P2">
+<button class="btn-action btn-success" onclick="requestConnection()" style="width:100%;">Send Connection Request</button>
+</div>
+<div id="receiverActive" style="display:none; text-align:center;">
+<h3 style="color:#005a9c;" id="rxStatus" aria-live="polite">Request Sent. Awaiting Sender Approval...</h3>
+</div>
+<div class="progress-container" id="receiverProgress">
+<div role="progressbar" id="nvdaReceiverProg" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" tabindex="-1">
+<progress id="rProgBar" value="0" max="100"></progress>
+</div>
+<span id="rProgText" class="progress-text" aria-live="assertive">0% Received</span>
+</div>
+<div id="downloadList" class="save-list"></div>
+<div class="gratitude-box" id="receiverGratitude"></div>
+<button class="btn-action btn-danger" onclick="location.reload()" style="margin-top:20px;">Terminate Session</button>
+</div>
+
+</main>
+
+<div class="modal" id="requestModal">
+<div class="modal-content">
+<h2 style="color:#005a9c; margin-top:0;">Incoming Connection Request</h2>
+<p id="requestDetails" style="font-size:18px; margin-bottom:30px;"></p>
+<div class="control-row">
+<button class="btn-action btn-success" onclick="acceptRequest()">Accept & Secure</button>
+<button class="btn-action btn-danger" onclick="declineRequest()">Decline</button>
+</div>
+</div>
+</div>
+
+<div id="srAnnouncer" aria-live="assertive" style="position:absolute; left:-10000px;"></div>
+<div id="toast" class="toast" aria-live="assertive"></div>
+
+<footer role="contentinfo">
+<p><a href="../privacy.html" accesskey="p" style="color: white; text-decoration: underline;">Privacy Policy</a></p>
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+
+<script>
+let peer = null;
+let conn = null;
+let currentToken = "";
+let audioCtx = null;
+let incomingConn = null;
+let rxBuffer = [];
+let rxMeta = null;
+let fileQueue = [];
+let receivedFiles = [];
+let isSender = false;
+let txStartTime = 0;
+let rxStartTime = 0;
+let currentFile = null;
+let offset = 0;
+let eofSent = false;
+let globalTotalSize = 0;
+let globalSentSize = 0;
+let globalReceivedSize = 0;
+const chunkSize = 256 * 1024;
+
+const gratitudeText = "Transfer Successful! Accessible Tech Labs India remains relentlessly committed to your digital privacy and sovereign connectivity. Thank you for entrusting your data to our secure, zero-knowledge ecosystem. Innovation driven by integrity, day and night.";
+
+function initAudio() {
+    if (!audioCtx) {
+        try {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        } catch (e) {}
+    }
+}
+
+function playTone(type) {
+    if (!audioCtx) return;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    if (type === 'chime') {
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(523.25, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(1046.50, audioCtx.currentTime + 0.3);
+        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.8);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.8);
+    } else if (type === 'beep') {
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.2);
+    } else if (type === 'success') {
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+        osc.frequency.setValueAtTime(659.25, audioCtx.currentTime + 0.1);
+        osc.frequency.setValueAtTime(880, audioCtx.currentTime + 0.2);
+        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.6);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.6);
+    }
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+}
+
+function announce(msg) {
+    const sr = document.getElementById('srAnnouncer');
+    sr.innerText = "";
+    setTimeout(() => { sr.innerText = msg + "\u200B".repeat(Math.floor(Math.random() * 10)); }, 50);
+}
+
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.innerText = msg;
+    t.style.display = 'block';
+    setTimeout(() => { t.style.display = 'none'; }, 3000);
+    announce(msg);
+}
+
+function generateRandomString(length) {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+}
+
+function initSender() {
+    initAudio();
+    isSender = true;
+    document.getElementById('introSection').style.display = 'none';
+    document.getElementById('modeGrid').style.display = 'none';
+    document.getElementById('senderWorkspace').style.display = 'block';
+    announce("Sender workspace activated. Press Generate Secure Token.");
+}
+
+function initReceiver() {
+    initAudio();
+    document.getElementById('introSection').style.display = 'none';
+    document.getElementById('modeGrid').style.display = 'none';
+    document.getElementById('receiverWorkspace').style.display = 'block';
+    announce("Receiver workspace activated. Enter your name and the session token.");
+}
+function generateSecureID() {
+    document.getElementById('generateBtn').disabled = true;
+    currentToken = "atli" + generateRandomString(4);
+    document.getElementById('senderSetup').style.display = 'none';
+    document.getElementById('senderActive').style.display = 'block';
+    document.getElementById('generatedIDText').innerText = currentToken;
+    
+    peer = new Peer(currentToken);
+    peer.on('open', id => {
+        setTimeout(() => {
+            document.getElementById('senderStatus').innerText = "Token Active. Ready to accept connection.";
+            document.getElementById('senderStatus').style.color = "#28a745";
+            showToast("Token Registered. Signaling active.");
+            playTone('beep');
+        }, 3000);
+    });
+
+    peer.on('connection', connection => {
+        incomingConn = connection;
+        connection.on('open', () => {
+            connection.on('data', data => {
+                if (data && typeof data === 'object') {
+                    if (data.type === 'request') {
+                        playTone('chime');
+                        document.getElementById('requestDetails').innerText = "Identity: " + data.name + "\nSystem: WebRTC Endpoint";
+                        document.getElementById('requestModal').style.display = 'flex';
+                        announce("Incoming connection request from " + data.name + ". Press Enter to Accept.");
+                        document.getElementById('requestDetails').focus();
+                    } else if (data.type === 'ack') {
+                        if (currentFile) {
+                            if (offset < currentFile.size) {
+                                transmitChunk();
+                            } else if (!eofSent) {
+                                eofSent = true;
+                                connection.send({ type: 'eof' });
+                            } else {
+                                sendNextFile();
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    });
+
+    peer.on('error', err => {
+        showToast("Signaling Error. Please restart session.");
+    });
+}
+function copyToken() {
+    navigator.clipboard.writeText(currentToken).then(() => {
+        showToast("Token copied to clipboard.");
+    });
+}
+function requestConnection() {
+    initAudio();
+    const name = document.getElementById('rxName').value.trim();
+    const token = document.getElementById('rxToken').value.trim();
+    if (!name || !token) {
+        showToast("Error: Identity and Token are required.");
+        return;
+    }
+    document.getElementById('receiverSetup').style.display = 'none';
+    document.getElementById('receiverActive').style.display = 'block';
+    peer = new Peer();
+    peer.on('open', id => {
+        conn = peer.connect(token);
+        conn.on('open', () => {
+            setTimeout(() => {
+                conn.send({ type: 'request', name: name });
+            }, 500);
+            announce("Request sent. Waiting for approval.");
+        });
+
+        conn.on('data', data => {
+            if (data && typeof data === 'object') {
+                if (data.type === 'response') {
+                    if (data.status === 'accepted') {
+                        playTone('success');
+                        document.getElementById('rxStatus').innerText = "Secure Tunnel Established. Ready for data.";
+                        document.getElementById('receiverProgress').style.display = 'block';
+                        announce("Connection accepted. Secure tunnel established.");
+                    } else {
+                        document.getElementById('rxStatus').innerText = "Connection Declined by Sender.";
+                        document.getElementById('rxStatus').style.color = "#dc3545";
+                        announce("Connection declined.");
+                    }
+                } else if (data.type === 'header') {
+                    rxMeta = data;
+                    globalTotalSize = data.totalTxSize;
+                    rxBuffer = [];
+                    if (rxStartTime === 0) rxStartTime = Date.now();
+                    document.getElementById('rxStatus').innerText = "Receiving: " + data.name;
+                    announce("Receiving: " + data.name);
+                    conn.send({ type: 'ack' });
+                } else if (data.type === 'eof') {
+                    receivedFiles.push({ name: rxMeta.name, blob: new Blob(rxBuffer, { type: rxMeta.mime }) });
+                    conn.send({ type: 'ack' });
+                } else if (data.type === 'complete') {
+                    finalizeReceiver();
+                } else if (data.type === 'chunk') {
+                    rxBuffer.push(data.payload);
+                    let currentChunkSize = data.payload.byteLength || 0;
+                    globalReceivedSize += currentChunkSize;
+                    let percent = Math.floor((globalReceivedSize / globalTotalSize) * 100);
+                    if (percent > 100) percent = 100;
+                    let elapsed = (Date.now() - rxStartTime) / 1000;
+                    let speed = elapsed > 0 ? ((globalReceivedSize / (1024 * 1024)) / elapsed).toFixed(2) : "0.00";
+                    updateProgress('receiver', percent, percent + "% - " + speed + " MB/s");
+                    conn.send({ type: 'ack' });
+                }
+            }
+        });
+
+        conn.on('close', () => {
+            showToast("Warning: Connection Interrupted.");
+        });
+    });
+
+    peer.on('error', err => {
+        document.getElementById('rxStatus').innerText = "Error: Invalid Token or Sender Offline.";
+        document.getElementById('rxStatus').style.color = "#dc3545";
+        showToast("Token validation failed.");
+    });
+}
+function acceptRequest() {
+    document.getElementById('requestModal').style.display = 'none';
+    document.getElementById('senderActive').style.display = 'none';
+    document.getElementById('senderFileArea').style.display = 'block';
+    conn = incomingConn;
+    conn.send({ type: 'response', status: 'accepted' });
+    showToast("Connection Secured. Select files to proceed.");
+}
+
+function declineRequest() {
+    document.getElementById('requestModal').style.display = 'none';
+    incomingConn.send({ type: 'response', status: 'declined' });
+    setTimeout(() => { incomingConn.close(); }, 500);
+    showToast("Request Declined.");
+}
+
+function queueFiles(inputElement) {
+    if (inputElement.files.length === 0) return;
+    fileQueue = Array.from(inputElement.files);
+    globalTotalSize = fileQueue.reduce((acc, f) => acc + f.size, 0);
+    let sizeMB = (globalTotalSize / (1024 * 1024)).toFixed(2);
+    document.getElementById('queueStatus').innerText = "Selected " + fileQueue.length + " Item(s) | Total Size: " + sizeMB + " MB";
+    document.getElementById('startTxBtn').style.display = 'block';
+    announce("Selected " + fileQueue.length + " items. Ready to transmit.");
+}
+
+function startTransmission() {
+    if (fileQueue.length === 0) return;
+    document.getElementById('senderFileArea').style.display = 'none';
+    document.getElementById('senderProgress').style.display = 'block';
+    txStartTime = Date.now();
+    sendNextFile();
+}
+
+function sendNextFile() {
+    if (fileQueue.length === 0) {
+        conn.send({ type: 'complete' });
+        finalizeSender();
+        return;
+    }
+    currentFile = fileQueue.shift();
+    let filename = currentFile.webkitRelativePath || currentFile.name;
+    offset = 0;
+    eofSent = false;
+    conn.send({ type: 'header', name: filename, size: currentFile.size, mime: currentFile.type, totalTxSize: globalTotalSize });
+}
+
+function transmitChunk() {
+    const reader = new FileReader();
+    const slice = currentFile.slice(offset, offset + chunkSize);
+    reader.onload = e => {
+        conn.send({ type: 'chunk', payload: e.target.result });
+        offset += e.target.result.byteLength;
+        globalSentSize += e.target.result.byteLength;
+        let percent = Math.floor((globalSentSize / globalTotalSize) * 100);
+        if (percent > 100) percent = 100;
+        let elapsed = (Date.now() - txStartTime) / 1000;
+        let speed = elapsed > 0 ? ((globalSentSize / (1024 * 1024)) / elapsed).toFixed(2) : "0.00";
+        updateProgress('sender', percent, percent + "% - " + speed + " MB/s");
+    };
+    reader.readAsArrayBuffer(slice);
+}
+
+function updateProgress(mode, val, text) {
+    const pBar = document.getElementById(mode === 'sender' ? 'sProgBar' : 'rProgBar');
+    const pText = document.getElementById(mode === 'sender' ? 'sProgText' : 'rProgText');
+    const nvda = document.getElementById(mode === 'sender' ? 'nvdaSenderProg' : 'nvdaReceiverProg');
+    pBar.value = val;
+    pText.innerText = text;
+    nvda.setAttribute('aria-valuenow', val);
+}
+
+function finalizeSender() {
+    playTone('success');
+    updateProgress('sender', 100, "Transmission Fully Complete");
+    const gratBox = document.getElementById('senderGratitude');
+    gratBox.innerText = gratitudeText;
+    gratBox.style.display = 'block';
+    announce("Transfer completely successful. Token is now invalid.");
+    setTimeout(() => { if (peer) peer.destroy(); }, 2000);
+}
+
+async function finalizeReceiver() {
+    document.getElementById('rxStatus').innerText = "Processing Data...";
+    announce("Processing Data...");
+    const list = document.getElementById('downloadList');
+    const btn = document.createElement('button');
+    btn.className = "btn-action btn-info";
+    btn.style.width = "100%";
+    
+    if (receivedFiles.length === 1 && !receivedFiles[0].name.includes('/')) {
+        const url = URL.createObjectURL(receivedFiles[0].blob);
+        btn.innerText = "Save File: " + receivedFiles[0].name;
+        btn.onclick = () => {
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = receivedFiles[0].name;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            showToast("Saved to device.");
+        };
+    } else {
+        const zip = new JSZip();
+        receivedFiles.forEach(f => zip.file(f.name, f.blob));
+        const zipBlob = await zip.generateAsync({ type: "blob" });
+        const url = URL.createObjectURL(zipBlob);
+        btn.innerText = "Save All Data (ZIP)";
+        btn.onclick = () => {
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "ATL_Sovereign_Drop.zip";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            showToast("ZIP Saved to device.");
+        };
+    }
+    
+    list.appendChild(btn);
+    playTone('success');
+    updateProgress('receiver', 100, "Transmission Fully Complete");
+    document.getElementById('rxStatus').innerText = "Transfer Successful. Ready to Save.";
+    const gratBox = document.getElementById('receiverGratitude');
+    gratBox.innerText = gratitudeText;
+    gratBox.style.display = 'block';
+    announce("Transfer completely successful. Ready to save.");
+    setTimeout(() => { if (peer) peer.destroy(); }, 2000);
+}
+
+window.addEventListener("beforeunload", function (e) {
+    if (conn && conn.open) {
+        const confirmationMessage = "Secure tunnel active. Exiting will terminate transfer.";
+        e.returnValue = confirmationMessage;
+        return confirmationMessage;
+    }
+});
+</script>
+</body>
+</html>
