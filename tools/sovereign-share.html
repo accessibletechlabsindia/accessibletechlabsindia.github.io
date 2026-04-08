@@ -316,7 +316,8 @@ let eofSent = false;
 let globalTotalSize = 0;
 let globalSentSize = 0;
 let globalReceivedSize = 0;
-const chunkSize = 256 * 1024;
+const chunkSize = 3 * 1024 * 1024;
+const MAX_BUFFER = 8388608;
 
 const gratitudeText = "Transfer Successful! Accessible Tech Labs India remains relentlessly committed to your digital privacy and sovereign connectivity. Thank you for entrusting your data to our secure, zero-knowledge ecosystem. Innovation driven by integrity, day and night.";
 
@@ -400,6 +401,7 @@ function initReceiver() {
     document.getElementById('receiverWorkspace').style.display = 'block';
     announce("Receiver workspace activated. Enter your name and the session token.");
 }
+
 function generateSecureID() {
     document.getElementById('generateBtn').disabled = true;
     currentToken = "atli" + generateRandomString(4);
@@ -432,10 +434,7 @@ function generateSecureID() {
                         if (currentFile) {
                             if (offset < currentFile.size) {
                                 transmitChunk();
-                            } else if (!eofSent) {
-                                eofSent = true;
-                                connection.send({ type: 'eof' });
-                            } else {
+                            } else if (eofSent) {
                                 sendNextFile();
                             }
                         }
@@ -454,6 +453,7 @@ function copyToken() {
         showToast("Token copied to clipboard.");
     });
 }
+
 function requestConnection() {
     initAudio();
     const name = document.getElementById('rxName').value.trim();
@@ -502,14 +502,13 @@ function requestConnection() {
                     finalizeReceiver();
                 } else if (data.type === 'chunk') {
                     rxBuffer.push(data.payload);
-                    let currentChunkSize = data.payload.byteLength || 0;
+                    let currentChunkSize = data.payload.byteLength || data.payload.size || data.payload.length || 0;
                     globalReceivedSize += currentChunkSize;
                     let percent = Math.floor((globalReceivedSize / globalTotalSize) * 100);
                     if (percent > 100) percent = 100;
                     let elapsed = (Date.now() - rxStartTime) / 1000;
                     let speed = elapsed > 0 ? ((globalReceivedSize / (1024 * 1024)) / elapsed).toFixed(2) : "0.00";
                     updateProgress('receiver', percent, percent + "% - " + speed + " MB/s");
-                    conn.send({ type: 'ack' });
                 }
             }
         });
@@ -571,23 +570,28 @@ function sendNextFile() {
     eofSent = false;
     conn.send({ type: 'header', name: filename, size: currentFile.size, mime: currentFile.type, totalTxSize: globalTotalSize });
 }
-
-function transmitChunk() {
-    const reader = new FileReader();
-    const slice = currentFile.slice(offset, offset + chunkSize);
-    reader.onload = e => {
-        conn.send({ type: 'chunk', payload: e.target.result });
-        offset += e.target.result.byteLength;
-        globalSentSize += e.target.result.byteLength;
+async function transmitChunk() {
+    while (offset < currentFile.size) {
+        if (conn.dataChannel.bufferedAmount > MAX_BUFFER) {
+            await new Promise(r => setTimeout(r, 50));
+            continue;
+        }
+        const slice = currentFile.slice(offset, offset + chunkSize);
+        const buffer = await slice.arrayBuffer();
+        conn.send({ type: 'chunk', payload: buffer });
+        offset += buffer.byteLength;
+        globalSentSize += buffer.byteLength;
         let percent = Math.floor((globalSentSize / globalTotalSize) * 100);
         if (percent > 100) percent = 100;
         let elapsed = (Date.now() - txStartTime) / 1000;
         let speed = elapsed > 0 ? ((globalSentSize / (1024 * 1024)) / elapsed).toFixed(2) : "0.00";
         updateProgress('sender', percent, percent + "% - " + speed + " MB/s");
-    };
-    reader.readAsArrayBuffer(slice);
+    }
+    if (!eofSent) {
+        eofSent = true;
+        conn.send({ type: 'eof' });
+    }
 }
-
 function updateProgress(mode, val, text) {
     const pBar = document.getElementById(mode === 'sender' ? 'sProgBar' : 'rProgBar');
     const pText = document.getElementById(mode === 'sender' ? 'sProgText' : 'rProgText');
