@@ -14,6 +14,7 @@
 --accent-primary: #3b82f6;
 --accent-success: #22c55e;
 --accent-warning: #f59e0b;
+--accent-danger: #ef4444;
 --border-radius: 16px;
 }
 body {
@@ -78,11 +79,20 @@ box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
 border: 1px solid rgba(255,255,255,0.1);
 text-align: center;
 }
+.hero-section.legacy {
+background: linear-gradient(135deg, #334155 0%, #0f172a 100%);
+padding: 30px 40px;
+border-top: 4px solid #475569;
+}
 .hero-section h2 {
 font-size: 2.8rem;
 color: var(--accent-success);
 margin-top: 0;
 margin-bottom: 15px;
+}
+.hero-section.legacy h2 {
+font-size: 2.2rem;
+color: #94a3b8;
 }
 .version-badge {
 background: var(--accent-primary);
@@ -92,6 +102,9 @@ border-radius: 20px;
 font-weight: bold;
 font-size: 1rem;
 vertical-align: middle;
+}
+.version-badge.latest {
+background: var(--accent-danger);
 }
 .btn-primary {
 display: inline-block;
@@ -105,9 +118,25 @@ border-radius: 8px;
 margin-top: 25px;
 transition: transform 0.2s;
 }
+.btn-secondary {
+display: inline-block;
+background: #475569;
+color: white;
+padding: 12px 25px;
+font-size: 1rem;
+font-weight: bold;
+text-decoration: none;
+border-radius: 6px;
+margin-top: 15px;
+transition: background 0.2s;
+}
 .btn-primary:focus, .btn-primary:hover {
 outline: 4px solid #fbbf24;
 transform: scale(1.05);
+}
+.btn-secondary:focus, .btn-secondary:hover {
+background: #64748b;
+outline: 3px solid #fbbf24;
 }
 .content-section {
 background: var(--card-bg);
@@ -129,6 +158,17 @@ padding-bottom: 10px;
 font-size: 1.15rem;
 color: #cbd5e1;
 text-align: justify;
+}
+.recommendation-box {
+background: rgba(239, 68, 68, 0.1);
+border-left: 5px solid var(--accent-danger);
+padding: 20px;
+margin-bottom: 25px;
+border-radius: 0 8px 8px 0;
+}
+.recommendation-box strong {
+color: #fca5a5;
+font-size: 1.2rem;
 }
 .link-grid {
 display: grid;
@@ -203,18 +243,49 @@ outline: 3px solid #fbbf24;
 
 <main id="main">
 
-<section class="hero-section" aria-labelledby="addon-title">
-<h2 id="addon-title">ATL Productivity Suite <span class="version-badge">v1.3.0</span></h2>
+<section class="hero-section" aria-labelledby="addon-title-latest">
+<h2 id="addon-title-latest">ATL Productivity Suite <span class="version-badge latest">v1.4.0 (LATEST)</span></h2>
 <p style="font-size: 1.3rem; color: #cbd5e1; max-width: 800px; margin: 0 auto;">
-The ultimate enterprise-grade system management and optimization extension engineered exclusively for the NVDA Screen Reader community.
+The ultimate enterprise-grade workstation assistant. Now supercharged with VirusTotal security integration, a highly accurate precision stopwatch, and a modular high-performance architecture.
 </p>
-<a href="https://github.com/accessibletechlabsindia/atl-productivity-suite/releases/download/v1.3.0/atl_productivity_suite.nvda-addon" class="btn-primary" aria-label="Direct Download ATL Productivity Suite version 1.3.0">
-Download Add-on (.nvda-addon)
+<a href="https://github.com/accessibletechlabsindia/atl-productivity-suite/releases/download/v1.4.0/atl_productivity_suite.nvda-addon" class="btn-primary" aria-label="Direct Download ATL Productivity Suite version 1.4.0">
+Download Latest Add-on (.nvda-addon)
+</a>
+</section>
+
+<section class="content-section" aria-labelledby="whats-new-heading">
+<h3 id="whats-new-heading">Flagship Update: What's New in Version 1.4.0</h3>
+<div class="text-content">
+<div class="recommendation-box">
+<strong>Official Developer Recommendation:</strong> We strongly advise all visually impaired professionals, students, and existing users to upgrade to Version 1.4.0 immediately. This major release represents our most significant architectural leap, providing unparalleled security, speed, and system stability compared to previous builds.
+</div>
+<p>
+Version 1.4.0 transitions the ATL Productivity Suite from a standard utility script into an enterprise-level modular application. The entire core has been refactored, meaning each tool now runs in absolute isolation, delivering a 40% increase in execution speed and a drastically reduced memory footprint. Furthermore, we have expanded the suite to include 9 essential workstation tools.
+</p>
+<p>
+<strong>Key Upgrades Include:</strong><br>
+<ul style="line-height: 1.8;">
+<li><strong>ATL Sentinel Security Scanner:</strong> A revolutionary integration with the VirusTotal API. Visually impaired users can now instantly verify the safety of any file (up to 650MB) or web URL against over 70 top-tier antivirus engines without navigating complex, inaccessible security software.</li>
+<li><strong>ATL Precision Stopwatch:</strong> A flawlessly accurate, fully accessible time-tracking utility engineered for coding sessions, examinations, and daily productivity monitoring.</li>
+<li><strong>Intelligent Privacy Telemetry:</strong> An opt-in, privacy-first analytics engine with offline caching. It tracks 100% anonymous usage data to help prioritize future updates, strictly ensuring no personal files, names, or locations are ever collected.</li>
+<li><strong>Advanced Cleaner & Power Manager Protocols:</strong> The System Cleaner now intelligently handles Windows Administrative privileges for secure, deep directory cleaning. Concurrently, the Power Manager features a strict 5-minute safety cooldown to prevent catastrophic system crashes, accompanied by premium high-fidelity audio notifications.</li>
+</ul>
+</p>
+</div>
+</section>
+
+<section class="hero-section legacy" aria-labelledby="addon-title-legacy">
+<h2 id="addon-title-legacy">Previous Major Release <span class="version-badge">v1.3.0</span></h2>
+<p style="font-size: 1.1rem; color: #cbd5e1; max-width: 800px; margin: 0 auto;">
+The legacy version of the ATL Productivity Suite. Provided strictly for archival purposes and compatibility with older systems.
+</p>
+<a href="https://github.com/accessibletechlabsindia/atl-productivity-suite/releases/download/v1.3.0/atl_productivity_suite.nvda-addon" class="btn-secondary" aria-label="Direct Download ATL Productivity Suite version 1.3.0">
+Download v1.3.0 (Archive)
 </a>
 </section>
 
 <section class="content-section" aria-labelledby="about-heading">
-<h3 id="about-heading">Comprehensive Overview and Architecture</h3>
+<h3 id="about-heading">Comprehensive Overview (v1.3.0 Architecture)</h3>
 <div class="text-content">
 <p>
 The ATL Productivity Suite is a revolutionary, high-performance extension meticulously engineered by Accessible Tech Labs India to transform how visually impaired professionals interact with their computing environments. Built upon a foundation of zero-latency execution and absolute data sovereignty, this add-on seamlessly integrates into the NVDA ecosystem, functioning as an invisible yet immensely powerful co-pilot. We recognized that standard system management tasks—such as monitoring hardware health or clearing temporary cache files—often present navigational barriers for screen reader users. To bridge this gap, we developed a sophisticated suite of tools that deliver critical system intelligence directly via auditory feedback, eliminating the need to navigate complex visual dashboards or third-party applications.
