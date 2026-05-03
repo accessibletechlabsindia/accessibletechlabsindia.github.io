@@ -1,134 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Professional Assessment Games | Accessible Tech Labs India</title>
+<meta charset="UTF-8">
+<title>Professional Assessment Games | Accessible Tech Labs India</title>
 <meta name="description" content="Experience high-quality, inclusive gaming with our collection of fully accessible games. Accessible Tech Labs India creates engaging and professional gaming experiences designed to be enjoyed by everyone, regardless of visual ability.">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-        :root {
-            --brand-primary: #3b82f6;
-            --brand-dark: #0f172a;
-            --brand-accent: #22c55e;
-            --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        }
-        body {
-            background-color: var(--brand-dark);
-            color: #f8fafc;
-            line-height: 1.6;
-        }
-        .intro-section {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8), rgba(15, 23, 42, 0.9));
-            padding: 40px;
-            border-radius: 16px;
-            border-left: 6px solid var(--brand-primary);
-            margin-bottom: 50px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        .intro-section h2 {
-            margin-top: 0;
-            color: var(--brand-primary);
-        }
-        .tool-card {
-            background: #1e293b;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            margin-bottom: 25px;
-            padding: 30px;
-            border-radius: 12px;
-            position: relative;
-            overflow: hidden;
-        }
-        .tool-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--brand-primary);
-            box-shadow: var(--card-shadow);
-        }
-        .tool-card h3 a {
-            color: var(--brand-primary);
-            text-decoration: none;
-            font-size: 1.8rem;
-            display: block;
-            margin-bottom: 10px;
-        }
-        .tool-card h3 a:focus {
-            outline: 3px solid var(--brand-accent);
-            outline-offset: 5px;
-            border-radius: 4px;
-        }
-        .badge {
-            display: inline-block;
-            background: var(--brand-accent);
-            color: #000;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-weight: 800;
-            font-size: 0.75rem;
-            margin-bottom: 15px;
-            letter-spacing: 1px;
-        }
-    </style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/style.css">
+<style>
+body {
+    background-color: #0d1117;
+    color: #c9d1d9;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+.manifesto-box {
+    background: linear-gradient(135deg, rgba(22,27,34,1) 0%, rgba(13,17,23,1) 100%);
+    padding: 35px;
+    border-radius: 16px;
+    border-left: 6px solid #58a6ff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    margin-bottom: 40px;
+}
+.manifesto-box h2 {
+    color: #58a6ff;
+    margin-top: 0;
+    font-size: 2rem;
+    letter-spacing: 0.5px;
+}
+.manifesto-box p {
+    font-size: 1.15rem;
+    text-align: justify;
+    margin-bottom: 15px;
+    color: #f0f6fc;
+}
+.search-container {
+    background: #161b22;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #30363d;
+    margin-bottom: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+}
+.search-container label {
+    width: 100%;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #58a6ff;
+}
+.search-container input {
+    flex: 1;
+    min-width: 250px;
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid #30363d;
+    background: #0d1117;
+    color: #58a6ff;
+    font-size: 1.1rem;
+}
+.search-container input:focus {
+    outline: 3px solid #fbbf24;
+    border-color: #58a6ff;
+}
+.btn-action {
+    padding: 15px 25px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    background: #58a6ff;
+    color: #0d1117;
+    transition: transform 0.2s;
+}
+.btn-clear {
+    background: #484f58;
+    color: #ffffff;
+}
+.btn-action:focus {
+    outline: 3px solid #fbbf24;
+}
+.btn-action:hover {
+    transform: translateY(-2px);
+}
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+}
+.tool-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s, border-color 0.3s;
+}
+.tool-card:focus-within {
+    border-color: #58a6ff;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+}
+.badge {
+    display: inline-block;
+    background: #22c55e;
+    color: #000;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-weight: 800;
+    font-size: 0.8rem;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+    align-self: flex-start;
+}
+.tool-card h3 {
+    color: #58a6ff;
+    margin-top: 0;
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+}
+.tool-card p {
+    color: #8b949e;
+    font-size: 1rem;
+    flex-grow: 1;
+    margin-bottom: 25px;
+    text-align: justify;
+}
+.tool-link {
+    display: block;
+    text-align: center;
+    background: #238636;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: background 0.2s;
+}
+.tool-link:focus {
+    outline: 3px solid #fbbf24;
+    outline-offset: 3px;
+}
+.tool-link:hover {
+    background: #2ea043;
+}
+</style>
 </head>
 
 <body>
 
 <a class="skip-link" href="#main">Skip to main content</a>
 
-<header>
-    <h1>Accessible Tech Labs India</h1>
-    <nav aria-label="Main navigation">
-        <a href="index.html" accesskey="h" aria-label="Home, Alt plus H">Home</a>
-        <a href="software.html" accesskey="s" aria-label="Software, Alt plus S">Software</a>
-        <a href="tools.html" accesskey="t" aria-label="Tools, Alt plus T">Tools</a>
+<header role="banner">
+<h1>Accessible Tech Labs India</h1>
+<nav aria-label="Main navigation">
+<a href="index.html" accesskey="h" aria-label="Home, Alt plus H">Home</a>
+<a href="software.html" accesskey="s" aria-label="Software, Alt plus S">Software</a>
+<a href="tools.html" accesskey="t" aria-label="Tools, Alt plus T">Tools</a>
 <a href="Games.html" accesskey="g" aria-label="Games, Alt plus G">Games</a>
-        <a href="about.html" accesskey="a" aria-label="About, Alt plus A">About</a>
-        <a href="contact.html" accesskey="c" aria-label="Contact, Alt plus C">Contact</a>
-        <a href="social.html" accesskey="l" aria-label="Social, Alt plus L">Social</a>
-    </nav>
+<a href="about.html" accesskey="a" aria-label="About, Alt plus A">About</a>
+<a href="contact.html" accesskey="c" aria-label="Contact, Alt plus C">Contact</a>
+<a href="social.html" accesskey="l" aria-label="Social, Alt plus L">Social</a>
+</nav>
 </header>
 
-<main id="main">
-    <div class="search-box">
-        <label for="softwareSearch">Find Assessment Systems</label>
-        <input type="text" id="softwareSearch" placeholder="Search by game title..." aria-label="Search games">
-        <button onclick="searchSoftware()">Search</button>
-        <button onclick="clearSearch()">Clear</button>
-        <p id="searchStatus" aria-live="polite"></p>
-    </div>
+<main id="main" class="main-container">
 
-    <section class="intro-section">
-        <h2>Engineering Interactive Excellence</h2>
-        <p>
-            Accessible Tech Labs India operates at the intersection of cognitive science and inclusive engineering. Our mission is to develop sophisticated interactive environments that facilitate high-level mental stimulation while maintaining strict adherence to universal design principles. Each module is meticulously crafted to ensure that complex logical operations are translated into a streamlined, keyboard-accessible experience. We prioritize structural integrity and technical precision, ensuring that our systems provide a reliable platform for users to evaluate and refine their cognitive capabilities through standardized performance metrics.
-        </p>
-        <p>
-            Our development cycle focuses on the creation of robust logic engines capable of delivering real-time adaptive feedback. By leveraging semantic structures and advanced interaction protocols, Accessible Tech Labs India eliminates barriers to entry for users of assistive technology. We are committed to a roadmap of continuous innovation, engineering future-ready assessment tools that provide granular data analysis and professional-grade results. Every system within our catalog represents a commitment to technical excellence and the persistent pursuit of making advanced digital interaction accessible to everyone without compromise.
-        </p>
-    </section>
+<section class="manifesto-box" role="region" aria-labelledby="intro-heading">
+<h2 id="intro-heading">Engineering Interactive Excellence</h2>
+<p>
+Accessible Tech Labs India operates at the intersection of cognitive science and inclusive engineering. Our mission is to develop sophisticated interactive environments that facilitate high-level mental stimulation while maintaining strict adherence to universal design principles. Each module is meticulously crafted to ensure that complex logical operations are translated into a streamlined, keyboard-accessible experience. We prioritize structural integrity and technical precision, ensuring that our systems provide a reliable platform for users to evaluate and refine their cognitive capabilities through standardized performance metrics.
+</p>
+<p>
+Our development cycle focuses on the creation of robust logic engines capable of delivering real-time adaptive feedback. By leveraging semantic structures and advanced interaction protocols, Accessible Tech Labs India eliminates barriers to entry for users of assistive technology. We are committed to a roadmap of continuous innovation, engineering future-ready assessment tools that provide granular data analysis and professional-grade results. Every system within our catalog represents a commitment to technical excellence and the persistent pursuit of making advanced digital interaction accessible to everyone without compromise.
+</p>
+</section>
 
-    <h2>Active Professional Games</h2>
+<div class="search-container">
+<label for="softwareSearch">Intelligent Assessment Search</label>
+<input type="text" id="softwareSearch" placeholder="Search active professional games and assessments..." aria-label="Search games">
+<button class="btn-action" onclick="searchSoftware()">Search Engine</button>
+<button class="btn-action btn-clear" onclick="clearSearch()">Clear Filters</button>
+<p id="searchStatus" aria-live="polite" style="width: 100%; color: #3fb950; font-weight: bold; margin: 10px 0 0 0;"></p>
+</div>
 
-    <div class="tool-card">
-        <span class="badge">Performance Optimized</span>
-        <h3><a href="Games/professional-math-challenge.html">Professional Math Challenge</a></h3>
-        <p>An elite computational assessment tool featuring an adaptive scaling engine. Engineered to monitor accuracy and speed, this system adjusts numerical complexity in real-time to provide a precise evaluation of mental agility and mathematical proficiency.</p>
-    </div>
+<h2 style="color: #f8fafc; margin-bottom: 25px; border-bottom: 2px solid #30363d; padding-bottom: 10px;">Active Professional Games</h2>
+
+<div class="tools-grid">
+
+<div class="tool-card" role="region" aria-label="Professional Math Challenge">
+<span class="badge">Performance Optimized</span>
+<h3>Professional Math Challenge</h3>
+<p>
+An elite computational assessment tool featuring an adaptive scaling engine. Engineered to monitor accuracy and speed, this system adjusts numerical complexity in real-time to provide a precise evaluation of mental agility and mathematical proficiency.
+</p>
+<a href="Games/professional-math-challenge.html" class="tool-link">Launch Assessment</a>
+</div>
+
+</div>
 
 </main>
 
-<footer>
-    <p>
-        <a href="privacy.html" accesskey="p" aria-label="Privacy Policy, Alt plus P">Privacy Policy</a>
-    </p>
-    <p>© 2026 Accessible Tech Labs India</p>
+<footer role="contentinfo" style="text-align: center; padding: 30px; background: #161b22; margin-top: 50px; border-top: 1px solid #30363d;">
+<p><a href="privacy.html" accesskey="p" aria-label="Privacy Policy, Alt plus P" style="color: #58a6ff; text-decoration: none; font-weight: bold;">Privacy Policy</a></p>
+<p style="color: #8b949e;">© 2026 Accessible Tech Labs India</p>
 </footer>
 
 <script>
 function showAll() {
     let cards = document.getElementsByClassName("tool-card");
     for (let i = 0; i < cards.length; i++) {
-        cards[i].style.display = "block";
+        cards[i].style.display = "flex";
     }
 }
 
@@ -137,41 +230,35 @@ function searchSoftware() {
     let filter = input.value.toLowerCase().trim();
     let cards = document.getElementsByClassName("tool-card");
     let status = document.getElementById("searchStatus");
+    let foundCount = 0;
 
     if (filter === "") {
-        status.innerText = "Error: Please enter a name to search.";
+        showAll();
+        status.innerText = "";
         return;
     }
 
-    let found = false;
     for (let i = 0; i < cards.length; i++) {
         let text = cards[i].innerText.toLowerCase();
         if (text.includes(filter)) {
-            cards[i].style.display = "block";
-            found = true;
+            cards[i].style.display = "flex";
+            foundCount++;
         } else {
             cards[i].style.display = "none";
         }
     }
 
-    if (found) {
-        status.innerText = "Search completed. Matching games are displayed.";
+    if (foundCount > 0) {
+        status.innerText = `Search engine deployed. Found ${foundCount} matching assessment(s).`;
     } else {
-        status.innerText = "No results found for '" + filter + "'.";
+        status.innerText = "No results matched your secure search parameters.";
     }
 }
 
 function clearSearch() {
-    let input = document.getElementById("softwareSearch");
-    let status = document.getElementById("searchStatus");
-    
-    if (input.value === "" && status.innerText === "") {
-        return;
-    }
-
-    input.value = "";
+    document.getElementById("softwareSearch").value = "";
     showAll();
-    status.innerText = "Search cleared. All modules are visible.";
+    document.getElementById("searchStatus").innerText = "Search parameters cleared. All assessments visible.";
 }
 
 document.getElementById("softwareSearch").addEventListener("keydown", function(e) {

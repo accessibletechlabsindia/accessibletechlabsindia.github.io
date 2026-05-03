@@ -6,6 +6,184 @@
 <meta name="description" content="Access a powerful suite of professional web tools at Accessible Tech Labs India. From advanced PDF utilities and file converters to specialized audio tools, we provide high-performance digital solutions designed for seamless accessibility.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="css/style.css">
+<style>
+body {
+    background-color: #0d1117;
+    color: #c9d1d9;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+.manifesto-box {
+    background: linear-gradient(135deg, rgba(22,27,34,1) 0%, rgba(13,17,23,1) 100%);
+    padding: 35px;
+    border-radius: 16px;
+    border-left: 6px solid #58a6ff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    margin-bottom: 40px;
+}
+.manifesto-box h2 {
+    color: #58a6ff;
+    margin-top: 0;
+    font-size: 2rem;
+    letter-spacing: 0.5px;
+}
+.manifesto-box p {
+    font-size: 1.15rem;
+    text-align: justify;
+    margin-bottom: 0;
+    color: #f0f6fc;
+}
+.search-container {
+    background: #161b22;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #30363d;
+    margin-bottom: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+}
+.search-container label {
+    width: 100%;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #58a6ff;
+}
+.search-container input {
+    flex: 1;
+    min-width: 250px;
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid #30363d;
+    background: #0d1117;
+    color: #58a6ff;
+    font-size: 1.1rem;
+}
+.search-container input:focus {
+    outline: 3px solid #fbbf24;
+    border-color: #58a6ff;
+}
+.btn-action {
+    padding: 15px 25px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    background: #58a6ff;
+    color: #0d1117;
+    transition: transform 0.2s;
+}
+.btn-clear {
+    background: #484f58;
+    color: #ffffff;
+}
+.btn-action:focus {
+    outline: 3px solid #fbbf24;
+}
+.btn-action:hover {
+    transform: translateY(-2px);
+}
+.tab-list {
+    display: flex;
+    gap: 10px;
+    border-bottom: 2px solid #30363d;
+    margin-bottom: 30px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+.tab-button {
+    background: #161b22;
+    color: #8b949e;
+    border: 1px solid #30363d;
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+}
+.tab-button[aria-selected="true"] {
+    background: #58a6ff;
+    color: #0d1117;
+    border-color: #58a6ff;
+}
+.tab-button:focus {
+    outline: 3px solid #fbbf24;
+    outline-offset: 2px;
+}
+.tab-panel {
+    display: none;
+    animation: fadeIn 0.4s ease;
+}
+.tab-panel[aria-hidden="false"] {
+    display: block;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+}
+.tool-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s, border-color 0.3s;
+}
+.tool-card:focus-within {
+    border-color: #58a6ff;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+}
+.tool-card h3 {
+    color: #58a6ff;
+    margin-top: 0;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+.tool-card p {
+    color: #8b949e;
+    font-size: 1rem;
+    flex-grow: 1;
+    margin-bottom: 25px;
+    text-align: justify;
+}
+.tool-link {
+    display: block;
+    text-align: center;
+    background: #238636;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: background 0.2s;
+}
+.tool-link:focus {
+    outline: 3px solid #fbbf24;
+    outline-offset: 3px;
+}
+.tool-link:hover {
+    background: #2ea043;
+}
+</style>
 </head>
 
 <body>
@@ -14,7 +192,6 @@
 
 <header role="banner">
 <h1>Accessible Tech Labs India</h1>
-
 <nav aria-label="Main navigation">
 <a href="index.html" accesskey="h" aria-label="Home, Alt plus H">Home</a>
 <a href="software.html" accesskey="s" aria-label="Software, Alt plus S">Software</a>
@@ -26,289 +203,313 @@
 </nav>
 </header>
 
-<main id="main">
-<div class="search-box">
+<main id="main" class="main-container">
 
-<label for="toolSearch">Search tools</label>
+<section class="manifesto-box" aria-labelledby="manifesto-heading">
+<h2 id="manifesto-heading">The Privacy Manifesto & Architecture Declaration</h2>
+<p>
+At Accessible Tech Labs India, we believe that true digital independence is rooted in absolute data sovereignty. In an era of invasive telemetry and cloud dependency, our architecture stands as an uncompromising fortress of privacy. Every professional utility engineered on this platform operates on a strict Zero-Knowledge framework. This means all computational processes—whether executing complex audio rendering, deep forensic metadata extraction, or optical character recognition—occur entirely within the localized sandbox of your web browser. We do not track, cache, transmit, or harvest your sensitive documents, media files, or personal configurations. There are no intermediary servers, no background data brokers, and no hidden analytics. By leveraging advanced client-side processing algorithms, we guarantee that your digital footprint remains exclusively yours. Furthermore, this steadfast commitment to privacy is matched only by our dedication to universal accessibility. Each interface is meticulously crafted to synchronize flawlessly with screen readers like NVDA and JAWS, utilizing precise ARIA protocols and keyboard-centric navigation. We deliver enterprise-grade performance that respects your fundamental right to absolute security, ensuring that professional technology is both universally inclusive and fiercely private. Innovation driven by integrity.
+</p>
+</section>
 
-<input
-type="text"
-id="toolSearch"
-placeholder="Enter tool name"
-aria-label="Search tools">
-
-<button onclick="searchTools()">Search</button>
-
-<button onclick="clearToolSearch()">Clear</button>
-
-<p id="toolSearchStatus" aria-live="polite"></p>
-
+<div class="search-container">
+<label for="toolSearch">Intelligent Tool Search</label>
+<input type="text" id="toolSearch" placeholder="Type to search all enterprise utilities..." aria-label="Search tools">
+<button class="btn-action" onclick="executeSearch()">Search Engine</button>
+<button class="btn-action btn-clear" onclick="clearToolSearch()">Clear Filters</button>
+<p id="toolSearchStatus" aria-live="polite" style="width: 100%; color: #3fb950; font-weight: bold; margin: 10px 0 0 0;"></p>
 </div>
 
-<h2>Accessible Document Tools</h2>
+<div role="tablist" aria-label="Professional Tool Categories" class="tab-list">
+<button role="tab" aria-selected="true" aria-controls="panel-all" id="tab-all" tabindex="0" class="tab-button">All Utilities</button>
+<button role="tab" aria-selected="false" aria-controls="panel-docs" id="tab-docs" tabindex="-1" class="tab-button">Document & Text</button>
+<button role="tab" aria-selected="false" aria-controls="panel-audio" id="tab-audio" tabindex="-1" class="tab-button">Audio Engines</button>
+<button role="tab" aria-selected="false" aria-controls="panel-visual" id="tab-visual" tabindex="-1" class="tab-button">Visual & Compute</button>
+<button role="tab" aria-selected="false" aria-controls="panel-security" id="tab-security" tabindex="-1" class="tab-button">Forensics & Security</button>
+</div>
 
-<p>
-Below is a collection of browser-based document utilities designed especially for screen reader users and keyboard navigation. All tools work locally on your device without uploading files to any server.
-</p>
+<div id="panel-all" role="tabpanel" tabindex="0" aria-labelledby="tab-all" aria-hidden="false" class="tab-panel">
+<div class="tools-grid" id="grid-all">
 
 <div class="tool-card" role="region" aria-label="PDF Merger tool">
 <h3>PDF Merger</h3>
-<p>
-Merge multiple PDF documents into a single PDF file directly in your browser. This tool helps you combine notes, reports, or scanned documents into one organized file. No uploads are required and everything happens locally on your device, making it safe, fast, and privacy friendly.
-</p>
-<a href="tools/pdf-merger.html">Open Tool</a>
+<p>Merge multiple PDF documents into a single PDF file directly in your browser. This tool helps you combine notes, reports, or scanned documents into one organized file securely.</p>
+<a href="tools/pdf-merger.html" class="tool-link">Open PDF Merger</a>
 </div>
-
 <div class="tool-card" role="region" aria-label="PDF to Text tool">
 <h3>PDF to Text</h3>
-<p>
-Convert standard text-based PDF files into plain TXT format. This is useful for extracting readable content from documents so you can edit, study, or reuse the text. The conversion runs inside your browser and provides a downloadable text file once completed.
-</p>
-<a href="tools/pdf-to-text.html">Open Tool</a>
+<p>Convert standard text-based PDF files into plain TXT format. Useful for extracting readable content from documents to edit, study, or reuse securely within your browser.</p>
+<a href="tools/pdf-to-text.html" class="tool-link">Open PDF to Text</a>
 </div>
-
 <div class="tool-card" role="region" aria-label="Text to PDF tool">
 <h3>Text to PDF</h3>
-<p>
-Create PDF documents from written text or uploaded TXT files. You can either type your content directly or select an existing text file, then generate a downloadable PDF. This tool is ideal for creating simple documents, notes, or readable PDFs quickly and easily.
-</p>
-<a href="tools/text-to-pdf.html">Open Tool</a>
+<p>Create PDF documents from written text or uploaded TXT files. Generate a downloadable PDF locally. Ideal for creating simple documents quickly and easily.</p>
+<a href="tools/text-to-pdf.html" class="tool-link">Open Text to PDF</a>
 </div>
-
 <div class="tool-card" role="region" aria-label="Image to PDF tool">
 <h3>Image to PDF</h3>
-<p>
-Convert one or more image files into a single PDF document. This is useful for turning photos, scanned pages, or screenshots into a clean PDF format. The tool processes images locally and produces a downloadable PDF file without sending your data anywhere online.
-</p>
-<a href="tools/image-to-pdf.html">Open Tool</a>
+<p>Convert one or more image files into a single PDF document. Turn photos, scanned pages, or screenshots into a clean PDF format securely on your device.</p>
+<a href="tools/image-to-pdf.html" class="tool-link">Open Image to PDF</a>
 </div>
-
 <div class="tool-card" role="region" aria-label="PDF to Image tool">
 <h3>PDF to Image</h3>
-<p>
-Extract images from PDF pages by converting each page into PNG format. If your PDF has one page, you will receive a single image. If it contains multiple pages, all images will be provided in a ZIP file. This helps when you need visual copies of document pages.
-</p>
-<a href="tools/pdf-to-image.html">Open Tool</a>
+<p>Extract images from PDF pages by converting each page into PNG format. Multiple pages are provided in a ZIP file for easy access to visual copies.</p>
+<a href="tools/pdf-to-image.html" class="tool-link">Open PDF to Image</a>
 </div>
-
 <div class="tool-card" role="region" aria-label="TXT Merger tool">
 <h3>TXT Merger</h3>
-<p>
-Combine multiple TXT files into one single text document. This tool is helpful for merging notes, logs, or written content into a unified file. Simply select your text files, merge them, and download the final result. Everything works locally for speed and privacy.
-</p>
-<a href="tools/txt-merger.html">Open Tool</a>
+<p>Combine multiple TXT files into one single text document. Helpful for merging notes, logs, or written content into a unified file securely.</p>
+<a href="tools/txt-merger.html" class="tool-link">Open TXT Merger</a>
 </div>
 <div class="tool-card" role="region" aria-label="Accessible PDF Reader tool">
-
 <h3>Accessible PDF Reader</h3>
-
-<p>
-Browser based PDF reading tool with zoom, high contrast and text to speech support designed for blind and low vision users.
-</p>
-
-<a href="tools/pdf-reader.html">Open Tool</a>
-
+<p>Browser based PDF reading tool with zoom, high contrast and text to speech support specifically engineered for blind and low vision professionals.</p>
+<a href="tools/pdf-reader.html" class="tool-link">Open PDF Reader</a>
 </div>
-<div class="tool-card" role="region" aria-label="Age Calculator tool">
-    <h3>Age Calculator</h3>
-    <p>
-        A precise chronological evaluation engine designed to calculate exact age durations across years, months, and days. Engineered for professional use cases requiring granular accuracy, this utility operates locally within the browser to maintain data privacy while providing structured feedback for assistive technology users.
-    </p>
-    <a href="tools/age-calculator.html">Open Tool</a>
-</div>
-
-<div class="tool-card" role="region" aria-label="Standard Calculator tool">
-    <h3>Accessible Calculator</h3>
-    <p>
-        A robust mathematical processing interface optimized for seamless keyboard navigation and high-speed computation. This tool eliminates complex visual distractions, focusing on core arithmetic integrity and providing standardized audio-tactile feedback protocols for a reliable, privacy-focused calculation environment.
-    </p>
-    <a href="tools/calculator.html">Open Tool</a>
+<div class="tool-card" role="region" aria-label="Universal Translation Suite">
+<h3>Universal Translation Suite</h3>
+<p>A high-performance linguistic suite for real-time text, document, and image-based translation across 100+ global languages built on strict Zero-Knowledge architecture.</p>
+<a href="tools/translator.html" class="tool-link">Open Translation Suite</a>
 </div>
 <div class="tool-card" role="region" aria-label="Image to Text OCR tool">
 <h3>Image to Text (OCR)</h3>
-<p>
-Extract editable text from images, screenshots, and scanned documents with high precision. This professional OCR utility supports multiple languages including English and Hindi. Optimized for screen readers, it allows you to convert visual data into accessible text instantly while maintaining total local privacy.
-</p>
-<a href="tools/image-to-text.html">Open Tool</a>
+<p>Extract editable text from images, screenshots, and scanned documents with high precision. Supports multiple languages and operates locally for privacy.</p>
+<a href="tools/image-to-text.html" class="tool-link">Open OCR Engine</a>
+</div>
+
+<div class="tool-card" role="region" aria-label="Industrial Precision Audio Trimmer">
+<h3>Precision Audio Trimmer</h3>
+<p>A professional-grade digital signal processing utility for absolute surgical precision in audio editing, allowing nanosecond-accurate trimming directly in the browser.</p>
+<a href="tools/audio-trimmer.html" class="tool-link">Open Audio Trimmer</a>
+</div>
+<div class="tool-card" role="region" aria-label="Bulk Audio Extractor">
+<h3>Bulk Audio Extractor</h3>
+<p>A high-velocity engine to isolate and extract high-fidelity audio streams from multiple video containers simultaneously using client-side decoding.</p>
+<a href="tools/bulk-audio-extractor.html" class="tool-link">Open Audio Extractor</a>
+</div>
+<div class="tool-card" role="region" aria-label="Industrial Bulk Audio Merger">
+<h3>Industrial Bulk Audio Merger</h3>
+<p>An enterprise-scale audio unification workstation for seamless concatenation of diverse sound assets into a single mastered file.</p>
+<a href="tools/Industrial Bulk Audio Merger .html" class="tool-link">Open Audio Merger</a>
+</div>
+<div class="tool-card" role="region" aria-label="Tactical Volume Booster">
+<h3>Tactical Volume Booster</h3>
+<p>A precision gain-staging utility to amplify low-level digital signals without introducing harmonic distortion, utilizing normalized peak-detection.</p>
+<a href="tools/Volume Booster .html" class="tool-link">Open Volume Booster</a>
+</div>
+<div class="tool-card" role="region" aria-label="SonicSphere 360° Studio tool">
+<h3>SonicSphere 360° Studio</h3>
+<p>A high-fidelity spatial audio workstation designed for 8D orbital transformation, stereo widening, and precise mono-to-stereo conversion.</p>
+<a href="tools/SonicSphere_360°_Studio.html" class="tool-link">Open 360° Studio</a>
+</div>
+<div class="tool-card" role="region" aria-label="Smart Audio Merger">
+<h3>Smart Audio Merger</h3>
+<p>An advanced dual-track post-production utility for seamless audio blending, featuring an automated RMS-based ducking algorithm and linear fade-staging.</p>
+<a href="tools/Smart Audio Merger.html" class="tool-link">Open Smart Mixer</a>
+</div>
+<div class="tool-card" role="region" aria-label="Acoustic Pro Bass Ignition Studio tool">
+<h3>Acoustic Pro Bass Engine</h3>
+<p>An elite-grade enhancement utility for deep-frequency amplification and sub-woofer optimization using local Web Audio API processing.</p>
+<a href="tools/bass-booster.html" class="tool-link">Open Bass Engine</a>
+</div>
+
+<div class="tool-card" role="region" aria-label="Age Calculator tool">
+<h3>Age Calculator</h3>
+<p>A precise chronological evaluation engine designed to calculate exact age durations across years, months, and days with granular accuracy.</p>
+<a href="tools/age-calculator.html" class="tool-link">Open Age Calculator</a>
+</div>
+<div class="tool-card" role="region" aria-label="Standard Calculator tool">
+<h3>Accessible Calculator</h3>
+<p>A robust mathematical processing interface optimized for seamless keyboard navigation, eliminating visual distractions for high-speed computation.</p>
+<a href="tools/calculator.html" class="tool-link">Open Calculator</a>
 </div>
 <div class="tool-card" role="region" aria-label="Bulk Text to Image tool">
 <h3>Bulk Text to Image</h3>
-<p>
-Create professional visual content from plain text or bulk TXT files with ease. This advanced generator supports custom naming, real-time progress tracking, and multiple social media presets like YouTube thumbnails and Instagram posts. Fully accessible and designed for screen reader users, it ensures your text-to-visual conversion is fast, private, and high-quality.
-</p>
-<a href="tools/text-to-image.html">Open Tool</a>
-</div>
-<div class="tool-card" role="region" aria-label="Universal Translation Suite">
-    <h3>Universal Translation Suite</h3>
-    <p>
-        A high-performance linguistic processing suite engineered for real-time text, document, and image-based translation across 100+ global languages. Designed with a strict Zero-Knowledge architecture, this utility ensures absolute data sovereignty by executing all operations locally in the browser while providing an inclusive experience optimized for assistive technologies.
-    </p>
-    <a href="tools/translator.html">Open Tool</a>
-</div>
-<div class="tool-card" role="region" aria-label="Industrial Precision Audio Trimmer">
-    <h3>Precision Audio Trimmer</h3>
-    <p>
-        A professional-grade digital signal processing utility engineered for absolute surgical precision in audio editing. This tool allows for nanosecond-accurate trimming and segment deletion directly within the browser, ensuring complete data sovereignty and a seamless experience for accessibility-focused sound engineers.
-    </p>
-    <a href="tools/audio-trimmer.html">Open Tool</a>
-</div>
-
-<div class="tool-card" role="region" aria-label="Bulk Audio Extractor">
-    <h3>Bulk Audio Extractor</h3>
-    <p>
-        A high-velocity multimedia processing engine designed to isolate and extract high-fidelity audio streams from multiple video containers simultaneously. Utilizing advanced client-side decoding, it ensures rapid batch processing while maintaining bit-perfect output without the need for server-side uploads.
-    </p>
-    <a href="tools/bulk-audio-extractor.html">Open Tool</a>
-</div>
-<div class="tool-card" role="region" aria-label="Industrial Bulk Audio Merger">
-    <h3>Industrial Bulk Audio Merger</h3>
-    <p>
-        An enterprise-scale audio unification workstation built for seamless concatenation of diverse sound assets. This utility facilitates the precise alignment and merging of multiple audio tracks into a single mastered file, optimized for industrial workflows and fully compatible with assistive navigation technologies.
-    </p>
-    <a href="tools/Industrial Bulk Audio Merger .html">Open Tool</a>
-</div>
-
-<div class="tool-card" role="region" aria-label="Tactical Volume Booster">
-    <h3>Tactical Volume Booster</h3>
-    <p>
-        A precision gain-staging utility engineered to amplify low-level digital signals without introducing harmonic distortion. Featuring a normalized peak-detection algorithm, this tool allows users to boost audio levels to industrial standards while preserving the dynamic range and integrity of the original source.
-    </p>
-    <a href="tools/Volume Booster .html">Open Tool</a>
-</div>
-<div class="tool-card" role="region" aria-label="SonicSphere 360° Studio tool">
-    <h3>SonicSphere 360° Studio</h3>
-    <p>
-        A high-fidelity spatial audio workstation designed for 8D orbital transformation, stereo widening, and mono-to-stereo conversion. Engineered by Accessible Tech Labs India, this utility employs local Web Audio API protocols to ensure bit-perfect processing and total data sovereignty, providing a fully accessible and immersive auditory environment for professional creators.
-    </p>
-<a href="tools/SonicSphere_360°_Studio.html">Open Tool</a>
-</div>
-<div class="tool-card" role="region" aria-label="Smart Audio Merger">
-    <h3>Smart Audio Merger</h3>
-    <p>
-        An advanced dual-track digital post-production utility designed for seamless audio blending. Engineered with an automated RMS-based ducking algorithm and precision linear fade-staging, this tool empowers creators to synchronize voiceovers with background scores in a secure, client-side environment while maintaining broadcast-quality signal integrity.
-    </p>
-    <a href="tools/Smart Audio Merger.html">Open Tool</a>
-</div>
-<div class="tool-card" role="region" aria-label="Acoustic Pro Bass Ignition Studio tool">
-    <h3>Acoustic Pro Bass Ignition Studio</h3>
-    <p>
-        An elite-grade audio enhancement utility engineered for deep-frequency amplification and sub-woofer optimization. Developed by Accessible Tech Labs India, this workstation utilizes advanced gain-staging algorithms and local Web Audio API processing to deliver high-fidelity bass boosting while maintaining peak signal integrity and total user data privacy.
-    </p>
-    <a href="tools/bass-booster.html">Open Tool</a>
+<p>Create professional visual content from plain text or bulk TXT files. Supports custom naming, real-time tracking, and social media rendering presets.</p>
+<a href="tools/text-to-image.html" class="tool-link">Open Text to Image</a>
 </div>
 <div class="tool-card" role="region" aria-label="Professional Image to Icon Workstation tool">
-    <h3>Professional Image to Icon Workstation</h3>
-    <p>
-        A sophisticated visual asset utility designed for the seamless conversion of raster graphics into high-fidelity Windows Icon (.ico) files. Engineered by Accessible Tech Labs India, this tool features multi-resolution scaling and phase-aligned processing protocols, ensuring bit-perfect transparency and professional branding standards within a fully accessible, local browser environment.
-    </p>
-    <a href="tools/image-to-icon-workstation.html">Open Tool</a>
+<h3>Image to Icon Workstation</h3>
+<p>A sophisticated asset utility for seamless conversion of raster graphics into high-fidelity Windows Icon (.ico) files with multi-resolution scaling.</p>
+<a href="tools/image-to-icon-workstation.html" class="tool-link">Open Icon Workstation</a>
 </div>
+
 <div class="tool-card" role="region" aria-label="Professional QR Suite">
-    <h3>Professional QR Suite</h3>
-    <p>
-        An enterprise-grade utility engineered for secure QR generation and real-time optical decoding. Built on a Zero-Knowledge architecture, this tool enables high-fidelity creation of UPI, WiFi, and vCard protocols while ensuring absolute data sovereignty through exclusive client-side processing and advanced screen reader accessibility.
-    </p>
-    <a href="tools/professional-qr-suite.html">Open Tool</a>
+<h3>Professional QR Suite</h3>
+<p>An enterprise-grade utility engineered for secure QR generation and real-time optical decoding based entirely on Zero-Knowledge architecture.</p>
+<a href="tools/professional-qr-suite.html" class="tool-link">Open QR Suite</a>
 </div>
 <div class="tool-card" role="region" aria-label="Advanced Compliance Guardian">
-    <h3>Advanced Compliance Guardian</h3>
-    <p>
-        A sophisticated forensic audit engine designed to evaluate web source code against WCAG accessibility and technical SEO paradigms. Featuring an offline, line-by-line inspection algorithm, this tool identifies structural vulnerabilities and provides remediation logic for enterprise-grade digital environments.
-    </p>
-    <a href="tools/advanced-compliance-guardian.html">Open Tool</a>
+<h3>Advanced Compliance Guardian</h3>
+<p>A sophisticated forensic audit engine to evaluate web source code against WCAG accessibility and technical SEO paradigms via line-by-line inspection.</p>
+<a href="tools/advanced-compliance-guardian.html" class="tool-link">Open Compliance Guardian</a>
 </div>
 <div class="tool-card" role="region" aria-label="Extreme Metadata Viewer">
-    <h3>Extreme Metadata Viewer</h3>
-    <p>
-        A high-performance forensic inspection utility engineered for deep-level metadata extraction from image, audio, and video containers. Utilizing a raw byte-scanning engine, it uncovers hidden digital signatures, encoding timestamps, and device fingerprints while maintaining absolute data sovereignty.
-    </p>
-    <a href="tools/extreme-metadata-viewer.html">Open Tool</a>
+<h3>Extreme Metadata Viewer</h3>
+<p>A high-performance forensic inspection utility for deep-level metadata extraction. Uncovers hidden signatures and timestamps locally.</p>
+<a href="tools/extreme-metadata-viewer.html" class="tool-link">Open Metadata Viewer</a>
 </div>
 <div class="tool-card" role="region" aria-label="Sovereign Share">
-    <h3>Sovereign Share</h3>
-    <p>
-        A high-performance P2P file sharing engine architected for absolute data sovereignty. Engineered with a zero-knowledge framework and advanced WebRTC protocols, it facilitates encrypted, unlimited bandwidth transfers of massive directories and files. Features integrated Web Audio telemetry and full ARIA support for a seamless, inclusive user experience.
-    </p>
-    <a href="tools/sovereign-share.html">Open Tool</a>
+<h3>Sovereign Share</h3>
+<p>A high-performance P2P file sharing engine architected for absolute data sovereignty, facilitating encrypted, unlimited bandwidth transfers.</p>
+<a href="tools/sovereign-share.html" class="tool-link">Open Sovereign Share</a>
 </div>
-<div class="tool-card" role="region" aria-label="Accessibility information">
-<h3>Accessibility First</h3>
-<p>
-All tools are designed with accessibility in mind. Each page includes clear labels, keyboard navigation, live status messages for screen readers, and simple layouts. Accessible Tech Labs India focuses on providing blind-friendly and beginner-friendly utilities that work smoothly on both mobile and desktop browsers.
-</p>
+
+</div>
+</div>
+
+<div id="panel-docs" role="tabpanel" tabindex="0" aria-labelledby="tab-docs" aria-hidden="true" class="tab-panel">
+<div class="tools-grid" id="grid-docs"></div>
+</div>
+
+<div id="panel-audio" role="tabpanel" tabindex="0" aria-labelledby="tab-audio" aria-hidden="true" class="tab-panel">
+<div class="tools-grid" id="grid-audio"></div>
+</div>
+
+<div id="panel-visual" role="tabpanel" tabindex="0" aria-labelledby="tab-visual" aria-hidden="true" class="tab-panel">
+<div class="tools-grid" id="grid-visual"></div>
+</div>
+
+<div id="panel-security" role="tabpanel" tabindex="0" aria-labelledby="tab-security" aria-hidden="true" class="tab-panel">
+<div class="tools-grid" id="grid-security"></div>
 </div>
 
 </main>
 
-<footer role="contentinfo">
-<p>
-<a href="privacy.html" accesskey="p" aria-label="Privacy Policy, Alt plus P">
-Privacy Policy
-</a>
-</p>
-<p>© 2026 Accessible Tech Labs India</p>
+<footer role="contentinfo" style="text-align: center; padding: 30px; background: #161b22; margin-top: 50px; border-top: 1px solid #30363d;">
+<p><a href="privacy.html" accesskey="p" aria-label="Privacy Policy, Alt plus P" style="color: #58a6ff; text-decoration: none; font-weight: bold;">Privacy Policy</a></p>
+<p style="color: #8b949e;">© 2026 Accessible Tech Labs India</p>
 </footer>
+
 <script>
+const docTools = ["PDF Merger", "PDF to Text", "Text to PDF", "Image to PDF", "PDF to Image", "TXT Merger", "Accessible PDF Reader", "Universal Translation Suite", "Image to Text (OCR)"];
+const audioTools = ["Precision Audio Trimmer", "Bulk Audio Extractor", "Industrial Bulk Audio Merger", "Tactical Volume Booster", "SonicSphere 360° Studio", "Smart Audio Merger", "Acoustic Pro Bass Engine"];
+const visualTools = ["Age Calculator", "Accessible Calculator", "Bulk Text to Image", "Image to Icon Workstation"];
+const securityTools = ["Professional QR Suite", "Advanced Compliance Guardian", "Extreme Metadata Viewer", "Sovereign Share"];
 
-function showAllTools() {
-let cards = document.getElementsByClassName("tool-card");
-for (let i = 0; i < cards.length; i++) {
-cards[i].style.display = "block";
+function populateTabs() {
+    const allCards = Array.from(document.getElementById('grid-all').children);
+    const docsGrid = document.getElementById('grid-docs');
+    const audioGrid = document.getElementById('grid-audio');
+    const visualGrid = document.getElementById('grid-visual');
+    const securityGrid = document.getElementById('grid-security');
+
+    allCards.forEach(card => {
+        const title = card.querySelector('h3').innerText;
+        const clone = card.cloneNode(true);
+        if (docTools.includes(title)) docsGrid.appendChild(clone);
+        if (audioTools.includes(title)) audioGrid.appendChild(clone);
+        if (visualTools.includes(title)) visualGrid.appendChild(clone);
+        if (securityTools.includes(title)) securityGrid.appendChild(clone);
+    });
 }
+populateTabs();
+
+const tabs = document.querySelectorAll('[role="tab"]');
+const tabList = document.querySelector('[role="tablist"]');
+let tabFocus = 0;
+
+tabList.addEventListener("keydown", e => {
+    if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+        tabs[tabFocus].setAttribute("tabindex", -1);
+        if (e.key === "ArrowRight") {
+            tabFocus++;
+            if (tabFocus >= tabs.length) tabFocus = 0;
+        } else if (e.key === "ArrowLeft") {
+            tabFocus--;
+            if (tabFocus < 0) tabFocus = tabs.length - 1;
+        }
+        tabs[tabFocus].setAttribute("tabindex", 0);
+        tabs[tabFocus].focus();
+    }
+});
+
+tabs.forEach(tab => {
+    tab.addEventListener("click", changeTabs);
+    tab.addEventListener("keydown", e => {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            changeTabs(e);
+        }
+    });
+});
+
+function changeTabs(e) {
+    const target = e.currentTarget;
+    const parent = target.parentNode;
+    const grandparent = parent.parentNode;
+
+    parent.querySelectorAll('[aria-selected="true"]').forEach(t => {
+        t.setAttribute("aria-selected", false);
+        t.setAttribute("tabindex", -1);
+    });
+
+    target.setAttribute("aria-selected", true);
+    target.setAttribute("tabindex", 0);
+    tabFocus = Array.from(tabs).indexOf(target);
+
+    grandparent.querySelectorAll('[role="tabpanel"]').forEach(p => p.setAttribute("aria-hidden", true));
+    grandparent.querySelector(`#${target.getAttribute("aria-controls")}`).setAttribute("aria-hidden", false);
+    
+    document.getElementById("toolSearch").value = "";
+    showAllCardsInActivePanel();
+    document.getElementById("toolSearchStatus").innerText = "";
 }
 
-function searchTools() {
-
-let input = document.getElementById("toolSearch");
-let filter = input.value.toLowerCase().trim();
-let cards = document.getElementsByClassName("tool-card");
-let status = document.getElementById("toolSearchStatus");
-
-if (filter === "") {
-showAllTools();
-status.innerText = "";
-return;
+function showAllCardsInActivePanel() {
+    const activePanel = document.querySelector('[role="tabpanel"][aria-hidden="false"]');
+    const cards = activePanel.querySelectorAll('.tool-card');
+    cards.forEach(card => card.style.display = "flex");
 }
 
-let found = false;
+function executeSearch() {
+    const input = document.getElementById("toolSearch");
+    const filter = input.value.toLowerCase().trim();
+    const status = document.getElementById("toolSearchStatus");
 
-for (let i = 0; i < cards.length; i++) {
+    if (filter === "") {
+        showAllCardsInActivePanel();
+        status.innerText = "";
+        return;
+    }
 
-let text = cards[i].innerText.toLowerCase();
+    const allTab = document.getElementById("tab-all");
+    if(allTab.getAttribute("aria-selected") === "false") {
+        allTab.click();
+    }
 
-if (text.includes(filter)) {
-cards[i].style.display = "block";
-found = true;
-} else {
-cards[i].style.display = "none";
-}
+    const activePanel = document.querySelector('#panel-all');
+    const cards = activePanel.querySelectorAll('.tool-card');
+    let foundCount = 0;
 
-}
+    cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        if (text.includes(filter)) {
+            card.style.display = "flex";
+            foundCount++;
+        } else {
+            card.style.display = "none";
+        }
+    });
 
-if (found) {
-status.innerText = "Search completed. Matching tools displayed.";
-} else {
-status.innerText = "No tools found with this name on this website.";
-}
-
+    if (foundCount > 0) {
+        status.innerText = `Search engine deployed. Found ${foundCount} matching enterprise tools.`;
+    } else {
+        status.innerText = "No tools matched your secure search parameters.";
+    }
 }
 
 function clearToolSearch() {
-
-document.getElementById("toolSearch").value = "";
-showAllTools();
-document.getElementById("toolSearchStatus").innerText =
-"Search cleared. All tools displayed.";
-
+    document.getElementById("toolSearch").value = "";
+    showAllCardsInActivePanel();
+    document.getElementById("toolSearchStatus").innerText = "Search parameters cleared. All tools visible.";
 }
 
 document.getElementById("toolSearch").addEventListener("keydown", function(e) {
-if (e.key === "Enter") {
-searchTools();
-}
+    if (e.key === "Enter") {
+        executeSearch();
+    }
 });
-
 </script>
-
 </body>
 </html>

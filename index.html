@@ -10,98 +10,249 @@
 <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
-<link rel="manifest" href="icons/site.webmanifest">
-<link rel="icon" href="icons/favicon.ico">
 <meta name="theme-color" content="#0d1117">
 <link rel="stylesheet" href="css/style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {
+    background-color: #0d1117;
+    color: #c9d1d9;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+.hero-section {
+    background: linear-gradient(135deg, rgba(22, 27, 34, 0.9), rgba(13, 17, 23, 1));
+    padding: 60px 20px;
+    text-align: center;
+    border-bottom: 4px solid #58a6ff;
+    border-radius: 12px;
+    margin-bottom: 50px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+.hero-title {
+    font-size: 3rem;
+    color: #f8fafc;
+    margin-top: 0;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
+}
+.hero-subtitle {
+    font-size: 1.25rem;
+    color: #8b949e;
+    max-width: 800px;
+    margin: 0 auto 30px auto;
+    line-height: 1.6;
+}
+.hero-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.btn-primary {
+    background: #58a6ff;
+    color: #0d1117;
+    padding: 15px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: transform 0.2s;
+}
+.btn-secondary {
+    background: transparent;
+    color: #58a6ff;
+    border: 2px solid #58a6ff;
+    padding: 15px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: transform 0.2s;
+}
+.btn-primary:focus, .btn-secondary:focus {
+    outline: 3px solid #fbbf24;
+    outline-offset: 3px;
+}
+.btn-primary:hover, .btn-secondary:hover {
+    transform: translateY(-3px);
+}
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+.feature-card {
+    background: #161b22;
+    padding: 30px;
+    border-radius: 16px;
+    border-top: 5px solid #238636;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.feature-card:focus-within {
+    border-color: #58a6ff;
+    transform: translateY(-5px);
+}
+.feature-card h3 {
+    color: #58a6ff;
+    margin-top: 0;
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+}
+.feature-card p {
+    color: #c9d1d9;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+    text-align: justify;
+}
+.mission-section {
+    background: rgba(255,255,255,0.03);
+    padding: 40px;
+    border-radius: 16px;
+    border-left: 5px solid #58a6ff;
+    margin-bottom: 40px;
+}
+.mission-section h2 {
+    color: #58a6ff;
+    margin-top: 0;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+.mission-section p {
+    color: #c9d1d9;
+    font-size: 1.15rem;
+    text-align: justify;
+    margin-bottom: 15px;
+}
+.top-bar-btn {
+    margin: 15px;
+    background: #238636;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.top-bar-btn:focus {
+    outline: 3px solid #fbbf24;
+}
+</style>
 </head>
 
 <body>
-<button onclick="installApp()">Install Accessible Tech Labs India</button>
+<button onclick="installApp()" class="top-bar-btn">Install Accessible Tech Labs India</button>
 <a class="skip-link" href="#main">Skip to main content</a>
 
 <header role="banner">
+<h1 style="text-align: center; color: #f8fafc;">Accessible Tech Labs India</h1>
+<img src="images/logo of accessible tech labs india (ALTI).png" alt="Accessible Tech Labs India Logo" width="120" style="display:block; margin: 10px auto;">
 
-<h1>Accessible Tech Labs India</h1>
-
-<img src="images/logo of accessible tech labs india (ALTI).png"
-alt="Accessible Tech Labs India Logo"
-width="120"
-style="display:block;margin-top:10px;">
-
-<nav aria-label="Main navigation">
-<a href="index.html" accesskey="h" aria-label="Home, Alt plus H">Home</a>
-<a href="software.html" accesskey="s" aria-label="Software, Alt plus S">Software</a>
-<a href="tools.html" accesskey="t" aria-label="Tools, Alt plus T">Tools</a>
-<a href="Games.html" accesskey="g" aria-label="Games, Alt plus G">Games</a>
-<a href="about.html" accesskey="a" aria-label="About, Alt plus A">About</a>
-<a href="contact.html" accesskey="c" aria-label="Contact, Alt plus C">Contact</a>
-<a href="social.html" accesskey="l" aria-label="Social, Alt plus L">Social</a>
+<nav aria-label="Main navigation" style="text-align: center; margin-top: 20px;">
+<a href="index.html" accesskey="h" aria-label="Home, Alt plus H" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Home</a>
+<a href="software.html" accesskey="s" aria-label="Software, Alt plus S" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Software</a>
+<a href="tools.html" accesskey="t" aria-label="Tools, Alt plus T" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Tools</a>
+<a href="Games.html" accesskey="g" aria-label="Games, Alt plus G" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Games</a>
+<a href="about.html" accesskey="a" aria-label="About, Alt plus A" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">About</a>
+<a href="contact.html" accesskey="c" aria-label="Contact, Alt plus C" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Contact</a>
+<a href="social.html" accesskey="l" aria-label="Social, Alt plus L" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Social</a>
 </nav>
-
 </header>
 
-<main id="main">
+<main id="main" class="main-container">
 
-<h2>Welcome to Accessible Tech Labs India</h2>
-<p>
-Accessible Tech Labs India is a privacy-first and accessibility-driven technology platform created with a clear mission: to empower blind users, low-vision users, and beginners in computing through practical, reliable, and independent digital tools. This website is developed by a blind developer with a deep commitment to inclusive design, accessible engineering, system utilities, and ethical cybersecurity learning. The platform exists to remove barriers in technology and ensure that everyone can participate confidently in the digital world.
-</p>
-<p>
-Every project on Accessible Tech Labs India is built with real accessibility needs in mind. Here you will find original offline software tools carefully crafted for screen reader users and keyboard-only navigation. All applications are tested with NVDA and designed using predictable menus, spoken-friendly output, clear status messages, and professional feedback systems so users always understand what is happening at every step. The goal is to provide a calm, structured, and independent computing experience.
-</p>
-<p>
-Accessible Tech Labs India focuses on creating accessible system utilities, diagnostic engines, learning resources, and productivity software that help users understand and manage their computers without outside assistance. These tools support daily tasks such as system inspection, troubleshooting, document processing, PDF handling, audio conversion, accessibility testing, and security learning. Each application is lightweight, portable, and designed to run fully offline once downloaded, respecting user privacy and eliminating unnecessary cloud dependency.
-</p>
-<p>
-You can explore projects including system diagnosis engines, accessible assistants, cybersecurity learning utilities, PDF tools, audio converters, and NVDA-friendly applications. Every tool follows accessibility-first principles with clean layouts, logical navigation, minimal visual clutter, and full keyboard control. Whether you are a student, accessibility user, beginner in technology, or privacy-conscious computer user, this platform offers practical solutions designed for clarity, confidence, and independence.
-</p>
-<p>
-Beyond software downloads, this platform also provides documentation, guidance, and learning materials to help users grow their technical skills step by step. No telemetry is collected, no background services are installed, and no system settings are changed without awareness. Transparency, user control, and respectful software behavior are core values across all projects published here.
-</p>
-<p>
-Our mission is simple yet powerful: to prove that disability should never be a barrier to learning, creating, or contributing to technology. Accessible Tech Labs India exists to demonstrate that inclusive development is not only possible — it is essential. By combining accessibility, privacy, and practical engineering, this platform aims to support independent computing and open opportunities for users who are often overlooked in traditional software development.
-</p>
-<p>
-You will also find updates, contact options, and collaboration opportunities so that you can stay connected, provide feedback, or participate in future projects. Thank you for visiting Accessible Tech Labs India. We hope these tools strengthen your technical confidence, support your learning journey, and assist you in your everyday digital tasks.
-</p>
-<h2>What You Will Find Here</h2>
+<section class="hero-section" aria-labelledby="hero-heading">
+    <h2 id="hero-heading" class="hero-title">Engineering Digital Independence</h2>
+    <p class="hero-subtitle">
+        Pioneering 100% accessible, privacy-first technology. From Zero-Knowledge web engines to enterprise-grade NVDA Add-ons, we build powerful tools that empower blind and visually impaired professionals worldwide.
+    </p>
+    <div class="hero-buttons">
+        <a href="tools.html" class="btn-primary" aria-label="Explore our Web Tools">Explore Web Tools</a>
+        <a href="software.html" class="btn-secondary" aria-label="Discover Desktop Software">Discover Software</a>
+    </div>
+</section>
 
-<ul>
-<li>Accessible system utilities</li>
-<li>Blind-friendly software tools</li>
-<li>Security learning projects</li>
-<li>Documentation and guides</li>
-<li>Future updates and improvements</li>
-</ul>
+<section class="mission-section" aria-labelledby="mission-heading">
+    <h2 id="mission-heading">Our Mission & Core Architecture</h2>
+    <p>
+        Developed independently by a blind software engineer, Accessible Tech Labs India operates at the vital intersection of inclusive design and absolute data sovereignty. We believe that technology must adapt to the user, not the other way around. Our platform replaces visual clutter with predictable, highly optimized, keyboard-driven architectures that synchronize flawlessly with screen readers.
+    </p>
+    <p>
+        Every tool we engineer—whether it is a complex spatial audio workstation, a forensic metadata viewer, or a diagnostic system utility—operates on a strict Zero-Knowledge, offline-first framework. Your sensitive data, media files, and personal configurations never leave your local device, guaranteeing total privacy and uncompromised security.
+    </p>
+</section>
+
+<h2 style="text-align: center; color: #f8fafc; margin-bottom: 30px; font-size: 2rem;">Our Core Technologies</h2>
+
+<div class="features-grid" role="region" aria-label="Core technological offerings">
+    
+    <div class="feature-card">
+        <h3>Zero-Knowledge Web Tools</h3>
+        <p>
+            Experience high-performance browser utilities. Process industrial audio, manipulate PDFs, extract localized OCR text, and share files securely via P2P networks without ever uploading a single byte to an external server.
+        </p>
+    </div>
+
+    <div class="feature-card">
+        <h3>Official NVDA Add-ons</h3>
+        <p>
+            Deploy certified, zero-latency extensions built specifically for the NVDA screen reader. Elevate your daily productivity with our enterprise-grade system health monitors and specialized deep integrations.
+        </p>
+    </div>
+
+    <div class="feature-card">
+        <h3>Offline System Utilities</h3>
+        <p>
+            Leverage robust desktop software designed organically for screen reader environments. Safely manage Windows run history, extract encrypted Wi-Fi passwords, and perform deep system diagnostics entirely offline.
+        </p>
+    </div>
+
+    <div class="feature-card">
+        <h3>Accessible Gaming Engines</h3>
+        <p>
+            Engage with professional cognitive assessment tools and interactive games featuring adaptive difficulty logic, engineered purely for seamless auditory and keyboard-based interaction.
+        </p>
+    </div>
+
+</div>
 
 </main>
 
-<footer role="contentinfo">
+<footer role="contentinfo" style="text-align: center; padding: 30px; background: #161b22; margin-top: 50px; border-top: 1px solid #30363d;">
 <p>
-<a href="privacy.html" accesskey="p" aria-label="Privacy Policy, Alt plus P">
+<a href="privacy.html" accesskey="p" aria-label="Privacy Policy, Alt plus P" style="color: #58a6ff; text-decoration: none; font-weight: bold; font-size: 1.1rem;">
 Privacy Policy
 </a>
 </p>
-<p>© 2026 Accessible Tech Labs India</p>
-
-<p>Email and social links available in Contact section.</p>
-
+<p style="color: #8b949e; font-size: 1.1rem;">© 2026 Accessible Tech Labs India</p>
+<p style="color: #8b949e;">Global Connectivity & Support Links available in the Contact section.</p>
 </footer>
+
 <script>
 let deferredPrompt;
 
 window.addEventListener('beforeinstallprompt', e => {
-e.preventDefault();
-deferredPrompt = e;
+    e.preventDefault();
+    deferredPrompt = e;
 });
 
 function installApp(){
-if(deferredPrompt){
-deferredPrompt.prompt();
-deferredPrompt.userChoice.then(()=>deferredPrompt=null);
-}
+    if(deferredPrompt){
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(() => {
+            deferredPrompt = null;
+        });
+    }
 }
 </script>
 </body>

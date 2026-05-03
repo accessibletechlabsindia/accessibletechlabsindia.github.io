@@ -6,6 +6,229 @@
 <meta name="description" content="Explore a diverse collection of high-quality, fully accessible software designed for everyone. At Accessible Tech Labs India, we specialize in creating inclusive digital solutions that combine professional performance with seamless usability.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="css/style.css">
+<style>
+body {
+    background-color: #0d1117;
+    color: #c9d1d9;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+.manifesto-box {
+    background: linear-gradient(135deg, rgba(22,27,34,1) 0%, rgba(13,17,23,1) 100%);
+    padding: 35px;
+    border-radius: 16px;
+    border-left: 6px solid #58a6ff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    margin-bottom: 40px;
+}
+.manifesto-box h2 {
+    color: #58a6ff;
+    margin-top: 0;
+    font-size: 2rem;
+    letter-spacing: 0.5px;
+}
+.manifesto-box p {
+    font-size: 1.15rem;
+    text-align: justify;
+    margin-bottom: 15px;
+    color: #f0f6fc;
+}
+.search-container {
+    background: #161b22;
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid #30363d;
+    margin-bottom: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+}
+.search-container label {
+    width: 100%;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #58a6ff;
+}
+.search-container input {
+    flex: 1;
+    min-width: 250px;
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid #30363d;
+    background: #0d1117;
+    color: #58a6ff;
+    font-size: 1.1rem;
+}
+.search-container input:focus {
+    outline: 3px solid #fbbf24;
+    border-color: #58a6ff;
+}
+.btn-action {
+    padding: 15px 25px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    cursor: pointer;
+    background: #58a6ff;
+    color: #0d1117;
+    transition: transform 0.2s;
+}
+.btn-clear {
+    background: #484f58;
+    color: #ffffff;
+}
+.btn-action:focus {
+    outline: 3px solid #fbbf24;
+}
+.btn-action:hover {
+    transform: translateY(-2px);
+}
+.tab-list {
+    display: flex;
+    gap: 10px;
+    border-bottom: 2px solid #30363d;
+    margin-bottom: 30px;
+    overflow-x: auto;
+    padding-bottom: 10px;
+}
+.tab-button {
+    background: #161b22;
+    color: #8b949e;
+    border: 1px solid #30363d;
+    padding: 15px 25px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s;
+}
+.tab-button[aria-selected="true"] {
+    background: #58a6ff;
+    color: #0d1117;
+    border-color: #58a6ff;
+}
+.tab-button:focus {
+    outline: 3px solid #fbbf24;
+    outline-offset: 2px;
+}
+.tab-panel {
+    display: none;
+    animation: fadeIn 0.4s ease;
+}
+.tab-panel[aria-hidden="false"] {
+    display: block;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 25px;
+}
+.tool-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s, border-color 0.3s;
+}
+.tool-card:focus-within {
+    border-color: #58a6ff;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+}
+.tool-card h3 {
+    color: #58a6ff;
+    margin-top: 0;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+.tool-card p {
+    color: #8b949e;
+    font-size: 1rem;
+    flex-grow: 1;
+    margin-bottom: 25px;
+    text-align: justify;
+}
+.tool-link {
+    display: block;
+    text-align: center;
+    background: #238636;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: background 0.2s;
+}
+.tool-link:focus {
+    outline: 3px solid #fbbf24;
+    outline-offset: 3px;
+}
+.tool-link:hover {
+    background: #2ea043;
+}
+.addon-manifesto {
+    background: rgba(34, 197, 94, 0.05);
+    padding: 35px;
+    border-radius: 12px;
+    border-left: 6px solid #22c55e;
+}
+.addon-manifesto h3 {
+    color: #22c55e;
+    margin-top: 0;
+    font-size: 1.8rem;
+}
+.addon-manifesto p {
+    font-size: 1.15rem;
+    color: #e2e8f0;
+    text-align: justify;
+}
+.addon-buttons {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+.btn-addon-primary {
+    background: #58a6ff;
+    color: #0d1117;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+.btn-addon-secondary {
+    background: transparent;
+    color: #22c55e;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    border: 2px solid #22c55e;
+}
+.btn-addon-primary:focus, .btn-addon-secondary:focus {
+    outline: 3px solid #fbbf24;
+    outline-offset: 3px;
+}
+</style>
 </head>
 
 <body>
@@ -14,7 +237,6 @@
 
 <header>
 <h1>Accessible Tech Labs India</h1>
-
 <nav aria-label="Main navigation">
 <a href="index.html" accesskey="h" aria-label="Home, Alt plus H">Home</a>
 <a href="software.html" accesskey="s" aria-label="Software, Alt plus S">Software</a>
@@ -26,203 +248,267 @@
 </nav>
 </header>
 
-<main id="main">
-<div class="search-box">
+<main id="main" class="main-container">
 
-<label for="softwareSearch">Search software</label>
-
-<input
-type="text"
-id="softwareSearch"
-placeholder="Enter software name"
-aria-label="Search software">
-
-<button onclick="searchSoftware()">Search</button>
-
-<button onclick="clearSearch()">Clear</button>
-
-<p id="searchStatus" aria-live="polite"></p>
-
-</div>
-
-<h2>Desktop Software</h2>
-
+<section class="manifesto-box" role="region" aria-labelledby="standards-heading">
+<h2 id="standards-heading">The Gold Standard of Inclusive Desktop Engineering</h2>
 <p>
-Offline accessible command line utilities designed for blind users and keyboard navigation.
+Welcome to the official digital distribution hub of Accessible Tech Labs India. Our desktop software suite represents the pinnacle of inclusive design, engineered specifically for high-performance offline environments with a strict "Screen Reader First" philosophy. Security and User Sovereignty are our non-negotiable pillars. We employ a Zero-Knowledge architecture, meaning your sensitive documents, personal data, and operational logs never leave your local machine. There is no hidden telemetry, no background tracking, and absolutely no data harvesting.
 </p>
-<section class="brand-authority-section" role="region" aria-label="Official Software Standards">
-    <h2>The Gold Standard of Inclusive Desktop Engineering</h2>
-    <div class="professional-description">
-        <p>
-            Welcome to the official digital distribution hub of Accessible Tech Labs India. Our desktop software suite represents the pinnacle of inclusive design, specifically engineered for high-performance offline environments. We believe that accessibility is not a secondary feature but a fundamental human right. Therefore, every command-line utility and graphical interface produced by our labs is built from the ground up with a "Screen Reader First" philosophy. Our software undergoes rigorous stress-testing with multiple assistive technologies to ensure that blind and low-vision professionals can execute complex tasks with the same speed, precision, and dignity as their sighted counterparts.
-        </p>
-        
-        <p>
-            Security and User Sovereignty are the non-negotiable pillars of our engineering manifest. In an era of invasive data harvesting, Accessible Tech Labs India stands as a fortress of privacy. All our desktop utilities are designed to function entirely offline, ensuring that your sensitive documents, personal data, and operational logs never leave your local machine. We employ a Zero-Knowledge architecture, meaning we have no access to your data, no hidden telemetry, and no background tracking. When you run an application from Accessible Tech Labs India, you are in total control of your digital footprint, backed by industrial-grade code integrity.
-        </p>
-        
-        <p>
-            <strong>A Critical Security Advisory:</strong> This platform is the ONLY official and authorized source for software developed by Accessible Tech Labs India. We have been alerted to unauthorized third-party entities claiming to distribute modified or "repackaged" versions of our tools. We strongly advise our global user community to exercise extreme caution. Software obtained from unofficial sources may contain compromised code, malicious scripts, or outdated security protocols. To guarantee the safety of your hardware and the integrity of your data, always verify that you are downloading directly from this official domain. If any individual or organization claims to represent our labs or offer our proprietary software elsewhere, do not trust them—protect your digital life by staying within our verified ecosystem.
-        </p>
-
-        <p>
-            Beyond our standalone desktop applications, we are proud to host our internationally acclaimed NVDA Add-ons repository. Our official extensions are not mere scripts; they are highly optimized system-level integrations that have been officially vetted and approved by global accessibility watchdogs and featured on the Official NVDA Add-on Store. By synchronizing our desktop tools with our specialized NVDA add-ons, users can unlock a seamless, multi-layered accessible workflow that is unmatched in the industry. Whether you are managing complex file systems, performing high-speed audio transformations, or conducting professional data analysis, our ecosystem is designed to elevate your potential.
-        </p>
-
-        <p>
-            At Accessible Tech Labs India, we don't just build software; we build independence. Our commitment to the community is reflected in our transparent licensing, frequent stability updates, and an unwavering focus on creating a barrier-free digital future. Experience the power of professional-grade tools where accessibility meets absolute security.
-        </p>
-    </div>
-</section>
-<div class="tool-card">
-<h3><a href="software/run-history.html">Run History Maintenance</a></h3>
-<p>Clears Windows Run dialog history to protect privacy.</p>
-</div>
-
-<div class="tool-card">
-<h3><a href="software/temp-maintenance.html">Temporary Files Maintenance</a></h3>
-<p>Safely removes temporary files and cache folders.</p>
-</div>
-
-<div class="tool-card">
-<h3><a href="software/text-to-audio.html">Text To Audio Converter</a></h3>
-<p>Converts written text into spoken audio files.</p>
-</div>
-
-<div class="tool-card">
-<h3>
-<a href="software/website-blocker/website-blocker.html">
-Website Blocker
-</a>
-</h3>
-<p>Blocks websites system-wide for focus and control.</p>
-</div>
-
-<div class="tool-card">
-<h3><a href="software/wifi-password.html">Wifi Password Finder</a></h3>
-<p>Displays saved Wi-Fi passwords stored locally.</p>
-</div>
-
-<div class="tool-card">
-<h3>
-<a href="software/Media Composer Engine/Media Composer Engine.html">
-Media Composer Engine
-</a>
-</h3>
-<p>Convert audio to video and extract audio from video.</p>
-</div>
-
-<div class="tool-card">
-<h3><a href="software/youtube-downloader/youtube-downloader.html">YouTube Downloader</a></h3>
-<p>Download audio, video, playlists and channels.</p>
-</div>
-<div class="tool-card">
-
-<h3><a href="software/system-diagnostic.html">System Diagnosis Engine</a></h3>
-
 <p>
-Accessible Windows diagnostics and reporting tool for blind users with structured system analysis and professional feedback.
+<strong>A Critical Security Advisory:</strong> This platform is the ONLY official and authorized source for software developed by Accessible Tech Labs India. We strongly advise our global user community to exercise extreme caution against unauthorized third-party distributors to prevent compromised code or malicious scripts. Trust the official laboratory for guaranteed reliability and experience the power of professional-grade tools where accessibility meets absolute security.
 </p>
-</div>
-<div class="tool-card">
-<h3>
-<a href="software/SystemCoreManager/SystemCoreManager.html">
-SystemCore Manager
-</a>
-</h3>
-<p>A professional system management tool designed for accessibility, offering run history cleanup, Wi-Fi credential viewing, automated power scheduling, and privacy-focused operations. Fully offline, secure, and optimized for keyboard and screen reader users.</p>
-</div>
-<section class="nvda-official-repository" role="region" aria-labelledby="nvda-store-heading" style="margin-top: 50px; border-top: 2px solid #334155; padding-top: 30px;">
-    <h3 id="nvda-store-heading" style="color: var(--accent-success); font-size: 1.8rem;">Official NVDA Add-on Integrity & Store Access</h3>
-    
-    <div class="store-description" style="background: rgba(34, 197, 94, 0.05); padding: 25px; border-radius: 12px; border-left: 5px solid var(--accent-success);">
-        <p style="font-size: 1.1rem; color: #cbd5e1; line-height: 1.8;">
-            At Accessible Tech Labs India, we adhere to the highest international standards of software distribution. Unlike unauthorized sources, we do not host unverified or experimental extensions in our primary database. Every NVDA add-on featured on this platform is a certified, stable release that has undergone rigorous code audits and earned full approval for the <strong>Official NVDA Add-on Store</strong>. We believe in absolute transparency: if an add-on is listed here, it is because it has met the strict technical requirements of the global NVDA community and is officially recognized in the stable channel.
-        </p>
-        
-        <p style="font-size: 1.1rem; color: #cbd5e1; margin-top: 15px;">
-            Our synchronization with the official NVDA ecosystem ensures that you receive only the most secure, high-performance, and professionally vetted tools available. Do not compromise your accessibility with unverified scripts—trust the official laboratory for guaranteed reliability.
-        </p>
-<div class="store-action-links" style="margin-top: 25px; display: flex; gap: 20px; flex-wrap: wrap;">
-    <a href="Addons/Addons.html" style="background: var(--accent-primary); color: white; padding: 15px 25px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; display: inline-block;">
-        Browse Our Official Add-on Catalog
-    </a>
-            <a href="https://addonstore.nvaccess.org/" target="_blank" rel="noopener" style="background: transparent; color: var(--accent-success); padding: 15px 25px; text-decoration: none; border-radius: 8px; font-weight: bold; font-size: 1.1rem; border: 2px solid var(--accent-success); display: inline-block;">
-                Visit Official NVDA Global Store
-            </a>
-        </div>
-    </div>
 </section>
+
+<div class="search-container">
+<label for="softwareSearch">Intelligent Software Search</label>
+<input type="text" id="softwareSearch" placeholder="Type to search all enterprise software..." aria-label="Search software">
+<button class="btn-action" onclick="searchSoftware()">Search Engine</button>
+<button class="btn-action btn-clear" onclick="clearSearch()">Clear Filters</button>
+<p id="searchStatus" aria-live="polite" style="width: 100%; color: #3fb950; font-weight: bold; margin: 10px 0 0 0;"></p>
+</div>
+
+<div role="tablist" aria-label="Professional Software Categories" class="tab-list">
+<button role="tab" aria-selected="true" aria-controls="panel-all" id="tab-all" tabindex="0" class="tab-button">All Software</button>
+<button role="tab" aria-selected="false" aria-controls="panel-sys" id="tab-sys" tabindex="-1" class="tab-button">System & Security</button>
+<button role="tab" aria-selected="false" aria-controls="panel-media" id="tab-media" tabindex="-1" class="tab-button">Media Utilities</button>
+<button role="tab" aria-selected="false" aria-controls="panel-addon" id="tab-addon" tabindex="-1" class="tab-button">Official NVDA Add-ons</button>
+</div>
+
+<div id="panel-all" role="tabpanel" tabindex="0" aria-labelledby="tab-all" aria-hidden="false" class="tab-panel">
+<div class="tools-grid">
+<div class="tool-card" role="region" aria-label="Run History Maintenance">
+<h3>Run History Maintenance</h3>
+<p>Clears Windows Run dialog history to protect privacy and eliminate sensitive execution traces securely.</p>
+<a href="software/run-history.html" class="tool-link">Open Run History Maintenance</a>
+</div>
+<div class="tool-card" role="region" aria-label="Temporary Files Maintenance">
+<h3>Temporary Files Maintenance</h3>
+<p>Safely removes temporary files and cache folders to optimize system performance and free up storage space.</p>
+<a href="software/temp-maintenance.html" class="tool-link">Open Temp Maintenance</a>
+</div>
+<div class="tool-card" role="region" aria-label="Text To Audio Converter">
+<h3>Text To Audio Converter</h3>
+<p>Converts written text into spoken audio files. Highly accessible utility designed for rapid speech generation offline.</p>
+<a href="software/text-to-audio.html" class="tool-link">Open Text To Audio</a>
+</div>
+<div class="tool-card" role="region" aria-label="Website Blocker">
+<h3>Website Blocker</h3>
+<p>Blocks websites system-wide for focus and control. Directly modifies HOSTS logic securely without internet dependency.</p>
+<a href="software/website-blocker/website-blocker.html" class="tool-link">Open Website Blocker</a>
+</div>
+<div class="tool-card" role="region" aria-label="Wifi Password Finder">
+<h3>Wifi Password Finder</h3>
+<p>Displays saved Wi-Fi passwords stored locally. A secure command-line tool for network credential recovery.</p>
+<a href="software/wifi-password.html" class="tool-link">Open Wifi Password Finder</a>
+</div>
+<div class="tool-card" role="region" aria-label="Media Composer Engine">
+<h3>Media Composer Engine</h3>
+<p>Convert audio to video and extract audio from video. A powerful local multimedia processor for accessible editing.</p>
+<a href="software/Media Composer Engine/Media Composer Engine.html" class="tool-link">Open Media Composer</a>
+</div>
+<div class="tool-card" role="region" aria-label="YouTube Downloader">
+<h3>YouTube Downloader</h3>
+<p>Download audio, video, playlists and channels. A highly accessible interface replacing complex visual downloaders.</p>
+<a href="software/youtube-downloader/youtube-downloader.html" class="tool-link">Open YouTube Downloader</a>
+</div>
+<div class="tool-card" role="region" aria-label="System Diagnosis Engine">
+<h3>System Diagnosis Engine</h3>
+<p>Accessible Windows diagnostics and reporting tool for blind users with structured system analysis and professional feedback.</p>
+<a href="software/system-diagnostic.html" class="tool-link">Open System Diagnosis Engine</a>
+</div>
+<div class="tool-card" role="region" aria-label="SystemCore Manager">
+<h3>SystemCore Manager</h3>
+<p>A professional system management tool offering run history cleanup, Wi-Fi viewing, and power scheduling locally.</p>
+<a href="software/SystemCoreManager/SystemCoreManager.html" class="tool-link">Open SystemCore Manager</a>
+</div>
+</div>
+</div>
+
+<div id="panel-sys" role="tabpanel" tabindex="0" aria-labelledby="tab-sys" aria-hidden="true" class="tab-panel">
+<div class="tools-grid">
+<div class="tool-card" role="region" aria-label="Run History Maintenance">
+<h3>Run History Maintenance</h3>
+<p>Clears Windows Run dialog history to protect privacy and eliminate sensitive execution traces securely.</p>
+<a href="software/run-history.html" class="tool-link">Open Run History Maintenance</a>
+</div>
+<div class="tool-card" role="region" aria-label="Temporary Files Maintenance">
+<h3>Temporary Files Maintenance</h3>
+<p>Safely removes temporary files and cache folders to optimize system performance and free up storage space.</p>
+<a href="software/temp-maintenance.html" class="tool-link">Open Temp Maintenance</a>
+</div>
+<div class="tool-card" role="region" aria-label="Website Blocker">
+<h3>Website Blocker</h3>
+<p>Blocks websites system-wide for focus and control. Directly modifies HOSTS logic securely without internet dependency.</p>
+<a href="software/website-blocker/website-blocker.html" class="tool-link">Open Website Blocker</a>
+</div>
+<div class="tool-card" role="region" aria-label="Wifi Password Finder">
+<h3>Wifi Password Finder</h3>
+<p>Displays saved Wi-Fi passwords stored locally. A secure command-line tool for network credential recovery.</p>
+<a href="software/wifi-password.html" class="tool-link">Open Wifi Password Finder</a>
+</div>
+<div class="tool-card" role="region" aria-label="System Diagnosis Engine">
+<h3>System Diagnosis Engine</h3>
+<p>Accessible Windows diagnostics and reporting tool for blind users with structured system analysis and professional feedback.</p>
+<a href="software/system-diagnostic.html" class="tool-link">Open System Diagnosis Engine</a>
+</div>
+<div class="tool-card" role="region" aria-label="SystemCore Manager">
+<h3>SystemCore Manager</h3>
+<p>A professional system management tool offering run history cleanup, Wi-Fi viewing, and power scheduling locally.</p>
+<a href="software/SystemCoreManager/SystemCoreManager.html" class="tool-link">Open SystemCore Manager</a>
+</div>
+</div>
+</div>
+
+<div id="panel-media" role="tabpanel" tabindex="0" aria-labelledby="tab-media" aria-hidden="true" class="tab-panel">
+<div class="tools-grid">
+<div class="tool-card" role="region" aria-label="Text To Audio Converter">
+<h3>Text To Audio Converter</h3>
+<p>Converts written text into spoken audio files. Highly accessible utility designed for rapid speech generation offline.</p>
+<a href="software/text-to-audio.html" class="tool-link">Open Text To Audio</a>
+</div>
+<div class="tool-card" role="region" aria-label="Media Composer Engine">
+<h3>Media Composer Engine</h3>
+<p>Convert audio to video and extract audio from video. A powerful local multimedia processor for accessible editing.</p>
+<a href="software/Media Composer Engine/Media Composer Engine.html" class="tool-link">Open Media Composer</a>
+</div>
+<div class="tool-card" role="region" aria-label="YouTube Downloader">
+<h3>YouTube Downloader</h3>
+<p>Download audio, video, playlists and channels. A highly accessible interface replacing complex visual downloaders.</p>
+<a href="software/youtube-downloader/youtube-downloader.html" class="tool-link">Open YouTube Downloader</a>
+</div>
+</div>
+</div>
+
+<div id="panel-addon" role="tabpanel" tabindex="0" aria-labelledby="tab-addon" aria-hidden="true" class="tab-panel">
+<div class="addon-manifesto">
+<h3>Official NVDA Add-on Integrity & Store Access</h3>
+<p>
+At Accessible Tech Labs India, we adhere to the highest international standards of software distribution. Unlike unauthorized sources, we do not host unverified or experimental extensions in our primary database. Every NVDA add-on featured on this platform is a certified, stable release that has undergone rigorous code audits and earned full approval for the <strong>Official NVDA Add-on Store</strong>.
+</p>
+<p>
+We believe in absolute transparency: if an add-on is listed here, it is because it has met the strict technical requirements of the global NVDA community and is officially recognized in the stable channel. Our synchronization with the official NVDA ecosystem ensures that you receive only the most secure, high-performance, and professionally vetted tools available. Do not compromise your accessibility with unverified scripts—trust the official laboratory for guaranteed reliability.
+</p>
+<div class="addon-buttons">
+<a href="Addons/Addons.html" class="btn-addon-primary">Browse Our Official Add-on Catalog</a>
+<a href="https://addonstore.nvaccess.org/" target="_blank" rel="noopener" class="btn-addon-secondary">Visit Official NVDA Global Store</a>
+</div>
+</div>
+</div>
+
 </main>
 
-<footer>
-<p>
-<a href="privacy.html" accesskey="p" aria-label="Privacy Policy, Alt plus P">
-Privacy Policy
-</a>
-</p>
-<p>© 2026 Accessible Tech Labs India</p>
+<footer role="contentinfo" style="text-align: center; padding: 30px; background: #161b22; margin-top: 50px; border-top: 1px solid #30363d;">
+<p><a href="privacy.html" accesskey="p" aria-label="Privacy Policy, Alt plus P" style="color: #58a6ff; text-decoration: none; font-weight: bold;">Privacy Policy</a></p>
+<p style="color: #8b949e;">© 2026 Accessible Tech Labs India</p>
 </footer>
-<script>
 
-function showAll() {
-let cards = document.getElementsByClassName("tool-card");
-for (let i = 0; i < cards.length; i++) {
-cards[i].style.display = "block";
+<script>
+const tabs = document.querySelectorAll('[role="tab"]');
+let tabFocus = 0;
+
+const tabList = document.querySelector('[role="tablist"]');
+tabList.addEventListener("keydown", e => {
+    if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+        tabs[tabFocus].setAttribute("tabindex", -1);
+        if (e.key === "ArrowRight") {
+            tabFocus++;
+            if (tabFocus >= tabs.length) tabFocus = 0;
+        } else if (e.key === "ArrowLeft") {
+            tabFocus--;
+            if (tabFocus < 0) tabFocus = tabs.length - 1;
+        }
+        tabs[tabFocus].setAttribute("tabindex", 0);
+        tabs[tabFocus].focus();
+    }
+});
+
+tabs.forEach(tab => {
+    tab.addEventListener("click", changeTabs);
+    tab.addEventListener("keydown", e => {
+        if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            changeTabs(e);
+        }
+    });
+});
+
+function changeTabs(e) {
+    const target = e.currentTarget;
+    const parent = target.parentNode;
+    const grandparent = parent.parentNode;
+
+    parent.querySelectorAll('[aria-selected="true"]').forEach(t => {
+        t.setAttribute("aria-selected", false);
+        t.setAttribute("tabindex", -1);
+    });
+
+    target.setAttribute("aria-selected", true);
+    target.setAttribute("tabindex", 0);
+    tabFocus = Array.from(tabs).indexOf(target);
+
+    grandparent.querySelectorAll('[role="tabpanel"]').forEach(p => p.setAttribute("aria-hidden", true));
+    grandparent.querySelector(`#${target.getAttribute("aria-controls")}`).setAttribute("aria-hidden", false);
+
+    document.getElementById("softwareSearch").value = "";
+    resetSearchVisibility();
+    document.getElementById("searchStatus").innerText = "";
 }
+
+function resetSearchVisibility() {
+    const activePanel = document.querySelector('[role="tabpanel"][aria-hidden="false"]');
+    const cards = activePanel.querySelectorAll('.tool-card');
+    cards.forEach(card => card.style.display = "flex");
 }
 
 function searchSoftware() {
+    const input = document.getElementById("softwareSearch");
+    const filter = input.value.toLowerCase().trim();
+    const status = document.getElementById("searchStatus");
 
-let input = document.getElementById("softwareSearch");
-let filter = input.value.toLowerCase().trim();
-let cards = document.getElementsByClassName("tool-card");
-let status = document.getElementById("searchStatus");
+    if (filter === "") {
+        resetSearchVisibility();
+        status.innerText = "";
+        return;
+    }
 
-if (filter === "") {
-showAll();
-status.innerText = "";
-return;
-}
+    const allTab = document.getElementById("tab-all");
+    if(allTab.getAttribute("aria-selected") === "false") {
+        allTab.click();
+    }
 
-let found = false;
+    const activePanel = document.querySelector('#panel-all');
+    const cards = activePanel.querySelectorAll('.tool-card');
+    let foundCount = 0;
 
-for (let i = 0; i < cards.length; i++) {
+    cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        if (text.includes(filter)) {
+            card.style.display = "flex";
+            foundCount++;
+        } else {
+            card.style.display = "none";
+        }
+    });
 
-let text = cards[i].innerText.toLowerCase();
-
-if (text.includes(filter)) {
-cards[i].style.display = "block";
-found = true;
-} else {
-cards[i].style.display = "none";
-}
-
-}
-
-if (found) {
-status.innerText = "Search completed. Matching software displayed.";
-} else {
-status.innerText = "No software found with this name on this website.";
-}
-
+    if (foundCount > 0) {
+        status.innerText = `Search engine deployed. Found ${foundCount} matching software.`;
+    } else {
+        status.innerText = "No software matched your secure search parameters.";
+    }
 }
 
 function clearSearch() {
-
-document.getElementById("softwareSearch").value = "";
-showAll();
-document.getElementById("searchStatus").innerText =
-"Search cleared. All software displayed.";
-
+    document.getElementById("softwareSearch").value = "";
+    resetSearchVisibility();
+    document.getElementById("searchStatus").innerText = "Search parameters cleared. All software visible.";
 }
 
 document.getElementById("softwareSearch").addEventListener("keydown", function(e) {
-if (e.key === "Enter") {
-searchSoftware();
-}
+    if (e.key === "Enter") {
+        searchSoftware();
+    }
 });
-
 </script>
 
 </body>

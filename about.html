@@ -3,19 +3,97 @@
 <head>
 <meta charset="UTF-8">
 <title>About - Accessible Tech Labs India</title>
-<meta name="description" content="Learn more about Accessible Tech Labs India and our mission to bridge the digital divide. We are dedicated to developing innovative, high-quality, and fully accessible technological solutions that empower individuals of all abilities worldwide.">
-<link rel="stylesheet" href="css/style.css">
-
+<meta name="description" content="Discover the inspiring journey of Krishna Kumar and the mission behind Accessible Tech Labs India. We engineer enterprise-grade, zero-knowledge, and fully accessible technology to empower users worldwide.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<link rel="stylesheet" href="css/style.css">
+<style>
+body {
+    background-color: #0d1117;
+    color: #c9d1d9;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+.manifesto-box {
+    background: linear-gradient(135deg, rgba(22,27,34,1) 0%, rgba(13,17,23,1) 100%);
+    padding: 40px;
+    border-radius: 16px;
+    border-left: 6px solid #58a6ff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    margin-bottom: 50px;
+}
+.manifesto-box h2 {
+    color: #58a6ff;
+    margin-top: 0;
+    font-size: 2.2rem;
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;
+}
+.manifesto-box p {
+    font-size: 1.15rem;
+    text-align: justify;
+    margin-bottom: 15px;
+    color: #f0f6fc;
+}
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+}
+.about-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s, border-color 0.3s;
+}
+.about-card:focus-within {
+    border-color: #58a6ff;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+}
+.about-card h3 {
+    color: #22c55e;
+    margin-top: 0;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #30363d;
+    padding-bottom: 10px;
+}
+.about-card p {
+    color: #8b949e;
+    font-size: 1.05rem;
+    flex-grow: 1;
+    margin-bottom: 0;
+    text-align: justify;
+}
+a {
+    transition: all 0.2s;
+}
+a:focus {
+    outline: 3px solid #fbbf24;
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+</style>
 </head>
-<a class="skip-link" href="#main">Skip to main content</a>
+
 <body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
 <header role="banner">
 <h1>Accessible Tech Labs India</h1>
 
-</header>
-<nav>
+<nav aria-label="Main navigation">
 <a href="index.html" accesskey="h" aria-label="Home, Alt plus H">Home</a>
 <a href="software.html" accesskey="s" aria-label="Software, Alt plus S">Software</a>
 <a href="tools.html" accesskey="t" aria-label="Tools, Alt plus T">Tools</a>
@@ -24,39 +102,61 @@
 <a href="contact.html" accesskey="c" aria-label="Contact, Alt plus C">Contact</a>
 <a href="social.html" accesskey="l" aria-label="Social, Alt plus L">Social</a>
 </nav>
-<main id="main">
-<h2>About Accessible Tech Labs India</h2>
+</header>
 
+<main id="main" class="main-container">
+
+<section class="manifesto-box" role="region" aria-labelledby="founder-heading">
+<h2 id="founder-heading">The Architect of Inclusive Engineering</h2>
 <p>
-Accessible Tech Labs India is an independent technology initiative created by a blind developer with a strong focus on accessibility, simplicity, and practical software development.
-
-This platform exists to build tools that are usable by everyone, especially screen reader users and beginners in technology. Every project is carefully designed to work smoothly with keyboard navigation and assistive technologies.
+Accessible Tech Labs India is not merely a software platform; it is a profound movement born out of resilience, necessity, and a relentless pursuit of digital equality. Founded and independently engineered by Krishna Kumar, a blind developer, this initiative stands as a powerful testament to human potential. Navigating a digital landscape that is inherently hostile to screen-reader users—filled with inaccessible software, visual-first interfaces, and invasive telemetry—presented immense daily struggles. However, instead of surrendering to these invisible barriers, Krishna Kumar transformed these profound challenges into the foundational blueprint for a revolutionary software architecture.
 </p>
-
 <p>
-The goal of Accessible Tech Labs India is to provide offline utilities, system tools, and learning resources that help users understand technology in a simple and inclusive way.
-
-Alongside software development, this platform also supports ethical cybersecurity learning and encourages responsible use of technology.
+Today, Accessible Tech Labs India engineers enterprise-grade, Zero-Knowledge web utilities and highly secure offline applications. We prove every single day that disability is not an inability, but rather a unique lens through which to engineer superior, more empathetic, and fundamentally secure technological solutions for the entire world.
 </p>
+</section>
 
+<div class="about-grid">
+
+<div class="about-card" role="region" aria-label="The Catalyst and The Struggle">
+<h3>The Catalyst & The Struggle</h3>
 <p>
-This journey started with a simple idea: technology should be accessible to all. Today, Accessible Tech Labs India continues to grow with new tools, improvements, and future plans focused on empowering users through inclusive development.
+The journey began with the harsh reality of exclusion. The modern internet often ignores those who cannot see a screen. Encountering software that crashed screen readers, lacked basic keyboard navigation, or forced blind users to depend on sighted assistance ignited a spark. These daily frustrations became the ultimate catalyst. Accessible Tech Labs India was forged in the fires of these struggles, built specifically to dismantle the barriers that the mainstream tech industry repeatedly ignores.
 </p>
+</div>
 
-<h3>Mission</h3>
-
+<div class="about-card" role="region" aria-label="The Philosophy of Empowerment">
+<h3>The Philosophy of Empowerment</h3>
 <p>
-To build accessible, reliable, and privacy-friendly technology tools that help users learn, grow, and work independently.
+If a blind developer can independently architect complex P2P sharing networks, advanced OCR engines, and spatial audio workstations, then absolutely anyone can master technology. We operate on the core belief that potential is limitless. Accessible Tech Labs India is built to inspire beginners and veterans alike, proving that with determination, the right tools, and an unbreakable spirit, you can command the digital world regardless of your physical circumstances.
 </p>
+</div>
+
+<div class="about-card" role="region" aria-label="The Uncompromising Mission">
+<h3>An Uncompromising Mission</h3>
+<p>
+Our mission is definitive and uncompromising: to bridge the digital divide by forging tools that are 100% accessible, fiercely private, and exceptionally powerful. We reject the notion that accessible software must be basic or limited. We engineer offline-first, Zero-Knowledge environments because we firmly believe that absolute data sovereignty and uncompromising digital accessibility are fundamental human rights, not premium features.
+</p>
+</div>
+
+<div class="about-card" role="region" aria-label="The Future of Independence">
+<h3>The Future of Independence</h3>
+<p>
+From our official, globally recognized NVDA add-ons to our deep-scan forensic utilities, every line of code is written with the "Screen Reader First" philosophy. We are actively redefining the gold standard of desktop and web engineering. As Accessible Tech Labs India continues to evolve and innovate, our ultimate goal remains clear: to ensure that the future of technology is universally inclusive, deeply empowering, and leaves absolutely no one behind.
+</p>
+</div>
+
+</div>
 
 </main>
-<footer role="contentinfo">
+
+<footer role="contentinfo" style="text-align: center; padding: 30px; background: #161b22; margin-top: 50px; border-top: 1px solid #30363d;">
 <p>
-<a href="privacy.html" accesskey="p" aria-label="Privacy Policy, Alt plus P">
+<a href="privacy.html" accesskey="p" aria-label="Privacy Policy, Alt plus P" style="color: #58a6ff; text-decoration: none; font-weight: bold;">
 Privacy Policy
 </a>
 </p>
-<p>© 2026 Accessible Tech Labs India</p>
+<p style="color: #8b949e;">© 2026 Accessible Tech Labs India</p>
 </footer>
 
 </body>

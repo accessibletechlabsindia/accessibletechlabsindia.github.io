@@ -2,10 +2,88 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Privacy Policy - Accessible Tech Labs India</title>
-<meta name="description" content="Read the Privacy Policy of Accessible Tech Labs India. We are committed to protecting your privacy and ensuring a secure experience while you explore our accessible software, tools, and services.">
+<title>Data Sovereignty & Privacy Policy - Accessible Tech Labs India</title>
+<meta name="description" content="Read the official Data Sovereignty and Privacy Manifesto of Accessible Tech Labs India. Discover how our Zero-Knowledge architecture protects your data across all our software, web tools, NVDA Add-ons, and assessment games.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="css/style.css">
+<style>
+body {
+    background-color: #0d1117;
+    color: #c9d1d9;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+.manifesto-box {
+    background: linear-gradient(135deg, rgba(22,27,34,1) 0%, rgba(13,17,23,1) 100%);
+    padding: 40px;
+    border-radius: 16px;
+    border-left: 6px solid #58a6ff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    margin-bottom: 50px;
+}
+.manifesto-box h2 {
+    color: #58a6ff;
+    margin-top: 0;
+    font-size: 2.2rem;
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;
+}
+.manifesto-box p {
+    font-size: 1.15rem;
+    text-align: justify;
+    margin-bottom: 15px;
+    color: #f0f6fc;
+}
+.policy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+}
+.policy-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s, border-color 0.3s;
+}
+.policy-card:focus-within {
+    border-color: #58a6ff;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+}
+.policy-card h3 {
+    color: #22c55e;
+    margin-top: 0;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #30363d;
+    padding-bottom: 10px;
+}
+.policy-card p {
+    color: #8b949e;
+    font-size: 1.05rem;
+    flex-grow: 1;
+    margin-bottom: 0;
+    text-align: justify;
+}
+a {
+    transition: all 0.2s;
+}
+a:focus {
+    outline: 3px solid #fbbf24;
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+</style>
 </head>
 
 <body>
@@ -14,7 +92,6 @@
 
 <header role="banner">
 <h1>Accessible Tech Labs India</h1>
-
 <nav aria-label="Main navigation">
 <a href="index.html" accesskey="h" aria-label="Home, Alt plus H">Home</a>
 <a href="software.html" accesskey="s" aria-label="Software, Alt plus S">Software</a>
@@ -26,81 +103,83 @@
 </nav>
 </header>
 
-<main id="main">
+<main id="main" class="main-container">
 
-<h2>Privacy Policy</h2>
-
+<section class="manifesto-box" role="region" aria-labelledby="policy-heading">
+<h2 id="policy-heading">Data Sovereignty & Privacy Manifesto</h2>
 <p>
-Accessible Tech Labs India respects your privacy. This website is designed to provide accessible document and utility tools without collecting personal information or tracking user activity.
+At Accessible Tech Labs India, we believe that absolute digital independence is intrinsically tied to absolute data privacy. Our enterprise is founded upon a strict "Zero-Knowledge" engineering architecture. In an era dominated by invasive telemetry, unauthorized data harvesting, and background analytics, we stand as a fortress of user sovereignty. This official manifesto outlines our unwavering commitment to safeguarding your digital footprint across our entire ecosystem—spanning offline desktop utilities, high-performance web engines, official NVDA Add-ons, and cognitive assessment games.
 </p>
-
-<h3>Information Collection</h3>
-
 <p>
-We do not collect, store, or share any personally identifiable information. There are no user accounts, login systems, or registration forms on this website.
+We emphatically declare that we do not collect, store, transmit, or monetize any personally identifiable information (PII). There are no user accounts, no hidden registration protocols, and no background tracking algorithms deployed anywhere within our digital infrastructure. Your data belongs exclusively to you, and our technology is engineered to ensure it remains that way indefinitely.
 </p>
+</section>
 
-<h3>File Processing</h3>
+<div class="policy-grid">
 
+<div class="policy-card" role="region" aria-label="Zero Data Harvesting Protocol">
+<h3>Zero Data Harvesting Protocol</h3>
 <p>
-All tools on this platform work directly inside your web browser. Uploaded files such as PDFs, images, or text documents are processed locally on your device. These files are never sent to any server owned or controlled by Accessible Tech Labs India.
+Our primary directive is absolute data minimization. Accessible Tech Labs India does not maintain central databases for user activity. We do not require account creation, nor do we request email addresses or contact details for software execution. Our tools are designed to operate anonymously, granting you full access to professional-grade utilities without sacrificing your personal identity.
 </p>
+</div>
 
-<h3>Cookies and Tracking</h3>
-
+<div class="policy-card" role="region" aria-label="Client-Side Execution Engine">
+<h3>Client-Side Web Tools Engine</h3>
 <p>
-This website does not use cookies, tracking scripts, analytics tools, or advertising services. Your activity is not monitored or recorded.
+All browser-based utilities hosted on this platform—including our PDF processors, audio mixers, metadata forensic viewers, and OCR extractors—are powered by advanced local execution logic (Client-Side APIs). When you process a file, it is manipulated entirely within the secure sandbox of your own device's RAM and CPU. No documents, images, or audio assets are ever uploaded to an external server.
 </p>
+</div>
 
-<h3>Third Party Libraries</h3>
-
+<div class="policy-card" role="region" aria-label="Standalone Desktop Software">
+<h3>Standalone Desktop Security</h3>
 <p>
-Some tools use open-source JavaScript libraries to perform document processing in your browser. These libraries operate locally and do not transmit your data externally.
+Our suite of Windows command-line utilities and GUI software is engineered to be fully self-contained. Tools such as SystemCore Manager, Run History Maintenance, and our Network Diagnostic utilities interact solely with your local operating system architecture. They require zero internet connectivity for their core functions, ensuring an air-gapped level of security against unauthorized remote access.
 </p>
+</div>
 
-<h3>Data Security</h3>
-
+<div class="policy-card" role="region" aria-label="Official NVDA Add-ons Integrity">
+<h3>Official NVDA Add-ons Integrity</h3>
 <p>
-Because all processing happens on your own device, you remain in full control of your files. We recommend using trusted devices and keeping your system updated for additional safety.
+As recognized developers within the global screen-reader community, our NVDA extensions (such as the ATL Productivity Suite) adhere to the highest international security standards. Our add-ons perform vital system checks and process data instantly without utilizing background telemetry or sending user hardware statistics to third-party endpoints. Code transparency and execution safety are guaranteed.
 </p>
+</div>
 
-<h3>External Links</h3>
-
+<div class="policy-card" role="region" aria-label="Cognitive Data & Assessment Games">
+<h3>Cognitive Data & Assessment Games</h3>
 <p>
-This website may contain links to external platforms such as YouTube or Telegram. Accessible Tech Labs India is not responsible for the privacy practices of third-party websites.
+Our active professional games and cognitive assessment modules calculate real-time performance metrics (such as speed and accuracy) to provide adaptive difficulty scaling. This entire mathematical analysis occurs strictly on your device. We do not aggregate your assessment scores, nor do we track performance analytics across sessions. Your cognitive data is generated, displayed, and then instantly purged upon exit.
 </p>
+</div>
 
-<h3>Accessibility Commitment</h3>
-
+<div class="policy-card" role="region" aria-label="Anti-Tracking & Cookie-Free Environment">
+<h3>Cookie-Free Environment</h3>
 <p>
-Accessible Tech Labs India is built with accessibility as a core priority. All pages aim to support screen readers, keyboard navigation, and simple layouts to help blind and beginner users use the tools comfortably.
+Accessible Tech Labs India actively rejects the use of invasive web tracking technologies. This platform does not deploy cookies, pixel tags, third-party advertisement scripts, or behavioral analytics trackers. You can navigate, utilize our tools, and read our documentation with the absolute assurance that your browsing habits are not being monitored or recorded.
 </p>
+</div>
 
-<h3>Policy Updates</h3>
-
+<div class="policy-card" role="region" aria-label="The Inclusive Engineering Standard">
+<h3>The Inclusive Engineering Standard</h3>
 <p>
-This Privacy Policy may be updated in the future as new tools or features are added. Any changes will be reflected on this page.
+Privacy is a fundamental right, and so is accessibility. Every layer of our security protocol and user interface is built to synchronize flawlessly with assistive technologies. We utilize precise ARIA (Accessible Rich Internet Applications) standards, ensuring that blind and low-vision professionals can review, understand, and confidently agree to this privacy manifesto using keyboard navigation and screen readers.
 </p>
+</div>
 
-<h3>Contact</h3>
-
+<div class="policy-card" role="region" aria-label="Policy Updates & Communication">
+<h3>Policy Evolution & Contact</h3>
 <p>
-If you have questions about this Privacy Policy, you may contact us using the email address listed on the Contact page.
+As our ecosystem expands with new enterprise solutions, this Data Sovereignty Manifesto may evolve to cover new architectures. However, our core Zero-Knowledge philosophy will never change. Should you require further clarification regarding our cryptographic standards or security practices, you are encouraged to reach out to us via the official channels provided on our Contact page.
 </p>
+</div>
 
-<p>
-By using Accessible Tech Labs India, you agree to this Privacy Policy.
-</p>
+</div>
 
 </main>
 
-<footer role="contentinfo">
-<p>© 2026 Accessible Tech Labs India</p>
-<p>
-<a href="privacy.html" accesskey="p" aria-label="Privacy Policy, Alt plus P">
-Privacy Policy
-</a>
-</p>
+<footer role="contentinfo" style="text-align: center; padding: 30px; background: #161b22; margin-top: 50px; border-top: 1px solid #30363d;">
+<p><a href="privacy.html" accesskey="p" aria-label="Privacy Policy, Alt plus P" style="color: #58a6ff; text-decoration: none; font-weight: bold;">Privacy Policy</a></p>
+<p style="color: #8b949e;">© 2026 Accessible Tech Labs India</p>
 </footer>
 
 </body>

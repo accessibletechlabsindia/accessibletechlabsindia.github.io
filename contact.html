@@ -2,18 +2,124 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Contact - Accessible Tech Labs India</title>
-<meta name="description" content="Get in touch with Accessible Tech Labs India for inquiries, support, or collaboration opportunities. We value your feedback and are here to assist you with any questions regarding our accessible software, tools, and services.">
-<link rel="stylesheet" href="css/style.css">
-
+<title>Contact & Community - Accessible Tech Labs India</title>
+<meta name="description" content="Connect with Accessible Tech Labs India. Access our global connectivity hub for direct technical support, business collaboration, and official community channels including YouTube and Telegram.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<link rel="stylesheet" href="css/style.css">
+<style>
+body {
+    background-color: #0d1117;
+    color: #c9d1d9;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+.main-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+.manifesto-box {
+    background: linear-gradient(135deg, rgba(22,27,34,1) 0%, rgba(13,17,23,1) 100%);
+    padding: 40px;
+    border-radius: 16px;
+    border-left: 6px solid #58a6ff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    margin-bottom: 50px;
+}
+.manifesto-box h2 {
+    color: #58a6ff;
+    margin-top: 0;
+    font-size: 2.2rem;
+    letter-spacing: 0.5px;
+    margin-bottom: 20px;
+}
+.manifesto-box p {
+    font-size: 1.15rem;
+    text-align: justify;
+    margin-bottom: 15px;
+    color: #f0f6fc;
+}
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+.contact-card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 12px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s, border-color 0.3s;
+}
+.contact-card:focus-within {
+    border-color: #58a6ff;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+}
+.contact-card h3 {
+    color: #22c55e;
+    margin-top: 0;
+    font-size: 1.6rem;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #30363d;
+    padding-bottom: 10px;
+}
+.contact-card p {
+    color: #8b949e;
+    font-size: 1.05rem;
+    flex-grow: 1;
+    margin-bottom: 25px;
+    text-align: justify;
+}
+.contact-link {
+    display: block;
+    text-align: center;
+    background: #238636;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 1.15rem;
+    transition: background 0.2s;
+}
+.contact-link:focus {
+    outline: 3px solid #fbbf24;
+    outline-offset: 3px;
+}
+.contact-link:hover {
+    background: #2ea043;
+}
+.link-blue {
+    background: #58a6ff;
+    color: #0d1117;
+}
+.link-blue:hover {
+    background: #3182ce;
+    color: #ffffff;
+}
+.link-red {
+    background: #e53e3e;
+    color: #ffffff;
+}
+.link-red:hover {
+    background: #c53030;
+}
+</style>
 </head>
-<a class="skip-link" href="#main">Skip to main content</a>
+
 <body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
 <header role="banner">
 <h1>Accessible Tech Labs India</h1>
-<nav>
+
+<nav aria-label="Main navigation">
 <a href="index.html" accesskey="h" aria-label="Home, Alt plus H">Home</a>
 <a href="software.html" accesskey="s" aria-label="Software, Alt plus S">Software</a>
 <a href="tools.html" accesskey="t" aria-label="Tools, Alt plus T">Tools</a>
@@ -24,42 +130,71 @@
 </nav>
 </header>
 
-<main id="main">
-<h2>Contact Us</h2>
+<main id="main" class="main-container">
 
+<section class="manifesto-box" role="region" aria-labelledby="contact-heading">
+<h2 id="contact-heading">Global Connectivity & Support Hub</h2>
 <p>
-You can contact Accessible Tech Labs India for questions, feedback, collaboration, or support related to our accessible tools and projects. We welcome messages from users, developers, and learners who are interested in accessibility, system utilities, or ethical technology.
-
-Feel free to reach out if you need help using our software, want to share suggestions, or wish to collaborate on future projects. We try our best to respond as soon as possible and value every genuine message.
+At Accessible Tech Labs India, we believe that open, transparent communication is the bedrock of inclusive innovation. Whether you are a visually impaired professional seeking technical assistance with our Zero-Knowledge tools, a developer aiming to collaborate on accessibility architecture, or an enterprise inquiring about our security standards, our direct communication channels are always open to you.
 </p>
-
-<h3>Email</h3>
 <p>
-<a href="mailto:kirshnakumar6644@gmail.com">kirshnakumar6644@gmail.com</a>
+We deliberately bypass automated ticketing systems and corporate barriers to provide you with direct, human-centric support. By joining our official broadcasting networks and community groups, you gain immediate access to technical tutorials, instant software deployment updates, and a dedicated network of accessibility advocates. Choose your preferred secure channel below to connect directly with our core engineering team.
 </p>
+</section>
 
-<h3>WhatsApp</h3>
-<p>
-<a href="https://wa.me/919352815634">Chat on WhatsApp</a>
-</p>
+<div class="contact-grid">
 
-<h3>Telegram</h3>
+<div class="contact-card" role="region" aria-label="Direct Email Support">
+<h3>Direct Email Support</h3>
 <p>
-<a href="https://t.me/+919352815634">Message on Telegram</a>
+For formal inquiries, detailed technical feedback, bug reporting, and enterprise-level business collaborations. We prioritize structured communication and guarantee a thorough review of every genuine message received by our engineering laboratory.
 </p>
+<a href="mailto:kirshnakumar6644@gmail.com" class="contact-link link-blue" aria-label="Send an email to Krishna Kumar">kirshnakumar6644@gmail.com</a>
+</div>
+
+<div class="contact-card" role="region" aria-label="WhatsApp Network">
+<h3>WhatsApp Support Network</h3>
+<p>
+Require immediate assistance or have a quick query regarding our software deployment? Connect with our dedicated support line via WhatsApp. Ideal for real-time troubleshooting and rapid communication directly from your mobile device.
+</p>
+<a href="https://wa.me/919352815634" class="contact-link" aria-label="Start a WhatsApp chat">Chat on WhatsApp</a>
+</div>
+
+<div class="contact-card" role="region" aria-label="Official Telegram Community">
+<h3>Official Telegram Channel</h3>
+<p>
+Join our rapidly expanding community broadcast channel. This is the primary hub for instant software update announcements, exclusive feature rollouts, and vital security patches for all our zero-knowledge utilities and NVDA add-ons.
+</p>
+<a href="https://telegram.me/+96cHiKVxefU1ODg1" target="_blank" rel="noopener" class="contact-link link-blue" aria-label="Join our Telegram Channel">Join Telegram Channel</a>
+</div>
+
+<div class="contact-card" role="region" aria-label="Direct Telegram Messaging">
+<h3>Direct Telegram Messaging</h3>
+<p>
+For users who prefer the privacy and speed of Telegram over other instant messaging platforms. Reach out directly to the core developer for one-on-one technical assistance, accessibility feature requests, and secure discussions.
+</p>
+<a href="https://telegram.me/+919352815634" target="_blank" rel="noopener" class="contact-link" aria-label="Send a direct message on Telegram">Message on Telegram</a>
+</div>
+
+<div class="contact-card" role="region" aria-label="YouTube Broadcasting">
+<h3>YouTube Broadcasting</h3>
+<p>
+Explore our comprehensive visual and auditory documentation. Our official YouTube channel provides in-depth technical tutorials, accessibility guides, and detailed demonstrations of our software suite in action. Subscribe to master your digital independence.
+</p>
+<a href="https://www.youtube.com/channel/UCMEfIGRzJdBMYqWVaUhEnFw" target="_blank" rel="noopener" class="contact-link link-red" aria-label="Visit our official YouTube Channel">Visit YouTube Channel</a>
+</div>
+
+</div>
 
 </main>
-<footer role="contentinfo">
-<footer role="contentinfo">
+
+<footer role="contentinfo" style="text-align: center; padding: 30px; background: #161b22; margin-top: 50px; border-top: 1px solid #30363d;">
 <p>
-<a href="privacy.html" accesskey="p" aria-label="Privacy Policy, Alt plus P">
+<a href="privacy.html" accesskey="p" aria-label="Privacy Policy, Alt plus P" style="color: #58a6ff; text-decoration: none; font-weight: bold;">
 Privacy Policy
 </a>
 </p>
-<p>© 2026 Accessible Tech Labs India</p>
-</footer>
-
-<p>© 2026 Accessible Tech Labs India</p>
+<p style="color: #8b949e;">© 2026 Accessible Tech Labs India</p>
 </footer>
 
 </body>
