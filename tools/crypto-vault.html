@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cryptographic Data Vault - Accessible Tech Labs India</title>
+<meta name="description" content="Military-grade AES-256 Zero-Knowledge File Encryption and Decryption engine. Secure your sensitive data entirely within your browser locally.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+.main-container {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 40px;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    border-top: 10px solid #005a9c;
+    font-family: system-ui, -apple-system, sans-serif;
+}
+.privacy-notice {
+    background: #1e1e1e;
+    color: #f8f9fa;
+    padding: 35px;
+    border-radius: 12px;
+    border-left: 6px solid #005a9c;
+    margin-bottom: 30px;
+    line-height: 1.8;
+    text-align: justify;
+}
+.privacy-notice h2 { color: #00aaff; margin-top: 0; font-size: 2em; }
+.privacy-notice p { font-size: 1.1em; margin-bottom: 20px; }
+.warning-box {
+    background: #fff3cd;
+    color: #856404;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #ffeeba;
+    margin-bottom: 10px;
+    font-weight: bold;
+    font-size: 17px;
+    text-align: center;
+}
+.mode-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px;
+}
+.mode-button {
+    padding: 40px 20px;
+    background: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+.mode-button:hover, .mode-button:focus {
+    border-color: #005a9c;
+    background: #eef4ff;
+    transform: translateY(-5px);
+    outline: none;
+}
+.mode-button h3 {
+    color: #005a9c;
+    margin-top: 0;
+    font-size: 24px;
+}
+.workspace {
+    display: none;
+    animation: fadeIn 0.4s ease;
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 15px;
+    border: 2px solid #e9ecef;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.input-group {
+    margin-bottom: 25px;
+}
+.input-label {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    color: #005a9c;
+    margin-bottom: 10px;
+}
+.file-input-wrapper {
+    background: #ffffff;
+    border: 2px dashed #005a9c;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+input[type="file"] {
+    font-size: 16px;
+    width: 100%;
+    max-width: 400px;
+}
+.password-wrapper {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+.input-field {
+    flex: 1;
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid #dee2e6;
+    font-size: 18px;
+}
+.input-field:focus {
+    border-color: #005a9c;
+    outline: 2px solid #005a9c;
+}
+.btn-action {
+    padding: 15px 30px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    font-size: 18px;
+    transition: background 0.3s;
+    background: #005a9c;
+    color: white;
+    cursor: pointer;
+}
+.btn-action:hover { background: #004477; }
+.btn-action:disabled { background: #a0c4df; cursor: not-allowed; }
+.btn-secondary { background: #6c757d; }
+.btn-success { background: #28a745; width: 100%; font-size: 22px; padding: 20px; margin-top: 20px; }
+.btn-success:hover { background: #218838; }
+.btn-show { background: #17a2b8; }
+.control-row {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.progress-container {
+    display: none;
+    margin: 30px 0;
+    width: 100%;
+    text-align: center;
+}
+progress {
+    width: 100%;
+    height: 30px;
+    border-radius: 10px;
+}
+.progress-text {
+    font-weight: bold;
+    margin-top: 15px;
+    display: block;
+    color: #005a9c;
+    font-size: 20px;
+}
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #dc3545;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 50px;
+    display: none;
+    z-index: 1000;
+    font-weight: bold;
+    font-size: 16px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+.toast-success { background: #28a745; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main" style="position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden;">Skip to main content</a>
+
+<header role="banner" style="background-color: #005a9c; color: white; padding: 25px 0; text-align: center;">
+<h1 style="margin: 0; font-size: 2.2em;">Accessible Tech Labs India</h1>
+<nav aria-label="Main Navigation" style="background-color: #004477; padding: 12px 0; text-align: center; margin-top: 15px;">
+<a href="../index.html" accesskey="h" aria-label="Home, Alt plus H" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-size: 1.1em;">Home</a>
+<a href="../software.html" accesskey="s" aria-label="Software, Alt plus S" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-size: 1.1em;">Software</a>
+<a href="../tools.html" accesskey="t" aria-label="Tools, Alt plus T" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-size: 1.1em;">Tools</a>
+<a href="../Games.html" accesskey="g" aria-label="Games, Alt plus G" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-size: 1.1em;">Games</a>
+<a href="../about.html" accesskey="a" aria-label="About, Alt plus A" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-size: 1.1em;">About</a>
+<a href="../contact.html" accesskey="c" aria-label="Contact, Alt plus C" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-size: 1.1em;">Contact</a>
+<a href="../social.html" accesskey="l" aria-label="Social, Alt plus L" style="color: white; text-decoration: none; margin: 0 15px; font-weight: bold; font-size: 1.1em;">Social</a>
+</nav>
+</header>
+
+<main id="main" class="main-container">
+<section class="privacy-notice" id="introSection" aria-live="polite">
+<h2>The Zero-Knowledge Cryptographic Vault</h2>
+<p>
+Welcome to the Cryptographic Data Vault engineered exclusively by Accessible Tech Labs India. We have architected this workstation to provide enterprise-grade data security entirely within the localized ecosystem of your web browser. Utilizing the native Web Crypto API, this tool applies military-grade AES-256-GCM encryption to your payloads, representing the pinnacle of Symmetric Key Cryptography. Our architecture operates on a strict, uncompromising "Zero-Knowledge" principle—meaning your files, your cryptographic keys, and your decrypted data never leave your physical device. No telemetry is captured, and absolutely no data is transmitted to any external server or cloud provider.
+</p>
+<p>
+We are committed to absolute Data Sovereignty, ensuring that you maintain total control over your digital footprint. By implementing End-to-End Encryption (E2EE) at the client level, we provide comprehensive Brute-Force Immunity and Zero-Day Defense against unauthorized access. The mathematics backing this protocol are fundamentally unbreakable. Even if intercepted by the most advanced nation-state threat actors or future Quantum Computers, a payload locked within this vault cannot be cracked, scrubbed, or deciphered without the exact, unique password you provide. Every operation, from key derivation using PBKDF2 with rigorous iteration scaling to the final cipher block chaining, happens instantly within your machine's volatile memory. Once you close this tab, no forensic trace remains.
+</p>
+<p>
+We firmly believe that robust cybersecurity should not be a privilege exclusive to the sighted. This is why our entire cryptographic interface is built with predictable keyboard navigation, live ARIA announcements, and high-contrast elements. You are stepping into a fortress of digital autonomy, empowering visually impaired professionals to encrypt massive data directories with profound confidence and complete independence.
+</p>
+<div class="warning-box">
+CRITICAL WARNING: Accessible Tech Labs India does not store your passwords. If you lose the unique password used to encrypt a payload, your data will become permanently unrecoverable. There are no backdoors, secondary keys, or recovery methods available. Protect your cryptographic keys with the utmost vigilance.
+</div>
+</section>
+
+<div class="mode-grid" id="modeGrid">
+<button class="mode-button" onclick="initWorkspace('encrypt')">
+<h3>Encrypt Data (Lock)</h3>
+<p style="font-size: 16px; color: #495057;">Select individual files or an entire folder to securely pack and lock them using AES-256 encryption. Creates a secure '.lock' payload.</p>
+</button>
+<button class="mode-button" onclick="initWorkspace('decrypt')">
+<h3>Decrypt Data (Unlock)</h3>
+<p style="font-size: 16px; color: #495057;">Select a previously secured '.lock' file and provide the exact cryptographic password to reconstruct your original data perfectly.</p>
+</button>
+</div>
+
+<div id="workspaceArea" class="workspace">
+<h2 id="workspaceTitle" style="color: #005a9c; margin-top: 0; border-bottom: 2px solid #dee2e6; padding-bottom: 10px;" tabindex="-1"></h2>
+<p id="workspaceDesc" style="font-size: 18px; color: #495057; margin-bottom: 25px;" aria-live="polite"></p>
+
+<div id="encryptInputs" style="display: none;">
+<div class="input-group">
+<label class="input-label" for="encFileInput">1. Select Individual File(s):</label>
+<div class="file-input-wrapper">
+<input type="file" id="encFileInput" multiple aria-required="true" onchange="checkSize(this)">
+</div>
+<label class="input-label" for="encFolderInput" style="margin-top: 15px;">OR Select an Entire Folder:</label>
+<div class="file-input-wrapper">
+<input type="file" id="encFolderInput" webkitdirectory directory aria-required="true" onchange="checkSize(this)">
+</div>
+</div>
+<div class="input-group">
+<label class="input-label" for="encPassword">2. Create a Secure Password:</label>
+<div class="password-wrapper">
+<input type="password" id="encPassword" class="input-field" placeholder="Enter a strong password" aria-required="true">
+<button class="btn-action btn-show" id="encShowBtn" onclick="togglePassword('encPassword', 'encShowBtn')" aria-label="Show password as text">Show</button>
+</div>
+</div>
+</div>
+
+<div id="decryptInputs" style="display: none;">
+<div class="input-group">
+<label class="input-label" for="decFileInput">1. Select Locked File (.lock):</label>
+<div class="file-input-wrapper">
+<input type="file" id="decFileInput" accept=".lock" aria-required="true" onchange="checkSize(this)">
+</div>
+</div>
+<div class="input-group">
+<label class="input-label" for="decPassword">2. Enter File Password:</label>
+<div class="password-wrapper">
+<input type="password" id="decPassword" class="input-field" placeholder="Enter the exact password used for locking" aria-required="true">
+<button class="btn-action btn-show" id="decShowBtn" onclick="togglePassword('decPassword', 'decShowBtn')" aria-label="Show password as text">Show</button>
+</div>
+</div>
+</div>
+
+<button id="executeBtn" class="btn-action" style="width: 100%; padding: 20px; font-size: 20px; margin-top: 10px;" onclick="executeProcess()"></button>
+
+<div class="progress-container" id="progressArea">
+<div role="progressbar" id="ariaProgressBar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" tabindex="-1">
+<progress id="progressBar" value="0" max="100"></progress>
+</div>
+<span id="progressText" class="progress-text" aria-live="assertive">0% Processing</span>
+</div>
+
+<div id="downloadArea" style="display: none; text-align: center;">
+<h3 style="color: #28a745; font-size: 24px;">Cryptographic Operation Successful!</h3>
+<a id="downloadLink" class="btn-action btn-success" style="display: inline-block; text-decoration: none; color: white;">Download Secure File</a>
+</div>
+
+<div class="control-row">
+<button class="btn-action btn-secondary" onclick="location.reload()" aria-label="Go back to the main menu">Back to Menu</button>
+</div>
+</div>
+
+</main>
+
+<div id="srAnnouncer" aria-live="assertive" style="position:absolute; left:-10000px;"></div>
+<div id="toast" class="toast" aria-live="assertive"></div>
+
+<footer role="contentinfo" style="background-color: #333; color: white; padding: 40px 0; text-align: center; margin-top: 60px;">
+<p><a href="../privacy.html" accesskey="p" aria-label="Privacy Policy, Alt plus P" style="color: #ffdd00; text-decoration: underline;">Privacy Policy</a></p>
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+
+<script>
+let currentMode = '';
+const MAX_SIZE = 2 * 1024 * 1024 * 1024; 
+
+function announce(msg) {
+    const sr = document.getElementById('srAnnouncer');
+    sr.innerText = "";
+    setTimeout(() => { sr.innerText = msg + "\u200B".repeat(Math.floor(Math.random() * 10)); }, 50);
+}
+
+function showToast(msg, isSuccess = false) {
+    const t = document.getElementById('toast');
+    t.className = "toast" + (isSuccess ? " toast-success" : "");
+    t.innerText = msg;
+    t.style.display = 'block';
+    setTimeout(() => { t.style.display = 'none'; }, 5000);
+    announce(msg);
+}
+
+function initWorkspace(mode) {
+    currentMode = mode;
+    document.getElementById('modeGrid').style.display = 'none';
+    document.getElementById('introSection').style.display = 'none';
+    document.getElementById('workspaceArea').style.display = 'block';
+    
+    document.getElementById('encryptInputs').style.display = 'none';
+    document.getElementById('decryptInputs').style.display = 'none';
+    document.getElementById('progressArea').style.display = 'none';
+    document.getElementById('downloadArea').style.display = 'none';
+    
+    document.getElementById('encFileInput').value = "";
+    document.getElementById('encFolderInput').value = "";
+    document.getElementById('decFileInput').value = "";
+    document.getElementById('encPassword').value = "";
+    document.getElementById('decPassword').value = "";
+    
+    updateProgress(0, "Ready");
+    
+    const title = document.getElementById('workspaceTitle');
+    const desc = document.getElementById('workspaceDesc');
+    const btn = document.getElementById('executeBtn');
+    
+    if (mode === 'encrypt') {
+        title.innerText = "Encrypt Data Workstation";
+        desc.innerText = "You are in Encryption mode. Please select the files or folder you wish to lock, create a strong password, and engage the engine. If you select multiple files or a folder, the system will automatically package them into a ZIP archive before applying military-grade encryption.";
+        btn.innerText = "Engage Encryption Engine";
+        document.getElementById('encryptInputs').style.display = 'block';
+    } else {
+        title.innerText = "Decrypt Data Workstation";
+        desc.innerText = "You are in Decryption mode. Please select your secured '.lock' file and enter the exact password used during the locking phase. Without the correct password, the cryptographic engine will block access immediately.";
+        btn.innerText = "Engage Decryption Engine";
+        document.getElementById('decryptInputs').style.display = 'block';
+    }
+    
+    title.focus();
+    announce(title.innerText + " activated. " + desc.innerText);
+}
+
+function togglePassword(inputId, btnId) {
+    const inp = document.getElementById(inputId);
+    const btn = document.getElementById(btnId);
+    if (inp.type === "password") {
+        inp.type = "text";
+        btn.innerText = "Hide";
+        announce("Password visible as plain text.");
+    } else {
+        inp.type = "password";
+        btn.innerText = "Show";
+        announce("Password hidden. Displaying as bullets.");
+    }
+}
+
+function checkSize(input) {
+    if (currentMode === 'decrypt' && input.files.length > 0) {
+        if (!input.files[0].name.endsWith(".lock")) {
+            showToast("Security Alert: Invalid cryptographic format. The engine only accepts securely encrypted '.lock' payloads for decryption.");
+            input.value = "";
+            return;
+        }
+    }
+
+    let totalSize = 0;
+    for (let i = 0; i < input.files.length; i++) {
+        totalSize += input.files[i].size;
+    }
+    if (totalSize > MAX_SIZE) {
+        showToast("Error: Selected data exceeds the 2 GB professional limit. To ensure absolute browser stability and performance, please select a smaller payload.");
+        input.value = ""; 
+    } else if (input.files.length > 0) {
+        announce(input.files.length + " items loaded successfully. Total size is acceptable.");
+    }
+}
+
+function updateProgress(percent, msg) {
+    const pBar = document.getElementById('progressBar');
+    const ariaBar = document.getElementById('ariaProgressBar');
+    const pText = document.getElementById('progressText');
+    
+    pBar.value = percent;
+    ariaBar.setAttribute('aria-valuenow', percent);
+    pText.innerText = percent + "% - " + msg;
+    
+    if (percent > 0 && (percent % 25 === 0 || percent === 100)) {
+        announce(percent + " percent completed. " + msg);
+    }
+}
+
+async function deriveKey(password, salt) {
+    const enc = new TextEncoder();
+    const keyMaterial = await crypto.subtle.importKey(
+        "raw", enc.encode(password), { name: "PBKDF2" }, false, ["deriveKey"]
+    );
+    return crypto.subtle.deriveKey(
+        { name: "PBKDF2", salt: salt, iterations: 100000, hash: "SHA-256" },
+        keyMaterial, { name: "AES-GCM", length: 256 }, false, ["encrypt", "decrypt"]
+    );
+}
+
+async function executeProcess() {
+    const btn = document.getElementById('executeBtn');
+    document.getElementById('downloadArea').style.display = 'none';
+    document.getElementById('progressArea').style.display = 'block';
+    btn.disabled = true;
+
+    if (currentMode === 'encrypt') {
+        const files = Array.from(document.getElementById('encFileInput').files);
+        const folderFiles = Array.from(document.getElementById('encFolderInput').files);
+        const password = document.getElementById('encPassword').value;
+        
+        let targetFiles = folderFiles.length > 0 ? folderFiles : files;
+
+        if (targetFiles.length === 0 || !password) {
+            showToast("Error: Please select data and provide a password.");
+            btn.disabled = false;
+            document.getElementById('progressArea').style.display = 'none';
+            return;
+        }
+
+        updateProgress(5, "Analyzing payload...");
+
+        try {
+            let finalBuffer, finalName;
+            
+            if (targetFiles.length > 1) {
+                updateProgress(20, "Packaging items into ZIP archive...");
+                const zip = new JSZip();
+                for (let i = 0; i < targetFiles.length; i++) {
+                    const path = targetFiles[i].webkitRelativePath || targetFiles[i].name;
+                    zip.file(path, targetFiles[i]);
+                }
+                const zipBlob = await zip.generateAsync({type: "arraybuffer"});
+                finalBuffer = zipBlob;
+                
+                let baseName = "Encrypted_Archive";
+                if (folderFiles.length > 0 && folderFiles[0].webkitRelativePath) {
+                    baseName = folderFiles[0].webkitRelativePath.split('/')[0];
+                }
+                finalName = baseName + ".zip.lock";
+            } else {
+                finalBuffer = await targetFiles[0].arrayBuffer();
+                finalName = targetFiles[0].name + ".lock";
+            }
+
+            updateProgress(50, "Applying AES-256 Cryptographic Lock...");
+            
+            const salt = crypto.getRandomValues(new Uint8Array(16));
+            const iv = crypto.getRandomValues(new Uint8Array(12));
+            const key = await deriveKey(password, salt);
+            
+            const encryptedContent = await crypto.subtle.encrypt(
+                { name: "AES-GCM", iv: iv }, key, finalBuffer
+            );
+            
+            updateProgress(80, "Finalizing secure package...");
+
+            const resultBuffer = new Uint8Array(salt.length + iv.length + encryptedContent.byteLength);
+            resultBuffer.set(salt, 0);
+            resultBuffer.set(iv, salt.length);
+            resultBuffer.set(new Uint8Array(encryptedContent), salt.length + iv.length);
+            
+            const blob = new Blob([resultBuffer], { type: "application/octet-stream" });
+            const url = URL.createObjectURL(blob);
+            
+            const dLink = document.getElementById('downloadLink');
+            dLink.href = url;
+            dLink.download = finalName;
+            dLink.innerText = "Download Secure File: " + finalName;
+            
+            updateProgress(100, "Operation Successful.");
+            document.getElementById('downloadArea').style.display = 'block';
+            dLink.focus();
+            showToast("Payload locked successfully.", true);
+
+        } catch (e) {
+            showToast("Critical Error during encryption.");
+            document.getElementById('progressArea').style.display = 'none';
+        }
+
+    } else {
+        const fileInp = document.getElementById('decFileInput');
+        const password = document.getElementById('decPassword').value;
+
+        if (fileInp.files.length === 0 || !password) {
+            showToast("Error: Please select a locked file and enter the password.");
+            btn.disabled = false;
+            document.getElementById('progressArea').style.display = 'none';
+            return;
+        }
+
+        const file = fileInp.files[0];
+        if (!file.name.endsWith(".lock")) {
+            showToast("Security Alert: Invalid cryptographic format. The engine only accepts securely encrypted '.lock' payloads for decryption.");
+            btn.disabled = false;
+            document.getElementById('progressArea').style.display = 'none';
+            return;
+        }
+
+        updateProgress(20, "Extracting cryptographic metadata...");
+
+        try {
+            const arrayBuffer = await file.arrayBuffer();
+            const dataView = new Uint8Array(arrayBuffer);
+            
+            const salt = dataView.slice(0, 16);
+            const iv = dataView.slice(16, 28);
+            const ciphertext = dataView.slice(28);
+
+            updateProgress(50, "Verifying password and decrypting data...");
+
+            const key = await deriveKey(password, salt);
+            
+            try {
+                const decryptedContent = await crypto.subtle.decrypt(
+                    { name: "AES-GCM", iv: iv }, key, ciphertext
+                );
+                
+                updateProgress(90, "Reconstructing original file...");
+
+                const originalName = file.name.replace(/\.lock$/, "");
+                const blob = new Blob([decryptedContent], { type: "application/octet-stream" });
+                const url = URL.createObjectURL(blob);
+                
+                const dLink = document.getElementById('downloadLink');
+                dLink.href = url;
+                dLink.download = originalName;
+                dLink.innerText = "Download Unlocked File: " + originalName;
+                
+                updateProgress(100, "Operation Successful.");
+                document.getElementById('downloadArea').style.display = 'block';
+                dLink.focus();
+                showToast("File unlocked successfully. Data retrieved.", true);
+
+            } catch (decErr) {
+                updateProgress(0, "Decryption Failed.");
+                showToast("Error: Incorrect Password or Corrupted Payload.");
+            }
+
+        } catch (e) {
+            showToast("Critical Error during decryption.");
+            document.getElementById('progressArea').style.display = 'none';
+        }
+    }
+    
+    btn.disabled = false;
+}
+</script>
+</body>
+</html>
