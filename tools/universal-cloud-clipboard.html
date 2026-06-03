@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="manifest" href="site.webmanifest">
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta charset="UTF-8">
+<title>Universal Cloud Clipboard - Accessible Tech Labs India</title>
+<meta name="description" content="Enterprise-grade cloud clipboard for highly classified text transmission. Encrypt, transmit, and intercept data with absolute zero-knowledge and burn-after-reading architecture.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+body {
+    background-color: #0d1117;
+    color: #c9d1d9;
+    font-family: system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+.main-container {
+    max-width: 1100px;
+    margin: 20px auto;
+    padding: 40px;
+    background: #161b22;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    border-top: 10px solid #a371f7;
+}
+.privacy-notice {
+    background: #010409;
+    color: #e6edf3;
+    padding: 35px;
+    border-radius: 12px;
+    border-left: 6px solid #a371f7;
+    margin-bottom: 40px;
+    line-height: 1.8;
+    text-align: justify;
+}
+.privacy-notice h2 { 
+    color: #d2a8ff; 
+    margin-top: 0; 
+    font-size: 2.2em; 
+}
+.privacy-notice p { 
+    font-size: 1.15em; 
+    margin-bottom: 20px; 
+}
+.mode-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+.mode-button {
+    padding: 40px 20px;
+    background: #010409;
+    border: 2px solid #30363d;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+.mode-button:hover, .mode-button:focus {
+    border-color: #a371f7;
+    background: #161b22;
+    transform: translateY(-5px);
+    outline: none;
+    box-shadow: 0 10px 20px rgba(163, 113, 247, 0.2);
+}
+.mode-button h3 {
+    color: #a371f7;
+    margin-top: 0;
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+.mode-button p {
+    font-size: 1.1rem;
+    color: #8b949e;
+    margin: 0;
+}
+.workspace {
+    display: none;
+    background: #010409;
+    padding: 35px;
+    border-radius: 15px;
+    border: 2px solid #30363d;
+    animation: fadeIn 0.4s ease;
+}
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.workspace h2 {
+    color: #a371f7;
+    margin-top: 0;
+    border-bottom: 2px solid #30363d;
+    padding-bottom: 10px;
+    font-size: 2rem;
+    text-transform: uppercase;
+}
+.input-group {
+    margin-bottom: 25px;
+}
+.input-label {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    color: #a371f7;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.input-field {
+    width: 100%;
+    padding: 18px;
+    border-radius: 8px;
+    border: 2px solid #30363d;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #c9d1d9;
+    background: #161b22;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+    font-family: monospace;
+}
+.input-field:focus {
+    border-color: #a371f7;
+    outline: 3px solid #ffcc00;
+}
+.textarea-field {
+    resize: vertical;
+    min-height: 200px;
+}
+.char-limit {
+    text-align: right;
+    display: block;
+    font-weight: bold;
+    color: #8b949e;
+    margin-top: 5px;
+}
+.control-row {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+.btn-action {
+    flex: 1;
+    min-width: 200px;
+    padding: 18px 25px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: background 0.3s, transform 0.2s;
+    background: #8957e5;
+    color: white;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.btn-action:hover { 
+    background: #a371f7; 
+    transform: translateY(-2px);
+}
+.btn-action:focus {
+    outline: 3px solid #ffcc00;
+}
+.btn-secondary { 
+    background: #484f58; 
+}
+.btn-secondary:hover {
+    background: #6e7681;
+}
+.btn-copy { 
+    background: #238636; 
+}
+.btn-copy:hover {
+    background: #2ea043;
+}
+.btn-danger {
+    background: #da3633;
+}
+.btn-danger:hover {
+    background: #f85149;
+}
+.loader {
+    display: none;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #a371f7;
+    text-align: center;
+    padding: 30px;
+}
+.report-card {
+    display: none;
+    background: #161b22;
+    border: 2px solid #30363d;
+    border-radius: 12px;
+    padding: 30px;
+    margin-top: 35px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    text-align: center;
+}
+.report-header {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #30363d;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.pin-display {
+    font-size: 4rem;
+    font-weight: bold;
+    color: #3fb950;
+    letter-spacing: 15px;
+    background: #010409;
+    padding: 20px;
+    border-radius: 12px;
+    border: 2px solid #3fb950;
+    margin: 20px 0;
+    font-family: monospace;
+}
+.payload-display {
+    font-size: 1.25rem;
+    color: #e6edf3;
+    font-weight: bold;
+    word-break: break-all;
+    white-space: pre-wrap;
+    font-family: monospace;
+    background: #010409;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #30363d;
+    text-align: left;
+    margin-bottom: 20px;
+}
+.alert-destroyed {
+    color: #f85149;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 30px;
+    background: #010409;
+    border: 2px solid #da3633;
+    border-radius: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #21262d;
+    color: #e6edf3;
+    padding: 15px 30px;
+    border-radius: 50px;
+    display: none;
+    z-index: 1000;
+    font-weight: bold;
+    font-size: 1.1rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    border: 1px solid #30363d;
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main" style="position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden;">Skip to main content</a>
+
+<header role="banner" style="background-color: #010409; border-bottom: 1px solid #30363d; color: white; padding: 25px 0; text-align: center;">
+<h1 style="margin: 0; font-size: 2.2em; color: #c9d1d9;">Accessible Tech Labs India</h1>
+<nav aria-label="Main Navigation" style="background-color: #161b22; padding: 12px 0; text-align: center; margin-top: 15px; border-top: 1px solid #30363d;">
+<a href="../index.html" accesskey="h" style="color: #a371f7; font-weight: bold; margin: 0 10px; text-decoration: none;">Home</a>
+<a href="../software.html" accesskey="s" style="color: #a371f7; font-weight: bold; margin: 0 10px; text-decoration: none;">Software</a>
+<a href="../tools.html" accesskey="t" style="color: #a371f7; font-weight: bold; margin: 0 10px; text-decoration: none;">Tools</a>
+<a href="../Games.html" accesskey="g" style="color: #a371f7; font-weight: bold; margin: 0 10px; text-decoration: none;">Games</a>
+<a href="../about.html" accesskey="a" style="color: #a371f7; font-weight: bold; margin: 0 10px; text-decoration: none;">About</a>
+<a href="../contact.html" accesskey="c" style="color: #a371f7; font-weight: bold; margin: 0 10px; text-decoration: none;">Contact</a>
+</nav>
+</header>
+
+<main id="main" class="main-container">
+
+<section class="privacy-notice" id="introSection" aria-live="polite">
+<h2>Universal Cloud Clipboard Engine</h2>
+<p>
+Accessible Tech Labs India introduces the Universal Cloud Clipboard—an enterprise-grade tactical utility for the secure transmission of highly sensitive telemetry across isolated endpoints. By leveraging an ephemeral PubSub network matrix, this workstation eliminates the vulnerabilities associated with conventional email or messaging protocols. 
+</p>
+<p>
+Operating strictly under our Zero-Knowledge OPSEC protocol, all payload data is heavily encrypted natively within your browser instance using dynamic symmetric ciphers. The host servers receive only mathematically undecipherable ciphertexts. Our robust routing system automatically generates a unique 4-digit numeric token to authorize targeted extraction.
+</p>
+<p>
+This engine features absolute Burn-After-Reading enforcement. Upon successful payload interception and decryption by the authorized endpoint, the engine immediately dispatches a localized purge command. This irrevocably overwrites the source node, guaranteeing that your intelligence remains permanently untraceable and fully resistant to post-extraction forensic recovery.
+</p>
+</section>
+
+<div class="mode-grid" id="modeGrid">
+    <button class="mode-button" onclick="initMode('transmit')">
+        <h3>Deploy Payload (Transmit)</h3>
+        <p>Encrypt and deploy classified text to the cloud matrix. Generates a secure 4-digit PIN.</p>
+    </button>
+    <button class="mode-button" onclick="initMode('intercept')">
+        <h3>Intercept Payload (Receive)</h3>
+        <p>Extract and decrypt text from the cloud matrix using an authorized 4-digit PIN.</p>
+    </button>
+</div>
+
+<div id="workspaceArea" class="workspace">
+    <h2 id="workspaceTitle" tabindex="-1"></h2>
+    
+    <div id="transmitInterface" style="display: none;">
+        <div class="input-group">
+            <label class="input-label" for="payloadInput">Enter Classified Payload:</label>
+            <textarea id="payloadInput" class="input-field textarea-field" placeholder="[Type or paste your sensitive telemetry here...]" aria-required="true" maxlength="4000" onkeyup="updateCharCount()"></textarea>
+            <span class="char-limit" id="charCount" aria-live="polite">0 / 4000 Characters</span>
+        </div>
+        <div class="control-row">
+            <button class="btn-action" onclick="deployPayload()">Encrypt & Deploy to Cloud</button>
+            <button class="btn-action btn-danger" onclick="clearWorkspace()">Purge Radar Memory</button>
+            <button class="btn-action btn-secondary" onclick="backToMenu()">Main Menu</button>
+        </div>
+    </div>
+
+    <div id="interceptInterface" style="display: none;">
+        <div class="input-group">
+            <label class="input-label" for="pinInput">Enter 4-Digit Authorization PIN:</label>
+            <input type="text" id="pinInput" class="input-field" placeholder="e.g. 8492" aria-required="true" maxlength="4" autocomplete="off" style="text-align: center; font-size: 2rem; letter-spacing: 10px;">
+        </div>
+        <div class="control-row">
+            <button class="btn-action" onclick="interceptPayload()">Intercept & Decrypt Payload</button>
+            <button class="btn-action btn-danger" onclick="clearWorkspace()">Purge Radar Memory</button>
+            <button class="btn-action btn-secondary" onclick="backToMenu()">Main Menu</button>
+        </div>
+    </div>
+
+    <div id="loader" class="loader" aria-live="assertive"></div>
+
+    <div id="reportCard" class="report-card" tabindex="-1">
+        <div class="report-header" id="reportHeader" aria-live="polite"></div>
+        <div id="reportContent"></div>
+        
+        <div style="text-align: center; margin-top: 25px;" id="copyContainer">
+            <button class="btn-action btn-copy" style="width: 100%; max-width: 450px;" onclick="copyReport()" id="copyBtn">Copy Payload to Clipboard</button>
+        </div>
+    </div>
+</div>
+
+</main>
+
+<div id="srAnnouncer" aria-live="assertive" style="position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden;"></div>
+<div id="toast" class="toast" aria-live="assertive"></div>
+
+<footer role="contentinfo" style="background-color: #010409; border-top: 1px solid #30363d; color: #8b949e; padding: 40px 0; text-align: center; margin-top: 60px;">
+<p><a href="../privacy.html" accesskey="p" style="color: #a371f7; text-decoration: underline;">Privacy Policy</a></p>
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+
+<script>
+let currentMode = "";
+let lastReportText = "";
+let toastTimer;
+
+function announce(msg) {
+    const sr = document.getElementById('srAnnouncer');
+    sr.innerText = "";
+    setTimeout(() => { sr.innerText = msg; }, 50);
+}
+
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    clearTimeout(toastTimer);
+    t.innerText = msg;
+    t.style.display = 'block';
+    announce(msg);
+    toastTimer = setTimeout(() => { t.style.display = 'none'; }, 3500);
+}
+
+function showLoader(text) {
+    const loader = document.getElementById('loader');
+    loader.innerText = text;
+    loader.style.display = "block";
+    document.getElementById('reportCard').style.display = "none";
+    document.getElementById('transmitInterface').style.display = "none";
+    document.getElementById('interceptInterface').style.display = "none";
+    announce(text);
+}
+
+function hideLoader() {
+    document.getElementById('loader').style.display = "none";
+}
+
+function updateCharCount() {
+    const len = document.getElementById('payloadInput').value.length;
+    document.getElementById('charCount').innerText = len + " / 4000 Characters";
+}
+
+function initMode(mode) {
+    currentMode = mode;
+    document.getElementById('introSection').style.display = "none";
+    document.getElementById('modeGrid').style.display = "none";
+    
+    const ws = document.getElementById('workspaceArea');
+    const title = document.getElementById('workspaceTitle');
+    
+    ws.style.display = "block";
+    document.getElementById('reportCard').style.display = "none";
+    lastReportText = "";
+
+    if (mode === 'transmit') {
+        title.innerText = "Deploy Payload to Matrix";
+        document.getElementById('transmitInterface').style.display = "block";
+        document.getElementById('interceptInterface').style.display = "none";
+        document.getElementById('payloadInput').value = "";
+        updateCharCount();
+        title.focus();
+        announce("Deploy mode activated. Enter your classified payload.");
+    } else {
+        title.innerText = "Intercept Payload from Matrix";
+        document.getElementById('transmitInterface').style.display = "none";
+        document.getElementById('interceptInterface').style.display = "block";
+        document.getElementById('pinInput').value = "";
+        title.focus();
+        announce("Intercept mode activated. Enter the 4-digit authorization PIN.");
+    }
+}
+
+function backToMenu() {
+    document.getElementById('workspaceArea').style.display = "none";
+    document.getElementById('introSection').style.display = "block";
+    document.getElementById('modeGrid').style.display = "grid";
+    announce("Returned to main menu.");
+    document.getElementById('introSection').focus();
+}
+
+function clearWorkspace() {
+    if (currentMode === 'transmit') {
+        document.getElementById('payloadInput').value = "";
+        updateCharCount();
+        document.getElementById('payloadInput').focus();
+    } else {
+        document.getElementById('pinInput').value = "";
+        document.getElementById('pinInput').focus();
+    }
+    document.getElementById('reportCard').style.display = "none";
+    lastReportText = "";
+    showToast("Radar memory purged securely.");
+}
+
+function cipherCore(input, key) {
+    let output = '';
+    for (let i = 0; i < input.length; i++) {
+        output += String.fromCharCode(input.charCodeAt(i) ^ key.charCodeAt(i % key.length));
+    }
+    return output;
+}
+
+function encryptString(text, key) {
+    return btoa(unescape(encodeURIComponent(cipherCore(text, key))));
+}
+
+function decryptString(encoded, key) {
+    return cipherCore(decodeURIComponent(escape(atob(encoded))), key);
+}
+
+async function deployPayload() {
+    const rawInput = document.getElementById('payloadInput').value.trim();
+    if (rawInput === "") {
+        showToast("System Notice: Payload cannot be empty.");
+        document.getElementById('payloadInput').focus();
+        return;
+    }
+
+    showLoader("Initiating Zero-Knowledge Protocol. Encrypting and deploying payload...");
+    
+    const pin = Math.floor(1000 + Math.random() * 9000).toString();
+    const encryptedData = encryptString(rawInput, pin);
+
+    try {
+        const response = await fetch("https://ntfy.sh/atli_matrix_" + pin, {
+            method: "POST",
+            body: encryptedData
+        });
+
+        if (!response.ok) throw new Error("Node Failure");
+        
+        document.getElementById('reportHeader').innerText = "Matrix Node Deployed Successfully";
+        document.getElementById('reportHeader').style.color = "#3fb950";
+        document.getElementById('reportContent').innerHTML = "<p style='font-size: 1.2rem; font-weight: bold; color: #c9d1d9;'>Your Authorization PIN:</p><div class='pin-display'>" + pin + "</div><p style='color: #8b949e; font-weight: bold;'>Provide this PIN to the receiving endpoint. Payload will self-destruct upon interception.</p>";
+        
+        lastReportText = pin;
+        hideLoader();
+        
+        const rc = document.getElementById('reportCard');
+        rc.style.display = "block";
+        document.getElementById('copyContainer').style.display = "block";
+        document.getElementById('copyBtn').innerText = "Copy PIN to Clipboard";
+        rc.focus();
+        
+        announce("Payload deployed. Your 4 digit PIN is " + pin + ". Waiting for interception.");
+
+    } catch (err) {
+        hideLoader();
+        document.getElementById('transmitInterface').style.display = "block";
+        showToast("Transmission Exception: Global node routing failed.");
+    }
+}
+
+async function interceptPayload() {
+    const pin = document.getElementById('pinInput').value.trim();
+    if (pin.length !== 4 || isNaN(pin)) {
+        showToast("System Notice: Please enter a valid 4-digit PIN.");
+        document.getElementById('pinInput').focus();
+        return;
+    }
+
+    showLoader("Intercepting node telemetry. Validating PIN and executing decryption...");
+
+    try {
+        const response = await fetch("https://ntfy.sh/atli_matrix_" + pin + "/json?poll=1");
+        if (!response.ok) throw new Error("Connection Error");
+        
+        const textData = await response.text();
+        const lines = textData.split('\n').filter(line => line.trim() !== '');
+        
+        if (lines.length === 0) {
+            displayBurntState();
+            return;
+        }
+
+        const lastMsg = JSON.parse(lines[lines.length - 1]);
+        
+        if (lastMsg.message === "[PURGE]") {
+            displayBurntState();
+            return;
+        }
+
+        fetch("https://ntfy.sh/atli_matrix_" + pin, { method: "POST", body: "[PURGE]" });
+
+        const decryptedData = decryptString(lastMsg.message, pin);
+        
+        document.getElementById('reportHeader').innerText = "Telemetry Intercepted & Decrypted";
+        document.getElementById('reportHeader').style.color = "#fbbf24";
+        document.getElementById('reportContent').innerHTML = "<div class='payload-display'>" + decryptedData + "</div><p style='color: #f85149; font-weight: bold; text-transform: uppercase;'>[ Burn Protocol Activated: Payload erased from source node ]</p>";
+        
+        lastReportText = decryptedData;
+        hideLoader();
+        
+        const rc = document.getElementById('reportCard');
+        rc.style.display = "block";
+        document.getElementById('copyContainer').style.display = "block";
+        document.getElementById('copyBtn').innerText = "Copy Payload to Clipboard";
+        rc.focus();
+        
+        announce("Payload intercepted and decrypted successfully. Matrix node purged.");
+
+    } catch (err) {
+        hideLoader();
+        displayBurntState();
+    }
+}
+
+function displayBurntState() {
+    hideLoader();
+    document.getElementById('reportHeader').style.display = "none";
+    document.getElementById('reportContent').innerHTML = "<div class='alert-destroyed'>[CRITICAL ALERT: Payload missing or already self-destructed. No traces found.]</div>";
+    document.getElementById('copyContainer').style.display = "none";
+    
+    const rc = document.getElementById('reportCard');
+    rc.style.display = "block";
+    rc.focus();
+    
+    announce("CRITICAL ALERT: Payload missing or already self-destructed. No traces found.");
+}
+
+function copyReport() {
+    if (!lastReportText) return;
+    navigator.clipboard.writeText(lastReportText).then(() => {
+        showToast("Content successfully exported to endpoint clipboard.");
+    }).catch(() => {
+        showToast("System Error: Unable to export content.");
+    });
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="manifest" href="site.webmanifest">
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta charset="UTF-8">
+<title>GitHub Developer Intelligence - Accessible Tech Labs India</title>
+<meta name="description" content="Enterprise-grade GitHub developer reconnaissance engine. Execute zero-knowledge scans to extract public software engineering telemetry, repository metrics, and professional footprints.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+body {
+    background-color: #0d1117;
+    color: #c9d1d9;
+    font-family: system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+.main-container {
+    max-width: 1100px;
+    margin: 20px auto;
+    padding: 40px;
+    background: #161b22;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+    border-top: 10px solid #58a6ff;
+}
+.privacy-notice {
+    background: #010409;
+    color: #e6edf3;
+    padding: 35px;
+    border-radius: 12px;
+    border-left: 6px solid #58a6ff;
+    margin-bottom: 40px;
+    line-height: 1.8;
+    text-align: justify;
+}
+.privacy-notice h2 { 
+    color: #79c0ff; 
+    margin-top: 0; 
+    font-size: 2.2em; 
+}
+.privacy-notice p { 
+    font-size: 1.15em; 
+    margin-bottom: 20px; 
+}
+.workspace {
+    background: #0d1117;
+    padding: 35px;
+    border-radius: 15px;
+    border: 2px solid #30363d;
+    display: block;
+}
+.workspace h2 {
+    color: #58a6ff;
+    margin-top: 0;
+    border-bottom: 2px solid #30363d;
+    padding-bottom: 10px;
+    font-size: 2rem;
+}
+.input-group {
+    margin-bottom: 25px;
+}
+.input-label {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    color: #58a6ff;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.input-field {
+    width: 100%;
+    padding: 18px;
+    border-radius: 8px;
+    border: 2px solid #30363d;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #c9d1d9;
+    background: #010409;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+.input-field:focus {
+    border-color: #58a6ff;
+    outline: 3px solid #ffcc00;
+}
+.input-field::placeholder {
+    color: #484f58;
+}
+.control-row {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+.btn-action {
+    flex: 1;
+    min-width: 250px;
+    padding: 18px 25px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: background 0.3s, transform 0.2s;
+    background: #1f6feb;
+    color: #ffffff;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.btn-action:hover { 
+    background: #388bfd; 
+    transform: translateY(-2px);
+}
+.btn-action:focus {
+    outline: 3px solid #ffcc00;
+}
+.btn-copy { 
+    background: #238636; 
+}
+.btn-copy:hover {
+    background: #2ea043;
+}
+.btn-danger {
+    background: #da3633;
+}
+.btn-danger:hover {
+    background: #f85149;
+}
+.loader {
+    display: none;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #58a6ff;
+    text-align: center;
+    padding: 30px;
+}
+.report-card {
+    display: none;
+    background: #161b22;
+    border: 2px solid #30363d;
+    border-radius: 12px;
+    padding: 30px;
+    margin-top: 35px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+}
+.report-header {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #58a6ff;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #30363d;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.profile-image-container {
+    text-align: center;
+    margin-bottom: 25px;
+}
+.profile-image {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 4px solid #58a6ff;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+    background-color: #010409;
+}
+.data-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+    margin-bottom: 25px;
+}
+.data-section {
+    background: #0d1117;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #30363d;
+}
+.data-section h3 {
+    margin-top: 0;
+    color: #58a6ff;
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #30363d;
+    padding-bottom: 8px;
+}
+.data-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+.data-label {
+    font-size: 0.95rem;
+    color: #8b949e;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.data-value {
+    font-size: 1.15rem;
+    color: #e6edf3;
+    font-weight: bold;
+    word-break: break-all;
+    white-space: pre-line;
+    margin-top: 5px;
+}
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #21262d;
+    color: #e6edf3;
+    padding: 15px 30px;
+    border-radius: 50px;
+    display: none;
+    z-index: 1000;
+    font-weight: bold;
+    font-size: 1.1rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    border: 1px solid #30363d;
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main" style="position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden;">Skip to main content</a>
+
+<header role="banner" style="background-color: #010409; border-bottom: 1px solid #30363d; color: white; padding: 25px 0; text-align: center;">
+<h1 style="margin: 0; font-size: 2.2em; color: #c9d1d9;">Accessible Tech Labs India</h1>
+<nav aria-label="Main Navigation" style="background-color: #161b22; padding: 12px 0; text-align: center; margin-top: 15px; border-top: 1px solid #30363d;">
+<a href="../index.html" accesskey="h" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Home</a>
+<a href="../software.html" accesskey="s" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Software</a>
+<a href="../tools.html" accesskey="t" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Tools</a>
+<a href="../Games.html" accesskey="g" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Games</a>
+<a href="../about.html" accesskey="a" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">About</a>
+<a href="../contact.html" accesskey="c" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Contact</a>
+</nav>
+</header>
+
+<main id="main" class="main-container">
+
+<section class="privacy-notice" id="introSection" aria-live="polite">
+<h2>GitHub Developer Intelligence & Reconnaissance Engine</h2>
+<p>
+Accessible Tech Labs India proudly introduces the GitHub Developer Intelligence and Reconnaissance Engine. In the highly dynamic landscape of open-source software engineering, enterprise recruitment, and cybersecurity auditing, the ability to rapidly assess a developer's digital footprint is a critical capability. This military-grade utility provides system administrators, human resource integrators, and threat researchers with a highly sophisticated workstation to extract, parse, and analyze public engineering telemetry directly from the global GitHub repository network.
+</p>
+<p>
+Operating on an uncompromising Zero-Knowledge architectural framework, this engine guarantees absolute operational security (OPSEC). All reconnaissance queries are executed entirely client-side, directly interfacing with public GitHub REST API nodes via encrypted HTTPS channels. We enforce a strict zero-retention policy: your targeted developer handles, investigative vectors, and derived intelligence reports are processed solely within your browser's volatile memory. This data is never logged, intercepted, cached, or monetized by our infrastructure, ensuring 100% compliance with international data protection protocols (including GDPR and DPDP).
+</p>
+<p>
+Engineered meticulously with our Screen Reader First architecture, this utility ensures that visually impaired security analysts and engineers maintain complete data sovereignty and seamless navigational independence. Complex repository metrics, engagement statistics, and corporate telemetry are instantly parsed and announced via precise ARIA-live implementations. You are equipped with a pristine, enterprise-level intelligence radar, empowering you to map the open-source engineering ecosystem with unyielding anonymity and profound clarity.
+</p>
+</section>
+
+<div id="workspaceArea" class="workspace">
+    <h2 id="workspaceTitle" tabindex="-1">Developer Telemetry Extraction Hub</h2>
+    
+    <div class="input-group">
+        <label class="input-label" for="handleInput">Designate Target Developer Handle (Username):</label>
+        <input type="text" id="handleInput" class="input-field" placeholder="e.g. torvalds or accessible-tech-labs-india" aria-required="true">
+    </div>
+
+    <div class="control-row">
+        <button class="btn-action" onclick="triggerScan()">Execute Developer Reconnaissance</button>
+        <button class="btn-action btn-danger" onclick="clearWorkspace()">Purge Telemetry Buffer</button>
+    </div>
+
+    <div id="loader" class="loader" aria-live="assertive"></div>
+
+    <div id="reportCard" class="report-card" tabindex="-1">
+        <div class="report-header" id="reportHeader" aria-live="polite"></div>
+        
+        <div class="profile-image-container">
+            <img id="valAvatar" class="profile-image" src="" alt="Target Developer Avatar">
+        </div>
+
+        <div class="data-grid">
+            <div class="data-section">
+                <h3>Core Identity Intelligence</h3>
+                <div class="data-row"><span class="data-label">Verified Full Name</span><span class="data-value" id="valName"></span></div>
+                <div class="data-row"><span class="data-label">Cryptographic Node ID</span><span class="data-value" id="valNode"></span></div>
+                <div class="data-row"><span class="data-label">Biography / Objective</span><span class="data-value" id="valBio"></span></div>
+            </div>
+            
+            <div class="data-section">
+                <h3>Engineering & Engagement Metrics</h3>
+                <div class="data-row"><span class="data-label">Public Repositories</span><span class="data-value" id="valRepos"></span></div>
+                <div class="data-row"><span class="data-label">Followers Network</span><span class="data-value" id="valFollowers"></span></div>
+                <div class="data-row"><span class="data-label">Following Network</span><span class="data-value" id="valFollowing"></span></div>
+            </div>
+
+            <div class="data-section">
+                <h3>Corporate & Geospatial Telemetry</h3>
+                <div class="data-row"><span class="data-label">Affiliated Organization</span><span class="data-value" id="valCompany"></span></div>
+                <div class="data-row"><span class="data-label">Geospatial Location</span><span class="data-value" id="valLocation"></span></div>
+                <div class="data-row"><span class="data-label">External Web Protocol</span><span class="data-value" id="valBlog"></span></div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 25px;" id="copyContainer">
+            <button class="btn-action btn-copy" style="width: 100%; max-width: 450px;" onclick="copyReport()">Export Complete Intelligence Dossier</button>
+        </div>
+    </div>
+</div>
+
+</main>
+
+<div id="srAnnouncer" aria-live="assertive" style="position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden;"></div>
+<div id="toast" class="toast" aria-live="assertive"></div>
+
+<footer role="contentinfo" style="background-color: #010409; border-top: 1px solid #30363d; color: #8b949e; padding: 40px 0; text-align: center; margin-top: 60px;">
+<p><a href="../privacy.html" accesskey="p" style="color: #58a6ff; text-decoration: underline;">Privacy Policy</a></p>
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+
+<script>
+let lastReportText = "";
+let toastTimer;
+
+function announce(msg) {
+    const sr = document.getElementById('srAnnouncer');
+    sr.innerText = "";
+    setTimeout(() => { sr.innerText = msg; }, 50);
+}
+
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    clearTimeout(toastTimer);
+    t.innerText = msg;
+    t.style.display = 'block';
+    announce(msg);
+    toastTimer = setTimeout(() => { t.style.display = 'none'; }, 3500);
+}
+
+function showLoader(text) {
+    const loader = document.getElementById('loader');
+    loader.innerText = text;
+    loader.style.display = "block";
+    document.getElementById('reportCard').style.display = "none";
+    document.getElementById('copyContainer').style.display = "none";
+    announce(text);
+}
+
+function hideLoader() {
+    document.getElementById('loader').style.display = "none";
+}
+
+function clearWorkspace() {
+    const hInp = document.getElementById('handleInput').value.trim();
+    const rcVisible = document.getElementById('reportCard').style.display === "block";
+    
+    if (hInp === "" && !rcVisible) {
+        showToast("System Notice: Telemetry buffer is already in a pristine state.");
+        return;
+    }
+    
+    document.getElementById('handleInput').value = "";
+    document.getElementById('reportCard').style.display = "none";
+    document.getElementById('copyContainer').style.display = "none";
+    lastReportText = "";
+    
+    showToast("Telemetry buffer purged successfully.");
+    document.getElementById('handleInput').focus();
+}
+
+async function triggerScan() {
+    const rawInput = document.getElementById('handleInput').value;
+    const targetHandle = rawInput.trim().replace(/\s+/g, '');
+    
+    if (!targetHandle) {
+        showToast("Engineering Protocol: Please designate a target GitHub handle.");
+        document.getElementById('handleInput').focus();
+        return;
+    }
+
+    document.getElementById('handleInput').value = targetHandle;
+    showLoader("Engaging global GitHub REST nodes. Extracting telemetry for handle: " + targetHandle + "...");
+
+    try {
+        const response = await fetch("https://api.github.com/users/" + encodeURIComponent(targetHandle));
+        
+        if (response.status === 404) {
+            hideLoader();
+            showToast("Reconnaissance Failure: Target handle does not exist in the GitHub global registry.");
+            announce("Target not found.");
+            return;
+        }
+        
+        if (!response.ok) {
+            throw new Error("API rate limit or connection error");
+        }
+
+        const data = await response.json();
+        renderReport(data);
+
+    } catch (err) {
+        hideLoader();
+        showToast("Network Engine Exception: Unable to establish secure connection with GitHub nodes.");
+    }
+}
+
+function renderReport(data) {
+    document.getElementById('reportHeader').innerText = "Intelligence Dossier: @" + data.login;
+
+    document.getElementById('valAvatar').src = data.avatar_url;
+    
+    const devName = data.name || "Identity Not Disclosed";
+    document.getElementById('valName').innerText = devName;
+    document.getElementById('valNode').innerText = data.node_id;
+    document.getElementById('valBio').innerText = data.bio || "No biography provided.";
+
+    const publicRepos = data.public_repos;
+    document.getElementById('valRepos').innerText = publicRepos + " Engineered Projects";
+    document.getElementById('valFollowers').innerText = data.followers;
+    document.getElementById('valFollowing').innerText = data.following;
+
+    document.getElementById('valCompany').innerText = data.company || "Not Affiliated";
+    document.getElementById('valLocation').innerText = data.location || "Coordinates Obfuscated";
+    document.getElementById('valBlog').innerText = data.blog || "No External Network Configured";
+
+    lastReportText = "Accessible Tech Labs India - Developer Intelligence Dossier\n" +
+                     "--------------------------------------------------\n" +
+                     "Target Handle: @" + data.login + "\n\n" +
+                     "[Core Identity Intelligence]\n" +
+                     "Verified Name: " + devName + "\n" +
+                     "Node ID: " + data.node_id + "\n" +
+                     "Biography: " + (data.bio || "None") + "\n\n" +
+                     "[Engineering Metrics]\n" +
+                     "Public Repositories: " + publicRepos + "\n" +
+                     "Followers: " + data.followers + "\n" +
+                     "Following: " + data.following + "\n\n" +
+                     "[Corporate Telemetry]\n" +
+                     "Organization: " + (data.company || "None") + "\n" +
+                     "Location: " + (data.location || "None") + "\n" +
+                     "Website: " + (data.blog || "None") + "\n" +
+                     "--------------------------------------------------";
+
+    hideLoader();
+    const rc = document.getElementById('reportCard');
+    rc.style.display = "block";
+    document.getElementById('copyContainer').style.display = "block";
+    rc.focus();
+
+    announce("Reconnaissance complete. Dossier generated for " + devName + ". Total public repositories: " + publicRepos + ".");
+}
+
+function copyReport() {
+    if (!lastReportText) return;
+    navigator.clipboard.writeText(lastReportText).then(() => {
+        showToast("Intelligence dossier successfully exported to clipboard.");
+    }).catch(() => {
+        showToast("System Error: Unable to export content.");
+    });
+}
+</script>
+</body>
+</html>

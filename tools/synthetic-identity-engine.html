@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="manifest" href="site.webmanifest">
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta charset="UTF-8">
+<title>Synthetic Identity Provisioning - Accessible Tech Labs India</title>
+<meta name="description" content="Enterprise-grade synthetic identity provisioning engine. Generate deterministic, completely randomized dummy profiles for ethical software testing, QA environments, and structural research.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+body {
+    background-color: #0d1117;
+    color: #c9d1d9;
+    font-family: system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+.main-container {
+    max-width: 1100px;
+    margin: 20px auto;
+    padding: 40px;
+    background: #161b22;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    border-top: 10px solid #a371f7;
+}
+.privacy-notice {
+    background: #010409;
+    color: #e6edf3;
+    padding: 35px;
+    border-radius: 12px;
+    border-left: 6px solid #a371f7;
+    margin-bottom: 40px;
+    line-height: 1.8;
+    text-align: justify;
+}
+.privacy-notice h2 { 
+    color: #d2a8ff; 
+    margin-top: 0; 
+    font-size: 2.2em; 
+}
+.privacy-notice p { 
+    font-size: 1.15em; 
+    margin-bottom: 20px; 
+}
+.workspace {
+    background: #0d1117;
+    padding: 35px;
+    border-radius: 15px;
+    border: 2px solid #30363d;
+    display: block;
+}
+.workspace h2 {
+    color: #a371f7;
+    margin-top: 0;
+    border-bottom: 2px solid #30363d;
+    padding-bottom: 10px;
+    font-size: 2rem;
+}
+.input-group {
+    margin-bottom: 25px;
+}
+.input-label {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    color: #a371f7;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.input-field {
+    width: 100%;
+    padding: 18px;
+    border-radius: 8px;
+    border: 2px solid #30363d;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #c9d1d9;
+    background: #010409;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+    cursor: pointer;
+}
+.input-field:focus {
+    border-color: #a371f7;
+    outline: 3px solid #ffcc00;
+}
+.control-row {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+.btn-action {
+    flex: 1;
+    min-width: 250px;
+    padding: 18px 25px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: background 0.3s, transform 0.2s;
+    background: #8957e5;
+    color: #ffffff;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.btn-action:hover { 
+    background: #ab7df8; 
+    transform: translateY(-2px);
+}
+.btn-action:focus {
+    outline: 3px solid #ffcc00;
+}
+.btn-copy { 
+    background: #238636; 
+}
+.btn-copy:hover {
+    background: #2ea043;
+}
+.btn-danger {
+    background: #da3633;
+}
+.btn-danger:hover {
+    background: #f85149;
+}
+.loader {
+    display: none;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #a371f7;
+    text-align: center;
+    padding: 30px;
+}
+.report-card {
+    display: none;
+    background: #161b22;
+    border: 2px solid #30363d;
+    border-radius: 12px;
+    padding: 30px;
+    margin-top: 35px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+.report-header {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #a371f7;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #30363d;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.profile-image-container {
+    text-align: center;
+    margin-bottom: 25px;
+}
+.profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 4px solid #a371f7;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    background-color: #010409;
+}
+.data-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+    margin-bottom: 25px;
+}
+.data-section {
+    background: #0d1117;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #30363d;
+}
+.data-section h3 {
+    margin-top: 0;
+    color: #a371f7;
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #30363d;
+    padding-bottom: 8px;
+}
+.data-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+}
+.data-label {
+    font-size: 0.95rem;
+    color: #8b949e;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.data-value {
+    font-size: 1.15rem;
+    color: #e6edf3;
+    font-weight: bold;
+    word-break: break-all;
+    white-space: pre-line;
+    margin-top: 5px;
+}
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #21262d;
+    color: #e6edf3;
+    padding: 15px 30px;
+    border-radius: 50px;
+    display: none;
+    z-index: 1000;
+    font-weight: bold;
+    font-size: 1.1rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    border: 1px solid #30363d;
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main" style="position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden;">Skip to main content</a>
+
+<header role="banner" style="background-color: #010409; border-bottom: 1px solid #30363d; color: white; padding: 25px 0; text-align: center;">
+<h1 style="margin: 0; font-size: 2.2em; color: #c9d1d9;">Accessible Tech Labs India</h1>
+<nav aria-label="Main Navigation" style="background-color: #161b22; padding: 12px 0; text-align: center; margin-top: 15px; border-top: 1px solid #30363d;">
+<a href="../index.html" accesskey="h" style="color: #a371f7; font-weight: bold; margin: 0 10px; text-decoration: none;">Home</a>
+<a href="../software.html" accesskey="s" style="color: #a371f7; font-weight: bold; margin: 0 10px; text-decoration: none;">Software</a>
+<a href="../tools.html" accesskey="t" style="color: #a371f7; font-weight: bold; margin: 0 10px; text-decoration: none;">Tools</a>
+<a href="../Games.html" accesskey="g" style="color: #a371f7; font-weight: bold; margin: 0 10px; text-decoration: none;">Games</a>
+<a href="../about.html" accesskey="a" style="color: #a371f7; font-weight: bold; margin: 0 10px; text-decoration: none;">About</a>
+<a href="../contact.html" accesskey="c" style="color: #a371f7; font-weight: bold; margin: 0 10px; text-decoration: none;">Contact</a>
+</nav>
+</header>
+
+<main id="main" class="main-container">
+
+<section class="privacy-notice" id="introSection" aria-live="polite">
+<h2>Synthetic Identity Provisioning & Data Engine</h2>
+<p>
+Accessible Tech Labs India proudly introduces the Synthetic Identity Provisioning Engine. In modern software engineering, rigorous Quality Assurance (QA) testing, database configuration, and application security audits require vast amounts of user data. However, utilizing real human data for these environments is a severe violation of international data protection frameworks (such as GDPR, CCPA, and DPDP). This enterprise-grade utility solves this critical compliance issue by generating highly realistic, statistically accurate, yet completely fictitious demographic profiles.
+</p>
+<p>
+We categorically affirm that every data point generated by this workstation—including names, addresses, cryptographic credentials, and biometric avatars—is procedurally synthesized via algorithmic randomization. This data does not correspond to any living or deceased individual, nor is it extracted from any real-world database or breached registry. The engine operates entirely on a zero-knowledge architecture, meaning that generated profiles exist transiently within your browser session and are never logged, stored, or transmitted back to our central servers.
+</p>
+<p>
+By utilizing this workstation, penetration testers, database administrators, and developers are empowered to populate test environments, validate input sanitization algorithms, and conduct ethical structural research with zero privacy liability. Engineered with our uncompromising Screen Reader First architecture, this utility ensures that visually impaired software engineers maintain complete data sovereignty and seamless navigational independence. You are equipped with a robust, military-grade synthetic data generator, allowing for secure digital innovation without compromising human privacy.
+</p>
+</section>
+
+<div id="workspaceArea" class="workspace">
+    <h2 id="workspaceTitle" tabindex="-1">Identity Synthesis Parameter Configuration</h2>
+    
+    <div class="input-group">
+        <label class="input-label" for="regionSelect">Designate Synthesis Region (Nationality):</label>
+        <select id="regionSelect" class="input-field">
+            <option value="all">Global (Completely Randomized Region)</option>
+            <option value="au">Australia (AU)</option>
+            <option value="br">Brazil (BR)</option>
+            <option value="ca">Canada (CA)</option>
+            <option value="ch">Switzerland (CH)</option>
+            <option value="de">Germany (DE)</option>
+            <option value="dk">Denmark (DK)</option>
+            <option value="es">Spain (ES)</option>
+            <option value="fi">Finland (FI)</option>
+            <option value="fr">France (FR)</option>
+            <option value="gb">United Kingdom (GB)</option>
+            <option value="ie">Ireland (IE)</option>
+            <option value="in">India (IN)</option>
+            <option value="ir">Iran (IR)</option>
+            <option value="mx">Mexico (MX)</option>
+            <option value="nl">Netherlands (NL)</option>
+            <option value="no">Norway (NO)</option>
+            <option value="nz">New Zealand (NZ)</option>
+            <option value="rs">Serbia (RS)</option>
+            <option value="tr">Turkey (TR)</option>
+            <option value="ua">Ukraine (UA)</option>
+            <option value="us">United States (US)</option>
+        </select>
+    </div>
+
+    <div class="control-row">
+        <button class="btn-action" onclick="generateIdentity()">Initialize Synthetic Generation</button>
+        <button class="btn-action btn-danger" onclick="clearWorkspace()">Purge Generation Buffer</button>
+    </div>
+
+    <div id="loader" class="loader" aria-live="assertive"></div>
+
+    <div id="reportCard" class="report-card" tabindex="-1">
+        <div class="report-header" id="reportHeader" aria-live="polite">Generated Synthetic Dossier</div>
+        
+        <div class="profile-image-container">
+            <img id="valAvatar" class="profile-image" src="" alt="Synthesized Avatar Image">
+        </div>
+
+        <div class="data-grid">
+            <div class="data-section">
+                <h3>Personal Demographics</h3>
+                <div class="data-row"><span class="data-label">Full Name</span><span class="data-value" id="valName"></span></div>
+                <div class="data-row"><span class="data-label">Gender Designation</span><span class="data-value" id="valGender"></span></div>
+                <div class="data-row"><span class="data-label">Date of Birth & Age</span><span class="data-value" id="valDob"></span></div>
+            </div>
+            
+            <div class="data-section">
+                <h3>Geospatial Telemetry</h3>
+                <div class="data-row"><span class="data-label">Street Address</span><span class="data-value" id="valStreet"></span></div>
+                <div class="data-row"><span class="data-label">City & State / Region</span><span class="data-value" id="valCityState"></span></div>
+                <div class="data-row"><span class="data-label">Country & Postal Code</span><span class="data-value" id="valCountryZip"></span></div>
+                <div class="data-row"><span class="data-label">Geographic Coordinates</span><span class="data-value" id="valCoordinates"></span></div>
+            </div>
+
+            <div class="data-section">
+                <h3>Contact Vectors</h3>
+                <div class="data-row"><span class="data-label">Synthetic Email Address</span><span class="data-value" id="valEmail"></span></div>
+                <div class="data-row"><span class="data-label">Primary Telephone</span><span class="data-value" id="valPhone"></span></div>
+                <div class="data-row"><span class="data-label">Secondary / Cellular</span><span class="data-value" id="valCell"></span></div>
+            </div>
+
+            <div class="data-section">
+                <h3>Digital Cryptographic Credentials</h3>
+                <div class="data-row"><span class="data-label">System UUID (Identifier)</span><span class="data-value" id="valUuid"></span></div>
+                <div class="data-row"><span class="data-label">Account Username</span><span class="data-value" id="valUsername"></span></div>
+                <div class="data-row"><span class="data-label">Account Password</span><span class="data-value" id="valPassword"></span></div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 25px;" id="copyContainer">
+            <button class="btn-action btn-copy" style="width: 100%; max-width: 450px;" onclick="copyReport()">Export Entire Identity Dossier</button>
+        </div>
+    </div>
+</div>
+
+</main>
+
+<div id="srAnnouncer" aria-live="assertive" style="position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden;"></div>
+<div id="toast" class="toast" aria-live="assertive"></div>
+
+<footer role="contentinfo" style="background-color: #010409; border-top: 1px solid #30363d; color: #8b949e; padding: 40px 0; text-align: center; margin-top: 60px;">
+<p><a href="../privacy.html" accesskey="p" style="color: #a371f7; text-decoration: underline;">Privacy Policy</a></p>
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+
+<script>
+let lastReportText = "";
+let toastTimer;
+
+function announce(msg) {
+    const sr = document.getElementById('srAnnouncer');
+    sr.innerText = "";
+    setTimeout(() => { sr.innerText = msg; }, 50);
+}
+
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    clearTimeout(toastTimer);
+    t.innerText = msg;
+    t.style.display = 'block';
+    announce(msg);
+    toastTimer = setTimeout(() => { t.style.display = 'none'; }, 3500);
+}
+
+function showLoader(text) {
+    const loader = document.getElementById('loader');
+    loader.innerText = text;
+    loader.style.display = "block";
+    document.getElementById('reportCard').style.display = "none";
+    document.getElementById('copyContainer').style.display = "none";
+    announce(text);
+}
+
+function hideLoader() {
+    document.getElementById('loader').style.display = "none";
+}
+
+function clearWorkspace() {
+    const rcVisible = document.getElementById('reportCard').style.display === "block";
+    
+    if (!rcVisible) {
+        showToast("System Notice: Generation buffer is already in a pristine state.");
+        return;
+    }
+    
+    document.getElementById('reportCard').style.display = "none";
+    document.getElementById('copyContainer').style.display = "none";
+    lastReportText = "";
+    
+    showToast("Synthetic buffer purged successfully.");
+    document.getElementById('workspaceTitle').focus();
+}
+
+async function generateIdentity() {
+    const region = document.getElementById('regionSelect').value;
+    let apiUrl = "https://randomuser.me/api/?inc=gender,name,location,email,login,dob,phone,cell,id,picture,nat&noinfo";
+    
+    if (region !== "all") {
+        apiUrl += "&nat=" + region;
+    }
+
+    showLoader("Initializing algorithmic randomization. Generating complex synthetic entity protocols...");
+
+    try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+            throw new Error("Network protocol failure");
+        }
+        
+        const data = await response.json();
+        const profile = data.results[0];
+        
+        renderProfile(profile);
+
+    } catch (err) {
+        hideLoader();
+        showToast("Network Engine Exception: Unable to establish connection with synthesis servers.");
+    }
+}
+
+function renderProfile(profile) {
+    const fullName = profile.name.title + " " + profile.name.first + " " + profile.name.last;
+    const gender = profile.gender.charAt(0).toUpperCase() + profile.gender.slice(1);
+    
+    const dobObj = new Date(profile.dob.date);
+    const dobString = dobObj.toLocaleDateString() + " (Age: " + profile.dob.age + ")";
+    
+    const streetInfo = profile.location.street.number + " " + profile.location.street.name;
+    const cityState = profile.location.city + ", " + profile.location.state;
+    const countryZip = profile.location.country + " - Postal Code: " + profile.location.postcode;
+    const coords = "Lat: " + profile.location.coordinates.latitude + " | Lng: " + profile.location.coordinates.longitude;
+
+    document.getElementById('valAvatar').src = profile.picture.large;
+    document.getElementById('valName').innerText = fullName;
+    document.getElementById('valGender').innerText = gender;
+    document.getElementById('valDob').innerText = dobString;
+    
+    document.getElementById('valStreet').innerText = streetInfo;
+    document.getElementById('valCityState').innerText = cityState;
+    document.getElementById('valCountryZip').innerText = countryZip;
+    document.getElementById('valCoordinates').innerText = coords;
+    
+    document.getElementById('valEmail').innerText = profile.email;
+    document.getElementById('valPhone').innerText = profile.phone;
+    document.getElementById('valCell').innerText = profile.cell;
+    
+    document.getElementById('valUuid').innerText = profile.login.uuid;
+    document.getElementById('valUsername').innerText = profile.login.username;
+    document.getElementById('valPassword').innerText = profile.login.password;
+
+    lastReportText = "Accessible Tech Labs India - Synthetic Identity Dossier\n" +
+                     "--------------------------------------------------\n" +
+                     "[Personal Demographics]\n" +
+                     "Full Name: " + fullName + "\n" +
+                     "Gender: " + gender + "\n" +
+                     "DOB: " + dobString + "\n\n" +
+                     "[Geospatial Telemetry]\n" +
+                     "Street Address: " + streetInfo + "\n" +
+                     "City & State: " + cityState + "\n" +
+                     "Country & Postal: " + countryZip + "\n" +
+                     "Coordinates: " + coords + "\n\n" +
+                     "[Contact Vectors]\n" +
+                     "Email: " + profile.email + "\n" +
+                     "Phone: " + profile.phone + "\n" +
+                     "Cellular: " + profile.cell + "\n\n" +
+                     "[Digital Credentials]\n" +
+                     "UUID: " + profile.login.uuid + "\n" +
+                     "Username: " + profile.login.username + "\n" +
+                     "Password: " + profile.login.password + "\n" +
+                     "--------------------------------------------------\n" +
+                     "Disclaimer: This data is procedurally generated and completely fictitious.";
+
+    hideLoader();
+    const rc = document.getElementById('reportCard');
+    rc.style.display = "block";
+    document.getElementById('copyContainer').style.display = "block";
+    rc.focus();
+
+    announce("Synthesis complete. Synthetic identity generated for " + fullName + " in " + profile.location.country + ".");
+}
+
+function copyReport() {
+    if (!lastReportText) return;
+    navigator.clipboard.writeText(lastReportText).then(() => {
+        showToast("Identity dossier successfully exported to clipboard.");
+    }).catch(() => {
+        showToast("System Error: Unable to export dossier.");
+    });
+}
+</script>
+</body>
+</html>

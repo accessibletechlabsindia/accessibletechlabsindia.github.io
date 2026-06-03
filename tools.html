@@ -175,6 +175,8 @@ body {
     font-weight: bold;
     font-size: 1.1rem;
     transition: background 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 .tool-link:focus {
     outline: 3px solid #fbbf24;
@@ -214,8 +216,8 @@ At Accessible Tech Labs India, we believe that true digital independence is root
 <div class="search-container">
 <label for="toolSearch">Intelligent Tool Search</label>
 <input type="text" id="toolSearch" placeholder="Type to search all enterprise utilities..." aria-label="Search tools">
-<button class="btn-action" onclick="executeSearch()">Search Engine</button>
-<button class="btn-action btn-clear" onclick="clearToolSearch()">Clear Filters</button>
+<button class="btn-action" onclick="executeSearch()">Deploy Search Engine</button>
+<button class="btn-action btn-clear" onclick="clearToolSearch()">Purge Filters</button>
 <p id="toolSearchStatus" aria-live="polite" style="width: 100%; color: #3fb950; font-weight: bold; margin: 10px 0 0 0;"></p>
 </div>
 
@@ -230,154 +232,214 @@ At Accessible Tech Labs India, we believe that true digital independence is root
 <div id="panel-all" role="tabpanel" tabindex="0" aria-labelledby="tab-all" aria-hidden="false" class="tab-panel">
 <div class="tools-grid" id="grid-all">
 
-<div class="tool-card" role="region" aria-label="Standard Calculator tool">
+<div class="tool-card" role="region" aria-label="Accessible Calculator tool">
 <h3>Accessible Calculator</h3>
 <p>A robust mathematical processing interface optimized for seamless keyboard navigation, eliminating visual distractions for high-speed computation.</p>
-<a href="tools/calculator.html" class="tool-link">Open Calculator</a>
+<a href="tools/calculator.html" class="tool-link">Open Tool</a>
 </div>
 
 <div class="tool-card" role="region" aria-label="Accessible PDF Reader tool">
 <h3>Accessible PDF Reader</h3>
 <p>Browser based PDF reading tool with zoom, high contrast and text to speech support specifically engineered for blind and low vision professionals.</p>
-<a href="tools/pdf-reader.html" class="tool-link">Open PDF Reader</a>
+<a href="tools/pdf-reader.html" class="tool-link">Open Tool</a>
 </div>
 
-<div class="tool-card" role="region" aria-label="Acoustic Pro Bass Ignition Studio tool">
+<div class="tool-card" role="region" aria-label="Acoustic Pro Bass Engine tool">
 <h3>Acoustic Pro Bass Engine</h3>
 <p>An elite-grade enhancement utility for deep-frequency amplification and sub-woofer optimization using local Web Audio API processing.</p>
-<a href="tools/bass-booster.html" class="tool-link">Open Bass Engine</a>
+<a href="tools/bass-booster.html" class="tool-link">Open Tool</a>
 </div>
 
-<div class="tool-card" role="region" aria-label="Advanced Compliance Guardian">
+<div class="tool-card" role="region" aria-label="Advanced Compliance Guardian tool">
 <h3>Advanced Compliance Guardian</h3>
 <p>A sophisticated forensic audit engine to evaluate web source code against WCAG accessibility and technical SEO paradigms via line-by-line inspection.</p>
-<a href="tools/advanced-compliance-guardian.html" class="tool-link">Open Compliance Guardian</a>
+<a href="tools/advanced-compliance-guardian.html" class="tool-link">Open Tool</a>
 </div>
 
 <div class="tool-card" role="region" aria-label="Age Calculator tool">
 <h3>Age Calculator</h3>
 <p>A precise chronological evaluation engine designed to calculate exact age durations across years, months, and days with granular accuracy.</p>
-<a href="tools/age-calculator.html" class="tool-link">Open Age Calculator</a>
+<a href="tools/age-calculator.html" class="tool-link">Open Tool</a>
 </div>
 
-<div class="tool-card" role="region" aria-label="Bulk Audio Extractor">
+<div class="tool-card" role="region" aria-label="Bulk Audio Extractor tool">
 <h3>Bulk Audio Extractor</h3>
 <p>A high-velocity engine to isolate and extract high-fidelity audio streams from multiple video containers simultaneously using client-side decoding.</p>
-<a href="tools/bulk-audio-extractor.html" class="tool-link">Open Audio Extractor</a>
+<a href="tools/bulk-audio-extractor.html" class="tool-link">Open Tool</a>
 </div>
 
 <div class="tool-card" role="region" aria-label="Bulk Text to Image tool">
 <h3>Bulk Text to Image</h3>
 <p>Create professional visual content from plain text or bulk TXT files. Supports custom naming, real-time tracking, and social media rendering presets.</p>
-<a href="tools/text-to-image.html" class="tool-link">Open Text to Image</a>
+<a href="tools/text-to-image.html" class="tool-link">Open Tool</a>
 </div>
 
 <div class="tool-card" role="region" aria-label="Cryptographic Data Vault tool">
 <h3>Cryptographic Data Vault</h3>
 <p>A military-grade AES-256 Zero-Knowledge encryption engine. Securely lock and unlock your sensitive files and directories locally within your browser with absolute data sovereignty.</p>
-<a href="tools/crypto-vault.html" class="tool-link">Open Crypto Vault</a>
+<a href="tools/crypto-vault.html" class="tool-link">Open Tool</a>
 </div>
 
-<div class="tool-card" role="region" aria-label="Extreme Metadata Viewer">
+<div class="tool-card" role="region" aria-label="DNS & Network Analyzer tool">
+<h3>DNS & Network Analyzer</h3>
+<p>An enterprise-grade domain intelligence utility to extract DNS records, network topology, and routing telemetry with absolute zero-knowledge.</p>
+<a href="tools/dns-analyzer.html" class="tool-link">Open Tool</a>
+</div>
+
+<div class="tool-card" role="region" aria-label="Extreme Metadata Viewer tool">
 <h3>Extreme Metadata Viewer</h3>
 <p>A high-performance forensic inspection utility for deep-level metadata extraction. Uncovers hidden signatures and timestamps locally.</p>
-<a href="tools/extreme-metadata-viewer.html" class="tool-link">Open Metadata Viewer</a>
+<a href="tools/extreme-metadata-viewer.html" class="tool-link">Open Tool</a>
 </div>
 
-<div class="tool-card" role="region" aria-label="Professional Image to Icon Workstation tool">
+<div class="tool-card" role="region" aria-label="GitHub Developer Intelligence tool">
+<h3>GitHub Developer Intelligence</h3>
+<p>Execute zero-knowledge scans to extract public software engineering telemetry, repository metrics, and professional footprints.</p>
+<a href="tools/github-intelligence.html" class="tool-link">Open Tool</a>
+</div>
+
+<div class="tool-card" role="region" aria-label="Global OSINT Breach Radar tool">
+<h3>Global OSINT Breach Radar</h3>
+<p>Enterprise-grade threat intelligence matrix. Executes rapid intelligence sweeps across dark web repositories to verify email integrity and detect compromised credentials with zero-knowledge privacy.</p>
+<a href="tools/global-osint-radar.html" class="tool-link">Open Tool</a>
+</div>
+
+<div class="tool-card" role="region" aria-label="Global Payload Drop tool">
+<h3>Global Payload Drop</h3>
+<p>A high-velocity, ephemeral file transfer architecture. Upload critical payloads to secure nodes and generate encrypted, direct-access links for untraceable digital distribution.</p>
+<a href="tools/global-payload-drop.html" class="tool-link">Open Tool</a>
+</div>
+
+<div class="tool-card" role="region" aria-label="Image to Icon Workstation tool">
 <h3>Image to Icon Workstation</h3>
 <p>A sophisticated asset utility for seamless conversion of raster graphics into high-fidelity Windows Icon (.ico) files with multi-resolution scaling.</p>
-<a href="tools/image-to-icon-workstation.html" class="tool-link">Open Icon Workstation</a>
+<a href="tools/image-to-icon-workstation.html" class="tool-link">Open Tool</a>
 </div>
 
 <div class="tool-card" role="region" aria-label="Image to PDF tool">
 <h3>Image to PDF</h3>
 <p>Convert one or more image files into a single PDF document. Turn photos, scanned pages, or screenshots into a clean PDF format securely on your device.</p>
-<a href="tools/image-to-pdf.html" class="tool-link">Open Image to PDF</a>
+<a href="tools/image-to-pdf.html" class="tool-link">Open Tool</a>
 </div>
 
 <div class="tool-card" role="region" aria-label="Image to Text OCR tool">
 <h3>Image to Text (OCR)</h3>
 <p>Extract editable text from images, screenshots, and scanned documents with high precision. Supports multiple languages and operates locally for privacy.</p>
-<a href="tools/image-to-text.html" class="tool-link">Open OCR Engine</a>
+<a href="tools/image-to-text.html" class="tool-link">Open Tool</a>
 </div>
 
-<div class="tool-card" role="region" aria-label="Industrial Bulk Audio Merger">
+<div class="tool-card" role="region" aria-label="Industrial Bulk Audio Merger tool">
 <h3>Industrial Bulk Audio Merger</h3>
 <p>An enterprise-scale audio unification workstation for seamless concatenation of diverse sound assets into a single mastered file.</p>
-<a href="tools/Industrial Bulk Audio Merger .html" class="tool-link">Open Audio Merger</a>
+<a href="tools/Industrial Bulk Audio Merger .html" class="tool-link">Open Tool</a>
+</div>
+
+<div class="tool-card" role="region" aria-label="Network Threat Locator tool">
+<h3>Network Threat Locator</h3>
+<p>Military-grade IP geolocation radar. Execute precision network scans via targeted inputs or automated nodes to identify routing threats.</p>
+<a href="tools/network-threat-locator.html" class="tool-link">Open Tool</a>
+</div>
+
+<div class="tool-card" role="region" aria-label="Password Breach Radar tool">
+<h3>Password Breach Radar</h3>
+<p>Zero-knowledge cryptographic security auditor. Validate password entropy against global breach databases using strict k-anonymity protocols.</p>
+<a href="tools/password-checker.html" class="tool-link">Open Tool</a>
 </div>
 
 <div class="tool-card" role="region" aria-label="PDF Merger tool">
 <h3>PDF Merger</h3>
 <p>Merge multiple PDF documents into a single PDF file directly in your browser. This tool helps you combine notes, reports, or scanned documents into one organized file securely.</p>
-<a href="tools/pdf-merger.html" class="tool-link">Open PDF Merger</a>
+<a href="tools/pdf-merger.html" class="tool-link">Open Tool</a>
 </div>
 
 <div class="tool-card" role="region" aria-label="PDF to Image tool">
 <h3>PDF to Image</h3>
 <p>Extract images from PDF pages by converting each page into PNG format. Multiple pages are provided in a ZIP file for easy access to visual copies.</p>
-<a href="tools/pdf-to-image.html" class="tool-link">Open PDF to Image</a>
+<a href="tools/pdf-to-image.html" class="tool-link">Open Tool</a>
 </div>
 
 <div class="tool-card" role="region" aria-label="PDF to Text tool">
 <h3>PDF to Text</h3>
 <p>Convert standard text-based PDF files into plain TXT format. Useful for extracting readable content from documents to edit, study, or reuse securely within your browser.</p>
-<a href="tools/pdf-to-text.html" class="tool-link">Open PDF to Text</a>
+<a href="tools/pdf-to-text.html" class="tool-link">Open Tool</a>
 </div>
 
-<div class="tool-card" role="region" aria-label="Industrial Precision Audio Trimmer">
+<div class="tool-card" role="region" aria-label="Precision Audio Trimmer tool">
 <h3>Precision Audio Trimmer</h3>
 <p>A professional-grade digital signal processing utility for absolute surgical precision in audio editing, allowing nanosecond-accurate trimming directly in the browser.</p>
-<a href="tools/audio-trimmer.html" class="tool-link">Open Audio Trimmer</a>
+<a href="tools/audio-trimmer.html" class="tool-link">Open Tool</a>
 </div>
 
-<div class="tool-card" role="region" aria-label="Professional QR Suite">
+<div class="tool-card" role="region" aria-label="Professional QR Suite tool">
 <h3>Professional QR Suite</h3>
 <p>An enterprise-grade utility engineered for secure QR generation and real-time optical decoding based entirely on Zero-Knowledge architecture.</p>
-<a href="tools/professional-qr-suite.html" class="tool-link">Open QR Suite</a>
+<a href="tools/professional-qr-suite.html" class="tool-link">Open Tool</a>
 </div>
 
-<div class="tool-card" role="region" aria-label="Smart Audio Merger">
+<div class="tool-card" role="region" aria-label="Smart Audio Merger tool">
 <h3>Smart Audio Merger</h3>
 <p>An advanced dual-track post-production utility for seamless audio blending, featuring an automated RMS-based ducking algorithm and linear fade-staging.</p>
-<a href="tools/Smart Audio Merger.html" class="tool-link">Open Smart Mixer</a>
+<a href="tools/Smart Audio Merger.html" class="tool-link">Open Tool</a>
 </div>
 
 <div class="tool-card" role="region" aria-label="SonicSphere 360° Studio tool">
 <h3>SonicSphere 360° Studio</h3>
 <p>A high-fidelity spatial audio workstation designed for 8D orbital transformation, stereo widening, and precise mono-to-stereo conversion.</p>
-<a href="tools/SonicSphere_360°_Studio.html" class="tool-link">Open 360° Studio</a>
+<a href="tools/SonicSphere_360°_Studio.html" class="tool-link">Open Tool</a>
 </div>
 
-<div class="tool-card" role="region" aria-label="Sovereign Share">
+<div class="tool-card" role="region" aria-label="Sovereign Share tool">
 <h3>Sovereign Share</h3>
 <p>A high-performance P2P file sharing engine architected for absolute data sovereignty, facilitating encrypted, unlimited bandwidth transfers.</p>
-<a href="tools/sovereign-share.html" class="tool-link">Open Sovereign Share</a>
+<a href="tools/sovereign-share.html" class="tool-link">Open Tool</a>
 </div>
 
-<div class="tool-card" role="region" aria-label="Tactical Volume Booster">
+<div class="tool-card" role="region" aria-label="Stealth Temporary Inbox tool">
+<h3>Stealth Temporary Inbox</h3>
+<p>Deploy an untraceable, volatile email node for secure OTP verification and communication shielding. 100% ephemeral architecture.</p>
+<a href="tools/stealth-inbox-generator.html" class="tool-link">Open Tool</a>
+</div>
+
+<div class="tool-card" role="region" aria-label="Synthetic Identity Engine tool">
+<h3>Synthetic Identity Engine</h3>
+<p>Generate highly realistic, mathematically valid synthetic user profiles and mock data structures for enterprise QA and penetration testing.</p>
+<a href="tools/synthetic-identity-engine.html" class="tool-link">Open Tool</a>
+</div>
+
+<div class="tool-card" role="region" aria-label="Tactical Volume Booster tool">
 <h3>Tactical Volume Booster</h3>
 <p>A precision gain-staging utility to amplify low-level digital signals without introducing harmonic distortion, utilizing normalized peak-detection.</p>
-<a href="tools/Volume Booster .html" class="tool-link">Open Volume Booster</a>
+<a href="tools/Volume Booster .html" class="tool-link">Open Tool</a>
 </div>
 
 <div class="tool-card" role="region" aria-label="Text to PDF tool">
 <h3>Text to PDF</h3>
 <p>Create PDF documents from written text or uploaded TXT files. Generate a downloadable PDF locally. Ideal for creating simple documents quickly and easily.</p>
-<a href="tools/text-to-pdf.html" class="tool-link">Open Text to PDF</a>
+<a href="tools/text-to-pdf.html" class="tool-link">Open Tool</a>
 </div>
 
 <div class="tool-card" role="region" aria-label="TXT Merger tool">
 <h3>TXT Merger</h3>
 <p>Combine multiple TXT files into one single text document. Helpful for merging notes, logs, or written content into a unified file securely.</p>
-<a href="tools/txt-merger.html" class="tool-link">Open TXT Merger</a>
+<a href="tools/txt-merger.html" class="tool-link">Open Tool</a>
 </div>
 
-<div class="tool-card" role="region" aria-label="Universal Translation Suite">
+<div class="tool-card" role="region" aria-label="Universal Cloud Clipboard tool">
+<h3>Universal Cloud Clipboard</h3>
+<p>A volatile, cross-device cryptographic text vault. Transfer sensitive strings instantly using a secure 4-digit PIN, featuring automated self-destruction upon retrieval to guarantee absolute data sovereignty.</p>
+<a href="tools/universal-cloud-clipboard.html" class="tool-link">Open Tool</a>
+</div>
+
+<div class="tool-card" role="region" aria-label="Universal Translation Suite tool">
 <h3>Universal Translation Suite</h3>
 <p>A high-performance linguistic suite for real-time text, document, and image-based translation across 100+ global languages built on strict Zero-Knowledge architecture.</p>
-<a href="tools/translator.html" class="tool-link">Open Translation Suite</a>
+<a href="tools/translator.html" class="tool-link">Open Tool</a>
+</div>
+
+<div class="tool-card" role="region" aria-label="Weather Telemetry Radar tool">
+<h3>Weather Telemetry Radar</h3>
+<p>Global atmospheric telemetry radar. Execute precision meteorological scans via dual-engine geocoding with absolute zero-knowledge.</p>
+<a href="tools/weather-telemetry.html" class="tool-link">Open Tool</a>
 </div>
 
 </div>
@@ -413,8 +475,8 @@ Privacy Policy
 <script>
 const docTools = ["PDF Merger", "PDF to Text", "Text to PDF", "Image to PDF", "PDF to Image", "TXT Merger", "Accessible PDF Reader", "Universal Translation Suite", "Image to Text (OCR)"];
 const audioTools = ["Precision Audio Trimmer", "Bulk Audio Extractor", "Industrial Bulk Audio Merger", "Tactical Volume Booster", "SonicSphere 360° Studio", "Smart Audio Merger", "Acoustic Pro Bass Engine"];
-const visualTools = ["Age Calculator", "Accessible Calculator", "Bulk Text to Image", "Image to Icon Workstation"];
-const securityTools = ["Professional QR Suite", "Advanced Compliance Guardian", "Extreme Metadata Viewer", "Sovereign Share", "Cryptographic Data Vault"];
+const visualTools = ["Age Calculator", "Accessible Calculator", "Bulk Text to Image", "Image to Icon Workstation", "Weather Telemetry Radar"];
+const securityTools = ["Professional QR Suite", "Advanced Compliance Guardian", "Extreme Metadata Viewer", "Sovereign Share", "Cryptographic Data Vault", "DNS & Network Analyzer", "GitHub Developer Intelligence", "Network Threat Locator", "Password Breach Radar", "Stealth Temporary Inbox", "Synthetic Identity Engine", "Global OSINT Breach Radar", "Global Payload Drop", "Universal Cloud Clipboard"];
 
 function populateTabs() {
     const allCards = Array.from(document.getElementById('grid-all').children);

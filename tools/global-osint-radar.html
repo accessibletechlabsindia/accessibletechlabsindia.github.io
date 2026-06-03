@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="manifest" href="site.webmanifest">
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta charset="UTF-8">
+<title>Global OSINT Breach Radar - Accessible Tech Labs India</title>
+<meta name="description" content="Enterprise-grade threat intelligence and dark web exposure scanner. Verify email integrity against global data breaches with zero-knowledge privacy.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../css/style.css">
+<style>
+body {
+    background-color: #0d1117;
+    color: #c9d1d9;
+    font-family: system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+.main-container {
+    max-width: 1100px;
+    margin: 20px auto;
+    padding: 40px;
+    background: #161b22;
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    border-top: 10px solid #e34c26;
+}
+.privacy-notice {
+    background: #010409;
+    color: #e6edf3;
+    padding: 35px;
+    border-radius: 12px;
+    border-left: 6px solid #e34c26;
+    margin-bottom: 40px;
+    line-height: 1.8;
+    text-align: justify;
+}
+.privacy-notice h2 { 
+    color: #ff7b72; 
+    margin-top: 0; 
+    font-size: 2.2em; 
+}
+.privacy-notice p { 
+    font-size: 1.15em; 
+    margin-bottom: 20px; 
+}
+.workspace {
+    background: #010409;
+    padding: 35px;
+    border-radius: 15px;
+    border: 2px solid #30363d;
+    display: block;
+}
+.workspace h2 {
+    color: #e34c26;
+    margin-top: 0;
+    border-bottom: 2px solid #30363d;
+    padding-bottom: 10px;
+    font-size: 2rem;
+    text-transform: uppercase;
+}
+.input-group {
+    margin-bottom: 25px;
+}
+.input-label {
+    display: block;
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff7b72;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.input-field {
+    width: 100%;
+    padding: 18px;
+    border-radius: 8px;
+    border: 2px solid #30363d;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #c9d1d9;
+    background: #161b22;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+    font-family: monospace;
+}
+.input-field:focus {
+    border-color: #e34c26;
+    outline: 3px solid #ffcc00;
+}
+.control-row {
+    display: flex;
+    gap: 15px;
+    margin-top: 25px;
+    flex-wrap: wrap;
+}
+.btn-action {
+    flex: 1;
+    min-width: 250px;
+    padding: 18px 25px;
+    border-radius: 8px;
+    border: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: background 0.3s, transform 0.2s;
+    background: #da3633;
+    color: white;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.btn-action:hover { 
+    background: #f85149; 
+    transform: translateY(-2px);
+}
+.btn-action:focus {
+    outline: 3px solid #ffcc00;
+}
+.btn-secondary { 
+    background: #21262d; 
+    border: 1px solid #30363d;
+}
+.btn-secondary:hover {
+    background: #30363d;
+}
+.loader {
+    display: none;
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #e34c26;
+    text-align: center;
+    padding: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.report-card {
+    display: none;
+    background: #161b22;
+    border: 2px solid #30363d;
+    border-radius: 12px;
+    padding: 30px;
+    margin-top: 35px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+.status-banner {
+    padding: 20px;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+}
+.status-secure {
+    background: #010409;
+    color: #3fb950;
+    border: 2px solid #238636;
+}
+.status-breach {
+    background: #010409;
+    color: #f85149;
+    border: 2px solid #da3633;
+}
+.breach-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+.breach-item {
+    background: #010409;
+    border: 1px solid #30363d;
+    border-left: 5px solid #da3633;
+    padding: 25px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    text-align: left;
+}
+.breach-title {
+    font-size: 1.6rem;
+    color: #ff7b72;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid #30363d;
+    padding-bottom: 10px;
+    word-break: break-word;
+}
+.breach-detail-row {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+}
+.detail-label {
+    color: #8b949e;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-right: 10px;
+}
+.detail-value {
+    color: #e6edf3;
+    font-weight: bold;
+}
+.btn-verify {
+    background: #238636;
+    padding: 12px 20px;
+    font-size: 1rem;
+    margin-top: 20px;
+    min-width: unset;
+    width: 100%;
+}
+.btn-verify:hover {
+    background: #2ea043;
+}
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #21262d;
+    color: #e6edf3;
+    padding: 15px 30px;
+    border-radius: 50px;
+    display: none;
+    z-index: 1000;
+    font-weight: bold;
+    font-size: 1.1rem;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    border: 1px solid #30363d;
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main" style="position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden;">Skip to main content</a>
+
+<header role="banner" style="background-color: #010409; border-bottom: 1px solid #30363d; color: white; padding: 25px 0; text-align: center;">
+<h1 style="margin: 0; font-size: 2.2em; color: #c9d1d9;">Accessible Tech Labs India</h1>
+<nav aria-label="Main Navigation" style="background-color: #161b22; padding: 12px 0; text-align: center; margin-top: 15px; border-top: 1px solid #30363d;">
+<a href="../index.html" accesskey="h" style="color: #ff7b72; font-weight: bold; margin: 0 10px; text-decoration: none;">Home</a>
+<a href="../software.html" accesskey="s" style="color: #ff7b72; font-weight: bold; margin: 0 10px; text-decoration: none;">Software</a>
+<a href="../tools.html" accesskey="t" style="color: #ff7b72; font-weight: bold; margin: 0 10px; text-decoration: none;">Tools</a>
+<a href="../Games.html" accesskey="g" style="color: #ff7b72; font-weight: bold; margin: 0 10px; text-decoration: none;">Games</a>
+<a href="../about.html" accesskey="a" style="color: #ff7b72; font-weight: bold; margin: 0 10px; text-decoration: none;">About</a>
+<a href="../contact.html" accesskey="c" style="color: #ff7b72; font-weight: bold; margin: 0 10px; text-decoration: none;">Contact</a>
+</nav>
+</header>
+
+<main id="main" class="main-container">
+
+<section class="privacy-notice" id="introSection" aria-live="polite">
+<h2>Global OSINT Breach Radar</h2>
+<p>
+Accessible Tech Labs India introduces the Global OSINT Breach Radar. In the modern landscape of persistent cyber threats, identifying compromised credentials is the primary defense against unauthorized access. This forensic workstation executes rapid intelligence sweeps across vast, open-source dark web databases and known breach repositories to verify the integrity of any given email address.
+</p>
+<p>
+Adhering strictly to our Zero-Knowledge protocol, this engine functions exclusively as a secure query bridge. Target email addresses are transmitted securely to external threat-intelligence endpoints, and the localized memory buffer is purged immediately upon generating the forensic report. We do not track, log, or store your queries. 
+</p>
+<p>
+If a compromise is detected, the Ultimate Hybrid engine cross-references the breach signature with global master catalogs to extract the precise nature of the compromised data directly to your workstation, while offering a secure pathway to verify full external reports.
+</p>
+</section>
+
+<div id="workspaceArea" class="workspace">
+    <h2 id="workspaceTitle" tabindex="-1">Threat Intelligence Matrix</h2>
+    
+    <div class="input-group">
+        <label class="input-label" for="emailInput">Enter Target Email Address:</label>
+        <input type="email" id="emailInput" class="input-field" placeholder="e.g. target@example.com" aria-required="true" onkeydown="handleEnter(event)">
+    </div>
+
+    <div class="control-row">
+        <button class="btn-action" onclick="executeScan()">Execute Deep Scan</button>
+        <button class="btn-action btn-secondary" onclick="clearWorkspace()">Purge Radar Memory</button>
+    </div>
+
+    <div id="loader" class="loader" aria-live="assertive"></div>
+
+    <div id="reportCard" class="report-card" tabindex="-1">
+        <div id="statusBanner" class="status-banner" aria-live="polite"></div>
+        <div id="breachContainer" class="breach-list"></div>
+    </div>
+</div>
+
+</main>
+
+<div id="srAnnouncer" aria-live="assertive" style="position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden;"></div>
+<div id="toast" class="toast" aria-live="assertive"></div>
+
+<footer role="contentinfo" style="background-color: #010409; border-top: 1px solid #30363d; color: #8b949e; padding: 40px 0; text-align: center; margin-top: 60px;">
+<p><a href="../privacy.html" accesskey="p" style="color: #ff7b72; text-decoration: underline;">Privacy Policy</a></p>
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+
+<script>
+let toastTimer;
+
+function announce(msg) {
+    const sr = document.getElementById('srAnnouncer');
+    sr.innerText = "";
+    setTimeout(() => { sr.innerText = msg; }, 50);
+}
+
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    clearTimeout(toastTimer);
+    t.innerText = msg;
+    t.style.display = 'block';
+    announce(msg);
+    toastTimer = setTimeout(() => { t.style.display = 'none'; }, 3500);
+}
+
+function showLoader(text) {
+    const loader = document.getElementById('loader');
+    loader.innerText = text;
+    loader.style.display = "block";
+    document.getElementById('reportCard').style.display = "none";
+    announce(text);
+}
+
+function hideLoader() {
+    document.getElementById('loader').style.display = "none";
+}
+
+function clearWorkspace() {
+    document.getElementById('emailInput').value = "";
+    document.getElementById('reportCard').style.display = "none";
+    document.getElementById('breachContainer').innerHTML = "";
+    showToast("Radar memory purged securely.");
+    document.getElementById('emailInput').focus();
+}
+
+function handleEnter(e) {
+    if (e.key === "Enter") {
+        e.preventDefault();
+        executeScan();
+    }
+}
+
+async function executeScan() {
+    const email = document.getElementById('emailInput').value.trim();
+    if (!email || !email.includes('@')) {
+        showToast("System Notice: Please enter a valid email address.");
+        document.getElementById('emailInput').focus();
+        return;
+    }
+
+    showLoader("Initiating Hybrid Scan Matrix. Querying global databases...");
+
+    try {
+        const response = await fetch("https://api.xposedornot.com/v1/check-email/" + encodeURIComponent(email));
+
+        if (response.status === 404) {
+            renderSecure(email);
+            return;
+        }
+
+        if (response.status === 429 || response.status === 403) {
+            throw new Error("RATE_LIMIT");
+        }
+
+        if (!response.ok) {
+            throw new Error("API_FAILURE");
+        }
+
+        const data = await response.json();
+        let breachList = [];
+        
+        if (data && data.breaches && Array.isArray(data.breaches) && data.breaches.length > 0) {
+            if (Array.isArray(data.breaches[0])) {
+                breachList = data.breaches[0];
+            } else {
+                breachList = data.breaches;
+            }
+        }
+
+        if (breachList.length > 0) {
+            await fetchMasterDetails(email, breachList);
+        } else {
+            renderSecure(email);
+        }
+
+    } catch (err) {
+        hideLoader();
+        if (err.message === "RATE_LIMIT") {
+            showToast("Network Defense: Rate limit exceeded. Please wait 10 seconds and retry.");
+            announce("Network Defense: Rate limit exceeded. Please wait 10 seconds and retry.");
+        } else {
+            showToast("Forensic Exception: Unable to connect to OSINT matrix securely.");
+            announce("Forensic Exception: Unable to connect to OSINT matrix securely.");
+        }
+    }
+}
+
+async function fetchMasterDetails(email, targetBreaches) {
+    showLoader("Threats identified. Extracting payload telemetry from master catalog...");
+
+    try {
+        const masterResponse = await fetch("https://api.xposedornot.com/v1/breaches");
+        if (!masterResponse.ok) {
+            throw new Error("MASTER_FAILURE");
+        }
+
+        const masterData = await masterResponse.json();
+        const allBreaches = masterData.exposedBreaches || [];
+        const detailedBreaches = [];
+
+        for (let i = 0; i < targetBreaches.length; i++) {
+            const bName = String(targetBreaches[i]);
+            let foundData = "Data not specified by source";
+            let foundDate = "Unknown Date";
+
+            for (let j = 0; j < allBreaches.length; j++) {
+                if (allBreaches[j].breachID === bName) {
+                    if (allBreaches[j].exposedData && Array.isArray(allBreaches[j].exposedData)) {
+                        foundData = allBreaches[j].exposedData.join(", ");
+                    } else if (allBreaches[j].exposedData) {
+                        foundData = allBreaches[j].exposedData;
+                    }
+                    if (allBreaches[j].breachedDate) {
+                        foundDate = allBreaches[j].breachedDate;
+                    }
+                    break;
+                }
+            }
+
+            detailedBreaches.push({
+                name: bName,
+                data: foundData,
+                date: foundDate
+            });
+        }
+
+        renderBreach(email, detailedBreaches);
+
+    } catch (err) {
+        const fallbackBreaches = [];
+        for (let k = 0; k < targetBreaches.length; k++) {
+            fallbackBreaches.push({
+                name: String(targetBreaches[k]),
+                data: "Master catalog unreachable. Data unavailable.",
+                date: "Unknown Date"
+            });
+        }
+        renderBreach(email, fallbackBreaches);
+    }
+}
+
+function renderSecure(email) {
+    hideLoader();
+    const banner = document.getElementById('statusBanner');
+    const container = document.getElementById('breachContainer');
+    const rc = document.getElementById('reportCard');
+
+    banner.className = "status-banner status-secure";
+    banner.innerText = "🟢 SECURE: NO EXPOSURE DETECTED";
+    
+    container.innerHTML = "<p style='text-align: center; font-size: 1.2rem; color: #c9d1d9; font-weight: bold; width: 100%;'>The target address (" + email + ") does not appear in any known public database breaches or dark web leaks.</p>";
+    
+    rc.style.display = "block";
+    rc.style.borderColor = "#238636";
+    rc.focus();
+    
+    announce("Scan complete. Status: Secure. No exposure detected for the provided email.");
+}
+
+function openVerification(email) {
+    const verifyUrl = "https://haveibeenpwned.com/account/" + encodeURIComponent(email);
+    window.open(verifyUrl, '_blank');
+}
+
+function renderBreach(email, detailedBreaches) {
+    hideLoader();
+    const banner = document.getElementById('statusBanner');
+    const container = document.getElementById('breachContainer');
+    const rc = document.getElementById('reportCard');
+
+    banner.className = "status-banner status-breach";
+    banner.innerText = "🔴 CRITICAL: " + detailedBreaches.length + " THREATS DETECTED";
+    
+    let htmlContent = "";
+    
+    for (let i = 0; i < detailedBreaches.length; i++) {
+        const safeBreachName = detailedBreaches[i].name.replace(/"/g, '&quot;');
+        
+        htmlContent += "<div class='breach-item'>";
+        htmlContent += "<h3 class='breach-title'>" + detailedBreaches[i].name + "</h3>";
+        
+        htmlContent += "<div class='breach-detail-row'>";
+        htmlContent += "<span class='detail-label'>Breach Date:</span>";
+        htmlContent += "<span class='detail-value'>" + detailedBreaches[i].date + "</span>";
+        htmlContent += "</div>";
+
+        htmlContent += "<div class='breach-detail-row'>";
+        htmlContent += "<span class='detail-label'>Compromised Data:</span>";
+        htmlContent += "<span class='detail-value'>" + detailedBreaches[i].data + "</span>";
+        htmlContent += "</div>";
+
+        htmlContent += "<button class='btn-action btn-verify' onclick=\"openVerification('" + email + "')\" aria-label=\"Verify full breach details for " + safeBreachName + " on Have I Been Pwned. Opens in a new tab.\">Verify Full Details on HIBP</button>";
+
+        htmlContent += "</div>";
+    }
+    
+    container.innerHTML = htmlContent;
+    
+    rc.style.display = "block";
+    rc.style.borderColor = "#da3633";
+    rc.focus();
+    
+    announce("Scan complete. Critical Threat Detected. The email was found in " + detailedBreaches.length + " database breaches. Navigate forward to review the compromised data records and access verification links.");
+}
+</script>
+</body>
+</html>
