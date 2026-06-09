@@ -157,220 +157,101 @@ body {
 .top-bar-btn:focus {
     outline: 3px solid #fbbf24;
 }
-#course-modal {
-    min-height: 100vh;
-    background-color: #0d1117;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-}
-.modal-box {
-    background: linear-gradient(135deg, rgba(22, 27, 34, 1), rgba(13, 17, 23, 1));
-    border: 2px solid #58a6ff;
-    border-radius: 16px;
-    padding: 40px;
-    max-width: 950px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.8);
-    text-align: left;
-    width: 100%;
-}
-.modal-box h2 {
-    color: #58a6ff;
-    font-size: 2.2rem;
-    margin-top: 0;
-    margin-bottom: 20px;
-    border-bottom: 2px solid #30363d;
-    padding-bottom: 15px;
-}
-.modal-box p {
-    font-size: 1.15rem;
-    color: #c9d1d9;
-    margin-bottom: 20px;
-    line-height: 1.7;
-    text-align: justify;
-}
-.modal-list {
-    font-size: 1.1rem;
-    color: #8b949e;
-    margin-bottom: 30px;
-    line-height: 1.8;
-}
-.modal-list li {
-    margin-bottom: 10px;
-}
-.modal-list li strong {
-    color: #f8fafc;
-}
-.urgency-text {
-    color: #fbbf24;
-    font-weight: bold;
-    font-size: 1.25rem;
-    margin-top: -10px;
-    margin-bottom: 20px;
-    display: block;
-}
-.modal-actions {
-    display: flex;
-    gap: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 30px;
-}
-.btn-skip {
-    background: transparent;
-    color: #f85149;
-    border: 2px solid #f85149;
-    padding: 16px 32px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.15rem;
-    cursor: pointer;
-    transition: transform 0.2s, background 0.2s;
-}
-.btn-skip:focus {
-    outline: 3px solid #fbbf24;
-    outline-offset: 3px;
-}
-.btn-skip:hover {
-    transform: translateY(-3px);
-    background: rgba(248, 81, 73, 0.1);
-}
 </style>
 </head>
 
 <body>
+<button onclick="installApp()" class="top-bar-btn">Install Accessible Tech Labs India</button>
+<a class="skip-link" href="#main">Skip to main content</a>
 
-<div id="course-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1">
-    <div class="modal-box">
-        <h2 id="modal-title" tabindex="-1">🚀 Free Basic Computer & Cyber Safety Awareness Course</h2>
-        <p>
-            Accessible Tech Labs India is proudly launching our comprehensive two-month online training program. We firmly believe that technology education should be accessible to everyone, and knowledge must never be limited by financial barriers. This course is completely free of cost for all learners.
-        </p>
-        <p>
-            In today's digital world, knowing how to use technology is only one side of the story; understanding how to use it safely is equally important. This course is meticulously designed to empower you with essential computer skills and robust cyber security awareness through practical, real-world examples.
-        </p>
-        <span class="urgency-text">⚠️ Attention: Seats are strictly limited. Registration is open on a first-come, first-served basis.</span>
-        <ul class="modal-list">
-            <li><strong>Course Duration:</strong> 10 June 2026 to 10 August 2026 (2 Months)</li>
-            <li><strong>Mode of Learning:</strong> Online via <strong>Google Meet</strong></li>
-            <li><strong>Class Schedule:</strong> Monday to Saturday, 5:00 PM to 6:30 PM (Evening). Sunday is a Holiday.</li>
-            <li><strong>Basic Computer Learning:</strong> Windows navigation, keyboard shortcuts, file & folder management, zip/unzip functions, internet basics, and professional email usage.</li>
-            <li><strong>Cyber Safety Awareness:</strong> Defense against phishing attacks, fake websites, OTP fraud, social media security, password protection, and digital privacy.</li>
-            <li><strong>Weekly Assessment & Certificate:</strong> Saturday evaluation tests and an Official Certificate of Completion issued by Accessible Tech Labs India.</li>
-        </ul>
-        <div class="modal-actions">
-            <a href="https://forms.gle/avDkjRKfVtLeUVji6" target="_blank" rel="noopener noreferrer" class="btn-primary" aria-label="Enroll Now in the Free Course">Enroll Now</a>
-            <button id="skip-modal-btn" class="btn-skip" onclick="dismissModal()">Skip to Website</button>
-        </div>
-    </div>
-</div>
+<header role="banner">
+<h1 style="text-align: center; color: #f8fafc;">Accessible Tech Labs India</h1>
+<img src="images/logo of accessible tech labs india (ALTI).png" alt="Accessible Tech Labs India Logo" width="120" style="display:block; margin: 10px auto;">
 
-<div id="main-website" style="display: none;">
-    <button onclick="installApp()" class="top-bar-btn">Install Accessible Tech Labs India</button>
-    <a class="skip-link" id="main-skip-link" href="#main">Skip to main content</a>
+<nav aria-label="Main navigation" style="text-align: center; margin-top: 20px;">
+<a href="index.html" accesskey="h" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Home</a>
+<a href="software.html" accesskey="s" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Software</a>
+<a href="tools.html" accesskey="t" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Tools</a>
+<a href="Games.html" accesskey="g" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Games</a>
+<a href="about.html" accesskey="a" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">About</a>
+<a href="contact.html" accesskey="c" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Contact</a>
+</nav>
+</header>
 
-    <header role="banner">
-    <h1 style="text-align: center; color: #f8fafc;">Accessible Tech Labs India</h1>
-    <img src="images/logo of accessible tech labs india (ALTI).png" alt="Accessible Tech Labs India Logo" width="120" style="display:block; margin: 10px auto;">
+<main id="main" class="main-container">
 
-    <nav aria-label="Main navigation" style="text-align: center; margin-top: 20px;">
-    <a href="index.html" accesskey="h" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Home</a>
-    <a href="software.html" accesskey="s" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Software</a>
-    <a href="tools.html" accesskey="t" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Tools</a>
-    <a href="Games.html" accesskey="g" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Games</a>
-    <a href="about.html" accesskey="a" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">About</a>
-    <a href="contact.html" accesskey="c" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Contact</a>
-    </nav>
-    </header>
-
-    <main id="main" class="main-container">
-
-    <section class="hero-section" aria-labelledby="hero-heading">
-        <h2 id="hero-heading" class="hero-title">Architecting Digital Independence</h2>
-        <p class="hero-subtitle">
-            Pioneering uncompromised accessibility and privacy-first infrastructure. From isolated Zero-Knowledge web engines to enterprise-grade NVDA integrations, we engineer robust digital ecosystems empowering visually impaired professionals globally.
-        </p>
-    </section>
-
-    <section class="mission-section" aria-labelledby="mission-heading">
-        <h2 id="mission-heading">Our Mission & Core Architecture</h2>
-        <p>
-            Engineered independently by a visually impaired software architect, Accessible Tech Labs India operates at the critical nexus of inclusive design and absolute data sovereignty. We operate on the foundational principle that technology must seamlessly adapt to the user. Our platforms eradicate visual friction, deploying highly optimized, predictable, and keyboard-centric architectures that achieve flawless synchronization with screen reading technologies.
-        </p>
-        <p>
-            Every utility we deploy—whether it involves complex spatial audio processing, forensic metadata extraction, or rigorous system diagnostics—executes within a strict Zero-Knowledge, localized framework. Your sensitive payloads, multimedia files, and personal configurations remain strictly confined to your physical device, guaranteeing uncompromising privacy and cryptographic security.
-        </p>
-    </section>
-
-    <h2 style="text-align: center; color: #f8fafc; margin-bottom: 30px; font-size: 2rem;">Core Infrastructure Technologies</h2>
-
-    <div class="features-grid" role="region" aria-label="Core technological offerings">
-        
-        <div class="feature-card">
-            <h3>Zero-Knowledge Web Engines</h3>
-            <p>
-                Leverage high-performance, client-side browser utilities. Process industrial audio pipelines, manipulate PDF directories, extract localized OCR data, and transmit files securely via decentralized P2P networks—executing complex workloads without exposing a single byte to external servers.
-            </p>
-        </div>
-
-        <div class="feature-card">
-            <h3>Official NVDA Integrations</h3>
-            <p>
-                Deploy certified, zero-latency extensions engineered exclusively for the NVDA screen reader. Elevate enterprise productivity with real-time hardware telemetry, memory optimization, and deeply integrated system health dashboards.
-            </p>
-        </div>
-
-        <div class="feature-card">
-            <h3>Offline System Diagnostics</h3>
-            <p>
-                Utilize robust desktop applications architected natively for screen reader environments. Securely manage Windows execution histories, extract encrypted network credentials, and perform deep system diagnostics entirely offline.
-            </p>
-        </div>
-
-        <div class="feature-card">
-            <h3>Accessible Gaming Ecosystems</h3>
-            <p>
-                Engage with advanced cognitive assessment engines and interactive applications featuring adaptive algorithmic difficulty, engineered purely for seamless auditory navigation and precision keyboard interaction.
-            </p>
-        </div>
-
-    </div>
-
-    <section class="roadmap-teaser" aria-labelledby="roadmap-heading">
-        <h2 id="roadmap-heading">Strategic Roadmap & Transparency Hub</h2>
-        <p>
-            We strongly advise every user, developer, and engineering peer to thoroughly study our Enterprise Roadmap. This dedicated transparency hub provides profound insights into our future deployment strategies, active architectural projects, and our uncompromising Zero-Knowledge principles. Explore our technological trajectory and verify our integrity.
-        </p>
-        <a href="roadmap.html" class="btn-primary" aria-label="Access the Enterprise Roadmap and Transparency Hub">Access the Enterprise Roadmap</a>
-    </section>
-
-    </main>
-
-    <footer role="contentinfo" style="text-align: center; padding: 30px; background: #161b22; margin-top: 10px; border-top: 1px solid #30363d;">
-    <p>
-    <a href="privacy.html" accesskey="p" style="color: #58a6ff; text-decoration: none; font-weight: bold; font-size: 1.1rem;">
-    Privacy Policy
-    </a>
+<section class="hero-section" aria-labelledby="hero-heading">
+    <h2 id="hero-heading" class="hero-title">Architecting Digital Independence</h2>
+    <p class="hero-subtitle">
+        Pioneering uncompromised accessibility and privacy-first infrastructure. From isolated Zero-Knowledge web engines to enterprise-grade NVDA integrations, we engineer robust digital ecosystems empowering visually impaired professionals globally.
     </p>
-    <p style="color: #8b949e; font-size: 1.1rem; margin-top: 10px;">© 2026 Accessible Tech Labs India</p>
-    <p style="color: #8b949e;">Global Connectivity & Support Links available in the Contact section.</p>
-    </footer>
+</section>
+
+<section class="mission-section" aria-labelledby="mission-heading">
+    <h2 id="mission-heading">Our Mission & Core Architecture</h2>
+    <p>
+        Engineered independently by a visually impaired software architect, Accessible Tech Labs India operates at the critical nexus of inclusive design and absolute data sovereignty. We operate on the foundational principle that technology must seamlessly adapt to the user. Our platforms eradicate visual friction, deploying highly optimized, predictable, and keyboard-centric architectures that achieve flawless synchronization with screen reading technologies.
+    </p>
+    <p>
+        Every utility we deploy—whether it involves complex spatial audio processing, forensic metadata extraction, or rigorous system diagnostics—executes within a strict Zero-Knowledge, localized framework. Your sensitive payloads, multimedia files, and personal configurations remain strictly confined to your physical device, guaranteeing uncompromising privacy and cryptographic security.
+    </p>
+</section>
+
+<h2 style="text-align: center; color: #f8fafc; margin-bottom: 30px; font-size: 2rem;">Core Infrastructure Technologies</h2>
+
+<div class="features-grid" role="region" aria-label="Core technological offerings">
+    
+    <div class="feature-card">
+        <h3>Zero-Knowledge Web Engines</h3>
+        <p>
+            Leverage high-performance, client-side browser utilities. Process industrial audio pipelines, manipulate PDF directories, extract localized OCR data, and transmit files securely via decentralized P2P networks—executing complex workloads without exposing a single byte to external servers.
+        </p>
+    </div>
+
+    <div class="feature-card">
+        <h3>Official NVDA Integrations</h3>
+        <p>
+            Deploy certified, zero-latency extensions engineered exclusively for the NVDA screen reader. Elevate enterprise productivity with real-time hardware telemetry, memory optimization, and deeply integrated system health dashboards.
+        </p>
+    </div>
+
+    <div class="feature-card">
+        <h3>Offline System Diagnostics</h3>
+        <p>
+            Utilize robust desktop applications architected natively for screen reader environments. Securely manage Windows execution histories, extract encrypted network credentials, and perform deep system diagnostics entirely offline.
+        </p>
+    </div>
+
+    <div class="feature-card">
+        <h3>Accessible Gaming Ecosystems</h3>
+        <p>
+            Engage with advanced cognitive assessment engines and interactive applications featuring adaptive algorithmic difficulty, engineered purely for seamless auditory navigation and precision keyboard interaction.
+        </p>
+    </div>
 
 </div>
+
+<section class="roadmap-teaser" aria-labelledby="roadmap-heading">
+    <h2 id="roadmap-heading">Strategic Roadmap & Transparency Hub</h2>
+    <p>
+        We strongly advise every user, developer, and engineering peer to thoroughly study our Enterprise Roadmap. This dedicated transparency hub provides profound insights into our future deployment strategies, active architectural projects, and our uncompromising Zero-Knowledge principles. Explore our technological trajectory and verify our integrity.
+    </p>
+    <a href="roadmap.html" class="btn-primary" aria-label="Access the Enterprise Roadmap and Transparency Hub">Access the Enterprise Roadmap</a>
+</section>
+
+</main>
+
+<footer role="contentinfo" style="text-align: center; padding: 30px; background: #161b22; margin-top: 10px; border-top: 1px solid #30363d;">
+<p>
+<a href="privacy.html" accesskey="p" style="color: #58a6ff; text-decoration: none; font-weight: bold; font-size: 1.1rem;">
+Privacy Policy
+</a>
+</p>
+<p style="color: #8b949e; font-size: 1.1rem; margin-top: 10px;">© 2026 Accessible Tech Labs India</p>
+<p style="color: #8b949e;">Global Connectivity & Support Links available in the Contact section.</p>
+</footer>
 
 <script>
-window.onload = function() {
-    document.getElementById('modal-title').focus();
-};
-
-function dismissModal() {
-    document.getElementById('course-modal').style.display = 'none';
-    document.getElementById('main-website').style.display = 'block';
-    document.getElementById('main-skip-link').focus();
-}
-
 let deferredPrompt;
 
 window.addEventListener('beforeinstallprompt', e => {
