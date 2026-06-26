@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sovereign WebRTC Nexus - Accessible Tech Labs India</title>
+<meta name="description" content="Enterprise-grade decentralized P2P communication matrix. Features zero-knowledge ephemeral messaging, secure calls, and encrypted file transfers.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="nexus-style.css">
+<script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+</head>
+<body>
+
+<a class="skip-link" href="#main" style="position:absolute; left:-10000px;">Skip to main content</a>
+
+<header role="banner" style="background: #010409; padding: 25px 0; text-align: center; border-bottom: 1px solid #30363d;">
+<h1 style="margin: 0; font-size: 2.2em; color: #c9d1d9;">Accessible Tech Labs India</h1>
+<nav aria-label="Main Navigation" style="margin-top: 15px;">
+<a href="../../index.html" accesskey="h">Home</a>
+<a href="../../software.html" accesskey="s">Software</a>
+<a href="../../tools.html" accesskey="t">Tools</a>
+<a href="../../Games.html" accesskey="g">Games</a>
+<a href="../../about.html" accesskey="a">About</a>
+<a href="../../contact.html" accesskey="c">Contact</a>
+</nav>
+</header>
+
+<main id="main" class="main-container">
+<section class="manifesto" id="introSection" aria-live="polite">
+<h2>The Zero-Knowledge Communication Protocol & Architecture</h2>
+<p>
+At Accessible Tech Labs India, we fundamentally reject the concept of digital surveillance and arbitrary data retention. The Sovereign WebRTC Nexus is a revolutionary, enterprise-grade peer-to-peer (P2P) communication platform engineered to provide absolute data sovereignty, uncompromised anonymity, and impenetrable digital privacy. Unlike conventional messaging applications that covertly route your highly sensitive intelligence through centralized corporate servers for algorithmic analysis, this framework establishes a mathematically secure, direct cryptographic tunnel exclusively between the communicating devices. This is achieved by utilizing advanced Web Real-Time Communication (WebRTC) protocols alongside robust Datagram Transport Layer Security (DTLS) and Secure Real-time Transport Protocol (SRTP).
+</p>
+<p>
+Our operational mandate is absolute: we do not extract, log, intercept, cache, or analyze a single byte of your interaction. We operate entirely without external databases or intermediary storage nodes. To enforce absolute operational security, we have engineered a proprietary 'Burn-After-Listen' logic for all auditory transmissions, ensuring that sensitive voice notes are permanently mathematically eradicated from local system memory the exact moment playback is completed by the receiving entity. Furthermore, the application features cryptographic read receipts, real-time payload modification logic, uncompromising P2P audio/video streaming capabilities, and an unmetered, secure file-sharing mechanism capable of transmitting multi-gigabyte files directly at maximum network velocity. Our unwavering commitment extends equally to profound digital accessibility; the interface is meticulously optimized for NVDA, TalkBack, and advanced screen readers, featuring intelligent ARIA notifications, sophisticated Web Audio API event telemetry, native HTML5 dialog implementations, and highly structured navigation paradigms. We provide you with the absolute freedom to communicate—without limits, without corporate oversight, and without compromise. Innovation driven entirely by integrity.
+</p>
+</section>
+
+<div class="mode-grid" id="modeGrid">
+<button class="mode-btn" onclick="initHostMode()">
+<h3>Start a New Chat</h3>
+<p>Generate a secure 6-digit room PIN to host a new private conversation.</p>
+</button>
+<button class="mode-btn" onclick="initJoinMode()">
+<h3>Join a Chat</h3>
+<p>Enter a 6-digit room PIN provided by your friend to join the conversation.</p>
+</button>
+</div>
+
+<div id="hostSetup" class="workspace">
+<h2 style="color: #3fb950;">Configure Your Identity</h2>
+<label class="input-field" style="display:block; border:none; padding:0; margin-bottom:5px;" for="hostName">Enter Your Name:</label>
+<input type="text" id="hostName" class="input-field" placeholder="Type your name here">
+<button class="btn-action" onclick="generateRoom()" style="width: 100%;">Create Secure Chat Room</button>
+<button class="btn-action btn-secondary" onclick="resetUI()" style="width: 100%; margin-top: 10px;">Go Back</button>
+</div>
+
+<div id="hostWaiting" class="workspace">
+<h2 style="color: #3fb950; text-align: center;">Chat Room Created. Waiting for your friend...</h2>
+<div class="pin-display" id="pinDisplay" aria-live="polite"></div>
+<div style="display:flex; gap:15px; margin-bottom:20px;">
+<button class="btn-action btn-secondary" style="flex:1;" onclick="copyRoomLink()">Copy Link</button>
+<button class="btn-action btn-secondary" style="flex:1;" onclick="shareRoomDetails()">Share Room Details</button>
+</div>
+<p style="text-align:center; color:#8b949e;" aria-live="polite">Direct Link: <br><a href="#" id="directLinkAnchor" style="color:#58a6ff; font-weight:bold; word-break:break-all;"></a></p>
+</div>
+
+<div id="joinSetup" class="workspace">
+<h2 style="color: #3fb950;">Join Secure Chat</h2>
+<label class="input-field" style="display:block; border:none; padding:0; margin-bottom:5px;" for="joinName">Enter Your Name:</label>
+<input type="text" id="joinName" class="input-field" placeholder="Type your name here">
+<label class="input-field" style="display:block; border:none; padding:0; margin-bottom:5px;" for="joinPin">Enter 6-Digit Room PIN:</label>
+<input type="text" id="joinPin" class="input-field" placeholder="Enter PIN here">
+<button class="btn-action" onclick="requestJoin()" style="width: 100%;">Send Join Request</button>
+<button class="btn-action btn-secondary" onclick="resetUI()" style="width: 100%; margin-top: 10px;">Go Back</button>
+</div>
+
+<div id="chatRoom" class="chat-container">
+<div class="chat-header">
+<h2 style="font-size: 1.2rem; margin:0; font-weight: bold; color: #3fb950;" id="chatHeaderTitle" aria-live="polite">🟢 Connected</h2>
+<div class="typing-indicator" id="typingIndicator" aria-live="polite"></div>
+</div>
+
+<div class="active-call-panel" id="activeCallPanel">
+<h3 style="margin:0 0 10px 0; color:#f8fafc;" id="callStatusText">Active Call - 00:00</h3>
+<div class="video-container" id="videoContainer" style="display:none;">
+<video id="remoteVideo" autoplay playsinline aria-label="Remote Video Stream"></video>
+<video id="localVideo" autoplay playsinline muted aria-label="Local Video Stream"></video>
+</div>
+<div class="call-controls">
+<button class="btn-action btn-secondary" id="callMicBtn" onclick="toggleCallMic()">🎤 Mute Mic</button>
+<button class="btn-action btn-secondary" id="callCamBtn" onclick="toggleCallCam()" style="display:none;">📸 Cam Off</button>
+<button class="btn-action btn-danger" onclick="endWebRTCCall()">🔴 End Call</button>
+</div>
+</div>
+
+<div class="pinned-banner" id="pinnedBanner" onclick="scrollToPinned()">📌 <span id="pinnedText"></span></div>
+
+<h2 style="position:absolute; left:-10000px;">Chat History</h2>
+<div class="chat-history" id="chatHistory" aria-live="polite" aria-relevant="additions"></div>
+
+<div class="chat-input-area">
+<div class="reply-banner" id="replyBanner">
+<span class="reply-close" aria-label="Cancel Reply" tabindex="0" onclick="cancelReply()">✖</span>
+Replying to: <span id="replyPreview"></span>
+</div>
+
+<div class="reply-banner" id="editBanner" style="border-left-color: #fbbf24;">
+<span class="reply-close" aria-label="Cancel Edit" tabindex="0" onclick="cancelEdit()">✖</span>
+Editing Message: <span id="editPreview"></span>
+</div>
+
+<label for="emojiSelect" style="position:absolute; left:-10000px;">Select Emoji</label>
+<select id="emojiSelect" class="input-field" style="width:auto; margin:0; padding:15px; cursor:pointer;" onchange="insertEmoji()">
+<option value="">😊 Emoji</option>
+</select>
+
+<label for="attachSelect" style="position:absolute; left:-10000px;">Select Attachment</label>
+<select id="attachSelect" class="input-field" style="width:auto; margin:0; padding:15px; cursor:pointer;" onchange="handleAttachDropdown()">
+<option value="">📎 Attach</option>
+<option value="photo">Photo</option>
+<option value="video">Video</option>
+<option value="audio">Audio</option>
+<option value="document">Document</option>
+<option value="location">📍 Share Current Location</option>
+</select>
+
+<input type="text" id="msgInput" class="input-field" style="margin:0; flex:1;" placeholder="Type your message..." oninput="handleTyping()" onkeydown="handleEnter(event)">
+
+<div class="voice-recorder-ui" id="voiceUi">
+<span id="voiceTimer" style="color:#f85149; font-weight:bold; width:60px;">00:00</span>
+<button class="btn-action btn-secondary" onclick="pauseResumeRecording()" id="voicePauseBtn">⏸ Pause</button>
+<button class="btn-action btn-danger" onclick="discardRecording()">✖ Discard</button>
+<button class="btn-action" onclick="sendRecording()">✔ Send</button>
+</div>
+
+<button class="btn-action" id="sendTextBtn" onclick="sendTextMessage()" aria-label="Send Message">Send</button>
+<button class="btn-action btn-secondary" id="micBtn" style="padding: 15px;" onclick="startRecording()" aria-label="Record Voice Message">🎤</button>
+</div>
+
+<div style="background:#161b22; padding:15px; border-top:1px solid #30363d; display:flex; justify-content:center; gap:20px; flex-wrap:wrap;">
+<button class="btn-action btn-success" onclick="initiateWebRTCCall('audio')">📞 Audio Call</button>
+<button class="btn-action btn-success" onclick="initiateWebRTCCall('video')">📹 Video Call</button>
+<button class="btn-action btn-secondary" onclick="promptClearChats()">Clear All Chats</button>
+<button class="btn-action btn-danger" onclick="promptDisconnect()">Disconnect</button>
+</div>
+</div>
+</main>
+
+<input type="file" id="hiddenFileInput" style="display:none;" onchange="handleFileSelection(this)">
+
+<dialog class="native-dialog" id="reqModal" aria-labelledby="reqHeading">
+<h2 id="reqHeading" style="color: #3fb950; margin-top:0;">Incoming Request</h2>
+<p id="reqDetails" style="font-size: 1.3rem; margin-bottom: 30px;"></p>
+<div style="display:flex; gap:15px;">
+<button class="btn-action" style="flex:1;" onclick="acceptRequest()">Accept</button>
+<button class="btn-action btn-danger" style="flex:1;" onclick="declineRequest()">Decline</button>
+</div>
+</dialog>
+
+<dialog class="native-dialog" id="outgoingCallModal" aria-labelledby="outgoingCallHeading">
+<h2 id="outgoingCallHeading" style="color: #3fb950; margin-top:0;">Calling...</h2>
+<p id="outgoingCallText" style="font-size: 1.2rem; margin-bottom: 30px;"></p>
+<button class="btn-action btn-danger" style="width:100%;" onclick="cancelOutgoingCall()">🔴 End Call</button>
+</dialog>
+
+<dialog class="native-dialog" id="incomingCallModal" aria-labelledby="incomingCallHeading">
+<h2 id="incomingCallHeading" style="color: #3fb950; margin-top:0;">Incoming Call</h2>
+<p id="incomingCallText" style="font-size: 1.2rem; margin-bottom: 30px;"></p>
+<div style="display:flex; gap:15px;">
+<button class="btn-action" style="flex:1;" onclick="acceptIncomingCall()">Accept</button>
+<button class="btn-action btn-danger" style="flex:1;" onclick="declineIncomingCall()">Decline</button>
+</div>
+</dialog>
+
+<dialog class="native-dialog" id="msgActionModal" aria-labelledby="msgActionHeading">
+<h2 id="msgActionHeading" style="color: #3fb950; margin-top:0;">Chat Action Menu</h2>
+<div class="action-list">
+<button class="btn-action btn-secondary" id="btnReply" onclick="execReply()">Reply to Message</button>
+<button class="btn-action btn-secondary" id="btnEdit" onclick="execEditSetup()">Edit Message</button>
+<button class="btn-action btn-secondary" id="btnCopy" onclick="execCopy()">Copy Text</button>
+<button class="btn-action btn-secondary" id="btnPin" onclick="execPin()">Pin Message</button>
+<button class="btn-action btn-danger" id="btnDel" onclick="execDelete()">Delete for Everyone</button>
+<button class="btn-action" onclick="closeMsgAction()">Cancel</button>
+</div>
+</dialog>
+
+<dialog class="native-dialog" id="fileSendModal" aria-labelledby="fileSendHeading">
+<h2 id="fileSendHeading" style="color: #3fb950; margin-top:0;">Send File</h2>
+<p id="filePreviewText" style="font-size: 1.1rem; margin-bottom: 20px; word-break: break-all;"></p>
+<label for="fileCaption" style="position:absolute; left:-10000px;">File Caption</label>
+<input type="text" id="fileCaption" class="input-field" placeholder="Add a caption (optional)...">
+<div style="display:flex; gap:15px;">
+<button class="btn-action" style="flex:1;" onclick="executeFileSend()">Send</button>
+<button class="btn-action btn-danger" style="flex:1;" onclick="cancelFileSend()">Cancel</button>
+</div>
+</dialog>
+
+<div id="srAnnouncer" aria-live="assertive" style="position:absolute; left:-10000px;"></div>
+<div id="toast" class="toast" aria-live="assertive"></div>
+
+<footer>
+<p>
+<a href="../../privacy.html" accesskey="p">Privacy Policy</a>
+</p>
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+
+<script src="nexus-core.js"></script>
+</body>
+</html>
