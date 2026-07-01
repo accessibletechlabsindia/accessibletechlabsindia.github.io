@@ -1,0 +1,255 @@
+{
+  "tools": [
+    {
+      "id": "calc",
+      "name": "Accessible Calculator",
+      "url": "https://accessibletechlabsindia.github.io/tools/calculator.html"
+    },
+    {
+      "id": "pdf-reader",
+      "name": "Accessible PDF Reader",
+      "url": "https://accessibletechlabsindia.github.io/tools/pdf-reader.html"
+    },
+    {
+      "id": "bass-engine",
+      "name": "Acoustic Pro Bass Engine",
+      "url": "https://accessibletechlabsindia.github.io/tools/bass-booster.html"
+    },
+    {
+      "id": "compliance-guardian",
+      "name": "Advanced Compliance Guardian",
+      "url": "https://accessibletechlabsindia.github.io/tools/advanced-compliance-guardian.html"
+    },
+    {
+      "id": "age-calc",
+      "name": "Age Calculator",
+      "url": "https://accessibletechlabsindia.github.io/tools/age-calculator.html"
+    },
+    {
+      "id": "audio-extractor",
+      "name": "Bulk Audio Extractor",
+      "url": "https://accessibletechlabsindia.github.io/tools/bulk-audio-extractor.html"
+    },
+    {
+      "id": "text-to-image",
+      "name": "Bulk Text to Image",
+      "url": "https://accessibletechlabsindia.github.io/tools/text-to-image.html"
+    },
+    {
+      "id": "crypto-vault",
+      "name": "Cryptographic Data Vault",
+      "url": "https://accessibletechlabsindia.github.io/tools/crypto-vault.html"
+    },
+    {
+      "id": "dns-analyzer",
+      "name": "DNS & Network Analyzer",
+      "url": "https://accessibletechlabsindia.github.io/tools/dns-analyzer.html"
+    },
+    {
+      "id": "meta-viewer",
+      "name": "Extreme Metadata Viewer",
+      "url": "https://accessibletechlabsindia.github.io/tools/extreme-metadata-viewer.html"
+    },
+    {
+      "id": "github-intel",
+      "name": "GitHub Developer Intelligence",
+      "url": "https://accessibletechlabsindia.github.io/tools/github-intelligence.html"
+    },
+    {
+      "id": "osint-radar",
+      "name": "Global OSINT Breach Radar",
+      "url": "https://accessibletechlabsindia.github.io/tools/global-osint-radar.html"
+    },
+    {
+      "id": "payload-drop",
+      "name": "Global Payload Drop",
+      "url": "https://accessibletechlabsindia.github.io/tools/global-payload-drop.html"
+    },
+    {
+      "id": "icon-maker",
+      "name": "Image to Icon Workstation",
+      "url": "https://accessibletechlabsindia.github.io/tools/image-to-icon-workstation.html"
+    },
+    {
+      "id": "img-to-pdf",
+      "name": "Image to PDF",
+      "url": "https://accessibletechlabsindia.github.io/tools/image-to-pdf.html"
+    },
+    {
+      "id": "ocr",
+      "name": "Image to Text (OCR)",
+      "url": "https://accessibletechlabsindia.github.io/tools/image-to-text.html"
+    },
+    {
+      "id": "bulk-audio-merger",
+      "name": "Industrial Bulk Audio Merger",
+      "url": "https://accessibletechlabsindia.github.io/tools/Industrial Bulk Audio Merger .html"
+    },
+    {
+      "id": "threat-locator",
+      "name": "Network Threat Locator",
+      "url": "https://accessibletechlabsindia.github.io/tools/network-threat-locator.html"
+    },
+    {
+      "id": "pass-radar",
+      "name": "Password Breach Radar",
+      "url": "https://accessibletechlabsindia.github.io/tools/password-checker.html"
+    },
+    {
+      "id": "pdf-merger",
+      "name": "PDF Merger",
+      "url": "https://accessibletechlabsindia.github.io/tools/pdf-merger.html"
+    },
+    {
+      "id": "pdf-to-img",
+      "name": "PDF to Image",
+      "url": "https://accessibletechlabsindia.github.io/tools/pdf-to-image.html"
+    },
+    {
+      "id": "pdf-to-text",
+      "name": "PDF to Text",
+      "url": "https://accessibletechlabsindia.github.io/tools/pdf-to-text.html"
+    },
+    {
+      "id": "audio-trimmer",
+      "name": "Precision Audio Trimmer",
+      "url": "https://accessibletechlabsindia.github.io/tools/audio-trimmer.html"
+    },
+    {
+      "id": "qr-suite",
+      "name": "Professional QR Suite",
+      "url": "https://accessibletechlabsindia.github.io/tools/professional-qr-suite.html"
+    },
+    {
+      "id": "smart-audio-merger",
+      "name": "Smart Audio Merger",
+      "url": "https://accessibletechlabsindia.github.io/tools/Smart Audio Merger.html"
+    },
+    {
+      "id": "sonic-studio",
+      "name": "SonicSphere 360° Studio",
+      "url": "https://accessibletechlabsindia.github.io/tools/SonicSphere_360°_Studio.html"
+    },
+    {
+      "id": "sov-share",
+      "name": "Sovereign Share",
+      "url": "https://accessibletechlabsindia.github.io/tools/sovereign-share.html"
+    },
+    {
+      "id": "sov-nexus",
+      "name": "Sovereign WebRTC Nexus",
+      "url": "https://accessibletechlabsindia.github.io/tools/Sovereign-Nexus/sovereign-webrtc-nexus.html"
+    },
+    {
+      "id": "stealth-inbox",
+      "name": "Stealth Temporary Inbox",
+      "url": "https://accessibletechlabsindia.github.io/tools/stealth-inbox-generator.html"
+    },
+    {
+      "id": "identity-engine",
+      "name": "Synthetic Identity Engine",
+      "url": "https://accessibletechlabsindia.github.io/tools/synthetic-identity-engine.html"
+    },
+    {
+      "id": "vol-booster",
+      "name": "Tactical Volume Booster",
+      "url": "https://accessibletechlabsindia.github.io/tools/Volume Booster .html"
+    },
+    {
+      "id": "text-to-pdf",
+      "name": "Text to PDF",
+      "url": "https://accessibletechlabsindia.github.io/tools/text-to-pdf.html"
+    },
+    {
+      "id": "txt-merger",
+      "name": "TXT Merger",
+      "url": "https://accessibletechlabsindia.github.io/tools/txt-merger.html"
+    },
+    {
+      "id": "cloud-clip",
+      "name": "Universal Cloud Clipboard",
+      "url": "https://accessibletechlabsindia.github.io/tools/universal-cloud-clipboard.html"
+    },
+    {
+      "id": "translator",
+      "name": "Universal Translation Suite",
+      "url": "https://accessibletechlabsindia.github.io/tools/translator.html"
+    },
+    {
+      "id": "weather-radar",
+      "name": "Weather Telemetry Radar",
+      "url": "https://accessibletechlabsindia.github.io/tools/weather-telemetry.html"
+    }
+  ],
+  "games": [
+    {
+      "id": "math-challenge",
+      "name": "Professional Math Challenge",
+      "url": "https://accessibletechlabsindia.github.io/Games/professional-math-challenge.html"
+    }
+  ],
+  "applications": [
+    {
+      "id": "media-downloader",
+      "name": "Media Downloader",
+      "version": "v1.0.0",
+      "downloadUrl": "https://github.com/accessibletechlabsindia/accessibletechlabsindia.github.io/releases/download/v1.0.0/MediaDownloader_Setup_v1.0.exe"
+    },
+    {
+      "id": "syscore-manager",
+      "name": "SystemCore Manager",
+      "version": "v2026.2",
+      "downloadUrl": "https://github.com/accessibletechlabsindia/accessibletechlabsindia.github.io/releases/download/v2026.1/SystemCoreManager.exe"
+    },
+    {
+      "id": "web-blocker-setup",
+      "name": "Website Blocker (Setup)",
+      "version": "v1.0",
+      "downloadUrl": "https://github.com/accessibletechlabsindia/accessibletechlabsindia.github.io/releases/download/v1.0.1/WebsiteBlockerSetup.exe"
+    },
+    {
+      "id": "wifi-finder",
+      "name": "Wifi Password Finder",
+      "version": "v1.0",
+      "downloadUrl": "https://github.com/accessibletechlabsindia/accessibletechlabsindia.github.io/releases/download/v1.0-wifi-password/WifiPasswordFinder.zip"
+    },
+    {
+      "id": "web-blocker-cli",
+      "name": "Website Blocker (CLI)",
+      "version": "v1.0",
+      "downloadUrl": "https://github.com/accessibletechlabsindia/accessibletechlabsindia.github.io/releases/download/v1.0-website-blocker/WebsiteBlocker.zip"
+    },
+    {
+      "id": "txt-to-audio",
+      "name": "Text To Audio Converter",
+      "version": "v1.0",
+      "downloadUrl": "https://github.com/accessibletechlabsindia/accessibletechlabsindia.github.io/releases/download/v1.0-text-to-audio/text.to.audio.zip"
+    },
+    {
+      "id": "temp-cleaner",
+      "name": "Temporary Files Maintenance Tool",
+      "version": "v1.0",
+      "downloadUrl": "https://github.com/accessibletechlabsindia/accessibletechlabsindia.github.io/releases/download/v1.0-temp-maintenance/Temporary.Files.Maintenance.Tool.zip"
+    },
+    {
+      "id": "sys-diag",
+      "name": "System Diagnosis Engine",
+      "version": "v1.0",
+      "downloadUrl": "https://github.com/accessibletechlabsindia/accessibletechlabsindia.github.io/releases/download/v1.0-system-diagnosis/System-Diagnostic-Engine.zip"
+    },
+    {
+      "id": "run-history",
+      "name": "Run History Maintenance",
+      "version": "v1.0",
+      "downloadUrl": "https://github.com/accessibletechlabsindia/accessibletechlabsindia.github.io/releases/download/v1.0-run-history/Run.History.Maintenance.zip"
+    }
+  ],
+  "addons": [
+    {
+      "id": "atl-prod-suite",
+      "name": "ATL Productivity Suite",
+      "version": "v1.5.0",
+      "downloadUrl": "https://github.com/accessibletechlabsindia/atl-productivity-suite/releases/download/v1.5.0/atl_productivity_suite.nvda-addon"
+    }
+  ]
+}
