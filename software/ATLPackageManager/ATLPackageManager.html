@@ -1,11 +1,177 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>ATL Package Manager - Accessible Tech Labs India</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="../css/style.css">
+<style>
+    body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f0f4f8;
+        color: #2c3e50;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+    }
+    .skip-link {
+        position: absolute;
+        top: -40px;
+        left: 0;
+        background: #0056b3;
+        color: white;
+        padding: 8px;
+        z-index: 100;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .skip-link:focus {
+        top: 0;
+    }
+    header {
+        background-color: #003366;
+        color: #ffffff;
+        padding: 20px 0;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    header h1 {
+        margin: 0 0 15px 0;
+        font-size: 2.2em;
+    }
+    nav {
+        background-color: #004080;
+        padding: 10px;
+    }
+    nav a {
+        color: #e6f2ff;
+        text-decoration: none;
+        margin: 0 15px;
+        font-weight: 600;
+        font-size: 1.1em;
+    }
+    nav a:hover, nav a:focus {
+        color: #ffffff;
+        text-decoration: underline;
+    }
+    main {
+        max-width: 950px;
+        margin: 40px auto;
+        background: #ffffff;
+        padding: 40px;
+        border-radius: 10px;
+        box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+    }
+    h2 {
+        color: #004080;
+        font-size: 2em;
+        border-bottom: 2px solid #cce0ff;
+        padding-bottom: 10px;
+        margin-top: 0;
+    }
+    h3 {
+        color: #0056b3;
+        font-size: 1.5em;
+        margin-top: 30px;
+    }
+    p {
+        font-size: 1.1em;
+        margin-bottom: 15px;
+    }
+    ul {
+        list-style-type: square;
+        padding-left: 25px;
+    }
+    li {
+        margin-bottom: 10px;
+        font-size: 1.1em;
+    }
+    .feature-box {
+        background-color: #e6f2ff;
+        border-left: 5px solid #0056b3;
+        padding: 20px;
+        margin: 20px 0;
+        border-radius: 0 8px 8px 0;
+    }
+    .command-list {
+        background: #f8fbff;
+        border: 1px solid #cce0ff;
+        border-radius: 8px;
+        padding: 20px;
+    }
+    .cmd-item {
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px dashed #cce0ff;
+    }
+    .cmd-item:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+    .cmd-code {
+        font-family: Consolas, monospace;
+        background: #003366;
+        color: #ffffff;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 1.1em;
+        display: inline-block;
+        margin-bottom: 5px;
+    }
+    .cmd-desc {
+        display: block;
+        margin-left: 10px;
+        color: #4a5568;
+    }
+    .cmd-example {
+        display: block;
+        margin-left: 10px;
+        margin-top: 5px;
+        color: #0056b3;
+        font-weight: 600;
+        font-style: italic;
+    }
+    .download-section {
+        text-align: center;
+        margin: 35px 0;
+        padding: 20px;
+        background: #f8fbff;
+        border-radius: 8px;
+        border: 1px solid #cce0ff;
+    }
+    .download-btn {
+        background-color: #0056b3;
+        color: #ffffff;
+        padding: 15px 35px;
+        text-decoration: none;
+        font-size: 1.3em;
+        font-weight: bold;
+        border-radius: 8px;
+        display: inline-block;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        transition: background-color 0.3s;
+    }
+    .download-btn:hover, .download-btn:focus {
+        background-color: #003366;
+        color: #ffffff;
+        text-decoration: none;
+    }
+    footer {
+        background-color: #002244;
+        color: #ffffff;
+        text-align: center;
+        padding: 20px 0;
+        margin-top: 40px;
+    }
+    footer a {
+        color: #cce0ff;
+        text-decoration: none;
+    }
+    footer a:hover {
+        text-decoration: underline;
+    }
+</style>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -28,57 +194,109 @@
 <h2>ATL Package Manager</h2>
 
 <p>
-ATL Package Manager is a powerful, accessibility-first software distribution and management platform developed by Accessible Tech Labs India. Designed specifically for Windows 11 users, this modern command-line solution was created to solve a long-standing challenge faced by many blind and visually impaired users. Accessing software, web tools, games, and NVDA add-ons often requires navigating multiple websites, downloading files manually, managing updates, and dealing with installation procedures that are not always accessible. ATL Package Manager eliminates these barriers by providing a unified, professional, and highly accessible environment where users can discover, install, manage, update, and organize resources with maximum efficiency.
+ATL Package Manager is a powerful, accessibility-first software distribution and management platform developed by Accessible Tech Labs India. Designed specifically for modern Windows environments, this command-line solution was created to solve a long-standing challenge faced by many blind and visually impaired users. Accessing software, web tools, games, and NVDA add-ons often requires navigating multiple complex websites, dealing with inaccessible setup wizards, and manually tracking updates.
 </p>
 
 <p>
-Built entirely in Python and engineered around accessibility principles from the very beginning, ATL Package Manager delivers a streamlined experience that works exceptionally well with screen readers such as NVDA and JAWS. Every interaction is keyboard-driven, responsive, and designed to reduce complexity. Instead of searching through numerous pages, remembering download links, or manually tracking versions, users can manage their entire Accessible Tech Labs India ecosystem through a single professional interface.
+ATL Package Manager eliminates these barriers by providing a unified, professional, and highly accessible terminal environment where users can discover, install, update, and organize resources completely automatically with maximum efficiency.
 </p>
+
+<div class="download-section">
+    <h3>Get Started Today</h3>
+    <p>Download the standalone executable to seamlessly manage your accessible software ecosystem.</p>
+    <a href="https://github.com/accessibletechlabsindia/accessibletechlabsindia.github.io/releases/download/v1.0/ATLPackageManager.exe" class="download-btn">Download ATL Package Manager (v1.0)</a>
+</div>
+
+<h3>Why We Created This Tool</h3>
 
 <p>
-The project was created after observing the difficulties many visually impaired users encountered while accessing software releases, web-based tools, accessibility resources, educational applications, productivity utilities, and digital services. Our goal was to provide a centralized platform capable of simplifying software distribution while maintaining enterprise-grade reliability, performance, and accessibility. The result is a modern package management experience tailored specifically to the needs of blind and low-vision users.
+Visually impaired users frequently face hurdles when attempting to install standard software. Visual CAPTCHAs, cluttered download pages, misleading advertisement buttons, and complex installation dialogs that break screen reader focus make software management frustrating. We developed the ATL Package Manager to centralize our entire ecosystem into a single, clean interface. By simply typing what you need, the manager handles the downloading, silent installation, and future updating processes entirely in the background. 
 </p>
 
-<h3>Why ATL Package Manager Was Created</h3>
-
-<p>
-Accessible Tech Labs India develops a growing ecosystem of software applications, web tools, games, utilities, and accessibility solutions. As the number of resources expanded, users often needed to browse multiple locations to find the latest versions, updates, or supported services. ATL Package Manager was created to bring all these resources together into one consistent platform. By centralizing discovery and management, the software reduces confusion, improves accessibility, and helps users stay productive while maintaining complete control over their environment.
-</p>
-
-<h3>Key Features</h3>
+<h3>Technical Details & System Requirements</h3>
 
 <ul>
-<li>Accessibility-first architecture designed specifically for blind and visually impaired users.</li>
-<li>Professional command-line experience optimized for screen readers including NVDA and JAWS.</li>
-<li>Centralized access to software applications, accessibility tools, games, and digital resources.</li>
-<li>Integrated package management system for discovering and managing supported resources.</li>
-<li>Intelligent update awareness designed to help users remain up to date.</li>
-<li>Highly responsive keyboard-only workflow for maximum productivity.</li>
-<li>Modern Windows 11 compatible architecture.</li>
-<li>Clean and distraction-free user experience.</li>
-<li>Enterprise-inspired package management concepts adapted for accessibility.</li>
-<li>Fast package lookup and resource discovery.</li>
-<li>Unified management environment for the Accessible Tech Labs India ecosystem.</li>
-<li>Professional error handling and user guidance mechanisms.</li>
-<li>Built with reliability, performance, and long-term maintainability in mind.</li>
-<li>Designed to scale as new applications, tools, games, and services are introduced.</li>
+<li><strong>Core Technology:</strong> Engineered entirely in Python, compiled into a single, fast standalone executable.</li>
+<li><strong>Operating System:</strong> Fully compatible with Windows 10 and Windows 11 (32-bit and 64-bit architectures).</li>
+<li><strong>Why Administrator Privileges are Required:</strong> Upon launch, ATL Package Manager will request Windows Administrator Rights (UAC). This is strictly required to execute 100% silent background installations and uninstallations. Without these rights, Windows would interrupt your screen reader with pop-up setup dialogs, defeating the purpose of an automated accessibility tool.</li>
+<li><strong>Internet Connection:</strong> Required to fetch the live cloud database and download packages.</li>
 </ul>
 
-<h3>Accessibility Commitment</h3>
+<div class="feature-box">
+<h3>Powerful Core Features</h3>
+<ul>
+<li><strong>Smart Auto-Update System:</strong> The tool automatically checks for its own updates on startup. If a new version is found, it silently downloads and upgrades itself without user intervention.</li>
+<li><strong>100% Silent Installations:</strong> Install applications (.exe) and NVDA Add-ons without ever clicking a "Next" button.</li>
+<li><strong>Smart Search Engine:</strong> No need to remember exact names. Type partial names and the system will intelligently find the correct package.</li>
+<li><strong>Deep Version Checking:</strong> It deeply scans Windows Registries and NVDA manifest files to compare your installed versions with the cloud database.</li>
+<li><strong>Portable Tool Auto-Extraction:</strong> Portable tools (.zip) are automatically downloaded and safely extracted directly to your local 'Downloads' folder.</li>
+<li><strong>Instant Desktop Shortcuts:</strong> Easily add or remove direct desktop shortcuts for our web-based tools and games.</li>
+</ul>
+</div>
+
+<h3>Complete Command Reference & Examples</h3>
 
 <p>
-Accessibility is not an afterthought within ATL Package Manager. It serves as the foundation of the entire platform. Every aspect of the user experience has been designed to minimize unnecessary complexity while maximizing compatibility with assistive technologies. Clear output, predictable navigation, keyboard-focused workflows, and efficient interaction patterns help ensure that users can complete tasks quickly and independently.
+ATL Package Manager is fully keyboard-driven. Simply type the following commands into the prompt to control your software ecosystem.
 </p>
 
-<h3>Designed for the Future</h3>
-
-<p>
-ATL Package Manager represents a significant step toward creating a fully connected and accessible software ecosystem. As Accessible Tech Labs India continues to develop new technologies, accessibility solutions, educational platforms, utilities, productivity applications, web tools, and digital services, ATL Package Manager will continue evolving as the central hub through which users can access and manage these resources. The platform has been designed with future growth in mind, ensuring that it remains capable, reliable, and accessible for years to come.
-</p>
-
-<p>
-For a complete list of supported commands, features, and capabilities, users can access the built-in Help system directly within the application. This provides instant guidance and detailed information about available functionality.
-</p>
+<div class="command-list">
+    <div class="cmd-item">
+        <span class="cmd-code">help</span>
+        <span class="cmd-desc">Displays the list of all available commands.</span>
+        <span class="cmd-example">Example: help</span>
+    </div>
+    <div class="cmd-item">
+        <span class="cmd-code">atli list all</span>
+        <span class="cmd-desc">Shows a numeric summary of all available tools, games, softwares, and addons in the cloud database.</span>
+        <span class="cmd-example">Example: atli list all</span>
+    </div>
+    <div class="cmd-item">
+        <span class="cmd-code">atli list software / addon / tool / game</span>
+        <span class="cmd-desc">Displays a detailed list of available items in the specified category, including their latest versions.</span>
+        <span class="cmd-example">Example: atli list software</span>
+    </div>
+    <div class="cmd-item">
+        <span class="cmd-code">install software &lt;name&gt;</span>
+        <span class="cmd-desc">Silently installs the specified software or extracts portable utilities to your Downloads folder.</span>
+        <span class="cmd-example">Example: install software SystemCore Manager</span>
+    </div>
+    <div class="cmd-item">
+        <span class="cmd-code">uninstall software &lt;name&gt;</span>
+        <span class="cmd-desc">Locates the software in the Windows Registry and uninstalls it silently in the background.</span>
+        <span class="cmd-example">Example: uninstall software SystemCore Manager</span>
+    </div>
+    <div class="cmd-item">
+        <span class="cmd-code">install addon &lt;name&gt;</span>
+        <span class="cmd-desc">Downloads and installs the specified NVDA screen reader add-on silently.</span>
+        <span class="cmd-example">Example: install addon ATL Productivity Suite</span>
+    </div>
+    <div class="cmd-item">
+        <span class="cmd-code">add tool &lt;name&gt; / add game &lt;name&gt;</span>
+        <span class="cmd-desc">Creates a direct, accessible shortcut on your desktop for the specified online tool or game.</span>
+        <span class="cmd-example">Example: add tool Accessible Calculator</span>
+    </div>
+    <div class="cmd-item">
+        <span class="cmd-code">remove tool &lt;name&gt; / remove game &lt;name&gt;</span>
+        <span class="cmd-desc">Safely removes the shortcut of the specified tool or game from your desktop.</span>
+        <span class="cmd-example">Example: remove tool Accessible Calculator</span>
+    </div>
+    <div class="cmd-item">
+        <span class="cmd-code">atli upgrade</span>
+        <span class="cmd-desc">Scans your system registry and displays a list of all installed packages that have a new update available online.</span>
+        <span class="cmd-example">Example: atli upgrade</span>
+    </div>
+    <div class="cmd-item">
+        <span class="cmd-code">atli upgrade &lt;name&gt;</span>
+        <span class="cmd-desc">Checks and updates a specific software or NVDA add-on to its latest version if outdated.</span>
+        <span class="cmd-example">Example: atli upgrade SystemCore Manager</span>
+    </div>
+    <div class="cmd-item">
+        <span class="cmd-code">atli upgrade all</span>
+        <span class="cmd-desc">Automatically downloads and silently installs updates for every outdated ATL package detected on your system.</span>
+        <span class="cmd-example">Example: atli upgrade all</span>
+    </div>
+</div>
 
 </main>
 
