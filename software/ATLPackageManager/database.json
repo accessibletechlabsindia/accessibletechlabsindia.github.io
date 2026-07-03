@@ -244,12 +244,13 @@
       "downloadUrl": "https://github.com/accessibletechlabsindia/accessibletechlabsindia.github.io/releases/download/v1.0-run-history/Run.History.Maintenance.zip"
     }
   ],
+{
   "addons": [
     {
       "id": "atl-prod-suite",
       "name": "ATL Productivity Suite",
-      "version": "v1.5.0",
-      "downloadUrl": "https://github.com/accessibletechlabsindia/atl-productivity-suite/releases/download/v1.5.0/atl_productivity_suite.nvda-addon"
+      "version": "v2.0.0",
+      "downloadUrl": "https://github.com/accessibletechlabsindia/atl-productivity-suite/releases/download/v2.0.0/atl_productivity_suite.nvda-addon"
     }
   ]
 }

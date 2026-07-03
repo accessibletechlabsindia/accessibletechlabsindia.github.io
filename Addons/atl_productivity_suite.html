@@ -8,13 +8,13 @@
 <link rel="stylesheet" href="../css/style.css">
 <style>
 :root {
---bg-color: #0f172a;
---card-bg: #1e293b;
---text-main: #f8fafc;
---accent-primary: #3b82f6;
---accent-success: #22c55e;
---accent-warning: #f59e0b;
---accent-danger: #ef4444;
+--bg-color: #041421;
+--card-bg: #0b253a;
+--text-main: #e0f2fe;
+--accent-primary: #38bdf8;
+--accent-success: #06b6d4;
+--accent-warning: #fbbf24;
+--accent-danger: #e11d48;
 --border-radius: 16px;
 }
 body {
@@ -28,7 +28,7 @@ line-height: 1.7;
 .skip-link {
 position: absolute;
 left: -9999px;
-background: #fbbf24;
+background: var(--accent-warning);
 color: #000;
 padding: 10px;
 z-index: 100;
@@ -40,7 +40,7 @@ left: 10px;
 top: 10px;
 }
 header {
-background: #000;
+background: #020a12;
 padding: 25px 20px;
 text-align: center;
 border-bottom: 3px solid var(--accent-primary);
@@ -61,8 +61,8 @@ border-radius: 4px;
 display: inline-block;
 }
 nav a:focus, nav a:hover {
-outline: 4px solid #fbbf24;
-background: rgba(59, 130, 246, 0.1);
+outline: 4px solid var(--accent-warning);
+background: rgba(56, 189, 248, 0.15);
 }
 #main {
 max-width: 1100px;
@@ -72,21 +72,25 @@ display: grid;
 gap: 40px;
 }
 .hero-section {
-background: linear-gradient(135deg, rgba(30, 41, 59, 1) 0%, rgba(15, 23, 42, 1) 100%);
+background: linear-gradient(135deg, #075985 0%, #082f49 100%);
 padding: 50px 40px;
 border-radius: var(--border-radius);
 box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
-border: 1px solid rgba(255,255,255,0.1);
+border: 1px solid rgba(56, 189, 248, 0.2);
 text-align: center;
 }
 .hero-section.legacy {
-background: linear-gradient(135deg, #334155 0%, #0f172a 100%);
+background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
 padding: 30px 40px;
-border-top: 4px solid #475569;
+border-top: 4px solid #334155;
+border-left: none;
+border-right: none;
+border-bottom: none;
+box-shadow: none;
 }
 .hero-section h2 {
 font-size: 2.8rem;
-color: var(--accent-success);
+color: #67e8f9;
 margin-top: 0;
 margin-bottom: 15px;
 }
@@ -96,7 +100,7 @@ color: #94a3b8;
 }
 .version-badge {
 background: var(--accent-primary);
-color: white;
+color: #020a12;
 padding: 5px 15px;
 border-radius: 20px;
 font-weight: bold;
@@ -105,22 +109,23 @@ vertical-align: middle;
 }
 .version-badge.latest {
 background: var(--accent-danger);
+color: white;
 }
 .btn-primary {
 display: inline-block;
 background: var(--accent-success);
-color: #000;
+color: #020a12;
 padding: 18px 35px;
 font-size: 1.2rem;
 font-weight: 800;
 text-decoration: none;
 border-radius: 8px;
 margin-top: 25px;
-transition: transform 0.2s;
+transition: transform 0.2s, background 0.2s;
 }
 .btn-secondary {
 display: inline-block;
-background: #475569;
+background: #334155;
 color: white;
 padding: 12px 25px;
 font-size: 1rem;
@@ -131,43 +136,60 @@ margin-top: 15px;
 transition: background 0.2s;
 }
 .btn-primary:focus, .btn-primary:hover {
-outline: 4px solid #fbbf24;
+outline: 4px solid var(--accent-warning);
 transform: scale(1.05);
+background: #22d3ee;
 }
 .btn-secondary:focus, .btn-secondary:hover {
-background: #64748b;
-outline: 3px solid #fbbf24;
+background: #475569;
+outline: 3px solid var(--accent-warning);
 }
 .content-section {
 background: var(--card-bg);
 padding: 40px;
 border-radius: var(--border-radius);
 border-left: 5px solid var(--accent-primary);
-border-right: 1px solid rgba(255,255,255,0.05);
-border-top: 1px solid rgba(255,255,255,0.05);
-border-bottom: 1px solid rgba(255,255,255,0.05);
+border-right: 1px solid rgba(56, 189, 248, 0.1);
+border-top: 1px solid rgba(56, 189, 248, 0.1);
+border-bottom: 1px solid rgba(56, 189, 248, 0.1);
+box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+.content-section.legacy-content {
+border-left: 5px solid #475569;
+border-right: 1px solid rgba(255,255,255,0.02);
+border-top: 1px solid rgba(255,255,255,0.02);
+border-bottom: 1px solid rgba(255,255,255,0.02);
+background: #0f172a;
+box-shadow: none;
 }
 .content-section h3 {
 color: var(--accent-primary);
 font-size: 2rem;
 margin-top: 0;
-border-bottom: 2px solid rgba(255,255,255,0.1);
+border-bottom: 2px solid rgba(56, 189, 248, 0.2);
 padding-bottom: 10px;
+}
+.content-section.legacy-content h3 {
+color: #94a3b8;
+border-bottom: 2px solid rgba(255,255,255,0.05);
 }
 .text-content {
 font-size: 1.15rem;
-color: #cbd5e1;
+color: #bae6fd;
 text-align: justify;
 }
+.content-section.legacy-content .text-content {
+color: #cbd5e1;
+}
 .recommendation-box {
-background: rgba(239, 68, 68, 0.1);
-border-left: 5px solid var(--accent-danger);
+background: rgba(14, 165, 233, 0.15);
+border-left: 5px solid var(--accent-primary);
 padding: 20px;
 margin-bottom: 25px;
 border-radius: 0 8px 8px 0;
 }
 .recommendation-box strong {
-color: #fca5a5;
+color: #7dd3fc;
 font-size: 1.2rem;
 }
 .link-grid {
@@ -177,10 +199,10 @@ gap: 25px;
 margin-top: 20px;
 }
 .link-card {
-background: rgba(0,0,0,0.3);
+background: rgba(2, 10, 18, 0.6);
 padding: 25px;
 border-radius: 12px;
-border: 1px solid rgba(255,255,255,0.1);
+border: 1px solid rgba(56, 189, 248, 0.15);
 }
 .link-card h4 {
 color: var(--accent-warning);
@@ -190,12 +212,12 @@ margin-bottom: 15px;
 }
 .link-card p {
 font-size: 1.05rem;
-color: #94a3b8;
+color: #bae6fd;
 margin-bottom: 20px;
 }
 .link-card a {
 display: inline-block;
-background: #000;
+background: #020a12;
 color: var(--text-main);
 padding: 12px 20px;
 text-decoration: none;
@@ -206,21 +228,22 @@ transition: all 0.2s;
 }
 .link-card a:focus, .link-card a:hover {
 background: var(--accent-primary);
-outline: 3px solid #fbbf24;
+color: #020a12;
+outline: 3px solid var(--accent-warning);
 }
 footer {
-background: #000;
+background: #020a12;
 padding: 30px;
 text-align: center;
-margin-top: 20px;
-border-top: 1px solid #334155;
+margin-top: 40px;
+border-top: 1px solid #082f49;
 }
 footer a {
 color: var(--text-main);
 font-weight: bold;
 }
 footer a:focus {
-outline: 3px solid #fbbf24;
+outline: 3px solid var(--accent-warning);
 }
 </style>
 </head>
@@ -243,66 +266,79 @@ outline: 3px solid #fbbf24;
 <main id="main">
 
 <section class="hero-section" aria-labelledby="addon-title-latest">
-<h2 id="addon-title-latest">ATL Productivity Suite <span class="version-badge latest">v1.5.0 (LATEST)</span></h2>
-<p style="font-size: 1.3rem; color: #cbd5e1; max-width: 800px; margin: 0 auto;">
-The ultimate enterprise-grade workstation assistant. Now engineered with a high-speed unified master database architecture, intelligent threat-scanning retry mechanisms, and zero-latency execution.
+<h2 id="addon-title-latest">ATL Productivity Suite <span class="version-badge latest">v2.0.0 (LATEST)</span></h2>
+<p style="font-size: 1.3rem; color: #e0f2fe; max-width: 850px; margin: 0 auto;">
+The ultimate enterprise-grade workstation assistant. Redesigned with a 10-Engine Smart Search Hub, Background Auto-Cleanup, Pomodoro Focus Modes, and Voice-Assisted Alarms for an unparalleled NVDA experience.
 </p>
-<a href="https://github.com/accessibletechlabsindia/atl-productivity-suite/releases/download/v1.5.0/atl_productivity_suite.nvda-addon" class="btn-primary" aria-label="Direct Download ATL Productivity Suite version 1.5.0">
+<a href="https://github.com/accessibletechlabsindia/atl-productivity-suite/releases/download/v2.0.0/atl_productivity_suite.nvda-addon" class="btn-primary" aria-label="Direct Download ATL Productivity Suite version 2.0.0">
 Download Latest Add-on (.nvda-addon)
 </a>
 </section>
 
-<section class="content-section" aria-labelledby="whats-new-150-heading">
-<h3 id="whats-new-150-heading">Flagship Update: What's New in Version 1.5.0</h3>
+<section class="content-section" aria-labelledby="whats-new-200-heading">
+<h3 id="whats-new-200-heading">Major Update: What's New in Version 2.0.0</h3>
 <div class="text-content">
 <div class="recommendation-box">
-<strong>Official Developer Recommendation:</strong> We strictly advise all visually impaired professionals, students, and existing users to upgrade to Version 1.5.0 immediately. This critical architectural update resolves underlying system file-lock redundancies, eliminates antivirus scanning interruptions, and delivers unprecedented configuration loading speeds.
+<strong>Official Developer Recommendation:</strong> Accessible Tech Labs India strongly advises all visually impaired professionals and existing users to strictly utilize and upgrade to the latest version (v2.0.0). Operating on outdated versions means missing out on crucial enterprise stability patches, enhanced security features, and modern automation tools. Always download the latest version for an uncompromising accessible experience.
 </div>
 <p>
-Version 1.5.0 focuses heavily on core engine optimization and complete runtime stability. By migrating away from fragmented data files into a centralized framework, the ATL Productivity Suite now meets the highest standards of enterprise software reliability.
+Version 2.0.0 is a massive architectural leap forward. We have completely streamlined the suite into 10 highly optimized, crash-free utilities. By removing redundant tools and integrating cutting-edge automation, this release makes your daily digital workflow significantly faster and smarter.
 </p>
 <p>
 <strong>Key Upgrades Include:</strong><br>
 <ul style="line-height: 1.8;">
-<li><strong>Unified Master Database Architecture:</strong> Successfully consolidated multiple disparate JSON configuration subsystems into a single, high-speed data layer. This enterprise-grade structural refactoring drastically minimizes memory overhead and ensures instantaneous configuration loading with zero processing latency.</li>
-<li><strong>Resilient Threat Diagnostics:</strong> Engineered an intelligent, persistent Smart Retry Mechanism within the ATL Sentinel Security Scanner. This robustly mitigates OS-level file locking issues and aggressive third-party antivirus interceptions during file-upload staging to VirusTotal.</li>
-<li><strong>Verified Ecosystem Compatibility:</strong> Ensured absolute stability and seamless runtime synchronization with the latest NVDA 2026.1.1 security patches, guaranteeing a secure and uninterrupted user experience.</li>
+<li><strong>Smart Search Hub V2.0:</strong> Now integrated with 10 global search engines (Google, YouTube, GitHub, Stack Overflow, and more). It reads your clipboard automatically and uses smart prefix routing to save typing time.</li>
+<li><strong>Auto-Cleanup Subsystem:</strong> Forget manual maintenance. The System Cleaner now features a fully automated background scheduler (Daily, Weekly, or Monthly) to silently eliminate Windows Temp, Prefetch, and RunMRU history.</li>
+<li><strong>Smart Workspace Launcher:</strong> A revolutionary upgrade to the Quick Launcher. A single shortcut slot can now act as a "Workspace", launching multiple applications, project folders, and deep Windows Settings simultaneously.</li>
+<li><strong>Voice-Assisted (TTS) Alarms:</strong> Beyond custom MP3 ringtones, NVDA will now use its integrated Text-to-Speech engine to explicitly announce your custom alert messages precisely when your scheduled alarm rings.</li>
+<li><strong>Pomodoro Focus Mode:</strong> The Precision Stopwatch now features a dedicated Pomodoro timer with audio cues (25 minutes of focus, 5 minutes of rest), specifically engineered to boost productivity for coders and professionals.</li>
+<li><strong>Advanced Threat Diagnostics:</strong> The Universal Sentinel Scanner has been upgraded to scan URLs, Domains, and IPs, supporting multi-part routing for large enterprise files. System Health now features an Admin-level Deep Diagnostic Scan for extracting advanced hardware telemetry.</li>
 </ul>
 </p>
 </div>
 </section>
 
+<section class="hero-section legacy" aria-labelledby="addon-title-150">
+<h2 id="addon-title-150">Previous Major Release <span class="version-badge">v1.5.0</span></h2>
+<p style="font-size: 1.1rem; color: #94a3b8; max-width: 800px; margin: 0 auto;">
+The v1.5.0 release of the ATL Productivity Suite. Provided strictly for archival purposes and backward compatibility with older systems.
+</p>
+<a href="https://github.com/accessibletechlabsindia/atl-productivity-suite/releases/download/v1.5.0/atl_productivity_suite.nvda-addon" class="btn-secondary" aria-label="Direct Download ATL Productivity Suite version 1.5.0">
+Download v1.5.0 (Archive)
+</a>
+</section>
+
+<section class="content-section legacy-content" aria-labelledby="whats-new-150-heading">
+<h3 id="whats-new-150-heading">Overview (v1.5.0 Architecture)</h3>
+<div class="text-content">
+<p>
+Version 1.5.0 focused heavily on core engine optimization and runtime stability. It successfully migrated fragmented data files into a centralized, high-speed unified master database layer, minimizing memory overhead and ensuring instantaneous configuration loading with zero processing latency. It also engineered a persistent Smart Retry Mechanism within the ATL Sentinel Security Scanner to mitigate OS-level file locking issues.
+</p>
+</div>
+</section>
+
 <section class="hero-section legacy" aria-labelledby="addon-title-140">
-<h2 id="addon-title-140">Previous Major Release <span class="version-badge">v1.4.0</span></h2>
-<p style="font-size: 1.1rem; color: #cbd5e1; max-width: 800px; margin: 0 auto;">
-The v1.4.0 release of the ATL Productivity Suite. Provided strictly for archival purposes and backward compatibility with older systems.
+<h2 id="addon-title-140">Legacy Release <span class="version-badge">v1.4.0</span></h2>
+<p style="font-size: 1.1rem; color: #94a3b8; max-width: 800px; margin: 0 auto;">
+The v1.4.0 release of the ATL Productivity Suite. Maintained only for historical reference.
 </p>
 <a href="https://github.com/accessibletechlabsindia/atl-productivity-suite/releases/download/v1.4.0/atl_productivity_suite.nvda-addon" class="btn-secondary" aria-label="Direct Download ATL Productivity Suite version 1.4.0">
 Download v1.4.0 (Archive)
 </a>
 </section>
 
-<section class="content-section" aria-labelledby="whats-new-140-heading">
-<h3 id="whats-new-140-heading">Comprehensive Overview (v1.4.0 Architecture)</h3>
+<section class="content-section legacy-content" aria-labelledby="whats-new-140-heading">
+<h3 id="whats-new-140-heading">Overview (v1.4.0 Architecture)</h3>
 <div class="text-content">
 <p>
-Version 1.4.0 transitioned the ATL Productivity Suite from a standard utility script into an enterprise-level modular application. The entire core was refactored, meaning each tool ran in absolute isolation, delivering a 40% increase in execution speed and a drastically reduced memory footprint.
-</p>
-<p>
-<strong>Key Upgrades Included:</strong><br>
-<ul style="line-height: 1.8;">
-<li><strong>ATL Sentinel Security Scanner:</strong> A revolutionary integration with the VirusTotal API allowing users to instantly verify the safety of any file (up to 650MB) or web URL without navigating complex security software.</li>
-<li><strong>ATL Precision Stopwatch:</strong> A flawlessly accurate, fully accessible time-tracking utility engineered for coding sessions, examinations, and daily productivity monitoring.</li>
-<li><strong>Intelligent Privacy Telemetry:</strong> An opt-in, privacy-first analytics engine with offline caching to track 100% anonymous usage data.</li>
-<li><strong>Advanced Cleaner & Power Manager Protocols:</strong> Intelligent handling of Windows Administrative privileges for secure directory cleaning, alongside a strict 5-minute safety cooldown to prevent catastrophic system crashes.</li>
-</ul>
+Version 1.4.0 transitioned the suite into an enterprise-level modular application. It introduced the ATL Sentinel Security Scanner (VirusTotal integration), the ATL Precision Stopwatch, and an opt-in, privacy-first telemetry engine. It also established strict 5-minute safety cooldowns in the Power Manager to prevent catastrophic system crashes.
 </p>
 </div>
 </section>
 
 <section class="hero-section legacy" aria-labelledby="addon-title-130">
 <h2 id="addon-title-130">Legacy Release <span class="version-badge">v1.3.0</span></h2>
-<p style="font-size: 1.1rem; color: #cbd5e1; max-width: 800px; margin: 0 auto;">
+<p style="font-size: 1.1rem; color: #94a3b8; max-width: 800px; margin: 0 auto;">
 The v1.3.0 version of the ATL Productivity Suite. Maintained only for historical reference.
 </p>
 <a href="https://github.com/accessibletechlabsindia/atl-productivity-suite/releases/download/v1.3.0/atl_productivity_suite.nvda-addon" class="btn-secondary" aria-label="Direct Download ATL Productivity Suite version 1.3.0">
@@ -310,17 +346,11 @@ Download v1.3.0 (Archive)
 </a>
 </section>
 
-<section class="content-section" aria-labelledby="about-130-heading">
-<h3 id="about-130-heading">Comprehensive Overview (v1.3.0 Architecture)</h3>
+<section class="content-section legacy-content" aria-labelledby="about-130-heading">
+<h3 id="about-130-heading">Overview (v1.3.0 Architecture)</h3>
 <div class="text-content">
 <p>
-The ATL Productivity Suite is a revolutionary, high-performance extension meticulously engineered by Accessible Tech Labs India to transform how visually impaired professionals interact with their computing environments. Built upon a foundation of zero-latency execution and absolute data sovereignty, this add-on seamlessly integrates into the NVDA ecosystem, functioning as an invisible yet immensely powerful co-pilot. We recognized that standard system management tasks—such as monitoring hardware health or clearing temporary cache files—often present navigational barriers for screen reader users. To bridge this gap, we developed a sophisticated suite of tools that deliver critical system intelligence directly via auditory feedback, eliminating the need to navigate complex visual dashboards or third-party applications.
-</p>
-<p>
-At the core of this add-on lies the Advanced System Health Dashboard. With a single, intuitive keyboard shortcut, users receive an instantaneous, highly accurate vocalization of their machine's vital statistics. This includes real-time battery percentage and charging state, active RAM utilization, and precise disk storage capacity. Beyond passive monitoring, the suite introduces a state-of-the-art System Cleaner module. This industrial-grade utility safely targets and eliminates redundant temporary files, deeply buried system cache, and application residue, thereby actively restoring computational speed and optimizing overall hardware performance. The cleaning process is entirely automated, secure, and designed to prevent any disruption to critical operating system files.
-</p>
-<p>
-Furthermore, the entire architecture of the ATL Productivity Suite is strictly client-side. We prioritize your privacy above all else; therefore, the add-on operates completely locally on your hardware without requiring an internet connection, transmitting telemetry, or relying on external cloud processing. Every line of Python code within this extension has been rigorously audited to ensure maximum stability, minimal memory footprint, and perfect synchronization with the latest NVDA APIs. Whether you are a software developer requiring peak system performance, a professional managing daily workflows, or a student optimizing a personal computer, the ATL Productivity Suite provides unprecedented control, efficiency, and independence right at your fingertips.
+Built upon a foundation of zero-latency execution and absolute data sovereignty, v1.3.0 introduced the Advanced System Health Dashboard and the core System Cleaner module. It allowed users to receive instantaneous, highly accurate vocalizations of their machine's vital statistics and perform industrial-grade cleanups completely locally, without relying on external cloud processing.
 </p>
 </div>
 </section>
@@ -360,15 +390,15 @@ Furthermore, the entire architecture of the ATL Productivity Suite is strictly c
 <h3 id="license-heading">Software License and Open Source Commitment</h3>
 <div class="text-content">
 <p>
-The ATL Productivity Suite is proudly released and distributed under the GNU General Public License Version 2.0 (GPL-2.0). We firmly believe in the power of open-source software and community-driven innovation. This specific license guarantees your fundamental freedom to safely run, comprehensively study, legally share, and openly modify this software without corporate restrictions. By embracing this open-source philosophy, Accessible Tech Labs India ensures that our core technology remains entirely transparent, highly collaborative, and forever accessible to the global developer community. We encourage fellow developers to fork, enhance, and build upon our work. To read the complete legal terms, conditions, and user rights, please review the official GNU license documentation provided below.
+The ATL Productivity Suite is proudly released and distributed under the GNU General Public License Version 2.0 (GPL-2.0). We firmly believe in the power of open-source software and community-driven innovation. This specific license guarantees your fundamental freedom to safely run, comprehensively study, legally share, and openly modify this software without corporate restrictions. By embracing this open-source philosophy, Accessible Tech Labs India ensures that our core technology remains entirely transparent, highly collaborative, and forever accessible to the global developer community.
 </p>
-<a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.html" target="_blank" rel="noopener" style="display: inline-block; background: var(--accent-primary); color: white; padding: 12px 24px; text-decoration: none; font-weight: bold; border-radius: 6px; margin-top: 15px;">Read Full GPL-2.0 License</a>
+<a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.html" target="_blank" rel="noopener" style="display: inline-block; background: var(--accent-primary); color: #020a12; padding: 12px 24px; text-decoration: none; font-weight: bold; border-radius: 6px; margin-top: 15px; transition: background 0.2s;">Read Full GPL-2.0 License</a>
 </div>
 </section>
 
 </main>
 <footer role="contentinfo">
-<p><a href="../privacy.html" accesskey="p" style="color: white; text-decoration: underline;">Privacy Policy</a></p>
+<p><a href="../privacy.html" accesskey="p" style="color: var(--text-main); text-decoration: underline;">Privacy Policy</a></p>
 <p>© 2026 Accessible Tech Labs India</p>
 </footer>
 </body>
