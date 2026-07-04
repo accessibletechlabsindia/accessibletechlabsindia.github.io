@@ -192,8 +192,8 @@
     {
       "id": "media-downloader",
       "name": "Media Downloader",
-      "version": "v1.0.0",
-      "downloadUrl": "https://github.com/accessibletechlabsindia/accessibletechlabsindia.github.io/releases/download/v1.0.0/MediaDownloader_Setup_v1.0.exe"
+  "version": "v1.1.0",
+  "downloadUrl": "https://github.com/accessibletechlabsindia/accessibletechlabsindia.github.io/releases/download/v1.1.0/MediaDownloader_Setup_v1.1.exe"
     },
     {
       "id": "syscore-manager",

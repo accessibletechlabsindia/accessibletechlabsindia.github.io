@@ -1,4 +1,4 @@
-Version=1.0.0
+Version=1.1.0
 AppName=Media Downloader
-DownloadURL=https://github.com/accessibletechlabsindia/accessibletechlabsindia.github.io/releases/download/v1.0.0/MediaDownloader_Setup_v1.0.exe
+DownloadURL=https://github.com/accessibletechlabsindia/accessibletechlabsindia.github.io/releases/download/v1.1.0/MediaDownloader_Setup_v1.1.exe
 MandatoryUpdate=no
