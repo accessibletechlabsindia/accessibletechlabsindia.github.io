@@ -37,7 +37,7 @@ a:hover {
     text-decoration: underline;
 }
 
-.card, .addon-section, .game-container, .tool-box {
+[class*="card"], [class*="-box"], [class*="-section"], [class*="-container"], [class*="-panel"], [class*="-wrapper"] {
     background-color: var(--card-bg);
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
@@ -47,7 +47,7 @@ a:hover {
     border: 1px solid rgba(0, 0, 0, 0.02);
 }
 
-.card:hover, .addon-section:hover, .game-container:hover, .tool-box:hover {
+[class*="card"]:hover, [class*="-box"]:hover, [class*="-section"]:hover, [class*="-container"]:hover, [class*="-panel"]:hover, [class*="-wrapper"]:hover {
     transform: translateY(-4px);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
 }
@@ -114,7 +114,7 @@ header, .main-nav {
     z-index: 1000;
 }
 
-.container {
+.container, .main-container, .about-grid {
     max-width: 1200px;
     margin: 0 auto;
     padding: 24px 5%;

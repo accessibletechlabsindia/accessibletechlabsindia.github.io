@@ -6,175 +6,28 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <meta charset="UTF-8">
 <title>Accessible Tech Labs India</title>
+<link rel="stylesheet" href="css/style.css">
 <meta name="description" content="Welcome to Accessible Tech Labs India, your premier destination for inclusive technology. We engineer professional-grade software, high-performance web tools, and accessible gaming architectures designed to empower users of all abilities.">
 <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
 <meta name="theme-color" content="#0d1117">
-<link rel="stylesheet" href="css/style.css">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body {
-    background-color: #0d1117;
-    color: #c9d1d9;
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-}
-.main-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 20px;
-}
-.hero-section {
-    background: linear-gradient(135deg, rgba(22, 27, 34, 0.9), rgba(13, 17, 23, 1));
-    padding: 60px 20px;
-    text-align: center;
-    border-bottom: 4px solid #58a6ff;
-    border-radius: 12px;
-    margin-bottom: 50px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-.hero-title {
-    font-size: 3rem;
-    color: #f8fafc;
-    margin-top: 0;
-    margin-bottom: 15px;
-    letter-spacing: 1px;
-}
-.hero-subtitle {
-    font-size: 1.25rem;
-    color: #8b949e;
-    max-width: 900px;
-    margin: 0 auto 30px auto;
-    line-height: 1.7;
-}
-.features-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 30px;
-    margin-bottom: 50px;
-}
-.feature-card {
-    background: #161b22;
-    padding: 30px;
-    border-radius: 16px;
-    border-top: 5px solid #238636;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.4);
-    transition: transform 0.3s ease, border-color 0.3s ease;
-}
-.feature-card:focus-within {
-    border-color: #58a6ff;
-    transform: translateY(-5px);
-}
-.feature-card h3 {
-    color: #58a6ff;
-    margin-top: 0;
-    font-size: 1.6rem;
-    margin-bottom: 15px;
-}
-.feature-card p {
-    color: #c9d1d9;
-    font-size: 1.05rem;
-    line-height: 1.6;
-    margin-bottom: 0;
-    text-align: justify;
-}
-.mission-section {
-    background: rgba(255,255,255,0.03);
-    padding: 40px;
-    border-radius: 16px;
-    border-left: 5px solid #58a6ff;
-    margin-bottom: 40px;
-}
-.mission-section h2 {
-    color: #58a6ff;
-    margin-top: 0;
-    font-size: 2rem;
-    margin-bottom: 20px;
-}
-.mission-section p {
-    color: #c9d1d9;
-    font-size: 1.15rem;
-    text-align: justify;
-    margin-bottom: 15px;
-    line-height: 1.7;
-}
-.roadmap-teaser {
-    background: #161b22;
-    padding: 40px;
-    border-radius: 16px;
-    border: 1px solid #30363d;
-    border-left: 6px solid #2ea043;
-    text-align: center;
-    margin-bottom: 50px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-}
-.roadmap-teaser h2 {
-    color: #2ea043;
-    margin-top: 0;
-    font-size: 2.2rem;
-    margin-bottom: 20px;
-}
-.roadmap-teaser p {
-    color: #c9d1d9;
-    font-size: 1.15rem;
-    max-width: 950px;
-    margin: 0 auto 30px auto;
-    line-height: 1.7;
-}
-.btn-primary {
-    background: #238636;
-    color: #ffffff;
-    padding: 16px 32px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.15rem;
-    display: inline-block;
-    transition: transform 0.2s, background 0.2s;
-    border: 1px solid rgba(240, 246, 252, 0.1);
-}
-.btn-primary:focus {
-    outline: 3px solid #fbbf24;
-    outline-offset: 3px;
-}
-.btn-primary:hover {
-    transform: translateY(-3px);
-    background: #2ea043;
-}
-.top-bar-btn {
-    margin: 15px;
-    background: #238636;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 6px;
-    font-weight: bold;
-    cursor: pointer;
-}
-.top-bar-btn:focus {
-    outline: 3px solid #fbbf24;
-}
-</style>
 </head>
-
 <body>
 <button onclick="installApp()" class="top-bar-btn">Install Accessible Tech Labs India</button>
 <a class="skip-link" href="#main">Skip to main content</a>
 
 <header role="banner">
-<h1 style="text-align: center; color: #f8fafc;">Accessible Tech Labs India</h1>
+<h1 style="text-align: center;">Accessible Tech Labs India</h1>
 <img src="images/logo of accessible tech labs india (ALTI).png" alt="Accessible Tech Labs India Logo" width="120" style="display:block; margin: 10px auto;">
-
-<nav aria-label="Main navigation" style="text-align: center; margin-top: 20px;">
-<a href="index.html" accesskey="h" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Home</a>
-<a href="software.html" accesskey="s" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Software</a>
-<a href="tools.html" accesskey="t" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Tools</a>
-<a href="Games.html" accesskey="g" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Games</a>
-<a href="about.html" accesskey="a" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">About</a>
-<a href="contact.html" accesskey="c" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Contact</a>
+<nav aria-label="Main navigation">
+<a href="index.html" accesskey="h">Home</a>
+<a href="software.html" accesskey="s">Software</a>
+<a href="tools.html" accesskey="t">Tools</a>
+<a href="Games.html" accesskey="g">Games</a>
+<a href="about.html" accesskey="a">About</a>
+<a href="contact.html" accesskey="c">Contact</a>
 </nav>
 </header>
 
@@ -197,8 +50,7 @@ body {
     </p>
 </section>
 
-<h2 style="text-align: center; color: #f8fafc; margin-bottom: 30px; font-size: 2rem;">Core Infrastructure Technologies</h2>
-
+<h2 style="text-align: center; margin-bottom: 30px; font-size: 2rem;">Core Infrastructure Technologies</h2>
 <div class="features-grid" role="region" aria-label="Core technological offerings">
     
     <div class="feature-card">
@@ -240,16 +92,13 @@ body {
 </section>
 
 </main>
-
-<footer role="contentinfo" style="text-align: center; padding: 30px; background: #161b22; margin-top: 10px; border-top: 1px solid #30363d;">
+<footer role="contentinfo">
 <p>
-<a href="privacy.html" accesskey="p" style="color: #58a6ff; text-decoration: none; font-weight: bold; font-size: 1.1rem;">
-Privacy Policy
-</a>
+<a href="privacy.html" accesskey="p">Privacy Policy</a>
 </p>
-<p style="color: #8b949e; font-size: 1.1rem; margin-top: 10px;">© 2026 Accessible Tech Labs India</p>
-<p style="color: #8b949e;">Global Connectivity & Support Links available in the Contact section.</p>
+<p>© 2026 Accessible Tech Labs India</p>
 </footer>
+
 
 <script>
 let deferredPrompt;

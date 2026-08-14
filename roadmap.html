@@ -3,199 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Enterprise Roadmap & Transparency - Accessible Tech Labs India</title>
+<link rel="stylesheet" href="css/style.css">
 <meta name="description" content="Explore the engineering roadmap, open-source transparency, and relentless innovation trajectory of Accessible Tech Labs India.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="css/style.css">
-<style>
-body {
-    background-color: #0d1117;
-    color: #c9d1d9;
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-}
-.main-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 40px 20px;
-}
-.hero-section {
-    background: linear-gradient(135deg, rgba(22, 27, 34, 0.9), rgba(13, 17, 23, 1));
-    padding: 70px 20px;
-    text-align: center;
-    border-bottom: 4px solid #58a6ff;
-    border-radius: 12px;
-    margin-bottom: 50px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-}
-.hero-title {
-    font-size: 3.2rem;
-    color: #f8fafc;
-    margin-top: 0;
-    margin-bottom: 15px;
-    letter-spacing: 1px;
-}
-.hero-subtitle {
-    font-size: 1.35rem;
-    color: #8b949e;
-    max-width: 850px;
-    margin: 0 auto 30px auto;
-    line-height: 1.7;
-}
-.highlight {
-    color: #58a6ff;
-    font-weight: bold;
-}
-.highlight-success {
-    color: #3fb950;
-    font-weight: bold;
-}
-.highlight-warning {
-    color: #fbbf24;
-    font-weight: bold;
-}
-.purpose-box {
-    text-align: center;
-    margin-bottom: 50px;
-    background: #161b22;
-    border: 1px solid #30363d;
-    border-radius: 12px;
-    padding: 40px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-}
-.purpose-box h2 {
-    color: #58a6ff;
-    font-size: 2.5rem;
-    margin-top: 0;
-    margin-bottom: 15px;
-}
-.purpose-box p {
-    font-size: 1.2rem;
-    color: #8b949e;
-    margin-bottom: 25px;
-}
-.timestamp-badge {
-    display: inline-block;
-    background: rgba(88, 166, 255, 0.15);
-    border: 1px solid #58a6ff;
-    color: #58a6ff;
-    padding: 12px 30px;
-    border-radius: 50px;
-    font-weight: bold;
-    font-size: 1.15rem;
-}
-.mission-box {
-    background: rgba(255,255,255,0.03);
-    padding: 45px;
-    border-radius: 16px;
-    border-left: 6px solid #58a6ff;
-    margin-bottom: 50px;
-}
-.mission-box h2 {
-    color: #58a6ff;
-    margin-top: 0;
-    font-size: 2.2rem;
-    margin-bottom: 25px;
-    text-align: center;
-}
-.mission-box p {
-    font-size: 1.2rem;
-    text-align: justify;
-    margin-bottom: 20px;
-    color: #e6edf3;
-    line-height: 1.8;
-}
-.transparency-card {
-    background: #161b22;
-    border: 1px solid #30363d;
-    border-radius: 16px;
-    padding: 50px 40px;
-    text-align: center;
-    margin-bottom: 50px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-}
-.transparency-card h2 {
-    color: #f8fafc;
-    font-size: 2.2rem;
-    margin-top: 0;
-    margin-bottom: 25px;
-}
-.btn-primary {
-    background: #238636;
-    color: #ffffff;
-    padding: 18px 35px;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 1.2rem;
-    display: inline-block;
-    margin-top: 10px;
-    transition: transform 0.2s, background 0.2s;
-    border: 1px solid rgba(240, 246, 252, 0.1);
-    word-break: break-all;
-}
-.btn-primary:focus {
-    outline: 3px solid #fbbf24;
-    outline-offset: 3px;
-}
-.btn-primary:hover {
-    transform: translateY(-3px);
-    background: #2ea043;
-}
-.portfolio-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
-    gap: 30px;
-    margin-bottom: 50px;
-}
-.portfolio-card {
-    background: linear-gradient(180deg, rgba(22,27,34,1) 0%, rgba(13,17,23,1) 100%);
-    border: 1px solid #30363d;
-    border-radius: 12px;
-    padding: 35px;
-    transition: transform 0.3s, border-color 0.3s;
-}
-.portfolio-card:focus-within {
-    border-color: #58a6ff;
-    transform: translateY(-5px);
-}
-.portfolio-card h3 {
-    color: #58a6ff;
-    margin-top: 0;
-    font-size: 1.8rem;
-    border-bottom: 1px solid #30363d;
-    padding-bottom: 15px;
-    margin-bottom: 20px;
-}
-.portfolio-card p {
-    color: #8b949e;
-    font-size: 1.1rem;
-    text-align: justify;
-    margin-bottom: 15px;
-}
-@media (max-width: 768px) {
-    .portfolio-grid {
-        grid-template-columns: 1fr;
-    }
-}
-</style>
 </head>
-
 <body>
 
 <a class="skip-link" href="#main">Skip to main content</a>
 
 <header role="banner">
-<h1 style="text-align: center; color: #f8fafc;">Accessible Tech Labs India</h1>
-
-<nav aria-label="Main navigation" style="text-align: center; margin-top: 20px; background: #0d1117; padding-bottom: 15px;">
-<a href="index.html" accesskey="h" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Home</a>
-<a href="software.html" accesskey="s" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Software</a>
-<a href="tools.html" accesskey="t" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Tools</a>
-<a href="Games.html" accesskey="g" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Games</a>
-<a href="about.html" accesskey="a" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">About</a>
-<a href="contact.html" accesskey="c" style="color: #58a6ff; font-weight: bold; margin: 0 10px; text-decoration: none;">Contact</a>
+<h1 style="text-align: center;">Accessible Tech Labs India</h1>
+<nav aria-label="Main navigation">
+<a href="index.html" accesskey="h">Home</a>
+<a href="software.html" accesskey="s">Software</a>
+<a href="tools.html" accesskey="t">Tools</a>
+<a href="Games.html" accesskey="g">Games</a>
+<a href="about.html" accesskey="a">About</a>
+<a href="contact.html" accesskey="c">Contact</a>
 </nav>
 </header>
 
@@ -244,8 +68,7 @@ body {
         We are currently architecting the next generation of highly useful, disruptive tools and applications. Our current research and development focus is heavily directed toward mastering <strong>WebRTC (Web Real-Time Communication)</strong> technology. We are actively exploring architectural pathways to leverage WebRTC for building ultra-low-latency, peer-to-peer data transfer and communication utilities. Our objective is to engineer decentralized tools that provide robust, real-time connectivity directly between users, ensuring absolute privacy without intermediary servers, while remaining natively accessible for visually impaired professionals.
     </p>
 </section>
-
-<h2 style="text-align: center; color: #f8fafc; margin-bottom: 40px; font-size: 2.5rem; border-bottom: 2px solid #30363d; padding-bottom: 20px;">Deployment Milestones & Assets</h2>
+<h2 style="text-align: center; margin-bottom: 40px; font-size: 2.5rem; padding-bottom: 20px;">Deployment Milestones & Assets</h2>
 
 <div class="portfolio-grid" role="region" aria-label="Our deployed technological assets">
     
@@ -296,7 +119,7 @@ body {
     <p style="font-size: 1.2rem; color: #8b949e; max-width: 900px; margin: 0 auto 25px auto; text-align: justify; line-height: 1.8;">
         Accessible Tech Labs India never makes false promises to our users. We believe in proving our security protocols through absolute public scrutiny. If you doubt the integrity of our 0-Knowledge technology, you do not have to take our word for it. Every single line of our architectural logic, across all tools and web engines, is entirely open-source. We hide nothing.
     </p>
-    <p style="font-size: 1.3rem; color: #f8fafc; font-weight: bold; margin-bottom: 20px;">
+<p style="font-size: 1.3rem; font-weight: bold; margin-bottom: 20px;">
         Verify our entire Zero-Knowledge codebase directly at our official GitHub repository:
     </p>
     <a href="https://github.com/accessibletechlabsindia/accessibletechlabsindia.github.io" target="_blank" rel="noopener noreferrer" class="btn-primary" aria-label="Verify our source code on the official GitHub Repository">
@@ -305,14 +128,12 @@ body {
 </section>
 
 </main>
-
-<footer role="contentinfo" style="text-align: center; padding: 40px; background: #161b22; margin-top: 20px; border-top: 1px solid #30363d;">
+<footer role="contentinfo">
 <p>
-<a href="privacy.html" accesskey="p" style="color: #58a6ff; text-decoration: none; font-weight: bold; font-size: 1.1rem;">
-Privacy Policy
-</a>
+<a href="privacy.html" accesskey="p">Privacy Policy</a>
 </p>
-<p style="color: #8b949e; font-size: 1.1rem; margin-top: 15px;">© 2026 Accessible Tech Labs India. Innovation driven by integrity.</p>
+<p>© 2026 Accessible Tech Labs India</p>
 </footer>
+
 </body>
 </html>
