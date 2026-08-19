@@ -137,3 +137,59 @@ th {
     color: var(--text-heading);
     background-color: rgba(0, 0, 0, 0.02);
 }
+
+.modal-dialog {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    padding: 30px;
+    max-width: 700px;
+    width: 90%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+    text-align: center;
+    margin: auto;
+}
+
+.modal-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+}
+
+.modal-title {
+    color: var(--primary-blue);
+    margin-bottom: 15px;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.modal-text {
+    color: var(--text-main);
+    margin-bottom: 25px;
+    font-size: 1.05rem;
+    text-align: justify;
+    line-height: 1.6;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-skip {
+    background-color: transparent;
+    color: var(--primary-blue);
+    border: 2px solid var(--primary-blue);
+    padding: 10px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-skip:hover {
+    background-color: rgba(10, 66, 117, 0.05);
+    transform: translateY(-2px);
+}

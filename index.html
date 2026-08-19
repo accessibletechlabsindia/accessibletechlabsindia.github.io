@@ -15,6 +15,20 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+
+<dialog id="welcomeModal" class="modal-dialog" aria-labelledby="modal-title">
+    <div class="modal-content">
+        <h2 id="modal-title" class="modal-title">Second Batch Registration Open!</h2>
+        <p class="modal-text">
+            Accessible Tech Labs India is proud to announce the Second Batch of its Free Basic Computer and Cyber Safety Awareness Course, running from 1 September to 31 October 2026. This comprehensive two-month online training program is designed to equip learners with essential computer skills and a robust understanding of modern digital safety. You will learn fundamental computer operations alongside advanced cybersecurity concepts like Social Engineering, Phishing Awareness, Digital Footprint management, Safe Software Downloads, and Digital Forensics. We believe quality technical education must be accessible to everyone without financial barriers. Therefore, this inclusive course is completely free for all—including visually impaired and sighted learners. Classes are held Monday to Saturday from 5:00 PM to 6:00 PM via Google Meet. With weekly assessments and access to class recordings, our goal is to help you confidently identify digital threats and protect your personal information. Join our learning journey today and become a secure, aware, and highly responsible digital citizen!
+        </p>
+        <div class="modal-buttons">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfkd0dXvpziVm3Hn95UkKYOtARDYyOREthC1Rx0YcmNSAbVDA/viewform?utm_source=chatgpt.com" target="_blank" class="btn">Enroll Now</a>
+            <button onclick="document.getElementById('welcomeModal').close()" class="btn-skip">Skip to Site</button>
+        </div>
+    </div>
+</dialog>
+
 <button onclick="installApp()" class="top-bar-btn">Install Accessible Tech Labs India</button>
 <a class="skip-link" href="#main">Skip to main content</a>
 
@@ -99,8 +113,11 @@
 <p>© 2026 Accessible Tech Labs India</p>
 </footer>
 
-
 <script>
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById('welcomeModal').showModal();
+});
+
 let deferredPrompt;
 
 window.addEventListener('beforeinstallprompt', e => {
