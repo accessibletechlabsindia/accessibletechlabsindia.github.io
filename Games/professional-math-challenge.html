@@ -3,54 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Professional Math Challenge | Accessible Tech Labs India</title>
+<link rel="stylesheet" href="../css/style.css">
 <meta name="description" content="Master mental calculations with the Professional Math Challenge. Featuring an Adaptive Difficulty Engine and full screen reader optimization, this advanced educational tool is designed for competitive exam preparation and cognitive training by Accessible Tech Labs India.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="../css/style.css">
-    <style>
-        :root {
-            --primary-bg: #0f172a;
-            --card-bg: #1e293b;
-            --accent-blue: #3b82f6;
-            --accent-success: #22c55e;
-            --text-light: #f8fafc;
-        }
-        .high-contrast {
-            --primary-bg: #000;
-            --card-bg: #000;
-            --accent-blue: #ffff00;
-            --text-light: #fff;
-        }
-        body {
-            background-color: var(--primary-bg);
-            color: var(--text-light);
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            margin: 0; padding: 0;
-        }
-        .large-ui { font-size: 1.5rem !important; }
-        header, footer { background: #000; padding: 20px; text-align: center; border-bottom: 2px solid var(--accent-blue); }
-        nav a { color: var(--accent-blue); margin: 0 15px; text-decoration: none; font-weight: bold; }
-        #main-wrapper { max-width: 900px; margin: 40px auto; padding: 20px; }
-        .glass-card { background: var(--card-bg); padding: 40px; border-radius: 16px; border: 2px solid rgba(255,255,255,0.1); }
-.screen { display: none; }
-.screen.active { display: block !important; }
-        select, input[type="text"] {
-            width: 100%; padding: 15px; margin: 15px 0; border-radius: 8px;
-            border: 2px solid var(--accent-blue); background: #000; color: #00ff00; font-size: 1.2rem;
-        }
-        .action-btn {
-            padding: 18px; border: 2px solid var(--accent-blue); background: transparent;
-            color: var(--text-light); font-weight: bold; border-radius: 8px; cursor: pointer;
-            width: 100%; font-size: 1.1rem; margin-top: 10px;
-        }
-        .action-btn:hover { background: var(--accent-blue); color: #000; }
-        .option-label {
-            display: block; background: rgba(255,255,255,0.05); padding: 20px;
-            margin: 12px 0; border-radius: 10px; cursor: pointer; border: 2px solid transparent;
-        }
-        .option-label:hover { border-color: var(--accent-blue); }
-        #timer-box { font-size: 2.5rem; font-weight: bold; color: #fbbf24; }
-        .summary-box { background: #000; padding: 20px; border-radius: 10px; border-left: 5px solid var(--accent-blue); margin-top: 20px; }
-    </style>
 </head>
 <body>
 
@@ -140,11 +95,11 @@
         </div>
     </div>
 </main>
-<footer>
-    <div style="margin-bottom: 10px;">
-<p><a href="../privacy.html" accesskey="p" style="color: white; text-decoration: underline;">Privacy Policy</a></p>
-    </div>
-    <p style="margin: 0;">© 2026 Accessible Tech Labs India</p>
+<footer role="contentinfo">
+<p>
+<a href="../privacy.html" accesskey="p">Privacy Policy</a>
+</p>
+<p>© 2026 Accessible Tech Labs India</p>
 </footer>
 <script>
     let userName, gameMode, questionCount, currentQuestion = 0, score = 0;
