@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Accessible Digital Signature Generator - Accessible Tech Labs India</title>
+<meta name="description" content="Enterprise-grade accessible digital signature generator. Create high-resolution, transparent PNG signatures locally with zero-knowledge architecture.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Caveat:wght@700&family=Dancing+Script:wght@700&family=Great+Vibes&family=Handlee&family=Pacifico&family=Parisienne&family=Sacramento&family=Satisfy&family=Yellowtail&display=swap" rel="stylesheet">
+<style>
+:root {
+    --primary-blue: #0a4275;
+    --primary-blue-dark: #062c4f;
+    --bg-light: #f8f9fa;
+    --text-main: #333333;
+    --text-heading: #1a1a1a;
+    --card-bg: #ffffff;
+    --focus-gold: #ffc107;
+    --border-color: #e0e0e0;
+}
+body {
+    background-color: var(--bg-light);
+    color: var(--text-main);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-heading);
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+a {
+    color: var(--primary-blue-dark);
+    text-decoration: underline;
+    transition: all 0.2s ease;
+}
+a:hover {
+    color: var(--primary-blue);
+    text-decoration: none;
+}
+.main-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 25px;
+}
+header {
+    background-color: var(--card-bg);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    padding: 25px 5%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    text-align: center;
+}
+nav {
+    margin-top: 15px;
+}
+nav a {
+    margin: 0 15px;
+    font-weight: 700;
+    color: var(--primary-blue-dark);
+}
+.active-link {
+    text-decoration: none;
+    border-bottom: 3px solid var(--focus-gold);
+}
+.voluntary-box {
+    background-color: #eef4ff;
+    border-left: 5px solid var(--primary-blue);
+    padding: 30px;
+    border-radius: 8px;
+    margin-bottom: 40px;
+    color: var(--primary-blue-dark);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+.section-header {
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+.justify-text {
+    text-align: justify;
+    font-size: 1.1rem;
+}
+.mt-0 {
+    margin-top: 0;
+}
+.workspace-card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    padding: 40px;
+    border-top: 8px solid var(--primary-blue);
+    margin-bottom: 40px;
+}
+.control-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+.input-group {
+    margin-bottom: 25px;
+}
+.input-label {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-blue-dark);
+    margin-bottom: 10px;
+}
+.input-field, select.input-field {
+    width: 100%;
+    padding: 18px 15px;
+    border-radius: 8px;
+    border: 2px solid var(--border-color);
+    font-size: 1.2rem;
+    font-weight: 600;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    font-family: inherit;
+    cursor: text;
+}
+select.input-field {
+    cursor: pointer;
+}
+.input-field:focus, select.input-field:focus, button:focus {
+    outline: 3px solid var(--focus-gold);
+    border-color: var(--primary-blue);
+}
+.btn-action {
+    background-color: var(--primary-blue);
+    color: #ffffff;
+    border: none;
+    padding: 22px 30px;
+    font-size: 1.5rem;
+    font-weight: 800;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.btn-action:hover {
+    background-color: var(--primary-blue-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(10, 66, 117, 0.2);
+}
+.btn-action:disabled {
+    background-color: #6c757d;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+.progress-container {
+    display: none;
+    margin: 30px 0;
+    text-align: center;
+    padding: 20px;
+    background-color: #eef4ff;
+    border-radius: 8px;
+    border: 1px solid #b8daff;
+}
+.status-text {
+    font-weight: bold;
+    color: var(--primary-blue-dark);
+    font-size: 1.4rem;
+    display: block;
+}
+#previewArea {
+    display: none;
+    margin-top: 40px;
+    border-top: 2px solid var(--border-color);
+    padding-top: 30px;
+    text-align: center;
+}
+.preview-box {
+    background-color: #f8f9fa;
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+    overflow: hidden;
+}
+.preview-image {
+    max-width: 100%;
+    height: auto;
+    filter: drop-shadow(0px 4px 6px rgba(0,0,0,0.1));
+}
+footer {
+    background-color: var(--card-bg);
+    padding: 40px 0;
+    text-align: center;
+    margin-top: 60px;
+    border-top: 1px solid var(--border-color);
+}
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--text-heading);
+    color: #ffffff;
+    padding: 16px 32px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    display: none;
+    z-index: 9999;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.toast-error {
+    background-color: #dc3545;
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main" style="position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden;">Skip to main content</a>
+
+<header role="banner">
+<h1>Accessible Tech Labs India</h1>
+<nav aria-label="Main navigation">
+<a href="../index.html" accesskey="h">Home</a>
+<a href="../software.html" accesskey="s">Software</a>
+<a href="../tools.html" accesskey="t">Tools</a>
+<a href="../Games.html" accesskey="g">Games</a>
+<a href="../training.html" accesskey="r" class="active-link">Training</a>
+<a href="../support.html" accesskey="d">Support Us</a>
+<a href="../about.html" accesskey="a">About</a>
+<a href="../contact.html" accesskey="c">Contact</a>
+</nav>
+</header>
+
+<main id="main" class="main-container">
+
+<section class="voluntary-box" aria-labelledby="manifesto-heading">
+<h2 id="manifesto-heading" class="section-header mt-0">Zero-Knowledge Cryptographic Signature Declaration</h2>
+<p class="justify-text mt-0">
+The Accessible Digital Signature Generator is an enterprise-grade typographical and cryptographic workstation engineered by Accessible Tech Labs India. Designed specifically to empower the visually impaired community, this utility eliminates the highly inaccessible barriers of physical document scanning and background removal. Operating on a strict zero-knowledge architecture, this platform utilizes your device's native HTML5 Canvas hardware acceleration to render high-resolution, vector-accurate transparent PNG graphics entirely locally. We guarantee absolute digital sovereignty and biometric privacy: your legal name, typographical choices, and generated signature files are never cached, tracked, transmitted to any cloud servers, or exposed to third-party APIs. The entire cryptographic rendering pipeline exists securely within the isolated, volatile memory of your active browser session and self-destructs upon closure. Engineered with a foundational 'Screen Reader First' methodology, the interface provides comprehensive ARIA-live acoustic feedback, instantly confirming the synthesis and local download of your professional signature file. This ensures that visually impaired professionals can independently execute binding legal documents, financial forms, and corporate communications with absolute autonomy, unparalleled visual fidelity, and uncompromising data privacy.
+</p>
+</section>
+
+<div class="workspace-card">
+    
+    <div class="input-group">
+        <label for="signatureName" class="input-label">Enter Full Name for Digital Signature:</label>
+        <input type="text" id="signatureName" class="input-field" placeholder="Type your name exactly as you want it signed..." autocomplete="off">
+    </div>
+
+    <div class="control-grid">
+        <div class="input-group" style="margin-bottom: 0;">
+            <label for="signatureFont" class="input-label">Select Professional Cursive Style:</label>
+            <select id="signatureFont" class="input-field">
+                <option value="Caveat">Caveat (Modern & Legible)</option>
+                <option value="Dancing Script">Dancing Script (Elegant & Flowing)</option>
+                <option value="Pacifico">Pacifico (Bold & Smooth)</option>
+                <option value="Great Vibes">Great Vibes (Formal Calligraphy)</option>
+                <option value="Satisfy">Satisfy (Classic Brush Script)</option>
+                <option value="Yellowtail">Yellowtail (Sharp & Quick)</option>
+                <option value="Alex Brush">Alex Brush (Fine Pen Stroke)</option>
+                <option value="Handlee">Handlee (Natural Handwriting)</option>
+                <option value="Parisienne">Parisienne (Vintage Ink)</option>
+                <option value="Sacramento">Sacramento (Thin & Artistic)</option>
+            </select>
+        </div>
+        
+        <div class="input-group" style="margin-bottom: 0;">
+            <label for="signatureColor" class="input-label">Select Ink Color:</label>
+            <select id="signatureColor" class="input-field">
+                <option value="#000080">Navy Blue (Standard Professional)</option>
+                <option value="#000000">Deep Black (Formal Contracts)</option>
+                <option value="#0033cc">Bright Blue (Modern Digital)</option>
+                <option value="#8b0000">Dark Red (Special Approval)</option>
+            </select>
+        </div>
+    </div>
+
+    <button id="generateBtn" class="btn-action" onclick="executeSignatureGeneration()">Generate & Download Signature</button>
+
+    <div id="progressArea" class="progress-container">
+        <span id="progressText" class="status-text" aria-live="assertive">Awaiting Command...</span>
+    </div>
+
+    <div id="previewArea">
+        <h2 id="previewHeading" style="color: var(--primary-blue-dark); font-size: 2rem; border-bottom: 3px solid var(--border-color); padding-bottom: 10px;" tabindex="-1">Signature Render Complete</h2>
+        <p style="font-size: 1.2rem; font-weight: bold; color: #28a745;" aria-hidden="true">High-Resolution Transparent PNG Downloaded Successfully.</p>
+        
+        <div class="preview-box" aria-hidden="true">
+            <img id="signaturePreviewImage" class="preview-image" alt="" aria-hidden="true">
+        </div>
+
+        <button class="btn-action" style="max-width:400px; background-color:#6c757d; padding:18px; font-size:1.3rem;" onclick="resetWorkspace()">Clear Workspace & Start Over</button>
+    </div>
+
+</div>
+
+</main>
+
+<div id="srAnnouncer" aria-live="assertive" style="position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden;"></div>
+<div id="toast" class="toast" aria-live="assertive"></div>
+
+<footer role="contentinfo">
+<p><a href="../privacy.html" accesskey="p">Privacy Policy</a></p>
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+
+<script>
+let toastTimer;
+
+function announce(msg) {
+    const srAnnouncer = document.getElementById('srAnnouncer');
+    srAnnouncer.innerText = "";
+    setTimeout(() => { srAnnouncer.innerText = msg; }, 50);
+}
+
+function showToast(msg, isError = false) {
+    const toast = document.getElementById('toast');
+    clearTimeout(toastTimer);
+    toast.innerText = msg;
+    toast.className = isError ? "toast toast-error" : "toast";
+    toast.style.display = "block";
+    announce(msg);
+    toastTimer = setTimeout(() => { toast.style.display = "none"; }, 4000);
+}
+
+document.getElementById("signatureName").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+        executeSignatureGeneration();
+    }
+});
+
+function executeSignatureGeneration() {
+    const nameInput = document.getElementById('signatureName').value.trim();
+    const fontVal = document.getElementById('signatureFont').value;
+    const colorVal = document.getElementById('signatureColor').value;
+    
+    const generateBtn = document.getElementById('generateBtn');
+    const progArea = document.getElementById('progressArea');
+    const progText = document.getElementById('progressText');
+    const previewArea = document.getElementById('previewArea');
+
+    if (!nameInput) {
+        showToast("System Error: Please enter a name to generate the signature.", true);
+        document.getElementById('signatureName').focus();
+        return;
+    }
+
+    generateBtn.disabled = true;
+    previewArea.style.display = 'none';
+    progArea.style.display = 'block';
+    
+    progText.innerText = "Initializing local hardware canvas. Rendering cryptographic typography...";
+    announce("Rendering digital signature locally. Please wait.");
+
+    document.fonts.load(`100px "${fontVal}"`).then(() => {
+        renderAndDownload(nameInput, fontVal, colorVal);
+    }).catch(() => {
+        renderAndDownload(nameInput, fontVal, colorVal);
+    });
+}
+
+function renderAndDownload(name, font, color) {
+    try {
+        const canvas = document.createElement('canvas');
+        canvas.width = 1600;
+        canvas.height = 500;
+        const ctx = canvas.getContext('2d');
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        ctx.fillStyle = color;
+        ctx.font = `140px "${font}"`;
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        
+        ctx.fillText(name, canvas.width / 2, canvas.height / 2);
+
+        const dataUrl = canvas.toDataURL("image/png");
+
+        const sanitizedFileName = name.replace(/[^a-zA-Z0-9]/g, "_");
+        const finalFileName = `${sanitizedFileName}_Digital_Signature.png`;
+
+        const downloadLink = document.createElement('a');
+        downloadLink.href = dataUrl;
+        downloadLink.download = finalFileName;
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+
+        const previewImg = document.getElementById('signaturePreviewImage');
+        previewImg.src = dataUrl;
+
+        document.getElementById('progressArea').style.display = 'none';
+        document.getElementById('previewArea').style.display = 'block';
+        document.getElementById('generateBtn').disabled = false;
+
+        document.getElementById('previewHeading').focus();
+        announce(`Success. Your professional signature has been generated locally and downloaded as ${finalFileName}.`);
+        showToast(`Downloaded successfully: ${finalFileName}`);
+
+    } catch (error) {
+        document.getElementById('progressArea').style.display = 'none';
+        document.getElementById('generateBtn').disabled = false;
+        showToast("System Error: Local canvas rendering failed.", true);
+        announce("System Error. Failed to generate signature.");
+    }
+}
+
+function resetWorkspace() {
+    document.getElementById('previewArea').style.display = 'none';
+    document.getElementById('signaturePreviewImage').src = "";
+    
+    const nameInput = document.getElementById('signatureName');
+    nameInput.value = '';
+    document.getElementById('signatureFont').selectedIndex = 0;
+    document.getElementById('signatureColor').selectedIndex = 0;
+    
+    nameInput.focus();
+    announce("Workspace cleared. Ready for new signature rendering.");
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Universal Visual Assistant - Accessible Tech Labs India</title>
+<meta name="description" content="A real-time, continuous optical assistant providing live color detection, document reading, and ambient light analysis for the visually impaired.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tesseract.js/4.1.1/tesseract.min.js"></script>
+<style>
+.mode-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    margin-bottom: 40px;
+}
+.mode-btn {
+    background-color: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 40px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+.mode-btn:hover, .mode-btn:focus {
+    border-color: var(--primary-blue);
+    background-color: #eef4ff;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    outline: none;
+}
+.mode-btn h3 {
+    color: var(--primary-blue-dark);
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+.mode-btn p {
+    color: var(--text-main);
+    margin: 0;
+    font-size: 1.1rem;
+}
+.workspace {
+    display: none;
+    margin-top: 30px;
+}
+.description-box {
+    background-color: #fff3cd;
+    border-left: 5px solid #ffc107;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    color: #856404;
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+.camera-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+    background-color: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    border: 4px solid var(--border-color);
+    aspect-ratio: 4/3;
+}
+.camera-container.active {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 20px rgba(10, 66, 117, 0.3);
+}
+video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+.target-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+    height: 30%;
+    border: 3px dashed rgba(255, 255, 255, 0.7);
+    border-radius: 8px;
+    pointer-events: none;
+    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.4);
+}
+.control-row {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+}
+.btn-large {
+    padding: 18px 36px;
+    font-size: 1.2rem;
+    min-width: 200px;
+}
+.btn-danger {
+    background-color: #dc3545;
+}
+.btn-danger:hover {
+    background-color: #c82333;
+}
+.btn-secondary {
+    background-color: #6c757d;
+}
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+.result-display {
+    background-color: var(--bg-light);
+    border: 2px solid var(--border-color);
+    border-radius: 12px;
+    padding: 30px;
+    margin-top: 20px;
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.result-text {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary-blue-dark);
+    margin: 0;
+}
+.reader-text {
+    font-size: 1.3rem;
+    text-align: left;
+    white-space: pre-wrap;
+    width: 100%;
+}
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333333;
+    color: #ffffff;
+    padding: 16px 32px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    display: none;
+    z-index: 9999;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.toast-error {
+    background-color: #dc3545;
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main" style="position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden;">Skip to main content</a>
+
+<header role="banner">
+<h1 class="center-text">Accessible Tech Labs India</h1>
+<nav aria-label="Main navigation">
+<a href="../index.html" accesskey="h">Home</a>
+<a href="../software.html" accesskey="s">Software</a>
+<a href="../tools.html" accesskey="t">Tools</a>
+<a href="../Games.html" accesskey="g">Games</a>
+<a href="../training.html" accesskey="r" class="active-link">Training</a>
+<a href="../support.html" accesskey="d">Support Us</a>
+<a href="../about.html" accesskey="a">About</a>
+<a href="../contact.html" accesskey="c">Contact</a>
+</nav>
+</header>
+
+<main id="main" class="main-container">
+
+<section class="voluntary-box" aria-labelledby="manifesto-heading">
+<h2 id="manifesto-heading" class="section-header mt-0" style="color: var(--primary-blue-dark); border-bottom: none;">The Continuous Optical Intelligence Engine</h2>
+<p class="justify-text mt-0">
+The Universal Visual Assistant is a high-performance, real-time optical processing workstation engineered by Accessible Tech Labs India. Designed to seamlessly integrate into the daily lives of the Visually Impaired (VI) community, this utility transforms your device's camera into a continuous, intelligent sensory radar. It features three distinct operational modes: a highly accurate Color Detector utilizing center-point RGB averaging, a Live Document Reader employing advanced optical character recognition to continuously scan and vocalize text without requiring repetitive inputs, and an Ambient Light Radar that translates environmental luminance into intuitive acoustic frequencies. Adhering strictly to our Zero-Knowledge architecture, all optical data streams are processed entirely within the volatile memory of your local browser. No video frames, images, or text are ever transmitted, cached, or stored on external servers, guaranteeing absolute digital sovereignty and privacy. Built upon a 'Screen Reader First' framework, the interface utilizes precise ARIA-live management, enterprise-grade Web Audio API telemetry, and fluid keyboard navigation. Empowering you to perceive your physical environment with unparalleled accuracy, speed, and uncompromising independence.
+</p>
+</section>
+
+<div id="mainMenu" class="mode-grid">
+    <button class="mode-btn" onclick="initMode('color')">
+        <h3>Continuous Color Detector</h3>
+        <p>Real-time color identification. Point your camera at any object or clothing to instantly hear its specific color profile.</p>
+    </button>
+    <button class="mode-btn" onclick="initMode('reader')">
+        <h3>Live Document Reader</h3>
+        <p>Continuous text scanning. Hold documents, letters, or screens in front of the camera, and the system will automatically read the text aloud.</p>
+    </button>
+    <button class="mode-btn" onclick="initMode('light')">
+        <h3>Ambient Light Radar</h3>
+        <p>Acoustic light translation. Discover the brightness of your surroundings through dynamic, pitch-shifting audio tones.</p>
+    </button>
+</div>
+
+<div id="workspaceArea" class="workspace">
+    <h2 id="workspaceTitle" class="center-text" style="color: var(--primary-blue-dark);" tabindex="-1"></h2>
+    
+    <div id="modeDesc" class="description-box" aria-live="polite"></div>
+
+    <div id="camWrapper" class="camera-container">
+        <video id="videoFeed" playsinline autoplay muted></video>
+        <div id="targetBox" class="target-box" style="display: none;"></div>
+    </div>
+
+    <div class="control-row">
+        <button id="startBtn" class="btn btn-large" onclick="startEngine()">Start Scanning</button>
+        <button id="stopBtn" class="btn btn-large btn-danger" onclick="stopEngine()" style="display: none;">Stop Scanning</button>
+        <button class="btn btn-large btn-secondary" onclick="backToMenu()">Back to Main Menu</button>
+    </div>
+
+    <div class="result-display" aria-live="polite">
+        <p id="resultText" class="result-text">System Ready. Press Start to begin.</p>
+    </div>
+</div>
+
+</main>
+
+<canvas id="hiddenCanvas" style="display:none;"></canvas>
+
+<div id="srAnnouncer" aria-live="assertive" class="live-status"></div>
+<div id="toast" class="toast" aria-live="assertive"></div>
+
+<footer role="contentinfo">
+<p><a href="../privacy.html" accesskey="p">Privacy Policy</a></p>
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+
+<script>
+let currentMode = '';
+let stream = null;
+let scanInterval = null;
+let isScanning = false;
+let audioCtx = null;
+let toastTimer;
+let lastReadText = "";
+let tesseractWorker = null;
+
+const video = document.getElementById('videoFeed');
+const canvas = document.getElementById('hiddenCanvas');
+const ctx = canvas.getContext('2d', { willReadFrequently: true });
+const resultText = document.getElementById('resultText');
+const srAnnouncer = document.getElementById('srAnnouncer');
+const targetBox = document.getElementById('targetBox');
+const camWrapper = document.getElementById('camWrapper');
+const toast = document.getElementById('toast');
+
+const modeData = {
+    'color': {
+        title: "Continuous Color Detector",
+        desc: "Color Detector Mode Activated. This mode continuously analyzes the object in the center of your camera. It averages the color data to provide highly accurate results regardless of minor lighting changes. Point the camera and press Start."
+    },
+    'reader': {
+        title: "Live Document Reader",
+        desc: "Document Reader Mode Activated. This mode uses intelligent OCR to automatically scan and read text. It will only announce new text, avoiding repetitive reading. Hold a document steady in front of the camera and press Start."
+    },
+    'light': {
+        title: "Ambient Light Radar",
+        desc: "Light Radar Mode Activated. This mode translates the room's brightness into audio. A low humming sound indicates darkness, a standard beep indicates normal light, and a sharp high-pitched tone indicates bright light. Press Start to listen."
+    }
+};
+
+const basicColors = [
+    { r: 0, g: 0, b: 0, name: "Black" },
+    { r: 255, g: 255, b: 255, name: "White" },
+    { r: 255, g: 0, b: 0, name: "Red" },
+    { r: 0, g: 255, b: 0, name: "Green" },
+    { r: 0, g: 0, b: 255, name: "Blue" },
+    { r: 255, g: 255, b: 0, name: "Yellow" },
+    { r: 0, g: 255, b: 255, name: "Cyan / Light Blue" },
+    { r: 255, g: 0, b: 255, name: "Magenta / Pinkish Purple" },
+    { r: 128, g: 128, b: 128, name: "Gray" },
+    { r: 128, g: 0, b: 0, name: "Maroon / Dark Red" },
+    { r: 128, g: 128, b: 0, name: "Olive / Dark Yellow" },
+    { r: 0, g: 128, b: 0, name: "Dark Green" },
+    { r: 128, g: 0, b: 128, name: "Purple" },
+    { r: 0, g: 128, b: 128, name: "Teal / Dark Cyan" },
+    { r: 0, g: 0, b: 128, name: "Navy / Dark Blue" },
+    { r: 255, g: 165, b: 0, name: "Orange" },
+    { r: 255, g: 192, b: 203, name: "Pink" },
+    { r: 165, g: 42, b: 42, name: "Brown" },
+    { r: 245, g: 245, b: 220, name: "Beige / Very Light Brown" }
+];
+
+function initAudio() {
+    if (!audioCtx) {
+        try {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        } catch (e) {}
+    }
+}
+
+function playTone(type, frequency = 800) {
+    if (!audioCtx) return;
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    
+    if (type === 'start') {
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(440, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.2);
+        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.5);
+    } else if (type === 'stop') {
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(880, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(440, audioCtx.currentTime + 0.2);
+        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.5);
+    } else if (type === 'scan') {
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(frequency, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.05, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.1);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.1);
+    } else if (type === 'light') {
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(frequency, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.5);
+    }
+    
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+}
+
+function announce(msg) {
+    srAnnouncer.innerText = "";
+    setTimeout(() => { srAnnouncer.innerText = msg; }, 50);
+}
+
+function showToast(msg, isError = false) {
+    clearTimeout(toastTimer);
+    toast.innerText = msg;
+    toast.className = isError ? "toast toast-error" : "toast";
+    toast.style.display = "block";
+    announce(msg);
+    toastTimer = setTimeout(() => { toast.style.display = "none"; }, 4000);
+}
+
+async function initTesseract() {
+    if (!tesseractWorker) {
+        try {
+            tesseractWorker = await Tesseract.createWorker();
+            await tesseractWorker.loadLanguage('eng');
+            await tesseractWorker.initialize('eng');
+            await tesseractWorker.setParameters({
+                tessedit_pageseg_mode: Tesseract.PSM.AUTO,
+            });
+        } catch (err) {
+            showToast("System Error: Failed to initialize OCR engine.", true);
+        }
+    }
+}
+
+function initMode(mode) {
+    initAudio();
+    currentMode = mode;
+    document.getElementById('mainMenu').style.display = 'none';
+    document.getElementById('workspaceArea').style.display = 'block';
+    
+    const title = document.getElementById('workspaceTitle');
+    title.innerText = modeData[mode].title;
+    document.getElementById('modeDesc').innerText = modeData[mode].desc;
+    
+    targetBox.style.display = (mode === 'color') ? 'block' : 'none';
+    resultText.className = (mode === 'reader') ? 'result-text reader-text' : 'result-text';
+    resultText.innerText = "System Ready. Press Start to begin.";
+    
+    if (mode === 'reader') {
+        resultText.innerText = "Initializing OCR Engine... Please wait.";
+        initTesseract().then(() => {
+            if(!isScanning) resultText.innerText = "OCR Ready. Press Start.";
+        });
+    }
+
+    title.focus();
+    announce(modeData[mode].title + " loaded. " + modeData[mode].desc);
+}
+
+function backToMenu() {
+    stopEngine();
+    document.getElementById('workspaceArea').style.display = 'none';
+    document.getElementById('mainMenu').style.display = 'grid';
+    announce("Returned to Main Menu.");
+}
+
+async function startEngine() {
+    initAudio();
+    if (currentMode === 'reader' && !tesseractWorker) {
+        showToast("Please wait, OCR engine is still initializing.", true);
+        return;
+    }
+
+    try {
+        stream = await navigator.mediaDevices.getUserMedia({ 
+            video: { facingMode: "environment", width: { ideal: 640 }, height: { ideal: 480 } } 
+        });
+        video.srcObject = stream;
+        
+        video.onloadedmetadata = () => {
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            isScanning = true;
+            document.getElementById('startBtn').style.display = 'none';
+            document.getElementById('stopBtn').style.display = 'inline-block';
+            camWrapper.classList.add('active');
+            
+            playTone('start');
+            announce("Camera active. Scanning started.");
+            
+            if (currentMode === 'color') {
+                scanInterval = setInterval(processColor, 2000);
+            } else if (currentMode === 'light') {
+                scanInterval = setInterval(processLight, 1000);
+            } else if (currentMode === 'reader') {
+                resultText.innerText = "Scanning document...";
+                scanInterval = setInterval(processReader, 4000);
+            }
+        };
+    } catch (err) {
+        showToast("Camera Access Denied or Unavailable. Please check permissions.", true);
+    }
+}
+
+function stopEngine() {
+    isScanning = false;
+    clearInterval(scanInterval);
+    if (stream) {
+        stream.getTracks().forEach(track => track.stop());
+        stream = null;
+    }
+    video.srcObject = null;
+    document.getElementById('startBtn').style.display = 'inline-block';
+    document.getElementById('stopBtn').style.display = 'none';
+    camWrapper.classList.remove('active');
+    
+    if(audioCtx && audioCtx.state !== 'suspended') playTone('stop');
+    resultText.innerText = "Scanning Stopped.";
+    announce("Camera and scanning stopped.");
+}
+
+function getClosestColor(r, g, b) {
+    let minDistance = Infinity;
+    let closestColorName = "Unknown";
+    
+    for (let i = 0; i < basicColors.length; i++) {
+        const color = basicColors[i];
+        const dist = Math.sqrt(
+            Math.pow(r - color.r, 2) + 
+            Math.pow(g - color.g, 2) + 
+            Math.pow(b - color.b, 2)
+        );
+        if (dist < minDistance) {
+            minDistance = dist;
+            closestColorName = color.name;
+        }
+    }
+    return closestColorName;
+}
+
+function processColor() {
+    if (!isScanning) return;
+    
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    
+    const boxWidth = Math.floor(canvas.width * 0.3);
+    const boxHeight = Math.floor(canvas.height * 0.3);
+    const startX = Math.floor((canvas.width - boxWidth) / 2);
+    const startY = Math.floor((canvas.height - boxHeight) / 2);
+    
+    const frame = ctx.getImageData(startX, startY, boxWidth, boxHeight);
+    const data = frame.data;
+    
+    let rSum = 0, gSum = 0, bSum = 0;
+    const pixelCount = boxWidth * boxHeight;
+    
+    for (let i = 0; i < data.length; i += 4) {
+        rSum += data[i];
+        gSum += data[i+1];
+        bSum += data[i+2];
+    }
+    
+    const rAvg = Math.floor(rSum / pixelCount);
+    const gAvg = Math.floor(gSum / pixelCount);
+    const bAvg = Math.floor(bSum / pixelCount);
+    
+    const colorName = getClosestColor(rAvg, gAvg, bAvg);
+    
+    playTone('scan', 1200);
+    resultText.innerText = `Detected Color: ${colorName}`;
+    announce(colorName);
+}
+
+function processLight() {
+    if (!isScanning) return;
+    
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    const frame = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const data = frame.data;
+    
+    let brightnessSum = 0;
+    const pixelCount = canvas.width * canvas.height;
+    const sampleStep = 16; 
+    let samples = 0;
+
+    for (let i = 0; i < data.length; i += sampleStep) {
+        const r = data[i];
+        const g = data[i+1];
+        const b = data[i+2];
+        const luminance = (0.299 * r + 0.587 * g + 0.114 * b);
+        brightnessSum += luminance;
+        samples++;
+    }
+    
+    const avgBrightness = brightnessSum / samples;
+    let statusMsg = "";
+    let frequency = 400;
+
+    if (avgBrightness < 40) {
+        statusMsg = "Pitch Dark / Very Low Light";
+        frequency = 150; 
+    } else if (avgBrightness < 100) {
+        statusMsg = "Dim Light / Shadows";
+        frequency = 300;
+    } else if (avgBrightness < 180) {
+        statusMsg = "Normal Room Light";
+        frequency = 600;
+    } else {
+        statusMsg = "Bright Light / Direct Source";
+        frequency = 1200; 
+    }
+    
+    playTone('light', frequency);
+    resultText.innerText = statusMsg;
+}
+
+async function processReader() {
+    if (!isScanning || !tesseractWorker) return;
+    
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+    
+    try {
+        const { data: { text } } = await tesseractWorker.recognize(dataUrl);
+        const cleanText = text.replace(/\n\s*\n/g, '\n').trim();
+        
+        if (cleanText.length > 5) {
+            const similarityThreshold = 0.8; 
+            const isDifferent = checkSimilarity(cleanText, lastReadText) < similarityThreshold;
+            
+            if (isDifferent) {
+                playTone('scan', 800);
+                resultText.innerText = cleanText;
+                announce(cleanText);
+                lastReadText = cleanText;
+            }
+        }
+    } catch (err) {
+        
+    }
+}
+
+function checkSimilarity(str1, str2) {
+    if (!str1 || !str2) return 0;
+    const s1 = str1.toLowerCase().replace(/[^a-z0-9]/g, '');
+    const s2 = str2.toLowerCase().replace(/[^a-z0-9]/g, '');
+    
+    let matchCount = 0;
+    const minLen = Math.min(s1.length, s2.length);
+    if(minLen === 0) return 0;
+
+    for (let i = 0; i < minLen; i++) {
+        if (s1[i] === s2[i]) matchCount++;
+    }
+    return matchCount / Math.max(s1.length, s2.length);
+}
+</script>
+</body>
+</html>

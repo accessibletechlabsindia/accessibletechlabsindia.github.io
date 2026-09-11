@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Advanced Braille Blueprint Compiler - Accessible Tech Labs India</title>
+<meta name="description" content="Enterprise-grade Braille translator. Convert plain mixed Hindi/English text into professional Grade 1 Braille and export directly as a .BRF file.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+:root {
+    --primary-blue: #0a4275;
+    --primary-blue-dark: #062c4f;
+    --bg-light: #f8f9fa;
+    --text-main: #333333;
+    --text-heading: #1a1a1a;
+    --card-bg: #ffffff;
+    --focus-gold: #ffc107;
+    --border-color: #e0e0e0;
+}
+body {
+    background-color: var(--bg-light);
+    color: var(--text-main);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+}
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-heading);
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 1rem;
+}
+a {
+    color: var(--primary-blue-dark);
+    text-decoration: underline;
+    transition: all 0.2s ease;
+}
+a:hover {
+    color: var(--primary-blue);
+    text-decoration: none;
+}
+.main-container {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 25px;
+}
+header {
+    background-color: var(--card-bg);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    padding: 25px 5%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    text-align: center;
+}
+nav {
+    margin-top: 15px;
+}
+nav a {
+    margin: 0 15px;
+    font-weight: 700;
+    color: var(--primary-blue-dark);
+}
+.active-link {
+    text-decoration: none;
+    border-bottom: 3px solid var(--focus-gold);
+}
+.voluntary-box {
+    background-color: #eef4ff;
+    border-left: 5px solid var(--primary-blue);
+    padding: 30px;
+    border-radius: 8px;
+    margin-bottom: 40px;
+    color: var(--primary-blue-dark);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+.section-header {
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+.justify-text {
+    text-align: justify;
+    font-size: 1.1rem;
+}
+.mt-0 {
+    margin-top: 0;
+}
+.workspace-card {
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    padding: 40px;
+    border-top: 8px solid var(--primary-blue);
+    margin-bottom: 40px;
+}
+.input-group {
+    margin-bottom: 25px;
+}
+.input-label {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-blue-dark);
+    margin-bottom: 10px;
+}
+textarea.input-field {
+    width: 100%;
+    min-height: 200px;
+    padding: 20px;
+    border-radius: 8px;
+    border: 2px solid var(--border-color);
+    font-size: 1.2rem;
+    font-family: inherit;
+    resize: vertical;
+    box-sizing: border-box;
+}
+select.input-field {
+    width: 100%;
+    padding: 15px;
+    border-radius: 8px;
+    border: 2px solid var(--border-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+textarea:focus, select:focus, button:focus {
+    outline: 3px solid var(--focus-gold);
+    border-color: var(--primary-blue);
+}
+.control-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+.btn-action {
+    background-color: var(--primary-blue);
+    color: #ffffff;
+    border: none;
+    padding: 18px 30px;
+    font-size: 1.3rem;
+    font-weight: 800;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.btn-action:hover {
+    background-color: var(--primary-blue-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(10, 66, 117, 0.2);
+}
+.btn-success {
+    background-color: #28a745;
+}
+.btn-success:hover {
+    background-color: #218838;
+}
+.btn-secondary {
+    background-color: #6c757d;
+}
+.btn-secondary:hover {
+    background-color: #5a6268;
+}
+.progress-container {
+    display: none;
+    margin: 30px 0;
+    text-align: center;
+}
+progress {
+    width: 100%;
+    height: 20px;
+    border-radius: 10px;
+    appearance: none;
+}
+progress::-webkit-progress-bar {
+    background-color: var(--border-color);
+    border-radius: 10px;
+}
+progress::-webkit-progress-value {
+    background-color: var(--primary-blue);
+    border-radius: 10px;
+}
+.status-text {
+    font-weight: bold;
+    color: var(--primary-blue-dark);
+    font-size: 1.2rem;
+    margin-top: 10px;
+    display: block;
+}
+#resultArea {
+    display: none;
+    margin-top: 40px;
+    border-top: 2px solid var(--border-color);
+    padding-top: 30px;
+}
+.braille-preview {
+    background-color: #fdfdfd;
+    border: 2px dashed var(--primary-blue);
+    border-radius: 8px;
+    padding: 30px;
+    font-size: 2rem;
+    line-height: 1.8;
+    white-space: pre-wrap;
+    word-break: break-all;
+    min-height: 150px;
+    margin-bottom: 30px;
+}
+.action-buttons {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.action-buttons > * {
+    flex: 1;
+}
+footer {
+    background-color: var(--card-bg);
+    padding: 40px 0;
+    text-align: center;
+    margin-top: 60px;
+    border-top: 1px solid var(--border-color);
+}
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--text-heading);
+    color: #ffffff;
+    padding: 16px 32px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 1.1rem;
+    display: none;
+    z-index: 9999;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+}
+.toast-error {
+    background-color: #dc3545;
+}
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main" style="position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden;">Skip to main content</a>
+
+<header role="banner">
+<h1>Accessible Tech Labs India</h1>
+<nav aria-label="Main navigation">
+<a href="../index.html" accesskey="h">Home</a>
+<a href="../software.html" accesskey="s">Software</a>
+<a href="../tools.html" accesskey="t">Tools</a>
+<a href="../Games.html" accesskey="g">Games</a>
+<a href="../training.html" accesskey="r" class="active-link">Training</a>
+<a href="../support.html" accesskey="d">Support Us</a>
+<a href="../about.html" accesskey="a">About</a>
+<a href="../contact.html" accesskey="c">Contact</a>
+</nav>
+</header>
+
+<main id="main" class="main-container">
+
+<section class="voluntary-box" aria-labelledby="manifesto-heading">
+<h2 id="manifesto-heading" class="section-header mt-0">The Zero-Knowledge Braille Architecture (Multi-Lingual)</h2>
+<p class="justify-text mt-0">
+The Advanced Braille Blueprint Compiler is an enterprise-grade translation workstation engineered by Accessible Tech Labs India. Designed specifically to empower visually impaired students, educators, and professionals, this utility bridges the critical gap between standard alphanumeric text and physical Braille documentation. Operating on a strict zero-knowledge, local execution framework, the compiler processes all translation algorithms entirely within your browser. This updated system performs precise Grade 1 English Braille and standard Bharati Braille (Hindi) translation seamlessly. The engine automatically formats the output into strict line-length constraints and generates a universally compatible '.BRF' (Braille Ready File) for professional Braille embossers and refreshable electronic Braille displays worldwide. Engineered with a 'Screen Reader First' methodology, the interface provides comprehensive ARIA-live feedback ensuring a seamless, independent, and secure translation experience.
+</p>
+</section>
+
+<div class="workspace-card">
+    <div class="input-group">
+        <label for="sourceText" class="input-label">Enter Standard Text (English / Hindi) for Compilation:</label>
+        <textarea id="sourceText" class="input-field" placeholder="Type or paste your English or Hindi text here to compile into a Braille Blueprint..." aria-required="true"></textarea>
+    </div>
+
+    <div class="control-grid">
+        <div class="input-group" style="margin-bottom: 0;">
+            <label for="brailleGrade" class="input-label">Translation Standard:</label>
+            <select id="brailleGrade" class="input-field">
+                <option value="1">Grade 1 (English & Bharati Braille)</option>
+            </select>
+        </div>
+        <div class="input-group" style="margin-bottom: 0;">
+            <label for="lineLength" class="input-label">Embosser / Display Line Length:</label>
+            <select id="lineLength" class="input-field">
+                <option value="12">12 Cells (Mini Displays)</option>
+                <option value="14">14 Cells (Ultra-Portable Displays)</option>
+                <option value="16">16 Cells (Compact Displays)</option>
+                <option value="18">18 Cells (Small Portable Displays)</option>
+                <option value="20">20 Cells (Standard Portable Displays)</option>
+                <option value="24">24 Cells (Braille Note Takers)</option>
+                <option value="32">32 Cells (Standard Embosser / Display)</option>
+                <option value="40" selected>40 Cells (Large Display / Standard Wide Embosser)</option>
+                <option value="42">42 Cells (Wide Format Embosser)</option>
+                <option value="44">44 Cells (Extra Wide Embosser)</option>
+                <option value="80">80 Cells (Desktop Braille Displays)</option>
+            </select>
+        </div>
+    </div>
+
+    <button id="compileBtn" class="btn-action" onclick="executeCompilation()">Compile Blueprint (.BRF)</button>
+
+    <div id="progressArea" class="progress-container">
+        <div role="progressbar" id="ariaProgress" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" tabindex="-1">
+            <progress id="progressBar" value="0" max="100"></progress>
+        </div>
+        <span id="progressText" class="status-text" aria-live="assertive">Initializing Compiler...</span>
+    </div>
+
+    <div id="resultArea">
+        <h2 id="resultHeading" style="color: var(--primary-blue-dark);" tabindex="-1">Compiled Braille Blueprint</h2>
+        
+        <div id="braillePreview" class="braille-preview" aria-label="Visual representation of Braille dots"></div>
+        
+        <div class="action-buttons">
+            <button class="btn-action btn-success" onclick="downloadBRF()">Download Master File (.BRF)</button>
+            <button class="btn-action btn-secondary" onclick="copyBraille()">Copy Unicode Dots</button>
+        </div>
+    </div>
+</div>
+
+</main>
+
+<div id="srAnnouncer" aria-live="assertive" style="position:absolute; left:-10000px; width:1px; height:1px; overflow:hidden;"></div>
+<div id="toast" class="toast" aria-live="assertive"></div>
+
+<footer role="contentinfo">
+<p><a href="../privacy.html" accesskey="p">Privacy Policy</a></p>
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+
+<script>
+let compiledBRF = "";
+let compiledUnicode = "";
+let toastTimer;
+
+const engMap = {
+    'a': '⠁', 'b': '⠃', 'c': '⠉', 'd': '⠙', 'e': '⠑', 'f': '⠋', 'g': '⠛', 'h': '⠓', 'i': '⠊', 'j': '⠚',
+    'k': '⠅', 'l': '⠇', 'm': '⠍', 'n': '⠝', 'o': '⠕', 'p': '⠏', 'q': '⠟', 'r': '⠗', 's': '⠎', 't': '⠞',
+    'u': '⠥', 'v': '⠧', 'w': '⠺', 'x': '⠭', 'y': '⠽', 'z': '⠵',
+    ',': '⠂', ';': '⠆', ':': '⠒', '.': '⠲', '!': '⠖', '?': '⠦', '*': '⠔', '"': '⠴', '\'': '⠄', '-': '⠤', 
+    '/': '⠌', '(': '⠣', ')': '⠜', ' ': ' ', '\n': '\n'
+};
+
+const hinMap = {
+    'अ': '⠁', 'आ': '⠜', 'इ': '⠊', 'ई': '⠔', 'उ': '⠥', 'ऊ': '⠳', 'ऋ': '⠗',
+    'ए': '⠑', 'ऐ': '⠌', 'ओ': '⠕', 'औ': '⠣',
+    'क': '⠅', 'ख': '⠨', 'ग': '⠛', 'घ': '⠣', 'ङ': '⠬',
+    'च': '⠉', 'छ': '⠡', 'ज': '⠚', 'झ': '⠴', 'ञ': '⠒',
+    'ट': '⠾', 'ठ': '⠺', 'ड': '⠫', 'ढ': '⠻', 'ण': '⠼',
+    'त': '⠞', 'थ': '⠹', 'द': '⠮', 'ध': '⠷', 'न': '⠝',
+    'प': '⠏', 'फ': '⠖', 'ब': '⠃', 'भ': '⠘', 'म': '⠍',
+    'य': '⠽', 'र': '⠗', 'ल': '⠇', 'व': '⠧',
+    'श': '⠩', 'ष': '⠯', 'स': '⠎', 'ह': '⠓',
+    'क्ष': '⠯', 'त्र': '⠯', 'ज्ञ': '⠻',
+    'ा': '⠜', 'ि': '⠊', 'ी': '⠔', 'ु': '⠥', 'ू': '⠳',
+    'ृ': '⠗', 'े': '⠑', 'ै': '⠌', 'ो': '⠕', 'ौ': '⠣',
+    'ं': '⠰', 'ः': '⠤', 'ँ': '⠄', '्': '⠈',
+    '।': '⠲', '॥': '⠲⠲'
+};
+
+const numMapEng = {'1':'⠁','2':'⠃','3':'⠉','4':'⠙','5':'⠑','6':'⠋','7':'⠛','8':'⠓','9':'⠊','0':'⠚'};
+const numMapHin = {'१':'⠁','२':'⠃','३':'⠉','४':'⠙','५':'⠑','६':'⠋','७':'⠛','८':'⠓','९':'⠊','०':'⠚'};
+
+const brailleToAscii = {
+    ' ': ' ', '⠁': 'A', '⠃': 'B', '⠉': 'C', '⠙': 'D', '⠑': 'E', '⠋': 'F', '⠛': 'G', '⠓': 'H', '⠊': 'I', '⠚': 'J',
+    '⠅': 'K', '⠇': 'L', '⠍': 'M', '⠝': 'N', '⠕': 'O', '⠏': 'P', '⠟': 'Q', '⠗': 'R', '⠎': 'S', '⠞': 'T',
+    '⠥': 'U', '⠧': 'V', '⠭': 'X', '⠽': 'Y', '⠵': 'Z', '⠺': 'W',
+    '⠼': '#', '⠠': ',', '⠂': '1', '⠆': '2', '⠒': '3', '⠲': '4', '⠢': '5', '⠖': '6', '⠔': '9', '⠤': '-',
+    '⠜': '>', '⠣': '<', '⠌': '/', '⠴': '0', '⠄': '\'', '⠰': '7', '⠦': '8', '⠳': '\\', '⠷': '_',
+    '⠯': '&', '⠫': '$', '⠻': ']', '⠡': '*', '⠘': '<', '⠨': '%', '⠬': '[', '⠹': '?',
+    '⠮': '!', '⠾': '}', '⠪': '+', '⠩': ':', '⠈': '^', '\n': '\n'
+};
+
+function announce(msg) {
+    const srAnnouncer = document.getElementById('srAnnouncer');
+    srAnnouncer.innerText = "";
+    setTimeout(() => { srAnnouncer.innerText = msg; }, 50);
+}
+
+function showToast(msg, isError = false) {
+    const toast = document.getElementById('toast');
+    clearTimeout(toastTimer);
+    toast.innerText = msg;
+    toast.className = isError ? "toast toast-error" : "toast";
+    toast.style.display = "block";
+    announce(msg);
+    toastTimer = setTimeout(() => { toast.style.display = "none"; }, 4000);
+}
+
+function wrapBraille(brailleText, limit) {
+    const lines = brailleText.split('\n');
+    let formatted = [];
+    
+    for (let i = 0; i < lines.length; i++) {
+        let line = lines[i];
+        while (line.length > limit) {
+            let breakPoint = line.lastIndexOf(' ', limit);
+            if (breakPoint === -1) {
+                breakPoint = limit;
+            }
+            formatted.push(line.substring(0, breakPoint));
+            line = line.substring(breakPoint).trimStart();
+        }
+        formatted.push(line);
+    }
+    return formatted.join('\n');
+}
+
+function translateToBraille(text) {
+    let unicodeResult = "";
+    let isNumberMode = false;
+    
+    for (let i = 0; i < text.length; i++) {
+        let char = text[i];
+        let lowerChar = char.toLowerCase();
+        
+        if ((char >= '0' && char <= '9') || (char >= '०' && char <= '९')) {
+            if (!isNumberMode) {
+                unicodeResult += '⠼';
+                isNumberMode = true;
+            }
+            if (char >= '0' && char <= '9') {
+                unicodeResult += numMapEng[char];
+            } else {
+                unicodeResult += numMapHin[char];
+            }
+        } else {
+            isNumberMode = false;
+            
+            if (char >= 'A' && char <= 'Z') {
+                unicodeResult += '⠠';
+            }
+            
+            if (engMap[lowerChar]) {
+                unicodeResult += engMap[lowerChar];
+            } else if (hinMap[char]) {
+                unicodeResult += hinMap[char];
+            } else {
+                unicodeResult += char;
+            }
+        }
+    }
+    return unicodeResult;
+}
+
+function convertUnicodeToASCII(unicodeStr) {
+    let brfResult = "";
+    for(let i = 0; i < unicodeStr.length; i++) {
+        let char = unicodeStr[i];
+        if (brailleToAscii[char]) {
+            brfResult += brailleToAscii[char];
+        } else {
+            brfResult += char;
+        }
+    }
+    return brfResult;
+}
+
+function executeCompilation() {
+    const sourceText = document.getElementById('sourceText').value.trim();
+    const lineLimit = parseInt(document.getElementById('lineLength').value);
+    
+    if (!sourceText) {
+        showToast("Compilation Error: Source text cannot be empty.", true);
+        document.getElementById('sourceText').focus();
+        return;
+    }
+
+    const compileBtn = document.getElementById('compileBtn');
+    const progArea = document.getElementById('progressArea');
+    const progBar = document.getElementById('progressBar');
+    const ariaProg = document.getElementById('ariaProgress');
+    const progText = document.getElementById('progressText');
+    const resultArea = document.getElementById('resultArea');
+    
+    compileBtn.disabled = true;
+    resultArea.style.display = "none";
+    progArea.style.display = "block";
+    announce("Compiler engine engaged. Translating English and Hindi structure.");
+    
+    let progress = 0;
+    
+    const interval = setInterval(() => {
+        progress += 10;
+        progBar.value = progress;
+        ariaProg.setAttribute('aria-valuenow', progress);
+        progText.innerText = "Compiling Blueprint: " + progress + "%";
+        
+        if (progress >= 100) {
+            clearInterval(interval);
+            finalizeCompilation(sourceText, lineLimit);
+        }
+    }, 100);
+}
+
+function finalizeCompilation(sourceText, lineLimit) {
+    const rawUnicode = translateToBraille(sourceText);
+    compiledUnicode = wrapBraille(rawUnicode, lineLimit);
+    compiledBRF = convertUnicodeToASCII(compiledUnicode);
+    
+    document.getElementById('braillePreview').innerText = compiledUnicode;
+    
+    document.getElementById('progressArea').style.display = "none";
+    document.getElementById('compileBtn').disabled = false;
+    document.getElementById('resultArea').style.display = "block";
+    
+    document.getElementById('resultHeading').focus();
+    announce("Compilation successful. Braille file is ready for download. Press Tab to access the master file.");
+    showToast("Blueprint Compiled Successfully");
+}
+
+function downloadBRF() {
+    if (!compiledBRF) return;
+    const blob = new Blob([compiledBRF], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "ATL_Blueprint.brf";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast("Master BRF File Downloaded.");
+}
+
+function copyBraille() {
+    if (!compiledUnicode) return;
+    navigator.clipboard.writeText(compiledUnicode).then(() => {
+        showToast("Unicode Braille dots copied to clipboard.");
+    }).catch(() => {
+        showToast("System Error: Unable to copy content.", true);
+    });
+}
+</script>
+</body>
+</html>

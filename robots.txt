@@ -1,4 +1,19 @@
 User-agent: *
 Allow: /
+Disallow: /Addons/
+Disallow: *.backup
+Disallow: *.tmp
 
 Sitemap: https://accessibletechlabsindia.github.io/sitemap.xml
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+User-agent: msnbot
+Allow: /
+
+User-agent: bingbot
+Allow: /
