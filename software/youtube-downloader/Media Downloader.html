@@ -67,10 +67,6 @@ Media Downloader features a fully integrated Smart Search Engine that allows use
 The integrated search system provides fast access to media content while maintaining a streamlined workflow. Search results can be explored, played, and downloaded directly from within the application environment.
 </p>
 
-<p>
-Voice Search technology is also included, enabling users to perform searches using spoken commands. This feature improves accessibility and productivity while providing a more natural interaction experience.
-</p>
-
 <hr>
 
 <h3>Professional VLC-Based Media Player</h3>
@@ -99,10 +95,6 @@ The integrated media player supports:
 <li>Keyboard Accessible Controls</li>
 </ul>
 
-<p>
-Because the player is powered by VLC technology, users benefit from exceptional performance, stability, and compatibility.
-</p>
-
 <hr>
 
 <h3>Advanced Download Technology</h3>
@@ -120,31 +112,36 @@ The application supports:
 </p>
 
 <ul>
-<li>Video Downloads</li>
-<li>Playlist Downloads</li>
-<li>Channel Downloads</li>
-<li>Audio Extraction</li>
-<li>Multiple Quality Options</li>
+<li>Video Downloads (MP4, MKV, WEBM up to 8K Ultra Extreme)</li>
+<li>Audio Extraction (MP3, M4A, WAV, FLAC, OPUS, AAC up to 320kbps)</li>
+<li>Selective Playlist and Channel Downloads via Checkboxes</li>
 <li>Automatic File Organization</li>
-<li>High-Speed Download Processing</li>
-<li>Reliable Download Recovery</li>
+<li>Thumbnail and Subtitle Embedding</li>
+<li>Reliable Download Recovery with Pause/Resume functionality</li>
 </ul>
 
 <hr>
 
-<h3>What's New in Version 1.1.0?</h3>
+<h3>What's New in Version 1.2.0?</h3>
 
 <p>
-Version 1.1.0 introduces powerful background automation, processing upgrades, and enhanced accessibility features to provide a premium multimedia experience.
+Version 1.2.0 is a massive architectural update focusing on zero-bloat performance, universal media support, expanded quality formats, and anti-throttling bypass technologies.
 </p>
 
 <ul>
-<li><strong>Smart Background Clipboard Monitoring:</strong> Intelligently detects copied media links (YouTube, Facebook, Instagram) in the background and prompts for instant downloads without opening the application manually.</li>
-<li><strong>Zero-Impact Auto-Startup & System Tray:</strong> Runs silently in the system tray upon Windows boot, consuming 0% RAM, Battery, and Internet bandwidth when idle.</li>
-<li><strong>Advanced Voice Search (Indian Accent):</strong> The voice recognition engine has been recalibrated for 'en-IN' (Indian English) with a 10-second extended listening timeout for maximum accuracy.</li>
-<li><strong>Integrated Engine Updater:</strong> Seamlessly checks and installs core yt-dlp and FFmpeg processor updates dynamically from official sources.</li>
-<li><strong>YouTube Shorts Support:</strong> Upgraded link validation engine to flawlessly process /shorts/ URLs.</li>
-<li><strong>Enhanced Accessibility:</strong> Perfected focus management, screen reader roles, and smart exit logic designed specifically for visually impaired users.</li>
+<li><strong>Zero-Bloat Performance Overhaul:</strong> We have completely removed background clipboard monitoring and the voice search engine. This strategic decision guarantees absolutely 0% background RAM and CPU usage, completely eliminating previous issues with UI freezing and system hanging.</li>
+<li><strong>Universal Media Support:</strong> Upgraded from supporting only 3 platforms to a massive 1,000+ websites. You can now seamlessly download from YouTube, Instagram, Facebook, X/Twitter, Reddit, Vimeo, TikTok, Dailymotion, LinkedIn, and more.</li>
+<li><strong>YouTube Server Bypass (Anti-Throttling):</strong> Added a dedicated setting to bypass YouTube's aggressive download speed limits. Choose between 'Auto / Default (Smart Routing)' for maximum stability against YouTube experiments (like SABR), or 'Android Bypass' for ultra-fast, unrestricted mobile API speeds.</li>
+<li><strong>Expanded Format & Quality Ecosystem:</strong> 
+    <ul>
+        <li><em>Video:</em> Now supports MKV and WEBM alongside MP4, with resolutions reaching up to 1440p (2K Quad HD) and ultra-extreme 8K (4320p).</li>
+        <li><em>Audio:</em> Now supports FLAC, OPUS, and AAC alongside MP3, M4A, and WAV, including premium bitrates like 256kbps.</li>
+    </ul>
+</li>
+<li><strong>Interactive Playlist Selection:</strong> Say goodbye to forced bulk downloads! You can now browse a playlist or channel and use intuitive checkboxes to selectively download exactly the media you want.</li>
+<li><strong>Advanced Download Controls:</strong> Introducing the ability to Pause and Resume ongoing downloads. Additionally, clicking Cancel now triggers a confirmation prompt to prevent accidental download interruptions.</li>
+<li><strong>Enhanced Playback Engine:</strong> Resolved a critical bug where media would fail to load or play directly from the search results. Integrated VLC-powered streaming is now 100% stable.</li>
+<li><strong>Simplified UI & Customizable Settings:</strong> The user interface has been unified into a single, straightforward dashboard. Settings now feature configurable Download Speeds (Threads), options to automatically embed Thumbnails and Subtitles/Captions, a Factory Reset button, and a Donation portal to support future accessible development.</li>
 </ul>
 
 <hr>
@@ -152,7 +149,7 @@ Version 1.1.0 introduces powerful background automation, processing upgrades, an
 <h3>Supported Platforms & System Requirements</h3>
 
 <p>
-<strong>Supported Media Platforms:</strong> YouTube, Facebook, and Instagram.<br>
+<strong>Supported Media Platforms:</strong> 1,000+ Websites including YouTube, Instagram, Facebook, X/Twitter, Reddit, TikTok, LinkedIn, Vimeo, and Dailymotion.<br>
 <strong>Operating System:</strong> Microsoft Windows (64-bit architecture recommended).<br>
 <strong>License:</strong> Free Software Distribution
 </p>
@@ -162,7 +159,7 @@ Version 1.1.0 introduces powerful background automation, processing upgrades, an
 <h3>Official Microsoft WinGet Availability</h3>
 
 <p>
-We are absolutely thrilled to announce that Media Downloader (Version 1.1.0) is now officially published and available on the Microsoft WinGet Package Manager! If you prefer a seamless, automated installation instead of downloading the setup file manually, you can now search, install, and manage Media Downloader directly using your command line.
+We are absolutely thrilled to announce that Media Downloader is officially published and available on the Microsoft WinGet Package Manager! If you prefer a seamless, automated installation instead of downloading the setup file manually, you can now search, install, and manage Media Downloader directly using your command line.
 </p>
 
 <p>
@@ -180,27 +177,13 @@ Simply open Command Prompt or PowerShell and use the following commands:
 <h3>Downloads & Releases</h3>
 
 <div class="release-section">
-<h4>Version 1.1.0 [LATEST STABLE RELEASE]</h4>
+<h4>Version 1.2.0 [LATEST STABLE RELEASE]</h4>
 <p>
-<strong>Accessible Tech Labs India highly recommends always using the latest version.</strong> This release contains the newest features, maximum security, optimized speeds, and the latest platform compatibility. 
+<strong>Accessible Tech Labs India highly recommends always using the latest version.</strong> This release contains the newest features, maximum security, optimized speeds, expanded formats, and the latest platform compatibility. Previous versions have been officially deprecated.
 </p>
 <p>
-<a href="https://github.com/accessibletechlabsindia/accessibletechlabsindia.github.io/releases/download/v1.1.0/MediaDownloader_Setup_v1.1.exe" class="download-button" style="font-weight: bold; color: #003366;">
-Download Media Downloader v1.1.0 (Latest)
-</a>
-</p>
-</div>
-
-<br>
-
-<div class="release-section">
-<h4>Version 1.0.0 [PREVIOUS STABLE RELEASE]</h4>
-<p>
-While this previous version remains fully functional and highly stable, it does not include the advanced background monitoring, Indian accent voice search optimizations, or the integrated FFmpeg updater introduced in version 1.1.0. You may use this version if preferred, but you will not have access to the latest enhancements.
-</p>
-<p>
-<a href="https://github.com/accessibletechlabsindia/accessibletechlabsindia.github.io/releases/download/v1.0.0/MediaDownloader_Setup_v1.0.exe" class="download-button">
-Download Media Downloader v1.0.0
+<a href="https://github.com/accessibletechlabsindia/accessibletechlabsindia.github.io/releases/download/v1.2.0/MediaDownloader_Setup_v1.2.exe" class="download-button" style="font-weight: bold; color: #003366;">
+Download Media Downloader v1.2.0 (Latest)
 </a>
 </p>
 </div>
