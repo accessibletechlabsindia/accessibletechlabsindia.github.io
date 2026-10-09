@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Dashboard - Accessible Tech Labs India</title>
+<meta name="description" content="Official Team Dashboard for Accessible Tech Labs India. Manage support tickets, assign owners, message users, and resolve issues.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body { background-color: #0d1117; color: #c9d1d9; font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; margin: 0; padding: 0; }
+a { color: #58a6ff; text-decoration: underline; font-weight: bold; }
+a:focus, a:hover { color: #79c0ff; outline: 3px solid #ffcc00; outline-offset: 2px; }
+.skip-link { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+.skip-link:focus { position: static; width: auto; height: auto; background: #ffcc00; color: #000; padding: 10px; font-weight: bold; display: block; text-align: center; }
+header[role="banner"] { background-color: #010409; border-bottom: 1px solid #30363d; padding: 25px 0; text-align: center; }
+header h1 { margin: 0; font-size: 2.2rem; color: #c9d1d9; }
+nav[aria-label="Main navigation"] { margin-top: 15px; }
+nav a { margin: 0 15px; font-weight: 700; color: #58a6ff; text-decoration: none; font-size: 1.1rem; }
+nav a:hover, nav a:focus { color: #79c0ff; text-decoration: underline; }
+.main-container { max-width: 1200px; margin: 30px auto; padding: 0 25px; }
+.manifesto-box { background: #010409; padding: 35px; border-radius: 12px; border-left: 6px solid #a371f7; margin-bottom: 40px; text-align: justify; line-height: 1.8; }
+.manifesto-box h2 { color: #d2a8ff; margin-top: 0; font-size: 2rem; }
+.manifesto-box p { font-size: 1.1rem; color: #e6edf3; }
+.workspace-card { background: #161b22; border: 2px solid #30363d; border-radius: 15px; padding: 35px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+.workspace-card h2 { color: #58a6ff; margin-top: 0; border-bottom: 2px solid #30363d; padding-bottom: 10px; font-size: 1.8rem; }
+.input-group { margin-bottom: 25px; }
+.input-label { display: block; font-size: 1.15rem; font-weight: bold; color: #58a6ff; margin-bottom: 8px; }
+.input-field { width: 100%; padding: 16px; border-radius: 8px; border: 2px solid #30363d; font-size: 1.15rem; color: #c9d1d9; background: #010409; box-sizing: border-box; }
+.input-field:focus { border-color: #58a6ff; outline: 3px solid #ffcc00; }
+select.input-field { cursor: pointer; }
+textarea.input-field { min-height: 120px; resize: vertical; font-family: inherit; }
+.control-row { display: flex; gap: 15px; flex-wrap: wrap; }
+.btn-action { padding: 14px 24px; border-radius: 8px; border: none; font-weight: bold; font-size: 1.1rem; cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px; transition: 0.2s; background: #1f6feb; color: #ffffff; }
+.btn-action:hover:not(:disabled) { background: #388bfd; }
+.btn-action:focus { outline: 3px solid #ffcc00; }
+.btn-success { background: #238636; }
+.btn-success:hover { background: #2ea043; }
+.btn-danger { background: #da3633; }
+.btn-danger:hover { background: #f85149; }
+.btn-secondary { background: #21262d; border: 1px solid #30363d; color: #c9d1d9; }
+.btn-secondary:hover { background: #30363d; }
+.btn-tab { padding: 10px 20px; font-size: 1rem; border-radius: 6px; }
+.btn-tab-active { background: #238636; }
+.summary-bar { background: #010409; border: 1px solid #30363d; border-radius: 8px; padding: 15px 20px; margin-bottom: 25px; font-size: 1.15rem; font-weight: bold; color: #3fb950; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+.ticket-card { background: #010409; border: 2px solid #30363d; border-radius: 12px; padding: 25px; margin-top: 25px; box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+.ticket-card h3 { color: #58a6ff; margin-top: 0; font-size: 1.5rem; border-bottom: 1px solid #30363d; padding-bottom: 10px; }
+.compact-details { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
+.compact-text { font-size: 1.15rem; font-weight: bold; color: #e6edf3; }
+.full-details-pane { margin-top: 20px; padding-top: 20px; border-top: 1px dashed #30363d; display: none; }
+.data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 15px; margin-bottom: 15px; }
+.data-row { display: flex; flex-direction: column; }
+.data-label { font-size: 0.9rem; color: #8b949e; font-weight: bold; text-transform: uppercase; }
+.data-value { font-size: 1.1rem; color: #e6edf3; font-weight: bold; word-break: break-all; margin-top: 2px; }
+.status-badge { display: inline-block; padding: 4px 10px; border-radius: 4px; font-weight: bold; text-transform: uppercase; font-size: 0.9rem; width: fit-content; }
+.status-open { background: #21262d; color: #58a6ff; border: 1px solid #1f6feb; }
+.status-inprogress { background: #382500; color: #ffcc00; border: 1px solid #9e6a03; }
+.status-closed { background: #0e2a14; color: #3fb950; border: 1px solid #238636; }
+.action-box { background: #161b22; border: 2px solid #30363d; border-radius: 8px; padding: 20px; margin-top: 15px; display: none; }
+.action-box h4 { margin-top: 0; color: #58a6ff; font-size: 1.2rem; }
+.live-status { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #21262d; color: #e6edf3; padding: 15px 30px; border-radius: 50px; display: none; z-index: 1000; font-weight: bold; font-size: 1.1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.5); border: 1px solid #30363d; }
+footer[role="contentinfo"] { background-color: #010409; border-top: 1px solid #30363d; color: #8b949e; padding: 40px 0; text-align: center; margin-top: 60px; font-size: 1.1rem; }
+footer a { color: #58a6ff; text-decoration: underline; }
+.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header role="banner">
+<h1>Accessible Tech Labs India</h1>
+<nav aria-label="Main navigation">
+<a href="../index.html" accesskey="h">Home</a>
+<a href="../software.html" accesskey="s">Software</a>
+<a href="../Addons/Addons.html" accesskey="n">NVDA Add-ons</a>
+<a href="../tools.html" accesskey="t">Tools</a>
+<a href="../Games.html" accesskey="g">Games</a>
+<a href="../training.html" accesskey="r">Training</a>
+<a href="../support.html" accesskey="d">Support Us</a>
+<a href="../about.html" accesskey="a">About</a>
+<a href="../contact.html" accesskey="c">Contact</a>
+</nav>
+</header>
+
+<main id="main" class="main-container">
+
+<section class="manifesto-box" role="region" aria-labelledby="admin-manifesto-heading">
+<h2 id="admin-manifesto-heading">Engineering Team Support Portal</h2>
+<p>
+Welcome to the central support management dashboard for Accessible Tech Labs India. This platform is used exclusively by our core engineering team (Krishna Kumar, Anil Saini, Sumit Kumar, Gauri, and Haseena) to review technical issues and feedback submitted by users. Every request is tracked directly, ensuring total transparency, user privacy, and quick problem resolution.
+</p>
+<p>
+Our system is designed with a Screen Reader First philosophy, allowing seamless keyboard and voice navigation. Team members can take ownership of tickets, reply directly to users, transfer tickets when needed, add confidential team notes, and re-open or resolve tickets with clear explanations.
+</p>
+</section>
+
+<div class="workspace-card" id="loginCard">
+<h2 id="loginHeading" tabindex="-1">Team Member Login</h2>
+
+<div class="input-group">
+<label class="input-label" for="memberKeyInput">Enter Your 16-Character Security Key *</label>
+<div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap;">
+<input type="password" id="memberKeyInput" class="input-field" placeholder="Paste your 16-character key here..." required aria-required="true" autocomplete="off" style="font-family: monospace; letter-spacing: 2px; flex: 1; min-width: 250px;">
+<button class="btn-action btn-secondary" style="min-width: auto; padding: 16px 25px;" id="showKeyBtn" onclick="toggleKeyVisibility()">Show</button>
+</div>
+</div>
+
+<button class="btn-action" onclick="authenticateMember()">Login to Dashboard</button>
+</div>
+
+<div class="workspace-card hidden" id="terminalCard">
+<div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #30363d; padding-bottom: 15px; margin-bottom: 25px; flex-wrap: wrap; gap: 15px;">
+<div>
+<h2 style="margin: 0; border: none; padding: 0;">Support Dashboard</h2>
+<p style="margin: 5px 0 0 0; color: #3fb950; font-weight: bold;">Logged in as: <span id="currentEngineerBadge"></span></p>
+</div>
+<div style="display: flex; gap: 10px;">
+<button class="btn-action btn-secondary" onclick="loadAllTickets()">Refresh Tickets</button>
+<button class="btn-action btn-danger" onclick="terminateSession()">Logout</button>
+</div>
+</div>
+
+<div class="control-row" id="tabRow" style="margin-bottom: 20px;">
+<button class="btn-action btn-tab btn-tab-active" id="tabActiveBtn" onclick="switchFilterView('active')">Active Tickets</button>
+<button class="btn-action btn-tab btn-secondary" id="tabClosedBtn" onclick="switchFilterView('closed')">Closed Tickets</button>
+</div>
+
+<div class="summary-bar" id="summaryBar">
+<span id="activeCountLabel">Active Tickets: 0</span>
+<span id="assignedCountLabel">Assigned to You: 0</span>
+</div>
+
+<div id="ticketsContainer" aria-live="polite">
+<p style="text-align: center; font-weight: bold; color: #8b949e;">Loading tickets, please wait...</p>
+</div>
+</div>
+
+</main>
+
+<div id="srStatus" class="live-status" aria-live="assertive"></div>
+<div id="toast" class="toast" aria-live="assertive"></div>
+
+<footer role="contentinfo">
+<p>
+<a href="../privacy.html" accesskey="p">Privacy Policy</a> | 
+<a href="index.html">Report Issue / Feedback</a> | 
+<a href="track.html">Track Ticket Status</a>
+</p>
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbxuK9nj1sF-LWp-O6fQ_xYliEAgYz1x76HCylGoIE8iySx1raGEXMhrIMSfKjzX91b44w/exec";
+let authenticatedUser = "";
+let authenticatedKey = "";
+let allFetchedTickets = [];
+let currentFilter = "active";
+let activeOpenTicketId = null;
+let toastTimer;
+
+const TEAM_KEYS_MAP = {
+    "K9xM2pL8vQ4wR7tY": "Krishna Kumar",
+    "A3bN7kE5zT9yU2wX": "Anil Saini",
+    "S8jF4hV1mC6nD3pQ": "Sumit Kumar",
+    "G5tL9rW2xK8sP4vB": "Gauri",
+    "H2yD6mZ9bV3cX7eR": "Haseena"
+};
+
+const relativePathMap = {
+    "ATL Media Downloader": "../software/youtube-downloader/Media Downloader.html",
+    "ImageMaster Studio": "../software/ImageMasterStudio/ImageMasterStudio.html",
+    "Media Composer Engine": "../software/Media Composer Engine/Media Composer Engine.html",
+    "Professional Math Challenge": "../Games/professional-math-challenge.html",
+    "ATL Productivity Suite": "../Addons/atl_productivity_suite.html",
+    "Standard Calculator": "../tools/calculator.html",
+    "PDF Reader & Speaker": "../tools/pdf-reader.html",
+    "Braille Document Creator": "../tools/braille-blueprint-compiler.html",
+    "Live Camera Assistant": "../tools/universal-visual-assistant.html",
+    "PDF File Combiner": "../tools/pdf-merger.html",
+    "PDF to Text Extractor": "../tools/pdf-to-text.html",
+    "Text to PDF Converter": "../tools/text-to-pdf.html",
+    "Image to PDF Converter": "../tools/image-to-pdf.html",
+    "PDF to Image Converter": "../tools/pdf-to-image.html",
+    "Text File Combiner": "../tools/txt-merger.html",
+    "Image to Text Reader (OCR)": "../tools/image-to-text.html",
+    "Language Translator": "../tools/translator.html",
+    "Image Format Converter": "../tools/professional-image-converter.html",
+    "Image to Icon Maker": "../tools/image-to-icon-workstation.html",
+    "Text to Image Converter": "../tools/text-to-image.html",
+    "Secure File Vault": "../tools/crypto-vault.html",
+    "Password Strength Checker": "../tools/password-checker.html",
+    "Email Hack Checker": "../tools/global-osint-radar.html",
+    "Secure Text Clipboard": "../tools/universal-cloud-clipboard.html",
+    "Secure File Sharing": "../tools/global-payload-drop.html",
+    "Private Video & Audio Chat (Sovereign Nexus)": "../tools/Sovereign-Nexus/sovereign-webrtc-nexus.html",
+    "Temporary Email Generator": "../tools/stealth-inbox-generator.html",
+    "QR Code Maker & Scanner": "../tools/professional-qr-suite.html",
+    "Website Accessibility Checker": "../tools/advanced-compliance-guardian.html",
+    "Website Network Analyzer": "../tools/dns-analyzer.html",
+    "IP Location Tracker": "../tools/network-threat-locator.html",
+    "GitHub Profile Analyzer": "../tools/github-intelligence.html",
+    "File Hidden Info Viewer": "../tools/extreme-metadata-viewer.html",
+    "Fake Data Generator": "../tools/synthetic-identity-engine.html",
+    "Age & Birthday Calculator": "../tools/age-calculator.html",
+    "Live Weather Forecast": "../tools/weather-telemetry.html",
+    "Digital Signature Maker": "../tools/digital-signature-generator.html"
+};
+
+function announceSR(msg) {
+    const el = document.getElementById("srStatus");
+    el.innerText = "";
+    setTimeout(() => { el.innerText = msg; }, 50);
+}
+
+function showToast(msg) {
+    const t = document.getElementById("toast");
+    clearTimeout(toastTimer);
+    t.innerText = msg;
+    t.style.display = "block";
+    announceSR(msg);
+    toastTimer = setTimeout(() => { t.style.display = "none"; }, 4000);
+}
+
+function toggleKeyVisibility() {
+    const inp = document.getElementById("memberKeyInput");
+    const btn = document.getElementById("showKeyBtn");
+    if (inp.type === "password") {
+        inp.type = "text";
+        btn.innerText = "Hide";
+        announceSR("Key is visible.");
+    } else {
+        inp.type = "password";
+        btn.innerText = "Show";
+        announceSR("Key is hidden.");
+    }
+}
+
+function authenticateMember() {
+    const key = document.getElementById("memberKeyInput").value.trim();
+    if (!key) {
+        showToast("Please enter your 16-character security key.");
+        return;
+    }
+    
+    const mem = TEAM_KEYS_MAP[key];
+    if (!mem) {
+        showToast("Invalid security key. Access denied.");
+        return;
+    }
+    
+    authenticatedUser = mem;
+    authenticatedKey = key;
+    document.getElementById("loginCard").style.display = "none";
+    document.getElementById("terminalCard").classList.remove("hidden");
+    document.getElementById("currentEngineerBadge").innerText = authenticatedUser;
+    showToast("Logged in successfully as " + authenticatedUser);
+    loadAllTickets();
+}
+
+function terminateSession() {
+    authenticatedUser = "";
+    authenticatedKey = "";
+    allFetchedTickets = [];
+    activeOpenTicketId = null;
+    document.getElementById("terminalCard").classList.add("hidden");
+    document.getElementById("loginCard").style.display = "block";
+    document.getElementById("memberKeyInput").value = "";
+    document.getElementById("memberKeyInput").type = "password";
+    document.getElementById("showKeyBtn").innerText = "Show";
+    document.getElementById("loginHeading").focus();
+    showToast("Logged out successfully.");
+}
+
+function switchFilterView(filterType) {
+    currentFilter = filterType;
+    activeOpenTicketId = null;
+    if (filterType === "active") {
+        document.getElementById("tabActiveBtn").className = "btn-action btn-tab btn-tab-active";
+        document.getElementById("tabClosedBtn").className = "btn-action btn-tab btn-secondary";
+        announceSR("Viewing active tickets.");
+    } else {
+        document.getElementById("tabActiveBtn").className = "btn-action btn-tab btn-secondary";
+        document.getElementById("tabClosedBtn").className = "btn-action btn-tab btn-tab-active";
+        announceSR("Viewing closed tickets.");
+    }
+    renderFilteredTickets();
+}
+
+function loadAllTickets() {
+    const container = document.getElementById("ticketsContainer");
+    container.innerHTML = '<p style="text-align: center; font-weight: bold; color: #8b949e;">Loading tickets, please wait...</p>';
+    announceSR("Refreshing tickets.");
+
+    fetch(API_URL + "?action=getAllTickets")
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success" && data.data) {
+            allFetchedTickets = data.data.reverse();
+            renderFilteredTickets();
+        } else {
+            container.innerHTML = '<p style="text-align: center; font-weight: bold; color: #3fb950; font-size: 1.2rem;">No tickets found.</p>';
+            announceSR("No tickets present.");
+        }
+    })
+    .catch(err => {
+        container.innerHTML = '<p style="text-align: center; font-weight: bold; color: #da3633;">Failed to load tickets. Please check your internet connection.</p>';
+        showToast("Error loading tickets.");
+    });
+}
+
+function formatDuration(startStr, endStr) {
+    if (!startStr || !endStr) return "Not Available";
+    let start = new Date(startStr);
+    let end = new Date(endStr);
+    let diff = Math.max(0, end - start);
+    let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    let mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    if (days > 0) return days + " Day(s), " + hours + " Hour(s)";
+    if (hours > 0) return hours + " Hour(s), " + mins + " Minute(s)";
+    return mins + " Minute(s)";
+}
+
+function formatPurgeCountdown(closedStr) {
+    if (!closedStr) return "Not Available";
+    let closed = new Date(closedStr);
+    let expire = closed.getTime() + (7 * 24 * 60 * 60 * 1000);
+    let diff = expire - Date.now();
+    if (diff <= 0) return "Expiring today";
+    let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    let hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    return days + " Day(s), " + hours + " Hour(s) remaining";
+}
+
+function renderFilteredTickets() {
+    const container = document.getElementById("ticketsContainer");
+    container.innerHTML = "";
+
+    const activeTickets = allFetchedTickets.filter(t => t.Status !== "Closed");
+    const closedTickets = allFetchedTickets.filter(t => t.Status === "Closed");
+    const myAssignedCount = activeTickets.filter(t => t["Assigned To"] === authenticatedUser).length;
+
+    document.getElementById("activeCountLabel").innerText = "Active Tickets: " + activeTickets.length;
+    document.getElementById("assignedCountLabel").innerText = "Assigned to You: " + myAssignedCount;
+
+    const displayList = currentFilter === "active" ? activeTickets : closedTickets;
+
+    if (displayList.length === 0) {
+        container.innerHTML = '<p style="text-align: center; font-weight: bold; color: #3fb950; font-size: 1.2rem;">No ' + (currentFilter === "active" ? "active" : "closed") + ' tickets right now.</p>';
+        announceSR("No tickets in this section.");
+        return;
+    }
+
+    if (currentFilter === "closed") {
+        const headerEl = document.createElement("h3");
+        headerEl.style.color = "#3fb950";
+        headerEl.style.borderBottom = "1px solid #30363d";
+        headerEl.style.paddingBottom = "10px";
+        headerEl.innerText = "Closed & Resolved Tickets (Total: " + closedTickets.length + ")";
+        container.appendChild(headerEl);
+    }
+
+    displayList.forEach(t => {
+        const card = document.createElement("article");
+        card.className = "ticket-card";
+        card.id = "card_" + t["Ticket ID"];
+
+        const directLink = relativePathMap[t["Specific Item"]] ? relativePathMap[t["Specific Item"]] : null;
+        let linkHtml = "None";
+        if (directLink) {
+            linkHtml = `<a href="${directLink}" target="_blank" rel="noopener">Open ${t["Specific Item"]} Page</a>`;
+        } else if (t["Specific Item"] && t["Specific Item"] !== "N/A") {
+            linkHtml = t["Specific Item"];
+        }
+
+        let badgeClass = "status-open";
+        if (t.Status === "In Progress") badgeClass = "status-inprogress";
+        if (t.Status === "Closed") badgeClass = "status-closed";
+
+        let html = `
+            <div id="backHeader_${t["Ticket ID"]}" style="display: none; margin-bottom: 20px;">
+                <button class="btn-action btn-secondary" onclick="backToTicketList('${t["Ticket ID"]}')">⬅️ Back to Tickets List</button>
+            </div>
+            <h3 id="cardTitle_${t["Ticket ID"]}">Ticket ID: ${t["Ticket ID"]} <span class="status-badge ${badgeClass}">${t.Status}</span></h3>
+            <div class="compact-details" id="compact_${t["Ticket ID"]}">
+                <div class="compact-text">User: ${t.Name} | Category: ${t.Category} | Item: ${t["Specific Item"] || "General"}</div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn-action" id="inspectBtn_${t["Ticket ID"]}" onclick="openFocusedTicket('${t["Ticket ID"]}')">Open Ticket Details</button>
+                </div>
+            </div>
+
+            <div class="full-details-pane" id="pane_${t["Ticket ID"]}">
+                <div class="data-grid">
+                    <div class="data-row"><span class="data-label">User Name & Email</span><span class="data-value">${t.Name} (${t.Email})</span></div>
+                    <div class="data-row"><span class="data-label">Request Type</span><span class="data-value">${t["Request Type"]}</span></div>
+                    <div class="data-row"><span class="data-label">Category</span><span class="data-value">${t.Category}</span></div>
+                    <div class="data-row"><span class="data-label">Specific Item</span><span class="data-value">${linkHtml}</span></div>
+                    <div class="data-row"><span class="data-label">Assigned Engineer</span><span class="data-value">${t["Assigned To"] || "Unassigned"}</span></div>
+                    <div class="data-row"><span class="data-label">Created Date & Time</span><span class="data-value">${new Date(t.Timestamp).toLocaleString()}</span></div>
+                </div>
+
+                <div style="background: #161b22; padding: 15px; border-radius: 6px; border: 1px solid #30363d; margin-bottom: 15px;">
+                    <span class="data-label">User Description / Message:</span>
+                    <p style="color: #e6edf3; margin: 5px 0 0 0; white-space: pre-wrap;">${t.Description}</p>
+                </div>
+        `;
+
+        if (t["Internal Notes"]) {
+            html += `
+                <div style="background: #161b22; padding: 15px; border-radius: 6px; border: 1px dashed #a371f7; margin-bottom: 15px;">
+                    <span class="data-label" style="color: #d2a8ff;">Confidential Team Notes:</span>
+                    <p style="color: #e6edf3; margin: 5px 0 0 0; white-space: pre-wrap;">${t["Internal Notes"]}</p>
+                </div>
+            `;
+        }
+
+        if (t.Status === "Closed") {
+            const timeToResolve = formatDuration(t.Timestamp, t["Closed Date"]);
+            const purgeTime = formatPurgeCountdown(t["Closed Date"]);
+            const closedDateFormatted = t["Closed Date"] ? new Date(t["Closed Date"]).toLocaleString() : "Not Recorded";
+
+            html += `
+                <div style="background: #0e2a14; padding: 15px; border-radius: 6px; border: 1px solid #238636; margin-bottom: 15px;">
+                    <span class="data-label" style="color: #3fb950;">Closed Resolution Details:</span>
+                    <p style="color: #ffffff; margin: 5px 0 10px 0; white-space: pre-wrap;">${t["Resolution Reason"] || "Resolved"}</p>
+                    <div class="data-grid" style="margin-top: 10px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 10px;">
+                        <div class="data-row"><span class="data-label">Closed Date & Time</span><span class="data-value">${closedDateFormatted}</span></div>
+                        <div class="data-row"><span class="data-label">Closed By</span><span class="data-value">${t["Assigned To"] || "Team Member"}</span></div>
+                        <div class="data-row"><span class="data-label">Time Taken to Resolve</span><span class="data-value">${timeToResolve}</span></div>
+                        <div class="data-row"><span class="data-label">Permanent Auto-Delete</span><span class="data-value">${purgeTime}</span></div>
+                    </div>
+                </div>
+                <div class="control-row">
+                    <button class="btn-action btn-success" onclick="openActionBox('reopenBox_${t["Ticket ID"]}')">Re-Open Ticket</button>
+                </div>
+
+                <div class="action-box" id="reopenBox_${t["Ticket ID"]}">
+                    <h4>Re-Open Ticket</h4>
+                    <label class="input-label" for="reopenReason_${t["Ticket ID"]}">Reason for Re-Opening *</label>
+                    <textarea id="reopenReason_${t["Ticket ID"]}" class="input-field" placeholder="Explain clearly why this ticket is being re-opened..."></textarea>
+                    <div class="control-row" style="margin-top: 15px;">
+                        <button class="btn-action btn-success" onclick="confirmReopen('${t["Ticket ID"]}')">Confirm Re-Open</button>
+                        <button class="btn-action btn-secondary" onclick="closeActionBox('reopenBox_${t["Ticket ID"]}')">Cancel</button>
+                    </div>
+                </div>
+            `;
+        } else {
+            html += `<div class="control-row">`;
+            if (t["Assigned To"] === "Unassigned" || !t["Assigned To"]) {
+                html += `<button class="btn-action btn-success" onclick="executeTakeOwnership('${t["Ticket ID"]}')">Take Ownership</button>`;
+            } else if (t["Assigned To"] === authenticatedUser) {
+                html += `
+                    <button class="btn-action btn-danger" onclick="openActionBox('closeBox_${t["Ticket ID"]}')">Resolve & Close Ticket</button>
+                    <button class="btn-action btn-secondary" onclick="openActionBox('inquireBox_${t["Ticket ID"]}')">Message User</button>
+                    <button class="btn-action btn-secondary" onclick="openActionBox('transferBox_${t["Ticket ID"]}')">Transfer Ticket</button>
+                    <button class="btn-action btn-secondary" onclick="openActionBox('noteBox_${t["Ticket ID"]}')">Add Note</button>
+                `;
+            } else {
+                html += `<p style="color: #ffcc00; font-weight: bold; margin: 0;">Currently assigned to ${t["Assigned To"]}</p>`;
+            }
+            html += `</div>`;
+
+            if (t["Assigned To"] === authenticatedUser) {
+                html += `
+                    <div class="action-box" id="closeBox_${t["Ticket ID"]}">
+                        <h4>Resolve & Close Ticket</h4>
+                        <label class="input-label" for="reason_${t["Ticket ID"]}">Solution / Resolution Message (Sent to User) *</label>
+                        <textarea id="reason_${t["Ticket ID"]}" class="input-field" placeholder="Explain how the issue was fixed or answered..."></textarea>
+                        <div class="control-row" style="margin-top: 15px;">
+                            <button class="btn-action btn-danger" onclick="confirmClose('${t["Ticket ID"]}')">Confirm Close</button>
+                            <button class="btn-action btn-secondary" onclick="closeActionBox('closeBox_${t["Ticket ID"]}')">Cancel</button>
+                        </div>
+                    </div>
+
+                    <div class="action-box" id="inquireBox_${t["Ticket ID"]}">
+                        <h4>Message User for More Details</h4>
+                        <label class="input-label" for="inquireMsg_${t["Ticket ID"]}">Question for User (Sent via Email) *</label>
+                        <textarea id="inquireMsg_${t["Ticket ID"]}" class="input-field" placeholder="Type your question or instructions for the user..."></textarea>
+                        <div class="control-row" style="margin-top: 15px;">
+                            <button class="btn-action btn-success" onclick="confirmInquiry('${t["Ticket ID"]}')">Send Email to User</button>
+                            <button class="btn-action btn-secondary" onclick="closeActionBox('inquireBox_${t["Ticket ID"]}')">Cancel</button>
+                        </div>
+                    </div>
+
+                    <div class="action-box" id="transferBox_${t["Ticket ID"]}">
+                        <h4>Transfer Ticket to Team Member</h4>
+                        <label class="input-label" for="transMember_${t["Ticket ID"]}">Select Team Member *</label>
+                        <select id="transMember_${t["Ticket ID"]}" class="input-field">
+                            <option value="">Select Member</option>
+                            <option value="Krishna Kumar">Krishna Kumar</option>
+                            <option value="Anil Saini">Anil Saini</option>
+                            <option value="Sumit Kumar">Sumit Kumar</option>
+                            <option value="Gauri">Gauri</option>
+                            <option value="Haseena">Haseena</option>
+                        </select>
+                        <label class="input-label" for="transReason_${t["Ticket ID"]}" style="margin-top: 10px;">Reason for Transfer *</label>
+                        <textarea id="transReason_${t["Ticket ID"]}" class="input-field" placeholder="Explain why you are transferring this ticket..."></textarea>
+                        <div class="control-row" style="margin-top: 15px;">
+                            <button class="btn-action btn-success" onclick="confirmTransfer('${t["Ticket ID"]}')">Transfer</button>
+                            <button class="btn-action btn-secondary" onclick="closeActionBox('transferBox_${t["Ticket ID"]}')">Cancel</button>
+                        </div>
+                    </div>
+
+                    <div class="action-box" id="noteBox_${t["Ticket ID"]}">
+                        <h4>Add Confidential Team Note</h4>
+                        <label class="input-label" for="noteText_${t["Ticket ID"]}">Note Content *</label>
+                        <textarea id="noteText_${t["Ticket ID"]}" class="input-field" placeholder="Type your private team note here..."></textarea>
+                        <div class="control-row" style="margin-top: 15px;">
+                            <button class="btn-action btn-success" onclick="confirmNote('${t["Ticket ID"]}')">Save Note</button>
+                            <button class="btn-action btn-secondary" onclick="closeActionBox('noteBox_${t["Ticket ID"]}')">Cancel</button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        html += `</div>`;
+        card.innerHTML = html;
+        container.appendChild(card);
+    });
+
+    announceSR(displayList.length + " tickets shown.");
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const directTicket = urlParams.get("ticket");
+    if (directTicket && !activeOpenTicketId) {
+        openFocusedTicket(directTicket.trim().toUpperCase());
+    }
+}
+
+function openFocusedTicket(ticketId) {
+    activeOpenTicketId = ticketId;
+    const cards = document.querySelectorAll(".ticket-card");
+    cards.forEach(card => {
+        if (card.id === "card_" + ticketId) {
+            card.style.display = "block";
+            const pane = document.getElementById("pane_" + ticketId);
+            const backHeader = document.getElementById("backHeader_" + ticketId);
+            const compact = document.getElementById("compact_" + ticketId);
+            if (pane) pane.style.display = "block";
+            if (backHeader) backHeader.style.display = "block";
+            if (compact) compact.style.display = "none";
+            const title = document.getElementById("cardTitle_" + ticketId);
+            if (title) title.focus();
+        } else {
+            card.style.display = "none";
+        }
+    });
+
+    document.getElementById("tabRow").style.display = "none";
+    document.getElementById("summaryBar").style.display = "none";
+    announceSR("Viewing full details for ticket " + ticketId + ". Use the Back button to return to the list.");
+}
+
+function backToTicketList(ticketId) {
+    activeOpenTicketId = null;
+    const cards = document.querySelectorAll(".ticket-card");
+    cards.forEach(card => {
+        card.style.display = "block";
+        const pane = card.querySelector(".full-details-pane");
+        const backHeader = card.querySelector("[id^='backHeader_']");
+        const compact = card.querySelector(".compact-details");
+        if (pane) pane.style.display = "none";
+        if (backHeader) backHeader.style.display = "none";
+        if (compact) compact.style.display = "flex";
+    });
+
+    document.getElementById("tabRow").style.display = "flex";
+    document.getElementById("summaryBar").style.display = "flex";
+    
+    const inspectBtn = document.getElementById("inspectBtn_" + ticketId);
+    if (inspectBtn) inspectBtn.focus();
+    announceSR("Returned to tickets list.");
+}
+
+function openActionBox(id) {
+    document.querySelectorAll(".action-box").forEach(el => el.style.display = "none");
+    const target = document.getElementById(id);
+    if (target) {
+        target.style.display = "block";
+        target.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+}
+
+function closeActionBox(id) {
+    const target = document.getElementById(id);
+    if (target) target.style.display = "none";
+}
+
+function executeTakeOwnership(ticketId) {
+    announceSR("Taking ownership of ticket " + ticketId);
+    fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify({ action: "takeOwnership", ticketId: ticketId, memberName: authenticatedUser, memberKey: authenticatedKey })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success") {
+            showToast("You are now the owner of ticket " + ticketId);
+            loadAllTickets();
+        } else {
+            showToast("Failed to take ownership: " + (data.message || "Invalid key."));
+        }
+    })
+    .catch(err => showToast("Network error. Please try again."));
+}
+
+function confirmClose(ticketId) {
+    const reason = document.getElementById("reason_" + ticketId).value.trim();
+    if (!reason) {
+        showToast("Please write a solution / resolution message.");
+        return;
+    }
+    announceSR("Closing ticket " + ticketId);
+    fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify({ action: "closeTicket", ticketId: ticketId, memberName: authenticatedUser, memberKey: authenticatedKey, resolution: reason })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success") {
+            showToast("Ticket " + ticketId + " resolved and closed.");
+            loadAllTickets();
+        } else {
+            showToast("Failed to close ticket: " + (data.message || "Invalid key."));
+        }
+    })
+    .catch(err => showToast("Network error. Please try again."));
+}
+
+function confirmReopen(ticketId) {
+    const reason = document.getElementById("reopenReason_" + ticketId).value.trim();
+    if (!reason) {
+        showToast("Please provide a reason for re-opening.");
+        return;
+    }
+    announceSR("Re-opening ticket " + ticketId);
+    fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify({ action: "reopenTicket", ticketId: ticketId, memberName: authenticatedUser, memberKey: authenticatedKey, reason: reason })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success") {
+            showToast("Ticket " + ticketId + " has been re-opened.");
+            loadAllTickets();
+        } else {
+            showToast("Failed to re-open ticket: " + (data.message || "Invalid key."));
+        }
+    })
+    .catch(err => showToast("Network error. Please try again."));
+}
+
+function confirmInquiry(ticketId) {
+    const msg = document.getElementById("inquireMsg_" + ticketId).value.trim();
+    if (!msg) {
+        showToast("Message cannot be empty.");
+        return;
+    }
+    announceSR("Sending message to user for ticket " + ticketId);
+    fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify({ action: "inquireUser", ticketId: ticketId, memberName: authenticatedUser, memberKey: authenticatedKey, inquiryMessage: msg })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success") {
+            showToast("Message sent to user successfully.");
+            closeActionBox("inquireBox_" + ticketId);
+            loadAllTickets();
+        } else {
+            showToast("Failed to send message: " + (data.message || "Invalid key."));
+        }
+    })
+    .catch(err => showToast("Network error. Please try again."));
+}
+
+function confirmTransfer(ticketId) {
+    const targetMem = document.getElementById("transMember_" + ticketId).value;
+    const reason = document.getElementById("transReason_" + ticketId).value.trim();
+    if (!targetMem || !reason) {
+        showToast("Please select a team member and state the reason.");
+        return;
+    }
+    if (targetMem === authenticatedUser) {
+        showToast("You cannot transfer a ticket to yourself.");
+        return;
+    }
+    announceSR("Transferring ticket " + ticketId + " to " + targetMem);
+    fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify({ action: "transferTicket", ticketId: ticketId, memberName: authenticatedUser, memberKey: authenticatedKey, newMemberName: targetMem, reason: reason })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success") {
+            showToast("Ticket " + ticketId + " transferred to " + targetMem);
+            loadAllTickets();
+        } else {
+            showToast("Failed to transfer ticket: " + (data.message || "Invalid key."));
+        }
+    })
+    .catch(err => showToast("Network error. Please try again."));
+}
+
+function confirmNote(ticketId) {
+    const note = document.getElementById("noteText_" + ticketId).value.trim();
+    if (!note) {
+        showToast("Note cannot be empty.");
+        return;
+    }
+    announceSR("Saving note for ticket " + ticketId);
+    fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify({ action: "addNote", ticketId: ticketId, memberName: authenticatedUser, memberKey: authenticatedKey, note: note })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success") {
+            showToast("Note saved successfully.");
+            closeActionBox("noteBox_" + ticketId);
+            loadAllTickets();
+        } else {
+            showToast("Failed to save note: " + (data.message || "Invalid key."));
+        }
+    })
+    .catch(err => showToast("Network error. Please try again."));
+}
+</script>
+</body>
+</html>

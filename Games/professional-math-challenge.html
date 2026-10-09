@@ -1,22 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Professional Math Challenge | Accessible Tech Labs India</title>
+<meta charset="UTF-8">
+<title>Professional Math Challenge | Accessible Tech Labs India</title>
 <link rel="stylesheet" href="../css/style.css">
 <meta name="description" content="Master mental calculations with the Professional Math Challenge. Featuring an Adaptive Difficulty Engine and full screen reader optimization, this advanced educational tool is designed for competitive exam preparation and cognitive training by Accessible Tech Labs India.">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.screen { display: none; }
+.screen.active { display: block; }
+.high-contrast { background-color: #000000 !important; color: #ffffff !important; }
+.high-contrast .glass-card { background-color: #000000 !important; border: 2px solid #ffffff !important; color: #ffffff !important; }
+.high-contrast button { background-color: #ffffff !important; color: #000000 !important; }
+.large-ui { font-size: 1.3rem !important; }
+.large-ui button, .large-ui input, .large-ui select { font-size: 1.3rem !important; padding: 16px !important; }
+.option-label { display: block; margin: 12px 0; padding: 14px 20px; border: 2px solid var(--border-color); border-radius: 8px; cursor: pointer; transition: 0.2s; }
+.option-label:hover, .option-label:focus-within { border-color: var(--primary-blue); background-color: rgba(10, 66, 117, 0.05); }
+.glass-card { background: var(--card-bg); border-radius: 12px; padding: 30px; margin-bottom: 25px; border: 1px solid var(--border-color); }
+</style>
 </head>
 <body>
 
+<a class="skip-link" href="#main-wrapper">Skip to main content</a>
+
 <header>
-    <h1>Accessible Tech Labs India</h1>
+<h1>Accessible Tech Labs India</h1>
 <nav aria-label="Main navigation">
 <a href="../index.html" accesskey="h">Home</a>
 <a href="../software.html" accesskey="s">Software</a>
+<a href="../Addons/Addons.html" accesskey="n">NVDA Add-ons</a>
 <a href="../tools.html" accesskey="t">Tools</a>
-<a href="../Games.html" accesskey="g">Games</a>
-<a href="../training.html" accesskey="r" class="active-link">Training</a>
+<a href="../Games.html" accesskey="g" class="active-link">Games</a>
+<a href="../training.html" accesskey="r">Training</a>
 <a href="../support.html" accesskey="d">Support Us</a>
 <a href="../about.html" accesskey="a">About</a>
 <a href="../contact.html" accesskey="c">Contact</a>
@@ -24,105 +39,121 @@
 </header>
 
 <main id="main-wrapper">
-    <div id="status-live" aria-live="polite" style="position: absolute; left: -9999px;"></div>
+<div id="status-live" aria-live="polite" style="position: absolute; left: -9999px;"></div>
 
-    <div id="step-1" class="screen active glass-card">
-        <h2>Professional Math Challenge</h2>
-        <p>This Professional Math Challenge, developed by Accessible Tech Labs India, is an advanced educational tool designed for users who seek to enhance their mental calculation speed. It features an Adaptive Difficulty Engine that monitors your accuracy; if you answer correctly in succession, the numbers scale up to 100,000, while frequent errors prompt the system to simplify the equations for a better learning curve. The application is fully optimized for screen reader users with dedicated ARIA live regions, keyboard shortcuts (Alt + keys), and high-contrast visuals. Our goal is to provide a standardized, distraction-free environment for competitive exam preparation and cognitive training. Please enter your name to begin your assessment session.</p>
-        <label for="user-name">Professional Name:</label>
-        <input type="text" id="user-name" placeholder="Enter your full name">
-<div style="display: flex; flex-direction: column; gap: 10px;">
-    <button type="button" class="action-btn" onclick="toStep2()">Next</button>
+<div id="step-1" class="screen active glass-card">
+<h2>Professional Math Challenge</h2>
+<p>This Professional Math Challenge, developed by Accessible Tech Labs India, is an advanced educational tool designed for users who seek to enhance their mental calculation speed. It features an Adaptive Difficulty Engine that monitors your accuracy; if you answer correctly in succession, the numbers scale up to 100,000, while frequent errors prompt the system to simplify the equations for a better learning curve. The application is fully optimized for screen reader users with dedicated ARIA live regions, keyboard shortcuts (Alt + keys), and high-contrast visuals. Our goal is to provide a standardized, distraction-free environment for competitive exam preparation and cognitive training. Please enter your name to begin your assessment session.</p>
+<label for="user-name">Professional Name:</label>
+<input type="text" id="user-name" placeholder="Enter your full name">
+<div style="display: flex; flex-direction: column; gap: 10px; margin-top: 15px;">
+<button type="button" class="action-btn" onclick="toStep2()">Next</button>
 </div> 
-</div> <div id="step-2" class="screen glass-card">
-        <h2>Select Operation Mode</h2>
-        <p>Choose the mathematical operation you wish to master. Each mode is calibrated to test specific cognitive functions and numerical logic. Mixed mode provides a random sequence for advanced users.</p>
-        <select id="mode-select">
-            <option value="+">Addition (+)</option>
-            <option value="-">Subtraction (-)</option>
-            <option value="*">Multiplication (*)</option>
-            <option value="/">Division (/)</option>
-            <option value="mixed">Mixed Mode (All Operations)</option>
-            <option value="%">Remainder (%)</option>
-        </select>
-        <button class="action-btn" onclick="toStep3()">Next</button>
-    </div>
+</div>
 
-    <div id="step-3" class="screen glass-card">
-        <h2>Configure Question Volume</h2>
-        <p>Specify the number of questions for this session. Available volumes range from 5 to 100. Select a volume that aligns with your current training objectives and available time.</p>
-        <select id="count-select"></select>
+<div id="step-2" class="screen glass-card">
+<h2>Select Operation Mode</h2>
+<p>Choose the mathematical operation you wish to master. Each mode is calibrated to test specific cognitive functions and numerical logic. Mixed mode provides a random sequence for advanced users.</p>
+<select id="mode-select">
+<option value="+">Addition (+)</option>
+<option value="-">Subtraction (-)</option>
+<option value="*">Multiplication (*)</option>
+<option value="/">Division (/)</option>
+<option value="mixed">Mixed Mode (All Operations)</option>
+<option value="%">Remainder (%)</option>
+</select>
+<div style="margin-top: 15px;">
+<button class="action-btn" onclick="toStep3()">Next</button>
+</div>
+</div>
+
+<div id="step-3" class="screen glass-card">
+<h2>Configure Question Volume</h2>
+<p>Specify the number of questions for this session. Available volumes range from 5 to 100. Select a volume that aligns with your current training objectives and available time.</p>
+<select id="count-select"></select>
+<div style="margin-top: 15px;">
 <button class="action-btn" onclick="toStep4()">Next</button>
-    </div>
+</div>
+</div>
+
 <div id="step-4" class="screen glass-card">
-    <h2>Configure Session Timer</h2>
-    <p>Select the time allocation permitted for each individual question. Shorter durations increase cognitive load and assessment rigor, while longer durations allow for complex calculations.</p>
-    <select id="timer-select">
-        <option value="30">30 Seconds</option>
-        <option value="60">1 Minute</option>
-        <option value="120">2 Minutes</option>
-        <option value="180">3 Minutes</option>
-    </select>
-    <button class="action-btn" onclick="preStart()">Start Final Game</button>
+<h2>Configure Session Timer</h2>
+<p>Select the time allocation permitted for each individual question. Shorter durations increase cognitive load and assessment rigor, while longer durations allow for complex calculations.</p>
+<select id="timer-select">
+<option value="30">30 Seconds</option>
+<option value="60">1 Minute</option>
+<option value="120">2 Minutes</option>
+<option value="180">3 Minutes</option>
+</select>
+<div style="margin-top: 15px;">
+<button class="action-btn" onclick="preStart()">Start Final Game</button>
 </div>
-    <div id="loading-screen" class="screen glass-card">
-        <h2>System Initialization</h2>
-        <p>Finalizing your professional assessment environment. Please wait for the audio sequence to complete.</p>
-        <div id="load-timer" style="font-size: 5rem; text-align: center; color: #fbbf24; font-weight: bold;"></div>
-    </div>
+</div>
 
-    <div id="game-screen" class="screen glass-card">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-            <div id="timer-box">30</div>
-        </div>
-        <h3 id="question-text" style="font-size: 2.5rem; margin-bottom: 25px;"></h3>
-        <div id="options-container" role="radiogroup" aria-labelledby="question-text"></div>
+<div id="loading-screen" class="screen glass-card">
+<h2>System Initialization</h2>
+<p>Finalizing your professional assessment environment. Please wait for the audio sequence to complete.</p>
+<div id="load-timer" style="font-size: 5rem; text-align: center; color: #fbbf24; font-weight: bold;"></div>
+</div>
+
+<div id="game-screen" class="screen glass-card">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+<div id="timer-box" style="font-size: 1.8rem; font-weight: bold; color: var(--primary-blue);">30</div>
+</div>
+<h3 id="question-text" style="font-size: 2.5rem; margin-bottom: 25px;"></h3>
+<div id="options-container" role="radiogroup" aria-labelledby="question-text"></div>
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 30px;">
-    <button class="action-btn" style="grid-column: span 2;" onclick="checkAnswer()">Submit Answer</button>
-    <button id="contrast-btn" class="action-btn" onclick="toggleContrast()">High Contrast</button>
-    <button id="large-ui-btn" class="action-btn" onclick="toggleLargeUI()">Large UI</button>
-    <button class="action-btn" style="grid-column: span 2; background: #475569;" onclick="location.reload()">Exit Game</button>
+<button id="submit-btn" class="action-btn" style="grid-column: span 2;" onclick="checkAnswer()">Submit Answer</button>
+<button id="contrast-btn" class="action-btn" onclick="toggleContrast()">High Contrast</button>
+<button id="large-ui-btn" class="action-btn" onclick="toggleLargeUI()">Large UI</button>
+<button class="action-btn" style="grid-column: span 2; background: #475569;" onclick="location.reload()">Exit Game</button>
 </div>
-    </div>
+</div>
 
-    <div id="result-screen" class="screen glass-card">
-        <h2>Performance Report</h2>
-        <div id="result-data" class="summary-box"></div>
-        <div id="aria-report" aria-live="assertive" style="position: absolute; left: -9999px;"></div>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 25px;">
-            <button class="action-btn" onclick="readFullReport()">Read Result</button>
-            <button class="action-btn" onclick="copyToClipboard()">Copy Result</button>
-            <button class="action-btn" onclick="downloadReport()">Download TXT</button>
-            <button class="action-btn" style="background: #475569;" onclick="location.reload()">New Game</button>
-        </div>
-    </div>
+<div id="result-screen" class="screen glass-card">
+<h2>Performance Report</h2>
+<div id="result-data" class="summary-box"></div>
+<div id="aria-report" aria-live="assertive" style="position: absolute; left: -9999px;"></div>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 25px;">
+<button class="action-btn" onclick="readFullReport()">Read Result</button>
+<button class="action-btn" onclick="copyToClipboard()">Copy Result</button>
+<button class="action-btn" onclick="downloadReport()">Download TXT</button>
+<button class="action-btn" style="background: #475569;" onclick="location.reload()">New Game</button>
+</div>
+</div>
 </main>
+
 <footer role="contentinfo">
 <p>
-<a href="../privacy.html" accesskey="p">Privacy Policy</a>
+<a href="../privacy.html" accesskey="p">Privacy Policy</a> | 
+<a href="../support-system/index.html">Report Issue / Feedback</a> | 
+<a href="../support-system/track.html">Track Ticket Status</a>
 </p>
 <p>© 2026 Accessible Tech Labs India</p>
 </footer>
+
 <script>
-    let userName, gameMode, questionCount, currentQuestion = 0, score = 0;
-    let timer, timeLeft = 30, startTime, difficulty = 1, correctStreak = 0, wrongCount = 0;
-    let currentCorrectAnswer, gameLog = [];
+let userName, gameMode, questionCount, currentQuestion = 0, score = 0;
+let timer, timeLeft = 30, startTime, difficulty = 1, correctStreak = 0, wrongCount = 0;
+let currentCorrectAnswer, gameLog = [];
+let isAnswering = false;
 
-    window.onload = () => {
-        const sel = document.getElementById('count-select');
-        const opts = [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
-        opts.forEach(o => {
-            let opt = document.createElement('option');
-            opt.value = o; opt.textContent = o + " Questions";
-            sel.appendChild(opt);
-        });
-    };
+window.onload = () => {
+    const sel = document.getElementById('count-select');
+    const opts = [5, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+    opts.forEach(o => {
+        let opt = document.createElement('option');
+        opt.value = o; opt.textContent = o + " Questions";
+        sel.appendChild(opt);
+    });
+};
 
-    function announce(m) { 
-        const l = document.getElementById('status-live'); 
-        l.textContent = ""; 
-        setTimeout(() => l.textContent = m, 50); 
-    }
+function announce(m) { 
+    const l = document.getElementById('status-live'); 
+    l.textContent = ""; 
+    setTimeout(() => l.textContent = m, 50); 
+}
+
 function toggleContrast() { 
     const isDark = document.body.classList.toggle('high-contrast'); 
     announce("High Contrast " + (isDark ? "Enabled" : "Disabled"));
@@ -133,20 +164,21 @@ function toggleLargeUI() {
     announce("Large UI " + (isLarge ? "Enabled" : "Disabled"));
 }
 
+function toStep2() {
+    userName = document.getElementById('user-name').value.trim();
+    if(!userName) { announce("Error: Please enter your name"); return; }
+    switchScreen('step-2');
+}
 
-    function toStep2() {
-        userName = document.getElementById('user-name').value.trim();
-        if(!userName) { announce("Error: Please enter your name"); return; }
-        switchScreen('step-2');
-    }
+function toStep3() {
+    gameMode = document.getElementById('mode-select').value;
+    switchScreen('step-3');
+}
 
-    function toStep3() {
-        gameMode = document.getElementById('mode-select').value;
-        switchScreen('step-3');
-    }
 function toStep4() {
     switchScreen('step-4');
 }
+
 function switchScreen(id) {
     document.querySelectorAll('.screen').forEach(s => {
         s.classList.remove('active');
@@ -159,96 +191,107 @@ function switchScreen(id) {
         announce("Screen changed to " + id);
     }
 }
+
 function preStart() {
     window.selectedTimeLimit = parseInt(document.getElementById('timer-select').value);
-        questionCount = parseInt(document.getElementById('count-select').value);
-        switchScreen('loading-screen');
-        
-        let soundFile, wait;
-        if(gameMode === '+' || gameMode === 'mixed') { soundFile = "plus_sound.wav"; wait = 10; }
-        else if(gameMode === '-' || gameMode === '%') { soundFile = "minus_sound.wav"; wait = 15; }
-        else { soundFile = "star_sound.wav"; wait = 20; }
-        
-        new Audio("Games-sounds/" + soundFile).play().catch(() => {});
-        
-        let lt = document.getElementById('load-timer');
-        let inter = setInterval(() => {
-            lt.textContent = wait;
-            announce("Preparing game in " + wait + " seconds");
-            wait--;
-            if(wait < 0) {
-                clearInterval(inter);
-                setTimeout(startGame, 2000);
-            }
-        }, 1000);
-    }
+    questionCount = parseInt(document.getElementById('count-select').value);
+    switchScreen('loading-screen');
+    
+    let soundFile, wait;
+    if(gameMode === '+' || gameMode === 'mixed') { soundFile = "plus_sound.wav"; wait = 5; }
+    else if(gameMode === '-' || gameMode === '%') { soundFile = "minus_sound.wav"; wait = 5; }
+    else { soundFile = "star_sound.wav"; wait = 5; }
+    
+    new Audio("Games-sounds/" + soundFile).play().catch(() => {});
+    
+    let lt = document.getElementById('load-timer');
+    let inter = setInterval(() => {
+        lt.textContent = wait;
+        announce("Preparing game in " + wait + " seconds");
+        wait--;
+        if(wait < 0) {
+            clearInterval(inter);
+            startGame();
+        }
+    }, 1000);
+}
 
-    function startGame() {
-        startTime = Date.now();
-        switchScreen('game-screen');
-        nextQuestion();
-    }
+function startGame() {
+    startTime = Date.now();
+    switchScreen('game-screen');
+    nextQuestion();
+}
 
-    function nextQuestion() {
-        if(currentQuestion >= questionCount) { finishGame(); return; }
-        currentQuestion++;
-        let max = Math.min(10 * Math.pow(10, difficulty), 100000);
-        let a = Math.floor(Math.random() * max) + 1;
-        let b = Math.floor(Math.random() * max) + 1;
-        let op = gameMode === 'mixed' ? ['+','-','*','/'][Math.floor(Math.random()*4)] : gameMode;
-        
-        let qText, ans;
-        if(op === '+') { ans = a + b; qText = `${a} plus ${b}`; }
-        else if(op === '-') { if(a < b) [a, b] = [b, a]; ans = a - b; qText = `${a} minus ${b}`; }
-        else if(op === '*') { ans = a * b; qText = `${a} multiplied by ${b}`; }
-        else if(op === '/') { ans = a; a = a * b; qText = `${a} divided by ${b}`; }
-        else { ans = a % b; qText = `${a} remainder ${b}`; }
+function nextQuestion() {
+    isAnswering = false;
+    const submitBtn = document.getElementById('submit-btn');
+    if (submitBtn) submitBtn.disabled = false;
 
-        currentCorrectAnswer = ans;
-        document.getElementById('question-text').textContent = qText.replace('plus','+').replace('minus','-').replace('multiplied by','*').replace('divided by','/') + " = ?";
-        announce("Question " + currentQuestion + ": " + qText);
+    if(currentQuestion >= questionCount) { finishGame(); return; }
+    currentQuestion++;
+    let max = Math.min(10 * Math.pow(10, difficulty), 100000);
+    let a = Math.floor(Math.random() * max) + 1;
+    let b = Math.floor(Math.random() * max) + 1;
+    let op = gameMode === 'mixed' ? ['+','-','*','/'][Math.floor(Math.random()*4)] : gameMode;
+    
+    let qText, ans;
+    if(op === '+') { ans = a + b; qText = `${a} plus ${b}`; }
+    else if(op === '-') { if(a < b) [a, b] = [b, a]; ans = a - b; qText = `${a} minus ${b}`; }
+    else if(op === '*') { ans = a * b; qText = `${a} multiplied by ${b}`; }
+    else if(op === '/') { ans = a; a = a * b; qText = `${a} divided by ${b}`; }
+    else { ans = a % b; qText = `${a} remainder ${b}`; }
 
-        let opts = [ans, ans+1, ans-1, ans+2];
-        opts = [...new Set(opts)].sort(() => Math.random() - 0.5);
+    currentCorrectAnswer = ans;
+    let displayEq = qText.replace('plus','+').replace('minus','-').replace('multiplied by','*').replace('divided by','/').replace('remainder','%') + " = ?";
+    document.getElementById('question-text').textContent = displayEq;
+    announce("Question " + currentQuestion + ": " + qText);
 
-        const container = document.getElementById('options-container');
-        container.innerHTML = "";
-        opts.forEach((o, i) => {
-            let l = document.createElement('label');
-            l.className = 'option-label';
-            l.innerHTML = `<input type="radio" name="opt" value="${o}"> Option ${String.fromCharCode(65+i)}: ${o}`;
-            container.appendChild(l);
-        });
-timeLeft = window.selectedTimeLimit;
-const submitBtn = document.querySelector('button[onclick="checkAnswer()"]');
+    let opts = [ans, ans+1, ans-1, ans+2];
+    opts = [...new Set(opts)].sort(() => Math.random() - 0.5);
+
+    const container = document.getElementById('options-container');
+    container.innerHTML = "";
+    opts.forEach((o, i) => {
+        let l = document.createElement('label');
+        l.className = 'option-label';
+        l.innerHTML = `<input type="radio" name="opt" value="${o}"> Option ${String.fromCharCode(65+i)}: ${o}`;
+        container.appendChild(l);
+    });
+
+    timeLeft = window.selectedTimeLimit;
     if (currentQuestion === questionCount) {
         submitBtn.textContent = "Submit Final Answer";
         submitBtn.style.background = "var(--accent-success)";
     } else {
         submitBtn.textContent = "Submit Answer";
-        submitBtn.style.background = "transparent";
+        submitBtn.style.background = "var(--primary-blue)";
     }
-        startTimer();
-    }
+    startTimer();
+}
 
-    function startTimer() {
-        clearInterval(timer);
-        timer = setInterval(() => {
-            timeLeft--;
-            document.getElementById('timer-box').textContent = timeLeft;
-            if(timeLeft === 5) announce("Warning: 5 seconds remaining");
-            if(timeLeft <= 0) { clearInterval(timer); checkAnswer(true); }
-        }, 1000);
-    }
-function checkAnswer(isTimeout = false) {
+function startTimer() {
     clearInterval(timer);
+    timer = setInterval(() => {
+        timeLeft--;
+        document.getElementById('timer-box').textContent = timeLeft;
+        if(timeLeft === 5) announce("Warning: 5 seconds remaining");
+        if(timeLeft <= 0) { clearInterval(timer); checkAnswer(true); }
+    }, 1000);
+}
+
+function checkAnswer(isTimeout = false) {
+    if (isAnswering) return;
+
     const sel = document.querySelector('input[name="opt"]:checked');
-    
     if(!sel && !isTimeout) {
         announce("Action Blocked: Please select an option first");
-        startTimer();
         return;
     }
+
+    isAnswering = true;
+    clearInterval(timer);
+    const submitBtn = document.getElementById('submit-btn');
+    if (submitBtn) submitBtn.disabled = true;
 
     const allOpts = document.querySelectorAll('input[name="opt"]');
     let userLetter = "N/A";
@@ -293,14 +336,16 @@ function checkAnswer(isTimeout = false) {
     });
     setTimeout(nextQuestion, 2000);
 }
-    function formatTime(ms) {
-        let totalSeconds = Math.floor(ms / 1000);
-        let m = Math.floor(totalSeconds / 60);
-        let s = totalSeconds % 60;
-        return `${m} Minute${m!==1?'s':''} and ${s} Second${s!==1?'s':''}`;
-    }
+
+function formatTime(ms) {
+    let totalSeconds = Math.floor(ms / 1000);
+    let m = Math.floor(totalSeconds / 60);
+    let s = totalSeconds % 60;
+    return `${m} Minute${m!==1?'s':''} and ${s} Second${s!==1?'s':''}`;
+}
+
 function finishGame() {
-    let wait = 10;
+    let wait = 5;
     switchScreen('loading-screen');
     new Audio("Games-sounds/result.mp3").play().catch(() => {});
     
@@ -321,6 +366,7 @@ function finishGame() {
         }
     }, 1000);
 }
+
 function renderFinalResult() {
     switchScreen('result-screen');
     let totalElapsedMs = Date.now() - startTime;
@@ -356,6 +402,7 @@ function renderFinalResult() {
     document.getElementById('report-heading').focus();
     announce("Assessment complete. Your performance level is " + performanceLevel);
 }
+
 function readFullReport() {
     let content = document.getElementById('result-data').innerText;
     let reportArea = document.getElementById('aria-report');
@@ -365,12 +412,13 @@ function readFullReport() {
         announce("Reading full performance report now.");
     }, 200);
 }
-    function copyToClipboard() {
-        navigator.clipboard.writeText(document.getElementById('result-data').innerText);
-        announce("Report copied to clipboard successfully.");
-    }
+
+function copyToClipboard() {
+    navigator.clipboard.writeText(document.getElementById('result-data').innerText);
+    announce("Report copied to clipboard successfully.");
+}
+
 function downloadReport() {
-    
     let header = "==========================================\n";
     header += "      ACCESSIBLE TECH LABS INDIA\n";
     header += "==========================================\n\n";

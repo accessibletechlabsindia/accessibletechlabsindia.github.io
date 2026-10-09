@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Live Ticket Tracking - Accessible Tech Labs India</title>
+<meta name="description" content="Official Live Ticket Tracking for Accessible Tech Labs India. Check engineering progress and ticket updates in real time.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body { background-color: #0d1117; color: #c9d1d9; font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; margin: 0; padding: 0; }
+a { color: #58a6ff; text-decoration: underline; font-weight: bold; }
+a:focus, a:hover { color: #79c0ff; outline: 3px solid #ffcc00; outline-offset: 2px; }
+.skip-link { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+.skip-link:focus { position: static; width: auto; height: auto; background: #ffcc00; color: #000; padding: 10px; font-weight: bold; display: block; text-align: center; }
+header[role="banner"] { background-color: #010409; border-bottom: 1px solid #30363d; padding: 25px 0; text-align: center; }
+header h1 { margin: 0; font-size: 2.2rem; color: #c9d1d9; }
+nav[aria-label="Main navigation"] { margin-top: 15px; }
+nav a { margin: 0 15px; font-weight: 700; color: #58a6ff; text-decoration: none; font-size: 1.1rem; }
+nav a:hover, nav a:focus { color: #79c0ff; text-decoration: underline; }
+.main-container { max-width: 1100px; margin: 30px auto; padding: 0 25px; }
+.manifesto-box { background: #010409; padding: 35px; border-radius: 12px; border-left: 6px solid #58a6ff; margin-bottom: 40px; text-align: justify; line-height: 1.8; }
+.manifesto-box h2 { color: #79c0ff; margin-top: 0; font-size: 2rem; }
+.manifesto-box p { font-size: 1.1rem; color: #e6edf3; }
+.workspace-card { background: #161b22; border: 2px solid #30363d; border-radius: 15px; padding: 35px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+.workspace-card h2 { color: #58a6ff; margin-top: 0; border-bottom: 2px solid #30363d; padding-bottom: 10px; font-size: 1.8rem; }
+.input-group { margin-bottom: 25px; }
+.input-label { display: block; font-size: 1.15rem; font-weight: bold; color: #58a6ff; margin-bottom: 8px; }
+.input-field { width: 100%; padding: 16px; border-radius: 8px; border: 2px solid #30363d; font-size: 1.25rem; color: #c9d1d9; background: #010409; box-sizing: border-box; font-family: monospace; letter-spacing: 2px; }
+.input-field:focus { border-color: #58a6ff; outline: 3px solid #ffcc00; }
+textarea.input-field { font-family: inherit; letter-spacing: normal; min-height: 120px; resize: vertical; }
+.control-row { display: flex; gap: 15px; flex-wrap: wrap; }
+.btn-action { flex: 1; min-width: 200px; padding: 18px 25px; border-radius: 8px; border: none; font-weight: bold; font-size: 1.15rem; cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px; transition: 0.2s; background: #1f6feb; color: #ffffff; }
+.btn-action:hover:not(:disabled) { background: #388bfd; }
+.btn-action:focus { outline: 3px solid #ffcc00; }
+.btn-action:disabled { background: #21262d; color: #484f58; cursor: not-allowed; }
+.btn-secondary { background: #21262d; border: 1px solid #30363d; color: #c9d1d9; }
+.btn-secondary:hover { background: #30363d; }
+.btn-success { background: #238636; }
+.btn-success:hover { background: #2ea043; }
+.result-card { display: none; background: #010409; border: 2px solid #30363d; border-radius: 12px; padding: 30px; margin-top: 35px; box-shadow: 0 8px 20px rgba(0,0,0,0.4); }
+.result-header { font-size: 1.8rem; font-weight: bold; color: #3fb950; margin-bottom: 20px; padding-bottom: 15px; border-bottom: 2px solid #30363d; text-transform: uppercase; letter-spacing: 1px; }
+.data-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; margin-bottom: 25px; }
+.data-section { background: #161b22; padding: 20px; border-radius: 8px; border: 1px solid #30363d; }
+.data-section h3 { margin-top: 0; color: #58a6ff; font-size: 1.25rem; margin-bottom: 15px; border-bottom: 1px solid #30363d; padding-bottom: 8px; }
+.data-row { display: flex; flex-direction: column; margin-bottom: 12px; }
+.data-label { font-size: 0.95rem; color: #8b949e; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
+.data-value { font-size: 1.15rem; color: #e6edf3; font-weight: bold; word-break: break-all; margin-top: 4px; }
+.status-badge { display: inline-block; padding: 6px 14px; border-radius: 6px; font-weight: 900; text-transform: uppercase; font-size: 1rem; width: fit-content; }
+.status-open { background: #21262d; color: #58a6ff; border: 1px solid #1f6feb; }
+.status-inprogress { background: #382500; color: #ffcc00; border: 1px solid #9e6a03; }
+.status-closed { background: #0e2a14; color: #3fb950; border: 1px solid #238636; }
+.resolution-box { background: #0c1a29; border: 2px solid #1f6feb; border-left: 6px solid #58a6ff; padding: 20px; border-radius: 8px; margin-top: 20px; }
+.reply-box { background: #161b22; border: 2px solid #30363d; border-radius: 8px; padding: 20px; margin-top: 20px; display: none; }
+.live-status { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #21262d; color: #e6edf3; padding: 15px 30px; border-radius: 50px; display: none; z-index: 1000; font-weight: bold; font-size: 1.1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.5); border: 1px solid #30363d; }
+footer[role="contentinfo"] { background-color: #010409; border-top: 1px solid #30363d; color: #8b949e; padding: 40px 0; text-align: center; margin-top: 60px; font-size: 1.1rem; }
+footer a { color: #58a6ff; text-decoration: underline; }
+.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header role="banner">
+<h1>Accessible Tech Labs India</h1>
+<nav aria-label="Main navigation">
+<a href="../index.html" accesskey="h">Home</a>
+<a href="../software.html" accesskey="s">Software</a>
+<a href="../Addons/Addons.html" accesskey="n">NVDA Add-ons</a>
+<a href="../tools.html" accesskey="t">Tools</a>
+<a href="../Games.html" accesskey="g">Games</a>
+<a href="../training.html" accesskey="r">Training</a>
+<a href="../support.html" accesskey="d">Support Us</a>
+<a href="../about.html" accesskey="a">About</a>
+<a href="../contact.html" accesskey="c">Contact</a>
+</nav>
+</header>
+
+<main id="main" class="main-container">
+
+<section class="manifesto-box" role="region" aria-labelledby="track-manifesto-heading">
+<h2 id="track-manifesto-heading">Live Ticket Tracking Portal</h2>
+<p>
+Transparency and privacy are central to our work. You can check the current status of your submitted ticket at any time by simply entering your 8-character Ticket ID (such as ATLIAB12). No account login or password is required.
+</p>
+<p>
+Our tracking system allows you to see whether your ticket is Open, In Progress, or Resolved. If our engineer has sent you an inquiry, you can directly read the question and reply from this page.
+</p>
+</section>
+
+<div class="workspace-card">
+<h2 id="searchHeading" tabindex="-1">Check Ticket Status</h2>
+
+<div class="input-group">
+<label class="input-label" for="ticketInput">Enter Ticket ID (e.g. ATLIAB12) *</label>
+<input type="text" id="ticketInput" class="input-field" placeholder="ATLIXXXX" maxlength="12" aria-required="true" autocomplete="off">
+</div>
+
+<div class="control-row">
+<button id="queryBtn" class="btn-action" onclick="triggerQuery()">Check Status</button>
+<button class="btn-action btn-secondary" onclick="purgeSearchBuffer()">Clear</button>
+</div>
+</div>
+
+<div class="result-card" id="telemetryResult" tabindex="-1" aria-live="polite">
+<div class="result-header" id="resHeader">Ticket Details</div>
+
+<div class="data-grid">
+<div class="data-section">
+<h3>Request Information</h3>
+<div class="data-row"><span class="data-label">Ticket ID</span><span class="data-value" id="valId"></span></div>
+<div class="data-row"><span class="data-label">Your Name</span><span class="data-value" id="valName"></span></div>
+<div class="data-row"><span class="data-label">Request Type</span><span class="data-value" id="valType"></span></div>
+<div class="data-row"><span class="data-label">Submitted On</span><span class="data-value" id="valTime"></span></div>
+</div>
+
+<div class="data-section">
+<h3>Engineering Status</h3>
+<div class="data-row"><span class="data-label">Category</span><span class="data-value" id="valCategory"></span></div>
+<div class="data-row"><span class="data-label">Product / Component</span><span class="data-value" id="valItem"></span></div>
+<div class="data-row"><span class="data-label">Assigned Engineer</span><span class="data-value" id="valAssignee"></span></div>
+<div class="data-row"><span class="data-label">Current Status</span><span class="data-value" id="valStatusBadge"></span></div>
+</div>
+</div>
+
+<div class="data-section">
+<h3>Your Description / Message</h3>
+<p id="valDesc" style="font-size: 1.15rem; color: #e6edf3; margin: 0; white-space: pre-wrap;"></p>
+</div>
+
+<div class="resolution-box hidden" id="resolutionBlock">
+<h3 style="color: #58a6ff; margin-top: 0; font-size: 1.3rem;">Official Solution & Resolution</h3>
+<p id="valResolution" style="font-size: 1.15rem; color: #ffffff; margin: 0; white-space: pre-wrap;"></p>
+</div>
+
+<div class="control-row" id="replyTriggerRow" style="display: none; margin-top: 20px;">
+<button class="btn-action btn-success" onclick="openReplyBox()">Send Message to Assigned Engineer</button>
+</div>
+
+<div class="reply-box" id="replyBox">
+<h3 style="color: #58a6ff; margin-top: 0; font-size: 1.3rem;">Send Message to Engineer</h3>
+<label class="input-label" for="userReplyMsg">Your Message *</label>
+<textarea id="userReplyMsg" class="input-field" placeholder="Type your reply or additional details here..."></textarea>
+<div class="control-row" style="margin-top: 15px;">
+<button class="btn-action btn-success" id="sendReplyBtn" onclick="sendUserReply()">Send Message</button>
+<button class="btn-action btn-secondary" onclick="cancelUserReply()">Cancel</button>
+</div>
+</div>
+
+</div>
+
+</main>
+
+<div id="srStatus" class="live-status" aria-live="assertive"></div>
+<div id="toast" class="toast" aria-live="assertive"></div>
+
+<footer role="contentinfo">
+<p>
+<a href="../privacy.html" accesskey="p">Privacy Policy</a> | 
+<a href="index.html">Report Issue / Feedback</a> | 
+<a href="track.html">Track Ticket Status</a>
+</p>
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbxuK9nj1sF-LWp-O6fQ_xYliEAgYz1x76HCylGoIE8iySx1raGEXMhrIMSfKjzX91b44w/exec";
+let currentTicketId = "";
+let toastTimer;
+
+function announceSR(msg) {
+    const el = document.getElementById("srStatus");
+    el.innerText = "";
+    setTimeout(() => { el.innerText = msg; }, 50);
+}
+
+function showToast(msg) {
+    const t = document.getElementById("toast");
+    clearTimeout(toastTimer);
+    t.innerText = msg;
+    t.style.display = "block";
+    announceSR(msg);
+    toastTimer = setTimeout(() => { t.style.display = "none"; }, 4000);
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get("ticket");
+    if (token) {
+        document.getElementById("ticketInput").value = token.trim().toUpperCase();
+        executeTicketLookup(token.trim().toUpperCase());
+    }
+});
+
+function triggerQuery() {
+    const token = document.getElementById("ticketInput").value.trim().toUpperCase();
+    if (!token) {
+        showToast("Please enter an 8-character Ticket ID.");
+        document.getElementById("ticketInput").focus();
+        return;
+    }
+    executeTicketLookup(token);
+}
+
+function purgeSearchBuffer() {
+    document.getElementById("ticketInput").value = "";
+    document.getElementById("telemetryResult").style.display = "none";
+    document.getElementById("replyBox").style.display = "none";
+    document.getElementById("replyTriggerRow").style.display = "none";
+    document.getElementById("ticketInput").focus();
+    showToast("Input cleared.");
+}
+
+function executeTicketLookup(token) {
+    const btn = document.getElementById("queryBtn");
+    btn.disabled = true;
+    btn.innerText = "Checking status...";
+    announceSR("Checking ticket status for " + token);
+
+    fetch(API_URL + "?action=getTicket&ticketId=" + encodeURIComponent(token))
+    .then(res => res.json())
+    .then(data => {
+        btn.disabled = false;
+        btn.innerText = "Check Status";
+
+        if (data.status === "success") {
+            currentTicketId = data.data.ticketId;
+            renderTelemetryReport(data.data);
+        } else {
+            document.getElementById("telemetryResult").style.display = "none";
+            showToast("No records found for Ticket ID " + token + ". Please verify the ID.");
+        }
+    })
+    .catch(err => {
+        btn.disabled = false;
+        btn.innerText = "Check Status";
+        showToast("Failed to connect to the database. Please check your internet connection.");
+    });
+}
+
+function renderTelemetryReport(t) {
+    document.getElementById("valId").innerText = t.ticketId;
+    document.getElementById("valName").innerText = t.name;
+    document.getElementById("valType").innerText = t.requestType;
+    document.getElementById("valTime").innerText = new Date(t.timestamp).toLocaleString();
+    document.getElementById("valCategory").innerText = t.category;
+    document.getElementById("valItem").innerText = t.specificItem;
+    document.getElementById("valAssignee").innerText = t.assignedTo || "Unassigned (Awaiting Review)";
+    document.getElementById("valDesc").innerText = t.description;
+
+    const badgeContainer = document.getElementById("valStatusBadge");
+    badgeContainer.innerHTML = "";
+    const badge = document.createElement("span");
+    badge.className = "status-badge";
+
+    if (t.status === "Open") {
+        badge.classList.add("status-open");
+        badge.innerText = "Open (Waiting for Review)";
+    } else if (t.status === "In Progress") {
+        badge.classList.add("status-inprogress");
+        badge.innerText = "In Progress (" + (t.assignedTo || "Assigned") + ")";
+    } else if (t.status === "Closed") {
+        badge.classList.add("status-closed");
+        badge.innerText = "Resolved & Closed";
+    }
+    badgeContainer.appendChild(badge);
+
+    const resBlock = document.getElementById("resolutionBlock");
+    if (t.status === "Closed" && t.resolution) {
+        resBlock.classList.remove("hidden");
+        document.getElementById("valResolution").innerText = t.resolution;
+    } else {
+        resBlock.classList.add("hidden");
+    }
+
+    const replyTrigger = document.getElementById("replyTriggerRow");
+    const replyBox = document.getElementById("replyBox");
+    replyBox.style.display = "none";
+    document.getElementById("userReplyMsg").value = "";
+
+    if (t.status === "In Progress") {
+        replyTrigger.style.display = "flex";
+    } else {
+        replyTrigger.style.display = "none";
+    }
+
+    const card = document.getElementById("telemetryResult");
+    card.style.display = "block";
+    card.focus();
+    announceSR("Ticket details loaded for " + t.ticketId + ". Status is " + t.status);
+}
+
+function openReplyBox() {
+    document.getElementById("replyTriggerRow").style.display = "none";
+    const box = document.getElementById("replyBox");
+    box.style.display = "block";
+    document.getElementById("userReplyMsg").focus();
+    announceSR("Reply box opened. Type your message for the engineer.");
+}
+
+function closeReplyBox() {
+    document.getElementById("replyBox").style.display = "none";
+    document.getElementById("userReplyMsg").value = "";
+    document.getElementById("replyTriggerRow").style.display = "flex";
+}
+
+function cancelUserReply() {
+    closeReplyBox();
+    announceSR("Message cancelled.");
+}
+
+function sendUserReply() {
+    const msg = document.getElementById("userReplyMsg").value.trim();
+    if (!msg) {
+        showToast("Please enter a message before sending.");
+        return;
+    }
+
+    const btn = document.getElementById("sendReplyBtn");
+    btn.disabled = true;
+    btn.innerText = "Sending...";
+    announceSR("Sending your message. Please wait.");
+
+    fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify({ action: "userReply", ticketId: currentTicketId, replyMessage: msg })
+    })
+    .then(res => res.json())
+    .then(data => {
+        btn.disabled = false;
+        btn.innerText = "Send Message";
+        if (data.status === "success") {
+            closeReplyBox();
+            showToast("Message successfully sent to the engineer.");
+        } else {
+            showToast("Error sending message: " + data.message);
+        }
+    })
+    .catch(err => {
+        btn.disabled = false;
+        btn.innerText = "Send Message";
+        showToast("Network error. Failed to send message.");
+    });
+}
+</script>
+</body>
+</html>

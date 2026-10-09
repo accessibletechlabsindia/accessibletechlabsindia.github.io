@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Support & Assistance - Accessible Tech Labs India</title>
+<meta name="description" content="Official Support and Feedback Portal for Accessible Tech Labs India. Submit problem reports and suggestions with total privacy.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body { background-color: #0d1117; color: #c9d1d9; font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; margin: 0; padding: 0; }
+a { color: #58a6ff; text-decoration: underline; font-weight: bold; }
+a:focus, a:hover { color: #79c0ff; outline: 3px solid #ffcc00; outline-offset: 2px; }
+.skip-link { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
+.skip-link:focus { position: static; width: auto; height: auto; background: #ffcc00; color: #000; padding: 10px; font-weight: bold; display: block; text-align: center; }
+header[role="banner"] { background-color: #010409; border-bottom: 1px solid #30363d; padding: 25px 0; text-align: center; }
+header h1 { margin: 0; font-size: 2.2rem; color: #c9d1d9; }
+nav[aria-label="Main navigation"] { margin-top: 15px; }
+nav a { margin: 0 15px; font-weight: 700; color: #58a6ff; text-decoration: none; font-size: 1.1rem; }
+nav a:hover, nav a:focus { color: #79c0ff; text-decoration: underline; }
+.main-container { max-width: 1100px; margin: 30px auto; padding: 0 25px; }
+.manifesto-box { background: #010409; padding: 35px; border-radius: 12px; border-left: 6px solid #238636; margin-bottom: 40px; text-align: justify; line-height: 1.8; }
+.manifesto-box h2 { color: #3fb950; margin-top: 0; font-size: 2rem; }
+.manifesto-box p { font-size: 1.1rem; color: #e6edf3; }
+.workspace-card { background: #161b22; border: 2px solid #30363d; border-radius: 15px; padding: 35px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+.workspace-card h2 { color: #58a6ff; margin-top: 0; border-bottom: 2px solid #30363d; padding-bottom: 10px; font-size: 1.8rem; }
+.input-group { margin-bottom: 25px; }
+.input-label { display: block; font-size: 1.15rem; font-weight: bold; color: #58a6ff; margin-bottom: 8px; }
+.input-field { width: 100%; padding: 16px; border-radius: 8px; border: 2px solid #30363d; font-size: 1.15rem; color: #c9d1d9; background: #010409; box-sizing: border-box; }
+.input-field:focus { border-color: #58a6ff; outline: 3px solid #ffcc00; }
+select.input-field { cursor: pointer; }
+textarea.input-field { min-height: 180px; resize: vertical; font-family: inherit; }
+.btn-action { width: 100%; padding: 18px 25px; border-radius: 8px; border: none; font-weight: bold; font-size: 1.2rem; cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px; transition: 0.2s; background: #238636; color: #ffffff; }
+.btn-action:hover:not(:disabled) { background: #2ea043; }
+.btn-action:focus { outline: 3px solid #ffcc00; }
+.btn-action:disabled { background: #21262d; color: #484f58; cursor: not-allowed; }
+.btn-copy { background: #1f6feb; margin-top: 15px; }
+.btn-copy:hover { background: #388bfd; }
+.btn-secondary { background: #21262d; border: 1px solid #30363d; color: #c9d1d9; margin-top: 15px; }
+.btn-secondary:hover { background: #30363d; }
+.success-card { display: none; background: #010409; border: 2px solid #238636; border-radius: 15px; padding: 40px 30px; text-align: center; }
+.success-card h3 { color: #3fb950; font-size: 2.2rem; margin-top: 0; }
+.ticket-badge { font-size: 3.5rem; font-weight: 900; color: #ffcc00; letter-spacing: 6px; padding: 20px; background: #161b22; border: 2px dashed #30363d; border-radius: 12px; margin: 25px 0; font-family: monospace; }
+.live-status { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+footer[role="contentinfo"] { background-color: #010409; border-top: 1px solid #30363d; color: #8b949e; padding: 40px 0; text-align: center; margin-top: 60px; font-size: 1.1rem; }
+footer a { color: #58a6ff; text-decoration: underline; }
+.hidden { display: none; }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header role="banner">
+<h1>Accessible Tech Labs India</h1>
+<nav aria-label="Main navigation">
+<a href="../index.html" accesskey="h">Home</a>
+<a href="../software.html" accesskey="s">Software</a>
+<a href="../Addons/Addons.html" accesskey="n">NVDA Add-ons</a>
+<a href="../tools.html" accesskey="t">Tools</a>
+<a href="../Games.html" accesskey="g">Games</a>
+<a href="../training.html" accesskey="r">Training</a>
+<a href="../support.html" accesskey="d">Support Us</a>
+<a href="../about.html" accesskey="a">About</a>
+<a href="../contact.html" accesskey="c">Contact</a>
+</nav>
+</header>
+
+<main id="main" class="main-container">
+
+<section class="manifesto-box" role="region" aria-labelledby="manifesto-heading">
+<h2 id="manifesto-heading">Technical Support & Feedback Helpdesk</h2>
+<p>
+At Accessible Tech Labs India, we are committed to building reliable, fast, and fully accessible software for everyone. Whether you encountered a problem in our Windows software, experienced an issue with an NVDA add-on, or want to suggest a new idea, this portal connects you directly to our core engineering team.
+</p>
+<p>
+Your privacy is completely protected under our strict Zero-Knowledge standards. We do not track you or sell your data. After submitting your request, you will receive a unique Ticket ID (such as ATLIXX99). You can use this ID to check your ticket status at any time without needing an account or password.
+</p>
+</section>
+
+<div class="workspace-card" id="formContainer">
+<h2 id="formHeading" tabindex="-1">Submit Support Request or Feedback</h2>
+
+<form id="ticketForm" aria-labelledby="formHeading">
+
+<div class="input-group">
+<label class="input-label" for="userName">Your Full Name *</label>
+<input type="text" id="userName" class="input-field" placeholder="Enter your full name..." required aria-required="true">
+</div>
+
+<div class="input-group">
+<label class="input-label" for="userEmail">Your Email Address *</label>
+<input type="email" id="userEmail" class="input-field" placeholder="name@example.com" required aria-required="true">
+</div>
+
+<div class="input-group">
+<label class="input-label" for="userGender">Gender *</label>
+<select id="userGender" class="input-field" required aria-required="true">
+<option value="">Select Gender</option>
+<option value="Male">Male</option>
+<option value="Female">Female</option>
+<option value="Other">Other</option>
+<option value="Prefer not to disclose">Prefer not to disclose</option>
+</select>
+</div>
+
+<div class="input-group">
+<label class="input-label" for="actionType">What can we help you with? *</label>
+<select id="actionType" class="input-field" required aria-required="true" onchange="handleTypeChange()">
+<option value="">Select an option</option>
+<option value="Report">Report a Bug or Problem</option>
+<option value="Suggestion">Send Feedback or Feature Suggestion</option>
+</select>
+</div>
+
+<div id="reportSelectors" class="hidden" aria-live="polite">
+<div class="input-group">
+<label class="input-label" for="targetCategory">Select Category *</label>
+<select id="targetCategory" class="input-field" onchange="handleCategoryChange()">
+<option value="">Select Category</option>
+<option value="software">Desktop Software (Microsoft Store)</option>
+<option value="tools">Online Web Tools</option>
+<option value="Games">Accessible Games</option>
+<option value="Addons">Official NVDA Add-ons</option>
+</select>
+</div>
+
+<div class="input-group">
+<label class="input-label" for="specificItem">Select Product or Tool *</label>
+<select id="specificItem" class="input-field">
+<option value="">Please select a category first</option>
+</select>
+</div>
+</div>
+
+<div class="input-group">
+<label class="input-label" for="issueDescription">Detailed Description *</label>
+<textarea id="issueDescription" class="input-field" placeholder="Describe the problem, steps to reproduce it, or your suggestion in detail..." required aria-required="true"></textarea>
+</div>
+
+<button type="submit" id="submitBtn" class="btn-action">Submit Ticket to Engineering Team</button>
+</form>
+</div>
+
+<div class="success-card" id="successContainer" tabindex="-1" aria-live="assertive">
+<h3>Ticket Submitted Successfully</h3>
+<p style="font-size: 1.25rem; color: #e6edf3;">Thank you. Your ticket has been registered. An email confirmation has been sent to your address.</p>
+<p style="font-size: 1.15rem; color: #3fb950; font-weight: bold;">Our engineering team will review your report and respond to you within 3 to 4 business days.</p>
+<div class="ticket-badge" id="displayTicketId"></div>
+<button class="btn-action btn-copy" onclick="copyGeneratedTicket()">Copy Ticket ID</button>
+<button class="btn-action btn-secondary" onclick="openDirectTracking()">Check Live Ticket Status</button>
+<button class="btn-action btn-secondary" onclick="resetSubmissionForm()">Submit Another Ticket</button>
+</div>
+
+</main>
+
+<div id="srStatus" class="live-status" aria-live="assertive"></div>
+
+<footer role="contentinfo">
+<p>
+<a href="../privacy.html" accesskey="p">Privacy Policy</a> | 
+<a href="index.html">Report Issue / Feedback</a> | 
+<a href="track.html">Track Ticket Status</a>
+</p>
+<p>© 2026 Accessible Tech Labs India</p>
+</footer>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbxuK9nj1sF-LWp-O6fQ_xYliEAgYz1x76HCylGoIE8iySx1raGEXMhrIMSfKjzX91b44w/exec";
+const BASE_HOST = "https://accessibletechlabsindia.github.io";
+let activeTicketId = "";
+
+const architectureRegistry = {
+    "software": [
+        { name: "ATL Media Downloader", path: "software/youtube-downloader/Media Downloader.html" },
+        { name: "ImageMaster Studio", path: "software/ImageMasterStudio/ImageMasterStudio.html" },
+        { name: "Media Composer Engine", path: "software/Media Composer Engine/Media Composer Engine.html" }
+    ],
+    "Games": [
+        { name: "Professional Math Challenge", path: "Games/professional-math-challenge.html" }
+    ],
+    "Addons": [
+        { name: "ATL Productivity Suite", path: "Addons/atl_productivity_suite.html" }
+    ],
+    "tools": [
+        { name: "Age & Birthday Calculator", path: "tools/age-calculator.html" },
+        { name: "Braille Document Creator", path: "tools/braille-blueprint-compiler.html" },
+        { name: "Digital Signature Maker", path: "tools/digital-signature-generator.html" },
+        { name: "Email Hack Checker", path: "tools/global-osint-radar.html" },
+        { name: "Fake Data Generator", path: "tools/synthetic-identity-engine.html" },
+        { name: "File Hidden Info Viewer", path: "tools/extreme-metadata-viewer.html" },
+        { name: "GitHub Profile Analyzer", path: "tools/github-intelligence.html" },
+        { name: "IP Location Tracker", path: "tools/network-threat-locator.html" },
+        { name: "Image Format Converter", path: "tools/professional-image-converter.html" },
+        { name: "Image to Icon Maker", path: "tools/image-to-icon-workstation.html" },
+        { name: "Image to PDF Converter", path: "tools/image-to-pdf.html" },
+        { name: "Image to Text Reader (OCR)", path: "tools/image-to-text.html" },
+        { name: "Language Translator", path: "tools/translator.html" },
+        { name: "Live Camera Assistant", path: "tools/universal-visual-assistant.html" },
+        { name: "Live Weather Forecast", path: "tools/weather-telemetry.html" },
+        { name: "PDF File Combiner", path: "tools/pdf-merger.html" },
+        { name: "PDF Reader & Speaker", path: "tools/pdf-reader.html" },
+        { name: "PDF to Image Converter", path: "tools/pdf-to-image.html" },
+        { name: "PDF to Text Extractor", path: "tools/pdf-to-text.html" },
+        { name: "Password Strength Checker", path: "tools/password-checker.html" },
+        { name: "Private Video & Audio Chat (Sovereign Nexus)", path: "tools/Sovereign-Nexus/sovereign-webrtc-nexus.html" },
+        { name: "QR Code Maker & Scanner", path: "tools/professional-qr-suite.html" },
+        { name: "Secure File Sharing", path: "tools/global-payload-drop.html" },
+        { name: "Secure File Vault", path: "tools/crypto-vault.html" },
+        { name: "Secure Text Clipboard", path: "tools/universal-cloud-clipboard.html" },
+        { name: "Standard Calculator", path: "tools/calculator.html" },
+        { name: "Temporary Email Generator", path: "tools/stealth-inbox-generator.html" },
+        { name: "Text File Combiner", path: "tools/txt-merger.html" },
+        { name: "Text to Image Converter", path: "tools/text-to-image.html" },
+        { name: "Text to PDF Converter", path: "tools/text-to-pdf.html" },
+        { name: "Website Accessibility Checker", path: "tools/advanced-compliance-guardian.html" },
+        { name: "Website Network Analyzer", path: "tools/dns-analyzer.html" }
+    ]
+};
+
+function announceSR(msg) {
+    const el = document.getElementById("srStatus");
+    el.innerText = "";
+    setTimeout(() => { el.innerText = msg; }, 50);
+}
+
+function handleTypeChange() {
+    const type = document.getElementById("actionType").value;
+    const repDiv = document.getElementById("reportSelectors");
+    const cat = document.getElementById("targetCategory");
+    const itm = document.getElementById("specificItem");
+    
+    if (type === "Report") {
+        repDiv.classList.remove("hidden");
+        cat.setAttribute("required", "true");
+        itm.setAttribute("required", "true");
+        announceSR("Bug report selected. Please select a category and product.");
+    } else {
+        repDiv.classList.add("hidden");
+        cat.removeAttribute("required");
+        itm.removeAttribute("required");
+        cat.value = "";
+        itm.innerHTML = '<option value="">Please select a category first</option>';
+        announceSR("Feedback selected.");
+    }
+}
+
+function handleCategoryChange() {
+    const cat = document.getElementById("targetCategory").value;
+    const itmSelect = document.getElementById("specificItem");
+    itmSelect.innerHTML = "";
+    
+    if (cat && architectureRegistry[cat]) {
+        const defaultOpt = document.createElement("option");
+        defaultOpt.value = "";
+        defaultOpt.textContent = "Select specific " + cat;
+        itmSelect.appendChild(defaultOpt);
+        
+        const sortedItems = [...architectureRegistry[cat]].sort((a, b) => a.name.localeCompare(b.name));
+        
+        sortedItems.forEach(entry => {
+            const opt = document.createElement("option");
+            opt.value = entry.name;
+            opt.dataset.path = entry.path;
+            opt.textContent = entry.name;
+            itmSelect.appendChild(opt);
+        });
+        announceSR(sortedItems.length + " items loaded alphabetically.");
+    } else {
+        const defaultOpt = document.createElement("option");
+        defaultOpt.value = "";
+        defaultOpt.textContent = "Please select a category first";
+        itmSelect.appendChild(defaultOpt);
+    }
+}
+
+document.getElementById("ticketForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const btn = document.getElementById("submitBtn");
+    btn.disabled = true;
+    btn.innerText = "Submitting ticket, please wait...";
+    announceSR("Submitting ticket, please wait.");
+
+    const catVal = document.getElementById("targetCategory").value || "General Support";
+    const itmElem = document.getElementById("specificItem");
+    const itmVal = itmElem.value || "General System";
+    let fullItemUrl = "N/A";
+
+    if (itmElem.selectedIndex >= 0 && itmElem.options[itmElem.selectedIndex].dataset.path) {
+        fullItemUrl = BASE_HOST + "/" + itmElem.options[itmElem.selectedIndex].dataset.path;
+    }
+    
+    const payload = {
+        action: "createTicket",
+        name: document.getElementById("userName").value.trim(),
+        email: document.getElementById("userEmail").value.trim(),
+        gender: document.getElementById("userGender").value,
+        requestType: document.getElementById("actionType").value,
+        category: catVal,
+        specificItem: itmVal,
+        itemUrl: fullItemUrl,
+        description: document.getElementById("issueDescription").value.trim()
+    };
+
+    fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify(payload)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success") {
+            activeTicketId = data.ticketId;
+            document.getElementById("formContainer").style.display = "none";
+            document.getElementById("displayTicketId").innerText = activeTicketId;
+            const successBox = document.getElementById("successContainer");
+            successBox.style.display = "block";
+            successBox.focus();
+            announceSR("Ticket submitted successfully. Your Ticket ID is " + activeTicketId + ". Response time is 3 to 4 business days.");
+        } else {
+            btn.disabled = false;
+            btn.innerText = "Submit Ticket to Engineering Team";
+            announceSR("Error: " + (data.message || "Failed to submit."));
+        }
+    })
+    .catch(err => {
+        btn.disabled = false;
+        btn.innerText = "Submit Ticket to Engineering Team";
+        announceSR("Network error occurred during submission.");
+    });
+});
+
+function copyGeneratedTicket() {
+    if (!activeTicketId) return;
+    navigator.clipboard.writeText(activeTicketId).then(() => {
+        announceSR("Ticket ID " + activeTicketId + " copied to clipboard.");
+    });
+}
+
+function openDirectTracking() {
+    if (!activeTicketId) return;
+    window.location.href = "track.html?ticket=" + encodeURIComponent(activeTicketId);
+}
+
+function resetSubmissionForm() {
+    document.getElementById("ticketForm").reset();
+    document.getElementById("reportSelectors").classList.add("hidden");
+    document.getElementById("formContainer").style.display = "block";
+    document.getElementById("successContainer").style.display = "none";
+    document.getElementById("submitBtn").disabled = false;
+    document.getElementById("submitBtn").innerText = "Submit Ticket to Engineering Team";
+    document.getElementById("formHeading").focus();
+    announceSR("Form reset. Ready for new ticket.");
+}
+</script>
+</body>
+</html>
