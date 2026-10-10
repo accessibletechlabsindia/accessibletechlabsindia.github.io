@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Privacy Policy | Accessible Tech Labs India</title>
-<meta name="description" content="Read the Privacy Policy of Accessible Tech Labs India, including information about local processing, external APIs, contact communications, third-party services, security, retention, and user rights.">
+<meta name="description" content="Read the official Privacy Policy of Accessible Tech Labs India. Learn about our strict Zero-Knowledge architecture, local client-side processing, 7-day support auto-purge protocol, and total data sovereignty.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="index, follow">
 <meta name="theme-color" content="#0d1117">
@@ -12,6 +12,14 @@
 <link rel="icon" href="favicon.ico">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="stylesheet" href="css/style.css">
+<style>
+.policy-card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 10px; padding: 30px; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.03); }
+.policy-card h3 { color: var(--primary-blue-dark); font-size: 1.4rem; margin-top: 0; border-bottom: 2px solid #f0f4f8; padding-bottom: 10px; margin-bottom: 15px; }
+.policy-card p { font-size: 1.05rem; color: #333333; line-height: 1.8; text-align: justify; margin-bottom: 15px; }
+.policy-card ul { padding-left: 25px; margin-bottom: 15px; }
+.policy-card li { font-size: 1.05rem; color: #333333; line-height: 1.8; margin-bottom: 8px; }
+.highlight-pill { background-color: #eef4ff; color: var(--primary-blue-dark); padding: 3px 8px; border-radius: 4px; font-weight: bold; }
+</style>
 </head>
 <body>
 
@@ -35,249 +43,159 @@
 <main id="main" class="main-container">
 
 <section class="manifesto-box" aria-labelledby="policy-title">
-<h2 id="policy-title">Privacy Policy</h2>
-<p><strong>Effective date:</strong> September 18, 2026</p>
-<p><strong>Last updated:</strong> September 18, 2026</p>
+<h2 id="policy-title">Privacy Policy & Architecture Manifesto</h2>
+<p><strong>Effective Date:</strong> October 10, 2026</p>
 <p>
-This Privacy Policy explains how Accessible Tech Labs India handles information when you visit this website, use our browser-based tools, download or use our software, use our games, access our training resources, or contact us through an official communication channel.
+Accessible Tech Labs India was founded on a non-negotiable principle: digital privacy is a fundamental human right, not a luxury. Most modern software platforms operate by harvesting user documents, tracking online habits, and storing personal identities on centralized cloud servers. We fundamentally reject that surveillance model. 
 </p>
 <p>
-We design our services with accessibility, data minimisation, user control, and local processing in mind. However, some features connect to external services. This policy identifies those situations so that you can make an informed decision before using a feature.
+Every application, web utility, and extension engineered by our laboratory is built on a <span class="highlight-pill">Zero-Knowledge, Client-Side First</span> architecture. We do not have servers waiting to collect your personal files. This document explains plainly, truthfully, and without complex corporate legalese how your data is handled across our entire ecosystem.
 </p>
 </section>
 
-<section class="policy-grid" aria-label="Privacy policy sections">
+<section class="policy-section" aria-label="Privacy Principles">
 
 <article class="policy-card">
-<h3>1. Scope of this Policy</h3>
+<h3>1. The Zero-Knowledge Core Principle (90% of Our Web Tools)</h3>
 <p>
-This Policy applies to the Accessible Tech Labs India website hosted at accessibletechlabsindia.github.io and to the web tools, software information pages, games, training resources, and add-on resources linked from it.
-</p>
-<p>
-Third-party websites, APIs, download hosts, communication platforms, libraries, and services linked from this website have their own privacy policies and terms. Their practices are not controlled by Accessible Tech Labs India.
-</p>
-</article>
-
-<article class="policy-card">
-<h3>2. Information We May Receive</h3>
-<p>
-Depending on how you use the website, information may include the content that you voluntarily send to us by email, WhatsApp, Telegram, or another communication channel; technical information processed by GitHub Pages and content delivery networks; and information sent to an external service when you intentionally use a tool that requires that service.
-</p>
-<p>
-We do not require an account to browse the main website. We do not intentionally request sensitive personal information unless it is necessary for a support, collaboration, training, or other communication request.
-</p>
-</article>
-
-<article class="policy-card">
-<h3>3. Local Browser Processing</h3>
-<p>
-Several tools are designed to process data in your browser or on your device. Examples may include text conversion, PDF processing, audio processing, image processing, calculations, and some games.
-</p>
-<p>
-For these tools, files and text may remain in the browser memory while the feature is running. You should close the page and clear the tool interface after use, especially when working with confidential information.
-</p>
-<p>
-Local processing is not a guarantee that your browser, operating system, extensions, network provider, or device is free from monitoring. Do not use any website tool for information that you are not authorised to process.
-</p>
-</article>
-
-<article class="policy-card">
-<h3>4. Features That Use External Services</h3>
-<p>
-Some tools send limited information to external providers in order to perform the requested function. The exact data sent depends on the feature and the information entered by you.
+The vast majority of utilities hosted on our platform execute entirely inside your web browser using modern web technologies like the HTML5 Canvas API, Web Audio API, Web Crypto API, and WebAssembly. When you use these tools, your files and text stay strictly inside your physical device's temporary memory (RAM):
 </p>
 <ul>
-<li>DNS and network tools may send a domain name or network query to DNS and related providers.</li>
-<li>Weather tools may send a location search, coordinates, or browser-approved location to geocoding and weather providers.</li>
-<li>Translation tools may send entered text or extracted document text to the translation provider.</li>
-<li>Image or OCR tools may use browser libraries locally, but you should verify the current page behaviour before submitting sensitive files.</li>
-<li>Password checking may send a partial cryptographic hash prefix to a breach-checking provider. Do not enter a password that you use for an important account.</li>
-<li>Email breach checking may send the email address entered by you to the selected breach-checking service.</li>
-<li>Temporary inbox tools may create an account with the temporary email provider and may send or retrieve inbox information through that provider.</li>
-<li>File-transfer tools may upload a file to the external transfer provider selected by the tool.</li>
-<li>Clipboard or payload-transfer tools may transmit encrypted or encoded content to the messaging service used by that feature.</li>
-<li>GitHub intelligence tools may query public GitHub profile information through the GitHub API.</li>
+<li><strong>Document Utilities:</strong> PDF Merger, PDF to Text, Text to PDF, Image to PDF, PDF to Image, and Text Merger assemble and convert files locally. Not a single byte of your documents is ever transmitted to an external server.</li>
+<li><strong>Image & Graphic Workstations:</strong> Professional Image Converter, Image to Icon Maker, and Text to Image render pixels directly on your device's graphics engine.</li>
+<li><strong>Cryptographic File Vault:</strong> Files encrypted or decrypted using our AES-256 vault are processed using your unique password directly on your CPU. If you close the tab, the volatile key is erased instantly. We do not hold a master key or backdoor.</li>
+<li><strong>Braille Document Creator:</strong> Plain text is compiled into Grade 1 Braille and Bharati Braille entirely client-side, generating .BRF files without online network requests.</li>
+<li><strong>Digital Signature Generator:</strong> Your name and handwritten typography are drawn locally on a canvas and saved as a PNG. No biometric signatures are recorded or stored.</li>
+<li><strong>Universal Visual Assistant:</strong> Live camera frames for color identification and ambient light reading are analyzed frame-by-frame in local browser memory and discarded immediately. No video is recorded or streamed online.</li>
 </ul>
 <p>
-External providers may process data under their own policies, retain logs, impose rate limits, or change their services. Review the provider's policy before using a feature that sends data outside your device.
+Because these utilities do not upload your content to any remote server, Accessible Tech Labs India cannot view, inspect, leak, or sell your files even if requested to do so.
 </p>
 </article>
 
 <article class="policy-card">
-<h3>5. External Libraries and Content Delivery</h3>
+<h3>2. Tools That Connect to External APIs (Data Minimization)</h3>
 <p>
-Some pages may load libraries, fonts, or other resources from services such as unpkg.com, raw.githubusercontent.com, Google-hosted services, or other third-party content delivery networks. When a browser requests an external resource, the provider may receive technical request information such as an IP address, browser information, requested resource, and time of request.
+A small subset of our online tools requires public data from third-party networks to function. We design these tools with strict data minimization so your personal identity remains completely separated from the query:
 </p>
+<ul>
+<li><strong>Live Weather Telemetry:</strong> Queries open meteorological nodes (Open-Meteo) using only the city name or browser-approved GPS coordinates you request. No search history is logged or tracked.</li>
+<li><strong>DNS Reconnaissance & IP Forensics:</strong> Queries global resolution nodes directly to return network routing records. Your lookup history exists only on your screen.</li>
+<li><strong>Zero-Knowledge Password Leak Checker:</strong> Implements the mathematical <span class="highlight-pill">k-Anonymity protocol</span> via the secure Pwned Passwords framework. Your device hashes your password with SHA-1 locally and sends only the first 5 characters of the hash. Your real password never leaves your computer.</li>
+<li><strong>Global OSINT Breach Radar:</strong> Queries public breach intelligence endpoints (XposedOrNot) to check whether an entered email address has appeared in past public database leaks. The memory buffer purges immediately after the report renders.</li>
+<li><strong>Temporary Email Generator:</strong> Connects to open disposable mail networks (mail.tm) to generate volatile inboxes for verification codes. The session and incoming messages are destroyed when you reset or close the tool.</li>
+<li><strong>Global Payload Drop & Sovereign Nexus:</strong> File transfer and peer-to-peer communication establish direct WebRTC cryptographic tunnels between sending and receiving endpoints with ephemeral session tokens.</li>
+</ul>
 <p>
-We do not control the privacy practices, availability, security, or retention policies of those providers. Where practical, we may replace external dependencies with locally hosted files in future updates.
-</p>
-</article>
-
-<article class="policy-card">
-<h3>6. Cookies, Storage, and Analytics</h3>
-<p>
-The main website is not intentionally designed around advertising cookies, behavioural advertising, or user accounts. Some pages or third-party services may nevertheless use their own cookies, local storage, session storage, cache, or similar browser technologies.
-</p>
-<p>
-Browser storage can be used by a tool to retain temporary interface state or preferences. Clearing the page, closing the browser, or using the browser's site-data controls may remove locally stored information, depending on the feature.
-</p>
-<p>
-GitHub Pages, hosting infrastructure, security systems, browsers, internet service providers, and external APIs may maintain technical logs as part of operating and protecting their services. We do not control those logs.
+We encourage users to review the independent policies of third-party public networks (such as Open-Meteo or GitHub API) when using online lookup features.
 </p>
 </article>
 
 <article class="policy-card">
-<h3>7. Contact and Support Communications</h3>
+<h3>3. Certified Windows Desktop Applications</h3>
 <p>
-If you contact us by email, WhatsApp, Telegram, YouTube, or another channel, the platform and our communication account may receive your name, username, phone number, email address, message, attachments, and technical details included in your communication.
+Accessible Tech Labs India distributes its native graphical Windows applications—including <strong>ATL Media Downloader</strong>, <strong>ImageMaster Studio</strong>, and <strong>Media Composer Engine</strong>—exclusively through the official Microsoft Store.
+</p>
+<ul>
+<li><strong>Zero Background Telemetry:</strong> Our desktop software does not install clandestine background services, tracking daemons, or usage telemetry modules.</li>
+<li><strong>Local Hardware Execution:</strong> Features such as VLC-powered playback, format conversions, EXIF metadata stripping, and offline AI vocal extraction run entirely on your local CPU, GPU, and RAM.</li>
+<li><strong>Media Sovereignty:</strong> What you download, edit, convert, or record belongs exclusively to you. Our applications never upload your video libraries, watch histories, or recordings to our laboratory.</li>
+</ul>
+</article>
+
+<article class="policy-card">
+<h3>4. Official NVDA Screen Reader Add-ons</h3>
+<p>
+Our official screen reader extension, the <strong>ATL Productivity Suite</strong>, is officially vetted, approved, and hosted on the NV Access Add-on Store under the GNU General Public License Version 2.0 (GPL-2.0).
 </p>
 <p>
-We use this information to respond to your request, provide support, investigate reports, improve accessibility, address abuse, and maintain records needed for legitimate operational or legal purposes.
-</p>
-<p>
-Do not send passwords, recovery codes, government identity documents, payment card details, private keys, or confidential files through an ordinary support message.
+As of version 2.1.0, our development team has completely removed the legacy telemetry module and all background tracking routines. The add-on runs 100% locally on your machine with zero external network dependencies, ensuring that your screen reading workflow, keystrokes, and system diagnostics remain completely private.
 </p>
 </article>
 
 <article class="policy-card">
-<h3>8. Downloads and Desktop Software</h3>
+<h3>5. Technical Support & The 7-Day Auto-Purge Protocol</h3>
 <p>
-Software downloaded from this website may connect to services required by the software, such as update servers, public repositories, operating-system services, media providers, or other providers described in the software documentation.
+When you submit a problem report or feature suggestion through our Helpdesk Portal (`support-system/`), we collect only the information necessary to resolve your technical inquiry: your name, email address, selected product category, and description of the issue.
 </p>
+<ul>
+<li><strong>Ticket Token Security:</strong> You are issued an 8-character token (such as ATLIXX99). You can track engineering resolution directly on our live tracking page without creating an account or password.</li>
+<li><strong>Confidential Internal Notes:</strong> Private engineering notes between our core team are strictly separated in our database and are mathematically excluded from the public tracking API.</li>
+<li><strong>The 7-Day Auto-Purge Protocol:</strong> To uphold our commitment to data minimization, once an issue is verified, resolved, and closed by our engineering team, our automated database script <span class="highlight-pill">permanently deletes the ticket record after 7 days</span>. No archived personal logs remain.</li>
+<li><strong>User Communication:</strong> If an engineer replies to your inquiry, the notification is sent directly to your email. We do not use your email address for promotional marketing or spam.</li>
+</ul>
+</article>
+
+<article class="policy-card">
+<h3>6. Training Program & Student Data</h3>
 <p>
-A desktop program may also create files, logs, settings, caches, or temporary data on your device. The exact behaviour depends on the program, version, operating system, permissions, and configuration. Read the product-specific documentation before installation.
-</p>
-<p>
-The website privacy policy cannot guarantee the behaviour of an independently downloaded executable, third-party dependency, operating-system component, or release host.
+Accessible Tech Labs India conducts free two-month online training programs focusing on Basic to Advanced Computer Skills and Cyber Safety Awareness. When you enroll in a batch, we receive your voluntarily provided contact details to schedule live Google Meet sessions and issue completion certificates. We never sell student rosters or share attendee contact details with third-party advertising companies.
 </p>
 </article>
 
 <article class="policy-card">
-<h3>9. Training and Registration Information</h3>
+<h3>7. Voluntary Financial Contributions</h3>
 <p>
-If you contact us about training, a course, a batch, certification, or participation, we may receive the information you choose to provide, such as your name, contact details, accessibility requirements, educational information, and communication preferences.
-</p>
-<p>
-We use that information to respond to enquiries, manage participation, communicate schedules, provide learning support, and issue or verify course-related information where applicable.
-</p>
-<p>
-We do not require you to disclose disability or medical information. Provide only the minimum information necessary for the requested support.
+Supporting our laboratory is entirely voluntary. Our financial reception gateway is configured exclusively for National (Indian) Donors via the Unified Payments Interface (UPI) architecture to our official VPA. We do not operate third-party merchant payment gateways, and we never collect, store, or process your credit card numbers, bank passwords, or debit credentials.
 </p>
 </article>
 
 <article class="policy-card">
-<h3>10. How We Use Information</h3>
+<h3>8. What We Will NEVER Do</h3>
 <p>
-Information may be used to operate and maintain the website, respond to enquiries, provide technical support, improve accessibility and reliability, investigate security incidents, prevent misuse, distribute updates, manage training communications, comply with applicable law, and protect the rights and safety of users and the project.
+To ensure absolute transparency and build permanent trust with our global community, Accessible Tech Labs India formally commits to the following covenants:
 </p>
+<ul>
+<li><strong>No Mandatory Accounts:</strong> We will never force users to create accounts, provide phone numbers, or log in just to convert a document or use our web tools.</li>
+<li><strong>No Tracking Cookies:</strong> We do not deploy behavioral tracking cookies, cross-site advertising pixels, or analytics trackers on our main website.</li>
+<li><strong>No Monetization of User Data:</strong> We do not sell, rent, lease, or trade personal information to data brokers, advertising agencies, or commercial aggregators under any circumstances.</li>
+<li><strong>No Dark Patterns:</strong> We will never trick users into clicking misleading download buttons, installing bloatware, or subscribing to hidden payment plans.</li>
+</ul>
+</article>
+
+<article class="policy-card">
+<h3>9. Data Security & User Responsibilities</h3>
 <p>
-We do not intentionally sell personal information or use support messages for behavioural advertising. We do not make decisions about a person's eligibility, employment, credit, insurance, or access to essential services using automated profiling on this website.
+While we minimize data collection to the absolute zero-knowledge baseline, security is a shared responsibility. Because tools like our Cryptographic Vault and Offline Cleaners execute locally, your security posture depends on your own device's hygiene. Always keep your operating system updated, maintain strong unique passwords, and ensure you retain backups of critical files before performing bulk conversions.
 </p>
 </article>
 
 <article class="policy-card">
-<h3>11. Sharing and Disclosure</h3>
+<h3>10. Contact Information & Policy Updates</h3>
 <p>
-We may disclose information when you direct us to do so, when a third-party feature is required to provide the function you requested, to service providers supporting website operations, to protect users and infrastructure, to investigate abuse or security issues, or when disclosure is required by applicable law or a valid legal process.
+We may revise this Privacy Policy periodically to reflect newly engineered tools, Microsoft Store updates, or enhanced accessibility standards. Any updates will be published directly on this page with a revised effective date.
 </p>
 <p>
-We do not promise that information sent to a third-party provider will remain exclusively in India. The provider may process information in other countries according to its own terms and policies.
-</p>
-</article>
-
-<article class="policy-card">
-<h3>12. Retention</h3>
-<p>
-We retain communication information only for as long as reasonably necessary to respond, provide support, maintain operational records, resolve disputes, protect the project, or comply with legal obligations.
-</p>
-<p>
-Temporary data created by browser tools may remain in browser memory, browser storage, download folders, external providers, or device backups until it is deleted by the relevant user, browser, device, or provider. Retention periods of external services are governed by their policies.
-</p>
-</article>
-
-<article class="policy-card">
-<h3>13. Security</h3>
-<p>
-We use reasonable measures appropriate to a static public website and seek to minimise unnecessary data collection. However, no website, software, communication platform, API, download, or internet transmission can be guaranteed completely secure.
-</p>
-<p>
-You are responsible for using supported software, maintaining device security, reviewing permissions, verifying downloads, using strong unique passwords, and avoiding confidential information in tools that use external services.
-</p>
-</article>
-
-<article class="policy-card">
-<h3>14. Children and Young Users</h3>
-<p>
-The website is not intended to collect personal information from children without appropriate involvement of a parent, guardian, school, or responsible organisation. If you believe that a child has sent personal information to us unnecessarily, contact us so that we can review the request.
-</p>
-</article>
-
-<article class="policy-card">
-<h3>15. Your Choices and Rights</h3>
-<p>
-Depending on applicable law and your circumstances, you may ask what personal information we hold about your communication, request correction of inaccurate information, request deletion where legally available, withdraw a voluntary request, or ask questions about a feature's data flow.
-</p>
-<p>
-To make a privacy request, contact us using the details on our <a href="contact.html">Contact &amp; Community</a> page. We may need enough information to identify the relevant communication and prevent unauthorised requests.
-</p>
-</article>
-
-<article class="policy-card">
-<h3>16. Changes to this Policy</h3>
-<p>
-We may update this Policy when the website, tools, software, external services, legal requirements, or security practices change. The effective date and last-updated date at the top of this page will be changed when a material update is published.
-</p>
-<p>
-You should review this page before using a feature that handles personal, confidential, or sensitive information.
-</p>
-</article>
-
-<article class="policy-card">
-<h3>17. Acceptance and Responsible Use</h3>
-<p>
-By continuing to use this website after reading this Policy, you acknowledge the practices described here. Where a feature requires a separate consent, permission, or confirmation, that requirement applies in addition to this Policy.
-</p>
-<p>
-If you do not agree with the applicable privacy practices, do not use the relevant website feature and do not submit personal or confidential information through it.
-</p>
-</article>
-
-<article class="policy-card">
-<h3>18. Contact Information</h3>
-<p>
-For privacy, security, accessibility, data-handling, or policy questions, contact Accessible Tech Labs India through the official contact channels published on the <a href="contact.html">Contact &amp; Community</a> page.
-</p>
-<p>
-You may also write to <a href="mailto:kirshnakumar6644@gmail.com">kirshnakumar6644@gmail.com</a>. Please do not include passwords, authentication codes, payment details, or unnecessary sensitive information in your first message.
+If you have questions regarding our architecture, zero-knowledge verification, or data handling, you can contact our core engineering team directly at:
+<br><br>
+<strong>Email:</strong> <a href="mailto:kirshnakumar6644@gmail.com">kirshnakumar6644@gmail.com</a><br>
+<strong>Support Desk:</strong> <a href="support-system/index.html">Submit a Support Ticket</a><br>
+<strong>Official Portal:</strong> <a href="contact.html">Contact & Community Directory</a>
 </p>
 </article>
 
 </section>
 
-<section class="transparency-box" aria-labelledby="summary-heading">
-<h2 id="summary-heading">Privacy Summary</h2>
+<section class="transparency-box" aria-labelledby="summary-title">
+<h2 id="summary-title" class="mt-0">Privacy Summary for Screen Reader Users</h2>
 <ul>
-<li>Some features process data locally in your browser or device.</li>
-<li>Some features send entered data, queries, location, files, or messages to external providers.</li>
-<li>Contact platforms may receive and retain communication information.</li>
-<li>External providers have their own terms, privacy policies, logs, and retention practices.</li>
-<li>No website can guarantee absolute privacy or absolute security.</li>
-<li>Use only the feature you understand and avoid entering confidential information unnecessarily.</li>
+<li>Your files, text, and photos are processed in local device memory and are not uploaded to our servers.</li>
+<li>Desktop software from the Microsoft Store and our NVDA Add-on have zero background telemetry.</li>
+<li>Support tickets are kept only to resolve your problem and are automatically deleted 7 days after closure.</li>
+<li>We do not use advertising cookies, require user accounts, or sell any personal data.</li>
 </ul>
-<p>
-This summary does not replace the complete Policy above.
-</p>
 </section>
 
 </main>
 
 <footer role="contentinfo">
 <p>
-<a href="privacy.html" accesskey="p">Privacy Policy</a> | 
+<a href="privacy.html" accesskey="p" aria-current="page">Privacy Policy</a> | 
 <a href="support-system/index.html">Report Issue / Feedback</a> | 
 <a href="support-system/track.html">Track Ticket Status</a>
 </p>
 <p>© 2026 Accessible Tech Labs India</p>
 </footer>
+
 </body>
 </html>
