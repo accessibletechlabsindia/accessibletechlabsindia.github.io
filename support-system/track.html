@@ -116,11 +116,22 @@ Our tracking system allows you to see whether your ticket is Open, In Progress, 
 
 <div class="data-section">
 <h3>Engineering Status</h3>
+<div class="data-row"><span class="data-label">Priority Level</span><span class="data-value" id="valPriority"></span></div>
 <div class="data-row"><span class="data-label">Category</span><span class="data-value" id="valCategory"></span></div>
 <div class="data-row"><span class="data-label">Product / Component</span><span class="data-value" id="valItem"></span></div>
 <div class="data-row"><span class="data-label">Assigned Engineer</span><span class="data-value" id="valAssignee"></span></div>
 <div class="data-row"><span class="data-label">Current Status</span><span class="data-value" id="valStatusBadge"></span></div>
 </div>
+</div>
+
+<div class="data-section" id="sysInfoSection" style="display: none; margin-bottom: 20px;">
+<h3>Your System Info</h3>
+<p id="valSysInfo" style="font-size: 1.1rem; color: #8b949e; margin: 0; font-family: monospace;"></p>
+</div>
+
+<div class="data-section" id="screenshotSection" style="display: none; margin-bottom: 20px;">
+<h3>Attached Screenshots</h3>
+<ul id="valScreenshots" style="margin: 0; padding-left: 20px; font-size: 1.15rem;"></ul>
 </div>
 
 <div class="data-section">
@@ -189,6 +200,11 @@ window.addEventListener("DOMContentLoaded", () => {
     if (token) {
         document.getElementById("ticketInput").value = token.trim().toUpperCase();
         executeTicketLookup(token.trim().toUpperCase());
+    } else {
+        const savedToken = localStorage.getItem("atli_last_ticket");
+        if (savedToken) {
+            document.getElementById("ticketInput").value = savedToken;
+        }
     }
 });
 
@@ -207,6 +223,7 @@ function purgeSearchBuffer() {
     document.getElementById("telemetryResult").style.display = "none";
     document.getElementById("replyBox").style.display = "none";
     document.getElementById("replyTriggerRow").style.display = "none";
+    localStorage.removeItem("atli_last_ticket");
     document.getElementById("ticketInput").focus();
     showToast("Input cleared.");
 }
@@ -225,6 +242,7 @@ function executeTicketLookup(token) {
 
         if (data.status === "success") {
             currentTicketId = data.data.ticketId;
+            localStorage.setItem("atli_last_ticket", currentTicketId);
             renderTelemetryReport(data.data);
         } else {
             document.getElementById("telemetryResult").style.display = "none";
@@ -243,10 +261,36 @@ function renderTelemetryReport(t) {
     document.getElementById("valName").innerText = t.name;
     document.getElementById("valType").innerText = t.requestType;
     document.getElementById("valTime").innerText = new Date(t.timestamp).toLocaleString();
+    document.getElementById("valPriority").innerText = t.priority || "Medium";
     document.getElementById("valCategory").innerText = t.category;
     document.getElementById("valItem").innerText = t.specificItem;
     document.getElementById("valAssignee").innerText = t.assignedTo || "Unassigned (Awaiting Review)";
     document.getElementById("valDesc").innerText = t.description;
+
+    const sysInfoSec = document.getElementById("sysInfoSection");
+    if (t.systemInfo && t.systemInfo !== "Not Provided") {
+        sysInfoSec.style.display = "block";
+        document.getElementById("valSysInfo").innerText = t.systemInfo;
+    } else {
+        sysInfoSec.style.display = "none";
+    }
+
+    const shotSec = document.getElementById("screenshotSection");
+    const shotList = document.getElementById("valScreenshots");
+    shotList.innerHTML = "";
+    if (t.screenshots && t.screenshots.trim() !== "") {
+        shotSec.style.display = "block";
+        let links = t.screenshots.split(" | ");
+        links.forEach((link, idx) => {
+            if (link.trim() !== "") {
+                let li = document.createElement("li");
+                li.innerHTML = `<a href="${link.trim()}" target="_blank" style="color: #58a6ff;">View Screenshot ${idx + 1}</a>`;
+                shotList.appendChild(li);
+            }
+        });
+    } else {
+        shotSec.style.display = "none";
+    }
 
     const badgeContainer = document.getElementById("valStatusBadge");
     badgeContainer.innerHTML = "";

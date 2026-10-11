@@ -28,6 +28,9 @@ nav a:hover, nav a:focus { color: #79c0ff; text-decoration: underline; }
 .input-field:focus { border-color: #58a6ff; outline: 3px solid #ffcc00; }
 select.input-field { cursor: pointer; }
 textarea.input-field { min-height: 180px; resize: vertical; font-family: inherit; }
+.checkbox-group { display: flex; align-items: center; gap: 10px; margin-top: 10px; background: #010409; padding: 15px; border-radius: 8px; border: 1px solid #30363d; }
+.checkbox-group input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer; }
+.checkbox-group label { font-size: 1.1rem; font-weight: bold; color: #c9d1d9; cursor: pointer; }
 .btn-action { width: 100%; padding: 18px 25px; border-radius: 8px; border: none; font-weight: bold; font-size: 1.2rem; cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px; transition: 0.2s; background: #238636; color: #ffffff; }
 .btn-action:hover:not(:disabled) { background: #2ea043; }
 .btn-action:focus { outline: 3px solid #ffcc00; }
@@ -72,7 +75,7 @@ footer a { color: #58a6ff; text-decoration: underline; }
 At Accessible Tech Labs India, we are committed to building reliable, fast, and fully accessible software for everyone. Whether you encountered a problem in our Windows software, experienced an issue with an NVDA add-on, or want to suggest a new idea, this portal connects you directly to our core engineering team.
 </p>
 <p>
-Your privacy is completely protected under our strict Zero-Knowledge standards. We do not track you or sell your data. After submitting your request, you will receive a unique Ticket ID (such as ATLIXX99). You can use this ID to check your ticket status at any time without needing an account or password.
+Your privacy is completely protected under our strict Zero-Knowledge standards. We do not track you or sell your data. After submitting your request, you will receive a unique Ticket ID. Our engineering team will review your report and respond to you within 3 to 4 business days.
 </p>
 </section>
 
@@ -129,9 +132,28 @@ Your privacy is completely protected under our strict Zero-Knowledge standards. 
 <option value="">Please select a category first</option>
 </select>
 </div>
+
+<div class="input-group">
+<label class="input-label" for="issuePriority">Priority Level *</label>
+<select id="issuePriority" class="input-field">
+<option value="Low">Low (General question or minor issue)</option>
+<option value="Medium" selected>Medium (Feature not working properly)</option>
+<option value="Critical">Critical (Software crash or accessibility failure)</option>
+</select>
 </div>
 
 <div class="input-group">
+<label class="input-label" for="screenshotUpload">Attach Screenshots (Optional, Max 3 files, 2MB each)</label>
+<input type="file" id="screenshotUpload" class="input-field" accept="image/png, image/jpeg, image/jpg" multiple>
+</div>
+
+<div class="checkbox-group">
+<input type="checkbox" id="sysInfoCheck">
+<label for="sysInfoCheck">Attach my system info securely (Browser & OS version) to help engineers.</label>
+</div>
+</div>
+
+<div class="input-group" style="margin-top: 25px;">
 <label class="input-label" for="issueDescription">Detailed Description *</label>
 <textarea id="issueDescription" class="input-field" placeholder="Describe the problem, steps to reproduce it, or your suggestion in detail..." required aria-required="true"></textarea>
 </div>
@@ -272,7 +294,16 @@ function handleCategoryChange() {
     }
 }
 
-document.getElementById("ticketForm").addEventListener("submit", function(e) {
+function getBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+}
+
+document.getElementById("ticketForm").addEventListener("submit", async function(e) {
     e.preventDefault();
     const btn = document.getElementById("submitBtn");
     btn.disabled = true;
@@ -288,6 +319,32 @@ document.getElementById("ticketForm").addEventListener("submit", function(e) {
         fullItemUrl = BASE_HOST + "/" + itmElem.options[itmElem.selectedIndex].dataset.path;
     }
     
+    let sysInfo = "";
+    if (document.getElementById("sysInfoCheck").checked) {
+        sysInfo = navigator.userAgent;
+    }
+
+    let base64Images = [];
+    const fileInput = document.getElementById("screenshotUpload");
+    if (fileInput && fileInput.files.length > 0) {
+        if (fileInput.files.length > 3) {
+            alert("You can only upload a maximum of 3 screenshots.");
+            btn.disabled = false;
+            btn.innerText = "Submit Ticket to Engineering Team";
+            return;
+        }
+        for (let i = 0; i < fileInput.files.length; i++) {
+            if (fileInput.files[i].size > 2 * 1024 * 1024) {
+                alert("Each screenshot must be less than 2MB.");
+                btn.disabled = false;
+                btn.innerText = "Submit Ticket to Engineering Team";
+                return;
+            }
+            let b64 = await getBase64(fileInput.files[i]);
+            base64Images.push(b64);
+        }
+    }
+
     const payload = {
         action: "createTicket",
         name: document.getElementById("userName").value.trim(),
@@ -297,6 +354,9 @@ document.getElementById("ticketForm").addEventListener("submit", function(e) {
         category: catVal,
         specificItem: itmVal,
         itemUrl: fullItemUrl,
+        priority: document.getElementById("issuePriority") ? document.getElementById("issuePriority").value : "Medium",
+        systemInfo: sysInfo,
+        screenshots: base64Images,
         description: document.getElementById("issueDescription").value.trim()
     };
 
@@ -308,6 +368,7 @@ document.getElementById("ticketForm").addEventListener("submit", function(e) {
     .then(data => {
         if (data.status === "success") {
             activeTicketId = data.ticketId;
+            localStorage.setItem("atli_last_ticket", activeTicketId);
             document.getElementById("formContainer").style.display = "none";
             document.getElementById("displayTicketId").innerText = activeTicketId;
             const successBox = document.getElementById("successContainer");

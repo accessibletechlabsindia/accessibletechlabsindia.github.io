@@ -42,6 +42,7 @@ textarea.input-field { min-height: 120px; resize: vertical; font-family: inherit
 .btn-tab-active { background: #238636; }
 .summary-bar { background: #010409; border: 1px solid #30363d; border-radius: 8px; padding: 15px 20px; margin-bottom: 25px; font-size: 1.15rem; font-weight: bold; color: #3fb950; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
 .ticket-card { background: #010409; border: 2px solid #30363d; border-radius: 12px; padding: 25px; margin-top: 25px; box-shadow: 0 8px 20px rgba(0,0,0,0.3); }
+.ticket-card-sla-breach { border-color: #da3633; box-shadow: 0 0 15px rgba(218, 54, 51, 0.3); }
 .ticket-card h3 { color: #58a6ff; margin-top: 0; font-size: 1.5rem; border-bottom: 1px solid #30363d; padding-bottom: 10px; }
 .compact-details { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; }
 .compact-text { font-size: 1.15rem; font-weight: bold; color: #e6edf3; }
@@ -54,6 +55,7 @@ textarea.input-field { min-height: 120px; resize: vertical; font-family: inherit
 .status-open { background: #21262d; color: #58a6ff; border: 1px solid #1f6feb; }
 .status-inprogress { background: #382500; color: #ffcc00; border: 1px solid #9e6a03; }
 .status-closed { background: #0e2a14; color: #3fb950; border: 1px solid #238636; }
+.sla-badge { background: #da3633; color: white; padding: 4px 10px; border-radius: 4px; font-weight: bold; font-size: 0.9rem; margin-left: 10px; }
 .action-box { background: #161b22; border: 2px solid #30363d; border-radius: 8px; padding: 20px; margin-top: 15px; display: none; }
 .action-box h4 { margin-top: 0; color: #58a6ff; font-size: 1.2rem; }
 .live-status { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
@@ -87,10 +89,7 @@ footer a { color: #58a6ff; text-decoration: underline; }
 <section class="manifesto-box" role="region" aria-labelledby="admin-manifesto-heading">
 <h2 id="admin-manifesto-heading">Engineering Team Support Portal</h2>
 <p>
-Welcome to the central support management dashboard for Accessible Tech Labs India. This platform is used exclusively by our core engineering team (Krishna Kumar, Anil Saini, Sumit Kumar, Gauri, and Haseena) to review technical issues and feedback submitted by users. Every request is tracked directly, ensuring total transparency, user privacy, and quick problem resolution.
-</p>
-<p>
-Our system is designed with a Screen Reader First philosophy, allowing seamless keyboard and voice navigation. Team members can take ownership of tickets, reply directly to users, transfer tickets when needed, add confidential team notes, and re-open or resolve tickets with clear explanations.
+Welcome to the central support management dashboard for Accessible Tech Labs India. This platform is used exclusively by our core engineering team to review technical issues and feedback submitted by users. Every request is tracked directly, ensuring total transparency, user privacy, and quick problem resolution.
 </p>
 </section>
 
@@ -164,46 +163,6 @@ const TEAM_KEYS_MAP = {
     "S8jF4hV1mC6nD3pQ": "Sumit Kumar",
     "G5tL9rW2xK8sP4vB": "Gauri",
     "H2yD6mZ9bV3cX7eR": "Haseena"
-};
-
-const relativePathMap = {
-    "ATL Media Downloader": "../software/youtube-downloader/Media Downloader.html",
-    "ImageMaster Studio": "../software/ImageMasterStudio/ImageMasterStudio.html",
-    "Media Composer Engine": "../software/Media Composer Engine/Media Composer Engine.html",
-    "Professional Math Challenge": "../Games/professional-math-challenge.html",
-    "ATL Productivity Suite": "../Addons/atl_productivity_suite.html",
-    "Standard Calculator": "../tools/calculator.html",
-    "PDF Reader & Speaker": "../tools/pdf-reader.html",
-    "Braille Document Creator": "../tools/braille-blueprint-compiler.html",
-    "Live Camera Assistant": "../tools/universal-visual-assistant.html",
-    "PDF File Combiner": "../tools/pdf-merger.html",
-    "PDF to Text Extractor": "../tools/pdf-to-text.html",
-    "Text to PDF Converter": "../tools/text-to-pdf.html",
-    "Image to PDF Converter": "../tools/image-to-pdf.html",
-    "PDF to Image Converter": "../tools/pdf-to-image.html",
-    "Text File Combiner": "../tools/txt-merger.html",
-    "Image to Text Reader (OCR)": "../tools/image-to-text.html",
-    "Language Translator": "../tools/translator.html",
-    "Image Format Converter": "../tools/professional-image-converter.html",
-    "Image to Icon Maker": "../tools/image-to-icon-workstation.html",
-    "Text to Image Converter": "../tools/text-to-image.html",
-    "Secure File Vault": "../tools/crypto-vault.html",
-    "Password Strength Checker": "../tools/password-checker.html",
-    "Email Hack Checker": "../tools/global-osint-radar.html",
-    "Secure Text Clipboard": "../tools/universal-cloud-clipboard.html",
-    "Secure File Sharing": "../tools/global-payload-drop.html",
-    "Private Video & Audio Chat (Sovereign Nexus)": "../tools/Sovereign-Nexus/sovereign-webrtc-nexus.html",
-    "Temporary Email Generator": "../tools/stealth-inbox-generator.html",
-    "QR Code Maker & Scanner": "../tools/professional-qr-suite.html",
-    "Website Accessibility Checker": "../tools/advanced-compliance-guardian.html",
-    "Website Network Analyzer": "../tools/dns-analyzer.html",
-    "IP Location Tracker": "../tools/network-threat-locator.html",
-    "GitHub Profile Analyzer": "../tools/github-intelligence.html",
-    "File Hidden Info Viewer": "../tools/extreme-metadata-viewer.html",
-    "Fake Data Generator": "../tools/synthetic-identity-engine.html",
-    "Age & Birthday Calculator": "../tools/age-calculator.html",
-    "Live Weather Forecast": "../tools/weather-telemetry.html",
-    "Digital Signature Maker": "../tools/digital-signature-generator.html"
 };
 
 function announceSR(msg) {
@@ -365,25 +324,28 @@ function renderFilteredTickets() {
         card.className = "ticket-card";
         card.id = "card_" + t["Ticket ID"];
 
-        const directLink = relativePathMap[t["Specific Item"]] ? relativePathMap[t["Specific Item"]] : null;
-        let linkHtml = "None";
-        if (directLink) {
-            linkHtml = `<a href="${directLink}" target="_blank" rel="noopener">Open ${t["Specific Item"]} Page</a>`;
-        } else if (t["Specific Item"] && t["Specific Item"] !== "N/A") {
-            linkHtml = t["Specific Item"];
+        let isSlaBreached = false;
+        if (t.Status === "Open") {
+            let createdTime = new Date(t.Timestamp).getTime();
+            if (Date.now() - createdTime > 3 * 24 * 60 * 60 * 1000) {
+                isSlaBreached = true;
+                card.classList.add("ticket-card-sla-breach");
+            }
         }
 
         let badgeClass = "status-open";
         if (t.Status === "In Progress") badgeClass = "status-inprogress";
         if (t.Status === "Closed") badgeClass = "status-closed";
 
+        let slaHtml = isSlaBreached ? `<span class="sla-badge">SLA BREACHED (>3 Days)</span>` : "";
+
         let html = `
             <div id="backHeader_${t["Ticket ID"]}" style="display: none; margin-bottom: 20px;">
                 <button class="btn-action btn-secondary" onclick="backToTicketList('${t["Ticket ID"]}')">⬅️ Back to Tickets List</button>
             </div>
-            <h3 id="cardTitle_${t["Ticket ID"]}">Ticket ID: ${t["Ticket ID"]} <span class="status-badge ${badgeClass}">${t.Status}</span></h3>
+            <h3 id="cardTitle_${t["Ticket ID"]}">Ticket ID: ${t["Ticket ID"]} <span class="status-badge ${badgeClass}">${t.Status}</span>${slaHtml}</h3>
             <div class="compact-details" id="compact_${t["Ticket ID"]}">
-                <div class="compact-text">User: ${t.Name} | Category: ${t.Category} | Item: ${t["Specific Item"] || "General"}</div>
+                <div class="compact-text">User: ${t.Name} | Priority: ${t.Priority || "Medium"} | Item: ${t["Specific Item"] || "General"}</div>
                 <div style="display: flex; gap: 10px;">
                     <button class="btn-action" id="inspectBtn_${t["Ticket ID"]}" onclick="openFocusedTicket('${t["Ticket ID"]}')">Open Ticket Details</button>
                 </div>
@@ -392,9 +354,9 @@ function renderFilteredTickets() {
             <div class="full-details-pane" id="pane_${t["Ticket ID"]}">
                 <div class="data-grid">
                     <div class="data-row"><span class="data-label">User Name & Email</span><span class="data-value">${t.Name} (${t.Email})</span></div>
-                    <div class="data-row"><span class="data-label">Request Type</span><span class="data-value">${t["Request Type"]}</span></div>
+                    <div class="data-row"><span class="data-label">Priority Level</span><span class="data-value">${t.Priority || "Medium"}</span></div>
                     <div class="data-row"><span class="data-label">Category</span><span class="data-value">${t.Category}</span></div>
-                    <div class="data-row"><span class="data-label">Specific Item</span><span class="data-value">${linkHtml}</span></div>
+                    <div class="data-row"><span class="data-label">Specific Item</span><span class="data-value">${t["Specific Item"] || "N/A"}</span></div>
                     <div class="data-row"><span class="data-label">Assigned Engineer</span><span class="data-value">${t["Assigned To"] || "Unassigned"}</span></div>
                     <div class="data-row"><span class="data-label">Created Date & Time</span><span class="data-value">${new Date(t.Timestamp).toLocaleString()}</span></div>
                 </div>
@@ -404,6 +366,27 @@ function renderFilteredTickets() {
                     <p style="color: #e6edf3; margin: 5px 0 0 0; white-space: pre-wrap;">${t.Description}</p>
                 </div>
         `;
+
+        if (t["System Info"] && t["System Info"] !== "Not Provided") {
+            html += `
+                <div style="background: #161b22; padding: 15px; border-radius: 6px; border: 1px solid #30363d; margin-bottom: 15px;">
+                    <span class="data-label">User System Info:</span>
+                    <p style="color: #8b949e; margin: 5px 0 0 0; font-family: monospace;">${t["System Info"]}</p>
+                </div>
+            `;
+        }
+
+        if (t.Screenshots && t.Screenshots.trim() !== "") {
+            let links = t.Screenshots.split(" | ");
+            html += `<div style="background: #161b22; padding: 15px; border-radius: 6px; border: 1px solid #30363d; margin-bottom: 15px;">
+                     <span class="data-label">Attached Screenshots:</span><ul style="margin: 5px 0 0 0; padding-left: 20px;">`;
+            links.forEach((link, idx) => {
+                if (link.trim() !== "") {
+                    html += `<li><a href="${link.trim()}" target="_blank" style="color: #58a6ff;">View Screenshot ${idx + 1}</a></li>`;
+                }
+            });
+            html += `</ul></div>`;
+        }
 
         if (t["Internal Notes"]) {
             html += `
@@ -432,6 +415,7 @@ function renderFilteredTickets() {
                 </div>
                 <div class="control-row">
                     <button class="btn-action btn-success" onclick="openActionBox('reopenBox_${t["Ticket ID"]}')">Re-Open Ticket</button>
+                    <button class="btn-action btn-secondary" onclick="openActionBox('noteBox_${t["Ticket ID"]}')">Add Internal Note</button>
                 </div>
 
                 <div class="action-box" id="reopenBox_${t["Ticket ID"]}">
@@ -453,11 +437,11 @@ function renderFilteredTickets() {
                     <button class="btn-action btn-danger" onclick="openActionBox('closeBox_${t["Ticket ID"]}')">Resolve & Close Ticket</button>
                     <button class="btn-action btn-secondary" onclick="openActionBox('inquireBox_${t["Ticket ID"]}')">Message User</button>
                     <button class="btn-action btn-secondary" onclick="openActionBox('transferBox_${t["Ticket ID"]}')">Transfer Ticket</button>
-                    <button class="btn-action btn-secondary" onclick="openActionBox('noteBox_${t["Ticket ID"]}')">Add Note</button>
                 `;
             } else {
-                html += `<p style="color: #ffcc00; font-weight: bold; margin: 0;">Currently assigned to ${t["Assigned To"]}</p>`;
+                html += `<p style="color: #ffcc00; font-weight: bold; margin: 0; padding: 18px 0;">Currently assigned to ${t["Assigned To"]}</p>`;
             }
+            html += `<button class="btn-action btn-secondary" onclick="openActionBox('noteBox_${t["Ticket ID"]}')">Add Internal Note</button>`;
             html += `</div>`;
 
             if (t["Assigned To"] === authenticatedUser) {
@@ -465,6 +449,12 @@ function renderFilteredTickets() {
                     <div class="action-box" id="closeBox_${t["Ticket ID"]}">
                         <h4>Resolve & Close Ticket</h4>
                         <label class="input-label" for="reason_${t["Ticket ID"]}">Solution / Resolution Message (Sent to User) *</label>
+                        <select class="input-field" style="margin-bottom: 10px;" onchange="document.getElementById('reason_${t["Ticket ID"]}').value = this.value">
+                            <option value="">Select a Quick Reply...</option>
+                            <option value="The issue has been successfully resolved. Please check and let us know if you need further assistance.">General Resolved</option>
+                            <option value="This bug has been fixed in the latest update. Please download the newest version from our website.">Fixed in Update</option>
+                            <option value="Thank you for your suggestion. We have noted it down and will consider it for future updates.">Suggestion Noted</option>
+                        </select>
                         <textarea id="reason_${t["Ticket ID"]}" class="input-field" placeholder="Explain how the issue was fixed or answered..."></textarea>
                         <div class="control-row" style="margin-top: 15px;">
                             <button class="btn-action btn-danger" onclick="confirmClose('${t["Ticket ID"]}')">Confirm Close</button>
@@ -475,6 +465,11 @@ function renderFilteredTickets() {
                     <div class="action-box" id="inquireBox_${t["Ticket ID"]}">
                         <h4>Message User for More Details</h4>
                         <label class="input-label" for="inquireMsg_${t["Ticket ID"]}">Question for User (Sent via Email) *</label>
+                        <select class="input-field" style="margin-bottom: 10px;" onchange="document.getElementById('inquireMsg_${t["Ticket ID"]}').value = this.value">
+                            <option value="">Select a Quick Reply...</option>
+                            <option value="Could you please provide more details or steps to reproduce this issue?">Need More Details</option>
+                            <option value="Are you still facing this issue with the latest version of the software?">Check Latest Version</option>
+                        </select>
                         <textarea id="inquireMsg_${t["Ticket ID"]}" class="input-field" placeholder="Type your question or instructions for the user..."></textarea>
                         <div class="control-row" style="margin-top: 15px;">
                             <button class="btn-action btn-success" onclick="confirmInquiry('${t["Ticket ID"]}')">Send Email to User</button>
@@ -500,18 +495,20 @@ function renderFilteredTickets() {
                             <button class="btn-action btn-secondary" onclick="closeActionBox('transferBox_${t["Ticket ID"]}')">Cancel</button>
                         </div>
                     </div>
-
-                    <div class="action-box" id="noteBox_${t["Ticket ID"]}">
-                        <h4>Add Confidential Team Note</h4>
-                        <label class="input-label" for="noteText_${t["Ticket ID"]}">Note Content *</label>
-                        <textarea id="noteText_${t["Ticket ID"]}" class="input-field" placeholder="Type your private team note here..."></textarea>
-                        <div class="control-row" style="margin-top: 15px;">
-                            <button class="btn-action btn-success" onclick="confirmNote('${t["Ticket ID"]}')">Save Note</button>
-                            <button class="btn-action btn-secondary" onclick="closeActionBox('noteBox_${t["Ticket ID"]}')">Cancel</button>
-                        </div>
-                    </div>
                 `;
             }
+            
+            html += `
+                <div class="action-box" id="noteBox_${t["Ticket ID"]}">
+                    <h4>Add Confidential Team Note</h4>
+                    <label class="input-label" for="noteText_${t["Ticket ID"]}">Note Content *</label>
+                    <textarea id="noteText_${t["Ticket ID"]}" class="input-field" placeholder="Type your private team note here..."></textarea>
+                    <div class="control-row" style="margin-top: 15px;">
+                        <button class="btn-action btn-success" onclick="confirmNote('${t["Ticket ID"]}')">Save Note</button>
+                        <button class="btn-action btn-secondary" onclick="closeActionBox('noteBox_${t["Ticket ID"]}')">Cancel</button>
+                    </div>
+                </div>
+            `;
         }
 
         html += `</div>`;
