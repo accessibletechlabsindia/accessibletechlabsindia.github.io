@@ -11,54 +11,42 @@
 <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
-<meta name="theme-color" content="#0d1117">
+<meta name="theme-color" content="#005a9c">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
 <a class="skip-link" href="#main">Skip to main content</a>
 
-<header role="banner">
-<h1 class="center-text">Accessible Tech Labs India</h1>
-<nav aria-label="Main navigation">
-<a href="index.html" accesskey="h">Home</a>
-<a href="software.html" accesskey="s">Software</a>
-<a href="Addons/Addons.html" accesskey="n">NVDA Add-ons</a>
-<a href="tools.html" accesskey="t">Tools</a>
-<a href="Games.html" accesskey="g">Games</a>
-<a href="training.html" accesskey="r">Training</a>
-<a href="support.html" accesskey="d">Support Us</a>
-<a href="about.html" accesskey="a">About</a>
-<a href="contact.html" accesskey="c">Contact</a>
-</nav>
-</header>
-
+<atli-header path="" active="support"></atli-header>
 <main id="main" class="main-container">
 
-<section class="hero-section" aria-labelledby="support-heading">
-    <h2 id="support-heading" class="hero-title center-text">Fuel the Future of Digital Independence</h2>
+<section class="card center-text" aria-labelledby="support-heading">
+    <h2 id="support-heading">Fuel the Future of Digital Independence</h2>
     
-    <div class="voluntary-box" role="note">
-        <strong>A Note on Contributions:</strong> Supporting Accessible Tech Labs India is entirely voluntary. You are never obligated to donate to utilize our software ecosystem. We engineer for equality, not profitability. However, your financial support serves as the vital energy that keeps our independent laboratory operational.
+    <div class="voluntary-box" role="note" style="text-align: left;">
+        <h3 class="mt-0">A Note on Contributions:</h3>
+        <p class="mb-0">Supporting Accessible Tech Labs India is entirely voluntary. You are never obligated to donate to utilize our software ecosystem. We engineer for equality, not profitability. However, your financial support serves as the vital energy that keeps our independent laboratory operational.</p>
     </div>
 
-    <p class="hero-subtitle justify-text">
+    <p class="justify-text">
         Accessible Tech Labs India operates as a deeply committed, non-profit-oriented startup engineered entirely by a visually impaired developer. Our foundational mission is to architect a completely inclusive digital ecosystem. We engineer enterprise-grade Zero-Knowledge Web Engines, powerful Windows Software, highly accessible Web Games, Official NVDA Add-ons (featured on the global store), Android Applications, and advanced Web Tools. Currently, our entire global infrastructure is sustained without external corporate funding, operating resiliently on free hosting environments like GitHub Pages.
     </p>
-    <p class="hero-subtitle justify-text">
+    <p class="justify-text mb-0">
         Additionally, we conduct a comprehensive two-month online training program focusing on Cyber Safety Awareness and Basic to Advanced Computer Skills. We proudly launch 6 dedicated batches every year, completely free of charge. Your generous contributions directly empower us to secure our official independent domain (e.g., .in or .com), deploy decentralized server nodes, provide specialized resources to our enrolled students, and continue cultivating a generation of secure, aware, and responsible digital citizens. By contributing, you are directly investing in a scalable ecosystem that dismantles digital barriers.
     </p>
 </section>
 
 <div class="disclaimer-box" role="note">
-    <strong>Strict Geographic Operational Notice:</strong> At this current stage of our operational deployment, our financial reception gateways are strictly configured for National (Indian) Donors only via the Unified Payments Interface (UPI) architecture. We are actively engineering pathways to accept international contributions in the future. We deeply appreciate our global supporters for their patience.
+    <h3 class="mt-0">Strict Geographic Operational Notice:</h3>
+    <p class="mb-0">At this current stage of our operational deployment, our financial reception gateways are strictly configured for National (Indian) Donors only via the Unified Payments Interface (UPI) architecture. We are actively engineering pathways to accept international contributions in the future. We deeply appreciate our global supporters for their patience.</p>
 </div>
 
 <section class="card" aria-labelledby="vault-heading">
-    <h2 id="vault-heading" class="section-header">The Financial Gateway Vault</h2>
+    <h2 id="vault-heading" class="section-header mt-0">The Financial Gateway Vault</h2>
     
     <div class="qr-container">
-<img src="images/QR.png" alt="Official UPI QR Code for Accessible Tech Labs India. Scan using any UPI enabled payment application." class="qr-image">
+        <img src="images/QR.png" alt="Official UPI QR Code for Accessible Tech Labs India. Scan using any UPI enabled payment application." class="qr-image">
         <div class="upi-text" id="upiString">9352815634@fam</div>
         <p class="account-name">Account Name: krishnakumar</p>
         <button id="copyBtn" class="btn" onclick="copyUPI()" aria-label="Copy UPI ID to clipboard">Copy Official UPI ID</button>
@@ -66,7 +54,7 @@
 
     <div class="protocol-box">
         <h3 class="protocol-title">Mandatory Validation Protocol</h3>
-        <p class="justify-text mt-0">
+        <p class="justify-text mb-0">
             To ensure absolute transparency and verify your contribution within our ledger, your donation process is only complete once validated. <strong>Immediately after executing your payment, you must capture a screenshot of the successful transaction and transmit it to our official WhatsApp Support Network.</strong> You can locate our direct communication channels within our designated <a href="contact.html">Contact & Community</a> section.
         </p>
     </div>
@@ -74,7 +62,7 @@
 
 <section class="transparency-box" aria-labelledby="transparency-heading">
     <h2 id="transparency-heading" class="mt-0">Absolute Transparency & Fund Allocation</h2>
-    <p class="justify-text">
+    <p class="justify-text mb-0">
         Accessible Tech Labs India operates on an architecture of absolute truth. We are fiercely committed to providing a granular, transparent ledger of every single Rupee injected into our infrastructure. If you wish to audit our financial allocations or require a detailed breakdown of how your specific contribution was deployed (e.g., Domain Registration, Server Maintenance, Educational Resources), you possess the absolute right to demand it. Connect with our engineering core via our official contact channels, and we will provide a comprehensive deployment report.
     </p>
 </section>
@@ -82,14 +70,8 @@
 <div id="sr-status" class="live-status" aria-live="assertive"></div>
 
 </main>
-<footer role="contentinfo">
-<p>
-<a href="privacy.html" accesskey="p">Privacy Policy</a> | 
-<a href="support-system/index.html">Report Issue / Feedback</a> | 
-<a href="support-system/track.html">Track Ticket Status</a>
-</p>
-<p>© 2026 Accessible Tech Labs India</p>
-</footer>
+
+<atli-footer path=""></atli-footer>
 <script>
 function copyUPI() {
     const upiText = document.getElementById("upiString").innerText;
@@ -100,7 +82,7 @@ function copyUPI() {
         statusDiv.innerText = "UPI ID Copied Successfully. Ready for payment application.";
         const originalText = btn.innerText;
         btn.innerText = "Copied!";
-        btn.style.backgroundColor = "#28a745";
+        btn.style.backgroundColor = "var(--success-green)";
         
         setTimeout(() => {
             btn.innerText = originalText;
@@ -111,5 +93,7 @@ function copyUPI() {
     });
 }
 </script>
+<script src="components/header.js"></script>
+<script src="components/footer.js"></script>
 </body>
 </html>

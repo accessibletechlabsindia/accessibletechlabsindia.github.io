@@ -5,190 +5,125 @@
 <title>Support & Assistance - Accessible Tech Labs India</title>
 <meta name="description" content="Official Support and Feedback Portal for Accessible Tech Labs India. Submit problem reports and suggestions with total privacy.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-body { background-color: #0d1117; color: #c9d1d9; font-family: system-ui, -apple-system, sans-serif; line-height: 1.6; margin: 0; padding: 0; }
-a { color: #58a6ff; text-decoration: underline; font-weight: bold; }
-a:focus, a:hover { color: #79c0ff; outline: 3px solid #ffcc00; outline-offset: 2px; }
-.skip-link { position: absolute; left: -10000px; top: auto; width: 1px; height: 1px; overflow: hidden; }
-.skip-link:focus { position: static; width: auto; height: auto; background: #ffcc00; color: #000; padding: 10px; font-weight: bold; display: block; text-align: center; }
-header[role="banner"] { background-color: #010409; border-bottom: 1px solid #30363d; padding: 25px 0; text-align: center; }
-header h1 { margin: 0; font-size: 2.2rem; color: #c9d1d9; }
-nav[aria-label="Main navigation"] { margin-top: 15px; }
-nav a { margin: 0 15px; font-weight: 700; color: #58a6ff; text-decoration: none; font-size: 1.1rem; }
-nav a:hover, nav a:focus { color: #79c0ff; text-decoration: underline; }
-.main-container { max-width: 1100px; margin: 30px auto; padding: 0 25px; }
-.manifesto-box { background: #010409; padding: 35px; border-radius: 12px; border-left: 6px solid #238636; margin-bottom: 40px; text-align: justify; line-height: 1.8; }
-.manifesto-box h2 { color: #3fb950; margin-top: 0; font-size: 2rem; }
-.manifesto-box p { font-size: 1.1rem; color: #e6edf3; }
-.workspace-card { background: #161b22; border: 2px solid #30363d; border-radius: 15px; padding: 35px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
-.workspace-card h2 { color: #58a6ff; margin-top: 0; border-bottom: 2px solid #30363d; padding-bottom: 10px; font-size: 1.8rem; }
-.input-group { margin-bottom: 25px; }
-.input-label { display: block; font-size: 1.15rem; font-weight: bold; color: #58a6ff; margin-bottom: 8px; }
-.input-field { width: 100%; padding: 16px; border-radius: 8px; border: 2px solid #30363d; font-size: 1.15rem; color: #c9d1d9; background: #010409; box-sizing: border-box; }
-.input-field:focus { border-color: #58a6ff; outline: 3px solid #ffcc00; }
-select.input-field { cursor: pointer; }
-textarea.input-field { min-height: 180px; resize: vertical; font-family: inherit; }
-.checkbox-group { display: flex; align-items: center; gap: 10px; margin-top: 10px; background: #010409; padding: 15px; border-radius: 8px; border: 1px solid #30363d; }
-.checkbox-group input[type="checkbox"] { width: 20px; height: 20px; cursor: pointer; }
-.checkbox-group label { font-size: 1.1rem; font-weight: bold; color: #c9d1d9; cursor: pointer; }
-.btn-action { width: 100%; padding: 18px 25px; border-radius: 8px; border: none; font-weight: bold; font-size: 1.2rem; cursor: pointer; text-transform: uppercase; letter-spacing: 0.5px; transition: 0.2s; background: #238636; color: #ffffff; }
-.btn-action:hover:not(:disabled) { background: #2ea043; }
-.btn-action:focus { outline: 3px solid #ffcc00; }
-.btn-action:disabled { background: #21262d; color: #484f58; cursor: not-allowed; }
-.btn-copy { background: #1f6feb; margin-top: 15px; }
-.btn-copy:hover { background: #388bfd; }
-.btn-secondary { background: #21262d; border: 1px solid #30363d; color: #c9d1d9; margin-top: 15px; }
-.btn-secondary:hover { background: #30363d; }
-.success-card { display: none; background: #010409; border: 2px solid #238636; border-radius: 15px; padding: 40px 30px; text-align: center; }
-.success-card h3 { color: #3fb950; font-size: 2.2rem; margin-top: 0; }
-.ticket-badge { font-size: 3.5rem; font-weight: 900; color: #ffcc00; letter-spacing: 6px; padding: 20px; background: #161b22; border: 2px dashed #30363d; border-radius: 12px; margin: 25px 0; font-family: monospace; }
-.live-status { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
-footer[role="contentinfo"] { background-color: #010409; border-top: 1px solid #30363d; color: #8b949e; padding: 40px 0; text-align: center; margin-top: 60px; font-size: 1.1rem; }
-footer a { color: #58a6ff; text-decoration: underline; }
-.hidden { display: none; }
-</style>
+<link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
 
 <a class="skip-link" href="#main">Skip to main content</a>
 
-<header role="banner">
-<h1>Accessible Tech Labs India</h1>
-<nav aria-label="Main navigation">
-<a href="../index.html" accesskey="h">Home</a>
-<a href="../software.html" accesskey="s">Software</a>
-<a href="../Addons/Addons.html" accesskey="n">NVDA Add-ons</a>
-<a href="../tools.html" accesskey="t">Tools</a>
-<a href="../Games.html" accesskey="g">Games</a>
-<a href="../training.html" accesskey="r">Training</a>
-<a href="../support.html" accesskey="d">Support Us</a>
-<a href="../about.html" accesskey="a">About</a>
-<a href="../contact.html" accesskey="c">Contact</a>
-</nav>
-</header>
-
+<atli-header path="../" active="support"></atli-header>
 <main id="main" class="main-container">
 
-<section class="manifesto-box" role="region" aria-labelledby="manifesto-heading">
-<h2 id="manifesto-heading">Technical Support & Feedback Helpdesk</h2>
-<p>
+<section class="voluntary-box" role="region" aria-labelledby="manifesto-heading">
+<h2 id="manifesto-heading" class="mt-0">Technical Support & Feedback Helpdesk</h2>
+<p class="justify-text">
 At Accessible Tech Labs India, we are committed to building reliable, fast, and fully accessible software for everyone. Whether you encountered a problem in our Windows software, experienced an issue with an NVDA add-on, or want to suggest a new idea, this portal connects you directly to our core engineering team.
 </p>
-<p>
+<p class="justify-text mb-0">
 Your privacy is completely protected under our strict Zero-Knowledge standards. We do not track you or sell your data. After submitting your request, you will receive a unique Ticket ID. Our engineering team will review your report and respond to you within 3 to 4 business days.
 </p>
 </section>
 
-<div class="workspace-card" id="formContainer">
-<h2 id="formHeading" tabindex="-1">Submit Support Request or Feedback</h2>
+<div class="card" id="formContainer">
+<h2 id="formHeading" class="mt-0" tabindex="-1">Submit Support Request or Feedback</h2>
 
 <form id="ticketForm" aria-labelledby="formHeading">
 
-<div class="input-group">
-<label class="input-label" for="userName">Your Full Name *</label>
-<input type="text" id="userName" class="input-field" placeholder="Enter your full name..." required aria-required="true">
-</div>
+<label for="userName"><strong>Your Full Name *</strong></label>
+<input type="text" id="userName" placeholder="Enter your full name..." required aria-required="true" oninput="toggleClearButton()">
+<br><br>
 
-<div class="input-group">
-<label class="input-label" for="userEmail">Your Email Address *</label>
-<input type="email" id="userEmail" class="input-field" placeholder="name@example.com" required aria-required="true">
-</div>
+<label for="userEmail"><strong>Your Email Address *</strong></label>
+<input type="email" id="userEmail" placeholder="name@example.com" required aria-required="true" oninput="toggleClearButton()">
+<br><br>
 
-<div class="input-group">
-<label class="input-label" for="userGender">Gender *</label>
-<select id="userGender" class="input-field" required aria-required="true">
+<label for="userGender"><strong>Gender *</strong></label>
+<select id="userGender" required aria-required="true" onchange="toggleClearButton()">
 <option value="">Select Gender</option>
 <option value="Male">Male</option>
 <option value="Female">Female</option>
 <option value="Other">Other</option>
 <option value="Prefer not to disclose">Prefer not to disclose</option>
 </select>
-</div>
+<br><br>
 
-<div class="input-group">
-<label class="input-label" for="actionType">What can we help you with? *</label>
-<select id="actionType" class="input-field" required aria-required="true" onchange="handleTypeChange()">
+<label for="actionType"><strong>What can we help you with? *</strong></label>
+<select id="actionType" required aria-required="true" onchange="handleTypeChange(); toggleClearButton();">
 <option value="">Select an option</option>
 <option value="Report">Report a Bug or Problem</option>
 <option value="Suggestion">Send Feedback or Feature Suggestion</option>
 </select>
-</div>
+<br><br>
 
-<div id="reportSelectors" class="hidden" aria-live="polite">
-<div class="input-group">
-<label class="input-label" for="targetCategory">Select Category *</label>
-<select id="targetCategory" class="input-field" onchange="handleCategoryChange()">
+<div id="reportSelectors" style="display: none;" aria-live="polite">
+<label for="targetCategory"><strong>Select Category *</strong></label>
+<select id="targetCategory" onchange="handleCategoryChange(); toggleClearButton();">
 <option value="">Select Category</option>
 <option value="software">Desktop Software (Microsoft Store)</option>
 <option value="tools">Online Web Tools</option>
 <option value="Games">Accessible Games</option>
 <option value="Addons">Official NVDA Add-ons</option>
 </select>
-</div>
+<br><br>
 
-<div class="input-group">
-<label class="input-label" for="specificItem">Select Product or Tool *</label>
-<select id="specificItem" class="input-field">
+<label for="specificItem"><strong>Select Product or Tool *</strong></label>
+<select id="specificItem" onchange="toggleClearButton()">
 <option value="">Please select a category first</option>
 </select>
-</div>
+<br><br>
 
-<div class="input-group">
-<label class="input-label" for="issuePriority">Priority Level *</label>
-<select id="issuePriority" class="input-field">
+<label for="issuePriority"><strong>Priority Level *</strong></label>
+<select id="issuePriority" onchange="toggleClearButton()">
 <option value="Low">Low (General question or minor issue)</option>
 <option value="Medium" selected>Medium (Feature not working properly)</option>
 <option value="Critical">Critical (Software crash or accessibility failure)</option>
 </select>
+<br><br>
+
+<label for="screenshotUpload"><strong>Attach Screenshots (Optional, Max 3 files, 2MB each)</strong></label>
+<input type="file" id="screenshotUpload" accept="image/png, image/jpeg, image/jpg" multiple onchange="toggleClearButton()">
+<br><br>
+
+<div style="margin-top: 15px;">
+<input type="checkbox" id="sysInfoCheck" style="width: auto;" onchange="toggleClearButton()">
+<label for="sysInfoCheck" style="font-weight: bold; display: inline;">Attach my system info securely (Browser & OS version) to help engineers.</label>
+</div>
+<br><br>
 </div>
 
-<div class="input-group">
-<label class="input-label" for="screenshotUpload">Attach Screenshots (Optional, Max 3 files, 2MB each)</label>
-<input type="file" id="screenshotUpload" class="input-field" accept="image/png, image/jpeg, image/jpg" multiple>
+<label for="issueDescription"><strong>Detailed Description *</strong></label>
+<textarea id="issueDescription" placeholder="Describe the problem, steps to reproduce it, or your suggestion in detail..." required aria-required="true" style="min-height: 150px;" oninput="toggleClearButton()"></textarea>
+<br><br>
+
+<div style="display: flex; gap: 15px; flex-wrap: wrap;">
+<button type="submit" id="submitBtn" class="btn" style="flex: 2; padding: 18px; font-size: 1.2rem;">Submit Ticket to Engineering Team</button>
+<button type="button" id="clearFormBtn" class="btn" style="flex: 1; padding: 18px; font-size: 1.2rem; background-color: #dc3545; display: none;" onclick="confirmClearForm()">Clear Form</button>
 </div>
 
-<div class="checkbox-group">
-<input type="checkbox" id="sysInfoCheck">
-<label for="sysInfoCheck">Attach my system info securely (Browser & OS version) to help engineers.</label>
-</div>
-</div>
-
-<div class="input-group" style="margin-top: 25px;">
-<label class="input-label" for="issueDescription">Detailed Description *</label>
-<textarea id="issueDescription" class="input-field" placeholder="Describe the problem, steps to reproduce it, or your suggestion in detail..." required aria-required="true"></textarea>
-</div>
-
-<button type="submit" id="submitBtn" class="btn-action">Submit Ticket to Engineering Team</button>
 </form>
 </div>
 
-<div class="success-card" id="successContainer" tabindex="-1" aria-live="assertive">
-<h3>Ticket Submitted Successfully</h3>
-<p style="font-size: 1.25rem; color: #e6edf3;">Thank you. Your ticket has been registered. An email confirmation has been sent to your address.</p>
-<p style="font-size: 1.15rem; color: #3fb950; font-weight: bold;">Our engineering team will review your report and respond to you within 3 to 4 business days.</p>
-<div class="ticket-badge" id="displayTicketId"></div>
-<button class="btn-action btn-copy" onclick="copyGeneratedTicket()">Copy Ticket ID</button>
-<button class="btn-action btn-secondary" onclick="openDirectTracking()">Check Live Ticket Status</button>
-<button class="btn-action btn-secondary" onclick="resetSubmissionForm()">Submit Another Ticket</button>
+<div class="transparency-box center-text" id="successContainer" tabindex="-1" aria-live="assertive" style="display: none;">
+<h3 class="mt-0" style="font-size: 2rem;">Ticket Submitted Successfully</h3>
+<p>Thank you. Your ticket has been registered. An email confirmation has been sent to your address.</p>
+<p><strong>Our engineering team will review your report and respond to you within 3 to 4 business days.</strong></p>
+<div id="displayTicketId" style="font-size: 3rem; font-weight: 900; letter-spacing: 5px; margin: 20px 0; font-family: monospace;"></div>
+<button class="btn" onclick="copyGeneratedTicket()">Copy Ticket ID</button>
+<button class="btn" onclick="openDirectTracking()" style="background-color: #64748b;">Check Live Ticket Status</button>
+<button class="btn" onclick="resetSubmissionForm()" style="background-color: #64748b;">Submit Another Ticket</button>
 </div>
 
 </main>
 
 <div id="srStatus" class="live-status" aria-live="assertive"></div>
+<div id="toast" aria-live="assertive"></div>
 
-<footer role="contentinfo">
-<p>
-<a href="../privacy.html" accesskey="p">Privacy Policy</a> | 
-<a href="index.html">Report Issue / Feedback</a> | 
-<a href="track.html">Track Ticket Status</a>
-</p>
-<p>© 2026 Accessible Tech Labs India</p>
-</footer>
-
+<atli-footer path="../"></atli-footer>
 <script>
 const API_URL = "https://script.google.com/macros/s/AKfycbxuK9nj1sF-LWp-O6fQ_xYliEAgYz1x76HCylGoIE8iySx1raGEXMhrIMSfKjzX91b44w/exec";
 const BASE_HOST = "https://accessibletechlabsindia.github.io";
 let activeTicketId = "";
+let toastTimer;
 
 const architectureRegistry = {
     "software": [
@@ -244,6 +179,46 @@ function announceSR(msg) {
     setTimeout(() => { el.innerText = msg; }, 50);
 }
 
+function showToast(msg) {
+    const t = document.getElementById("toast");
+    clearTimeout(toastTimer);
+    t.innerText = msg;
+    Object.assign(t.style, { position: 'fixed', bottom: '20px', left: '50%', transform: 'translateX(-50%)', backgroundColor: '#333', color: '#fff', padding: '15px 30px', borderRadius: '50px', zIndex: '1000', fontWeight: 'bold', boxShadow: '0 5px 15px rgba(0,0,0,0.3)', display: 'block' });
+    announceSR(msg);
+    toastTimer = setTimeout(() => { t.style.display = "none"; }, 4000);
+}
+
+function toggleClearButton() {
+    const form = document.getElementById("ticketForm");
+    const clearBtn = document.getElementById("clearFormBtn");
+    let hasData = false;
+    
+    for (let i = 0; i < form.elements.length; i++) {
+        const el = form.elements[i];
+        if (el.type !== "button" && el.type !== "submit" && el.value.trim() !== "") {
+            if (el.type === "checkbox" && !el.checked) continue;
+            if (el.id === "issuePriority" && el.value === "Medium") continue;
+            hasData = true;
+            break;
+        }
+    }
+    
+    clearBtn.style.display = hasData ? "block" : "none";
+}
+
+function confirmClearForm() {
+    const confirmationMessage = "Warning: You are about to clear all the information you have entered in this form. This action cannot be undone. Are you sure you want to proceed and reset the form?";
+    if (confirm(confirmationMessage)) {
+        document.getElementById("ticketForm").reset();
+        document.getElementById("reportSelectors").style.display = "none";
+        toggleClearButton();
+        announceSR("Form has been cleared successfully.");
+        document.getElementById("userName").focus();
+    } else {
+        announceSR("Form clear action cancelled.");
+    }
+}
+
 function handleTypeChange() {
     const type = document.getElementById("actionType").value;
     const repDiv = document.getElementById("reportSelectors");
@@ -251,12 +226,12 @@ function handleTypeChange() {
     const itm = document.getElementById("specificItem");
     
     if (type === "Report") {
-        repDiv.classList.remove("hidden");
+        repDiv.style.display = "block";
         cat.setAttribute("required", "true");
         itm.setAttribute("required", "true");
         announceSR("Bug report selected. Please select a category and product.");
     } else {
-        repDiv.classList.add("hidden");
+        repDiv.style.display = "none";
         cat.removeAttribute("required");
         itm.removeAttribute("required");
         cat.value = "";
@@ -306,7 +281,9 @@ function getBase64(file) {
 document.getElementById("ticketForm").addEventListener("submit", async function(e) {
     e.preventDefault();
     const btn = document.getElementById("submitBtn");
+    const clearBtn = document.getElementById("clearFormBtn");
     btn.disabled = true;
+    clearBtn.style.display = "none";
     btn.innerText = "Submitting ticket, please wait...";
     announceSR("Submitting ticket, please wait.");
 
@@ -331,6 +308,7 @@ document.getElementById("ticketForm").addEventListener("submit", async function(
             alert("You can only upload a maximum of 3 screenshots.");
             btn.disabled = false;
             btn.innerText = "Submit Ticket to Engineering Team";
+            toggleClearButton();
             return;
         }
         for (let i = 0; i < fileInput.files.length; i++) {
@@ -338,6 +316,7 @@ document.getElementById("ticketForm").addEventListener("submit", async function(
                 alert("Each screenshot must be less than 2MB.");
                 btn.disabled = false;
                 btn.innerText = "Submit Ticket to Engineering Team";
+                toggleClearButton();
                 return;
             }
             let b64 = await getBase64(fileInput.files[i]);
@@ -378,12 +357,14 @@ document.getElementById("ticketForm").addEventListener("submit", async function(
         } else {
             btn.disabled = false;
             btn.innerText = "Submit Ticket to Engineering Team";
+            toggleClearButton();
             announceSR("Error: " + (data.message || "Failed to submit."));
         }
     })
     .catch(err => {
         btn.disabled = false;
         btn.innerText = "Submit Ticket to Engineering Team";
+        toggleClearButton();
         announceSR("Network error occurred during submission.");
     });
 });
@@ -391,7 +372,7 @@ document.getElementById("ticketForm").addEventListener("submit", async function(
 function copyGeneratedTicket() {
     if (!activeTicketId) return;
     navigator.clipboard.writeText(activeTicketId).then(() => {
-        announceSR("Ticket ID " + activeTicketId + " copied to clipboard.");
+        showToast("Ticket ID " + activeTicketId + " copied to clipboard.");
     });
 }
 
@@ -402,14 +383,17 @@ function openDirectTracking() {
 
 function resetSubmissionForm() {
     document.getElementById("ticketForm").reset();
-    document.getElementById("reportSelectors").classList.add("hidden");
+    document.getElementById("reportSelectors").style.display = "none";
     document.getElementById("formContainer").style.display = "block";
     document.getElementById("successContainer").style.display = "none";
     document.getElementById("submitBtn").disabled = false;
     document.getElementById("submitBtn").innerText = "Submit Ticket to Engineering Team";
+    toggleClearButton();
     document.getElementById("formHeading").focus();
     announceSR("Form reset. Ready for new ticket.");
 }
 </script>
+<script src="../components/header.js"></script>
+<script src="../components/footer.js"></script>
 </body>
 </html>

@@ -12,20 +12,7 @@
 
 <a class="skip-link" href="#main" style="position:absolute; left:-10000px;">Skip to main content</a>
 
-<header role="banner" style="background: #010409; padding: 25px 0; text-align: center; border-bottom: 1px solid #30363d;">
-<h1 style="margin: 0; font-size: 2.2em; color: #c9d1d9;">Accessible Tech Labs India</h1>
-<nav aria-label="Main navigation">
-<a href="../../index.html" accesskey="h">Home</a>
-<a href="../../software.html" accesskey="s">Software</a>
-<a href="../../tools.html" accesskey="t">Tools</a>
-<a href="../../Games.html" accesskey="g">Games</a>
-<a href="../../training.html" accesskey="r" class="active-link">Training</a>
-<a href="../../support.html" accesskey="d">Support Us</a>
-<a href="../../about.html" accesskey="a">About</a>
-<a href="../../contact.html" accesskey="c">Contact</a>
-</nav>
-</header>
-
+<atli-header path="../../" active="tools"></atli-header>
 <main id="main" class="main-container">
 <section class="manifesto" id="introSection" aria-live="polite">
 <h2>The Zero-Knowledge Communication Protocol & Architecture</h2>
@@ -200,13 +187,9 @@ Editing Message: <span id="editPreview"></span>
 <div id="srAnnouncer" aria-live="assertive" style="position:absolute; left:-10000px;"></div>
 <div id="toast" class="toast" aria-live="assertive"></div>
 
-<footer>
-<p>
-<a href="../../privacy.html" accesskey="p">Privacy Policy</a>
-</p>
-<p>© 2026 Accessible Tech Labs India</p>
-</footer>
-
+<atli-footer path="../../"></atli-footer>
+<script src="../../components/header.js"></script>
+<script src="../../components/footer.js"></script>
 <script src="nexus-core.js"></script>
 </body>
 </html>

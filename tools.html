@@ -6,533 +6,118 @@
 <link rel="stylesheet" href="css/style.css">
 <meta name="description" content="Access a powerful suite of professional web tools at Accessible Tech Labs India. From secure PDF utilities to smart assistive tools, we provide easy and private digital solutions.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<style>
-:root {
-    --primary-blue: #0a4275;
-    --primary-blue-dark: #062c4f;
-    --bg-light: #f8f9fa;
-    --text-main: #333333;
-    --text-heading: #1a1a1a;
-    --card-bg: #ffffff;
-    --focus-gold: #ffc107;
-    --border-color: #e0e0e0;
-}
-body {
-    background-color: var(--bg-light);
-    color: var(--text-main);
-    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-    -webkit-font-smoothing: antialiased;
-}
-h1, h2, h3, h4, h5, h6 {
-    color: var(--text-heading);
-    font-weight: 600;
-    margin-top: 0;
-    margin-bottom: 1rem;
-}
-a {
-    color: var(--primary-blue-dark);
-    text-decoration: underline;
-    transition: all 0.2s ease;
-}
-a:hover {
-    color: var(--primary-blue);
-    text-decoration: none;
-}
-.main-container {
-    max-width: 1200px;
-    margin: 40px auto;
-    padding: 0 25px;
-}
-header {
-    background-color: var(--card-bg);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    padding: 25px 5%;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    text-align: center;
-}
-nav {
-    margin-top: 15px;
-}
-nav a {
-    margin: 0 15px;
-    font-weight: 700;
-    color: var(--primary-blue-dark);
-    font-size: 1.1rem;
-}
-.active-link {
-    text-decoration: none;
-    border-bottom: 3px solid var(--focus-gold);
-}
-.manifesto-box {
-    background-color: #eef4ff;
-    border-left: 6px solid var(--primary-blue);
-    padding: 35px;
-    border-radius: 12px;
-    margin-bottom: 40px;
-    color: var(--primary-blue-dark);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-}
-.manifesto-box h2 {
-    font-size: 2rem;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #cce0ff;
-    padding-bottom: 10px;
-}
-.manifesto-box p {
-    text-align: justify;
-    font-size: 1.15rem;
-    line-height: 1.8;
-    margin: 0;
-}
-.search-container {
-    background-color: var(--card-bg);
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    margin-bottom: 40px;
-    border: 1px solid var(--border-color);
-}
-.search-container label {
-    display: block;
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: var(--primary-blue-dark);
-    margin-bottom: 15px;
-}
-.search-container input {
-    width: 100%;
-    padding: 18px 20px;
-    border-radius: 8px;
-    border: 2px solid var(--border-color);
-    font-size: 1.2rem;
-    box-sizing: border-box;
-    margin-bottom: 20px;
-}
-.search-container input:focus {
-    outline: 3px solid var(--focus-gold);
-    border-color: var(--primary-blue);
-}
-.btn-action {
-    background-color: var(--primary-blue);
-    color: #ffffff;
-    border: none;
-    padding: 16px 30px;
-    font-size: 1.2rem;
-    font-weight: 700;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-.btn-action:hover {
-    background-color: var(--primary-blue-dark);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(10, 66, 117, 0.2);
-}
-.btn-clear {
-    background-color: #6c757d;
-    margin-left: 10px;
-}
-.btn-clear:hover {
-    background-color: #5a6268;
-}
-.tab-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 30px;
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 15px;
-}
-.tab-button {
-    background-color: #f1f3f5;
-    color: var(--text-main);
-    border: 2px solid transparent;
-    padding: 14px 24px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-.tab-button[aria-selected="true"] {
-    background-color: var(--primary-blue);
-    color: #ffffff;
-    border-color: var(--primary-blue-dark);
-    box-shadow: 0 4px 8px rgba(10, 66, 117, 0.2);
-}
-.tab-button:hover:not([aria-selected="true"]) {
-    background-color: #e9ecef;
-    border-color: var(--border-color);
-}
-.tab-button:focus {
-    outline: 3px solid var(--focus-gold);
-}
-.tab-panel {
-    display: none;
-    animation: fadeIn 0.4s ease;
-}
-.tab-panel[aria-hidden="false"] {
-    display: block;
-}
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-.tools-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 30px;
-}
-.tool-card {
-    background-color: var(--card-bg);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 30px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.04);
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-}
-.tool-card:hover, .tool-card:focus-within {
-    border-color: var(--primary-blue);
-    box-shadow: 0 10px 20px rgba(10, 66, 117, 0.1);
-    transform: translateY(-5px);
-}
-.tool-card h3 {
-    font-size: 1.5rem;
-    color: var(--primary-blue-dark);
-    margin-top: 0;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #f1f3f5;
-    padding-bottom: 10px;
-}
-.tool-card p {
-    font-size: 1.05rem;
-    color: #495057;
-    flex-grow: 1;
-    margin-bottom: 25px;
-    line-height: 1.6;
-}
-.tool-link {
-    display: inline-block;
-    background-color: #28a745;
-    color: #ffffff;
-    text-decoration: none;
-    padding: 14px 24px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    border-radius: 8px;
-    text-align: center;
-    transition: all 0.2s ease;
-}
-.tool-link:hover, .tool-link:focus {
-    background-color: #218838;
-    color: #ffffff;
-    outline: 3px solid var(--focus-gold);
-}
-footer {
-    background-color: var(--card-bg);
-    padding: 40px 0;
-    text-align: center;
-    margin-top: 60px;
-    border-top: 1px solid var(--border-color);
-    font-size: 1.1rem;
-}
-</style>
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+<meta name="theme-color" content="#005a9c">
 </head>
 <body>
 
-<a class="skip-link" href="#main" style="position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden;">Skip to main content</a>
-
-<header role="banner">
-<h1>Accessible Tech Labs India</h1>
-<nav aria-label="Main navigation">
-<a href="index.html" accesskey="h">Home</a>
-<a href="software.html" accesskey="s">Software</a>
-<a href="Addons/Addons.html" accesskey="n">NVDA Add-ons</a>
-<a href="tools.html" accesskey="t">Tools</a>
-<a href="Games.html" accesskey="g">Games</a>
-<a href="training.html" accesskey="r">Training</a>
-<a href="support.html" accesskey="d">Support Us</a>
-<a href="about.html" accesskey="a">About</a>
-<a href="contact.html" accesskey="c">Contact</a>
-</nav>
-</header>
-
+<a class="skip-link" href="#main">Skip to main content</a>
+<atli-header path="" active="tools"></atli-header>
 <main id="main" class="main-container">
 
-<section class="manifesto-box" aria-labelledby="manifesto-heading">
-<h2 id="manifesto-heading">Our Privacy Promise & Technology</h2>
-<p>
+<section class="voluntary-box" aria-labelledby="manifesto-heading">
+<h2 id="manifesto-heading" class="mt-0">Our Privacy Promise & Technology</h2>
+<p class="justify-text mb-0">
 At Accessible Tech Labs India, we believe that true digital independence is built upon absolute data sovereignty and inclusive design. In an era of invasive tracking and cloud dependency, our platform stands as a fortress of privacy. Every professional utility engineered here—from document conversion and forensic metadata extraction to optical character recognition and cryptographic file locking—operates entirely within the secure, localized sandbox of your own web browser. We guarantee that your personal files, sensitive texts, and private configurations never leave your device. There are no intermediary servers, no background data harvesting, and no hidden analytics. Alongside this uncompromising commitment to privacy, we prioritize universal accessibility. Every interface is meticulously architected to synchronize flawlessly with screen readers like NVDA and JAWS, utilizing precise ARIA protocols and logical keyboard navigation. We deliver enterprise-grade performance that respects your fundamental right to absolute security, ensuring that cutting-edge technology is fiercely private, deeply inclusive, and completely under your control.
 </p>
 </section>
 
-<div class="search-container">
-<label for="toolSearch">Intelligent Tool Search</label>
-<input type="text" id="toolSearch" placeholder="Type here to search for any tool..." aria-label="Search tools">
-<button class="btn-action" onclick="executeSearch()">Search</button>
-<button class="btn-action btn-clear" onclick="clearToolSearch()">Clear Search</button>
-<p id="toolSearchStatus" aria-live="polite" style="width: 100%; color: #28a745; font-size: 1.2rem; font-weight: bold; margin: 15px 0 0 0;"></p>
+<section class="card">
+<h2 class="section-header mt-0">Intelligent Tool Search</h2>
+<label for="toolSearch" style="display: block; font-weight: bold; margin-bottom: 10px; color: var(--primary-blue);">Type here to search for any tool...</label>
+<input type="text" id="toolSearch" placeholder="Search tools..." aria-label="Search tools">
+<div style="margin-top: 20px;">
+<button class="btn" onclick="executeSearch()">Search</button>
+<button class="btn" onclick="clearToolSearch()" style="background-color: #64748b; margin-left: 10px;">Clear Search</button>
+</div>
+<p id="toolSearchStatus" aria-live="polite" style="color: #28a745; font-weight: bold; margin-top: 15px; font-size: 1.1rem;"></p>
+</section>
+
+<div role="tablist" aria-label="Tool Categories" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 30px;">
+<button role="tab" aria-selected="true" aria-controls="panel-all" id="tab-all" tabindex="0" class="btn" style="background-color: var(--primary-blue);">All Tools</button>
+<button role="tab" aria-selected="false" aria-controls="panel-assistive" id="tab-assistive" tabindex="-1" class="btn" style="background-color: #64748b;">Assistive & Braille</button>
+<button role="tab" aria-selected="false" aria-controls="panel-docs" id="tab-docs" tabindex="-1" class="btn" style="background-color: #64748b;">Document & Text Utilities</button>
+<button role="tab" aria-selected="false" aria-controls="panel-visual" id="tab-visual" tabindex="-1" class="btn" style="background-color: #64748b;">Image & Graphic Tools</button>
+<button role="tab" aria-selected="false" aria-controls="panel-security" id="tab-security" tabindex="-1" class="btn" style="background-color: #64748b;">Security & Privacy</button>
+<button role="tab" aria-selected="false" aria-controls="panel-network" id="tab-network" tabindex="-1" class="btn" style="background-color: #64748b;">Network & Developer</button>
+<button role="tab" aria-selected="false" aria-controls="panel-daily" id="tab-daily" tabindex="-1" class="btn" style="background-color: #64748b;">Daily Utilities</button>
 </div>
 
-<div role="tablist" aria-label="Tool Categories" class="tab-list">
-<button role="tab" aria-selected="true" aria-controls="panel-all" id="tab-all" tabindex="0" class="tab-button">All Tools</button>
-<button role="tab" aria-selected="false" aria-controls="panel-assistive" id="tab-assistive" tabindex="-1" class="tab-button">Assistive & Braille</button>
-<button role="tab" aria-selected="false" aria-controls="panel-docs" id="tab-docs" tabindex="-1" class="tab-button">Document & Text Utilities</button>
-<button role="tab" aria-selected="false" aria-controls="panel-visual" id="tab-visual" tabindex="-1" class="tab-button">Image & Graphic Tools</button>
-<button role="tab" aria-selected="false" aria-controls="panel-security" id="tab-security" tabindex="-1" class="tab-button">Security & Privacy</button>
-<button role="tab" aria-selected="false" aria-controls="panel-network" id="tab-network" tabindex="-1" class="tab-button">Network & Developer</button>
-<button role="tab" aria-selected="false" aria-controls="panel-daily" id="tab-daily" tabindex="-1" class="tab-button">Daily Utilities</button>
+<div id="panel-all" role="tabpanel" tabindex="0" aria-labelledby="tab-all" aria-hidden="false">
+<div class="features-grid" id="grid-all"></div>
 </div>
 
-<div id="panel-all" role="tabpanel" tabindex="0" aria-labelledby="tab-all" aria-hidden="false" class="tab-panel">
-<div class="tools-grid" id="grid-all"></div>
+<div id="panel-assistive" role="tabpanel" tabindex="0" aria-labelledby="tab-assistive" aria-hidden="true">
+<div class="features-grid" id="grid-assistive"></div>
 </div>
 
-<div id="panel-assistive" role="tabpanel" tabindex="0" aria-labelledby="tab-assistive" aria-hidden="true" class="tab-panel">
-<div class="tools-grid" id="grid-assistive"></div>
+<div id="panel-docs" role="tabpanel" tabindex="0" aria-labelledby="tab-docs" aria-hidden="true">
+<div class="features-grid" id="grid-docs"></div>
 </div>
 
-<div id="panel-docs" role="tabpanel" tabindex="0" aria-labelledby="tab-docs" aria-hidden="true" class="tab-panel">
-<div class="tools-grid" id="grid-docs"></div>
+<div id="panel-visual" role="tabpanel" tabindex="0" aria-labelledby="tab-visual" aria-hidden="true">
+<div class="features-grid" id="grid-visual"></div>
 </div>
 
-<div id="panel-visual" role="tabpanel" tabindex="0" aria-labelledby="tab-visual" aria-hidden="true" class="tab-panel">
-<div class="tools-grid" id="grid-visual"></div>
+<div id="panel-security" role="tabpanel" tabindex="0" aria-labelledby="tab-security" aria-hidden="true">
+<div class="features-grid" id="grid-security"></div>
 </div>
 
-<div id="panel-security" role="tabpanel" tabindex="0" aria-labelledby="tab-security" aria-hidden="true" class="tab-panel">
-<div class="tools-grid" id="grid-security"></div>
+<div id="panel-network" role="tabpanel" tabindex="0" aria-labelledby="tab-network" aria-hidden="true">
+<div class="features-grid" id="grid-network"></div>
 </div>
 
-<div id="panel-network" role="tabpanel" tabindex="0" aria-labelledby="tab-network" aria-hidden="true" class="tab-panel">
-<div class="tools-grid" id="grid-network"></div>
-</div>
-
-<div id="panel-daily" role="tabpanel" tabindex="0" aria-labelledby="tab-daily" aria-hidden="true" class="tab-panel">
-<div class="tools-grid" id="grid-daily"></div>
+<div id="panel-daily" role="tabpanel" tabindex="0" aria-labelledby="tab-daily" aria-hidden="true">
+<div class="features-grid" id="grid-daily"></div>
 </div>
 
 </main>
 
-<footer role="contentinfo">
-<p>
-<a href="privacy.html" accesskey="p">Privacy Policy</a> | 
-<a href="support-system/index.html">Report Issue / Feedback</a> | 
-<a href="support-system/track.html">Track Ticket Status</a>
-</p>
-<p>© 2026 Accessible Tech Labs India</p>
-</footer>
+<atli-footer path=""></atli-footer>
 <script>
 const toolsData = [
-    {
-        title: "Standard Calculator",
-        category: "assistive",
-        desc: "A fast, reliable, and simple calculator designed specifically for screen reader users. It removes visual clutter and provides instant, accurate voice feedback for all mathematical operations, ensuring a smooth and highly accessible calculation experience.",
-        link: "tools/calculator.html"
-    },
-    {
-        title: "PDF Reader & Speaker",
-        category: "assistive",
-        desc: "Experience unrestricted document reading with our fully accessible PDF viewer. Designed for blind and low-vision users, it offers automatic page announcements, high-contrast modes, and seamless text-to-speech reading directly within your web browser.",
-        link: "tools/pdf-reader.html"
-    },
-    {
-        title: "Braille Document Creator",
-        category: "assistive",
-        desc: "Instantly translate plain English or Hindi text into professional Grade 1 Braille. This tool generates universally compatible .BRF files ready for electronic Braille displays and embossers, ensuring perfect formatting and complete data privacy.",
-        link: "tools/braille-blueprint-compiler.html"
-    },
-    {
-        title: "Live Camera Assistant",
-        category: "assistive",
-        desc: "Turn your device camera into an intelligent sensory guide. This real-time assistant detects object colors, reads physical documents aloud using advanced OCR, and translates room brightness into audio tones to help you navigate your surroundings independently.",
-        link: "tools/universal-visual-assistant.html"
-    },
-    {
-        title: "PDF File Combiner",
-        category: "docs",
-        desc: "Merge multiple PDF documents into one organized file securely on your own device. There are no file uploads to external servers, ensuring your private reports, notes, and official documents remain completely confidential and safe from online tracking.",
-        link: "tools/pdf-merger.html"
-    },
-    {
-        title: "PDF to Text Extractor",
-        category: "docs",
-        desc: "Convert complex PDF documents into clean, easily readable plain text. This high-speed tool extracts information accurately while maintaining paragraph structure, allowing you to study, edit, and copy content flawlessly using any screen reader.",
-        link: "tools/pdf-to-text.html"
-    },
-    {
-        title: "Text to PDF Converter",
-        category: "docs",
-        desc: "Instantly generate professional PDF documents from plain text files or typed notes. This secure, offline tool allows you to create clean, well-formatted PDFs without any complex software, perfect for creating quick reports and shareable documents.",
-        link: "tools/text-to-pdf.html"
-    },
-    {
-        title: "Image to PDF Converter",
-        category: "docs",
-        desc: "Compile multiple images, scanned pages, or screenshots into a single, high-quality PDF document. The process happens entirely on your device, guaranteeing perfect layout retention and absolute privacy for your personal or professional visual data.",
-        link: "tools/image-to-pdf.html"
-    },
-    {
-        title: "PDF to Image Converter",
-        category: "docs",
-        desc: "Extract high-resolution graphics from any PDF file instantly. This secure web utility converts every page of your PDF into crisp, individual PNG images, packaging them neatly into a downloadable ZIP file without compromising your document's privacy.",
-        link: "tools/pdf-to-image.html"
-    },
-    {
-        title: "Text File Combiner",
-        category: "docs",
-        desc: "Easily merge multiple plain text (.txt) files into a single, unified document. This lightweight and secure browser tool helps you organize notes, logs, or written content quickly, ensuring your data never leaves your personal computer.",
-        link: "tools/txt-merger.html"
-    },
-    {
-        title: "Image to Text Reader (OCR)",
-        category: "docs",
-        desc: "Extract readable text from images, screenshots, and scanned documents effortlessly. Using advanced Optical Character Recognition, this tool processes visual data locally to ensure your sensitive documents remain private while making the text fully accessible.",
-        link: "tools/image-to-text.html"
-    },
-    {
-        title: "Language Translator",
-        category: "docs",
-        desc: "Translate text and documents across more than 100 global languages instantly. This high-performance linguistic suite provides accurate, real-time translations with a clean, accessible interface, helping you overcome language barriers securely and easily.",
-        link: "tools/translator.html"
-    },
-    {
-        title: "Image Format Converter",
-        category: "visual",
-        desc: "Convert your pictures between popular formats like JPG, PNG, and WebP losslessly. You can process single images or resize entire folders in bulk. The tool generates an organized ZIP archive entirely in your browser to protect your privacy.",
-        link: "tools/professional-image-converter.html"
-    },
-    {
-        title: "Image to Icon Maker",
-        category: "visual",
-        desc: "Transform your standard graphics into production-ready computer icons (.ico). This professional workstation scales your images into high-fidelity icons for Windows folders and applications, delivering perfect transparency and quality securely.",
-        link: "tools/image-to-icon-workstation.html"
-    },
-    {
-        title: "Text to Image Converter",
-        category: "visual",
-        desc: "Create professional visual content from plain text or bulk text files. This tool helps you generate clean, readable image files customized for easy sharing on social media or professional platforms, all processed securely on your own device.",
-        link: "tools/text-to-image.html"
-    },
-    {
-        title: "Secure File Vault",
-        category: "security",
-        desc: "Lock and hide your sensitive files inside your browser using military-grade AES-256 encryption. This zero-knowledge vault requires your unique password to encrypt and decrypt data, ensuring absolute security against hackers and unauthorized access.",
-        link: "tools/crypto-vault.html"
-    },
-    {
-        title: "Password Strength Checker",
-        category: "security",
-        desc: "Verify if your password is safe or has been exposed in global data breaches. This tool uses advanced k-Anonymity cryptographic protocols to check your password's integrity completely offline, guaranteeing your credential is never transmitted or stolen.",
-        link: "tools/password-checker.html"
-    },
-    {
-        title: "Email Hack Checker",
-        category: "security",
-        desc: "Find out immediately if your personal email address has been compromised in any known dark web leak or public data breach. This enterprise-grade threat intelligence scanner checks your email integrity while maintaining strict zero-knowledge privacy.",
-        link: "tools/global-osint-radar.html"
-    },
-    {
-        title: "Secure Text Clipboard",
-        category: "security",
-        desc: "Share secret text messages and sensitive strings instantly between devices using a secure 4-digit PIN. This cryptographic text vault features an automatic self-destruction mechanism upon retrieval to guarantee absolute data sovereignty and confidentiality.",
-        link: "tools/universal-cloud-clipboard.html"
-    },
-    {
-        title: "Secure File Sharing",
-        category: "security",
-        desc: "Deploy large, classified files up to 1GB securely via our cloud payload transfer matrix. This tool generates encrypted, direct-access links for untraceable digital distribution, featuring zero-knowledge retention and automatic file destruction capabilities.",
-        link: "tools/global-payload-drop.html"
-    },
-    {
-        title: "Private Video & Audio Chat",
-        category: "security",
-        desc: "Communicate securely with encrypted peer-to-peer video, audio, and text messaging. This zero-knowledge WebRTC platform ensures absolute privacy with no centralized data storage, telemetry, or surveillance, keeping your conversations completely confidential.",
-        link: "tools/Sovereign-Nexus/sovereign-webrtc-nexus.html"
-    },
-    {
-        title: "Temporary Email Generator",
-        category: "security",
-        desc: "Deploy an untraceable, temporary email address instantly. This stealth inbox is perfect for securely receiving OTP verifications and shielding your primary email from spam, promotional tracking, and unwanted surveillance across the internet.",
-        link: "tools/stealth-inbox-generator.html"
-    },
-    {
-        title: "QR Code Maker & Scanner",
-        category: "security",
-        desc: "Generate highly secure QR codes for websites, UPI payments, and WiFi networks, or scan existing codes using your camera. All cryptographic generation and optical decoding happen locally, ensuring your sensitive links and data remain 100% private.",
-        link: "tools/professional-qr-suite.html"
-    },
-    {
-        title: "Website Accessibility Checker",
-        category: "network",
-        desc: "Evaluate web source code against strict WCAG accessibility rules and technical SEO standards. This deep-scan auditing engine inspects files line-by-line locally in your browser, helping developers build more inclusive and compliant digital experiences.",
-        link: "tools/advanced-compliance-guardian.html"
-    },
-    {
-        title: "Website Network Analyzer",
-        category: "network",
-        desc: "Extract deep DNS routing records, network topology, and server telemetry for any target domain. This enterprise-grade domain intelligence utility provides cybersecurity professionals with a zero-knowledge workstation to dissect network architecture safely.",
-        link: "tools/dns-analyzer.html"
-    },
-    {
-        title: "IP Location Tracker",
-        category: "network",
-        desc: "Pinpoint the exact geographical coordinates and network details of any IP address. This advanced forensic radar identifies ISP routing, VPN usage, and potential proxy threats with absolute zero-knowledge privacy, keeping your investigative queries untraceable.",
-        link: "tools/network-threat-locator.html"
-    },
-    {
-        title: "GitHub Profile Analyzer",
-        category: "network",
-        desc: "Execute zero-knowledge scans to extract public software engineering telemetry from any GitHub developer. This reconnaissance engine parses repository metrics and professional footprints securely, providing actionable intelligence without tracking your requests.",
-        link: "tools/github-intelligence.html"
-    },
-    {
-        title: "File Hidden Info Viewer",
-        category: "network",
-        desc: "Uncover hidden digital footprints embedded within your image and media files. This extreme metadata viewer performs deep byte-level scanning to extract EXIF data, camera details, and software signatures entirely offline for total forensic transparency.",
-        link: "tools/extreme-metadata-viewer.html"
-    },
-    {
-        title: "Fake Data Generator",
-        category: "network",
-        desc: "Generate highly realistic, mathematically valid synthetic user profiles, including names and addresses. This tool provides safe mock data structures for enterprise QA, software testing, and penetration testing without exposing real user information.",
-        link: "tools/synthetic-identity-engine.html"
-    },
-    {
-        title: "Age & Birthday Calculator",
-        category: "daily",
-        desc: "Calculate your exact chronological age in years, months, and days with absolute precision. This personalized dashboard tracks your life milestones and upcoming birthdays, delivering lightning-fast, accessible date analytics directly in your browser.",
-        link: "tools/age-calculator.html"
-    },
-    {
-        title: "Live Weather Forecast",
-        category: "daily",
-        desc: "Access precise, real-time meteorological data and detailed atmospheric forecasts for any global location. This telemetry radar delivers accurate weather tracking through a highly accessible interface, ensuring you stay informed safely and effortlessly.",
-        link: "tools/weather-telemetry.html"
-    },
-    {
-        title: "Digital Signature Maker",
-        category: "daily",
-        desc: "Create high-resolution, transparent PNG signatures locally without the need for physical scanning. This typographical generator eliminates background removal barriers, allowing you to digitally sign legal documents and PDFs securely and independently.",
-        link: "tools/digital-signature-generator.html"
-    }
+    { title: "Standard Calculator", category: "assistive", desc: "A fast, reliable, and simple calculator designed specifically for screen reader users. It removes visual clutter and provides instant, accurate voice feedback for all mathematical operations, ensuring a smooth and highly accessible calculation experience.", link: "tools/calculator.html" },
+    { title: "PDF Reader & Speaker", category: "assistive", desc: "Experience unrestricted document reading with our fully accessible PDF viewer. Designed for blind and low-vision users, it offers automatic page announcements, high-contrast modes, and seamless text-to-speech reading directly within your web browser.", link: "tools/pdf-reader.html" },
+    { title: "Braille Document Creator", category: "assistive", desc: "Instantly translate plain English or Hindi text into professional Grade 1 Braille. This tool generates universally compatible .BRF files ready for electronic Braille displays and embossers, ensuring perfect formatting and complete data privacy.", link: "tools/braille-blueprint-compiler.html" },
+    { title: "Live Camera Assistant", category: "assistive", desc: "Turn your device camera into an intelligent sensory guide. This real-time assistant detects object colors, reads physical documents aloud using advanced OCR, and translates room brightness into audio tones to help you navigate your surroundings independently.", link: "tools/universal-visual-assistant.html" },
+    { title: "PDF File Combiner", category: "docs", desc: "Merge multiple PDF documents into one organized file securely on your own device. There are no file uploads to external servers, ensuring your private reports, notes, and official documents remain completely confidential and safe from online tracking.", link: "tools/pdf-merger.html" },
+    { title: "PDF to Text Extractor", category: "docs", desc: "Convert complex PDF documents into clean, easily readable plain text. This high-speed tool extracts information accurately while maintaining paragraph structure, allowing you to study, edit, and copy content flawlessly using any screen reader.", link: "tools/pdf-to-text.html" },
+    { title: "Text to PDF Converter", category: "docs", desc: "Instantly generate professional PDF documents from plain text files or typed notes. This secure, offline tool allows you to create clean, well-formatted PDFs without any complex software, perfect for creating quick reports and shareable documents.", link: "tools/text-to-pdf.html" },
+    { title: "Image to PDF Converter", category: "docs", desc: "Compile multiple images, scanned pages, or screenshots into a single, high-quality PDF document. The process happens entirely on your device, guaranteeing perfect layout retention and absolute privacy for your personal or professional visual data.", link: "tools/image-to-pdf.html" },
+    { title: "PDF to Image Converter", category: "docs", desc: "Extract high-resolution graphics from any PDF file instantly. This secure web utility converts every page of your PDF into crisp, individual PNG images, packaging them neatly into a downloadable ZIP file without compromising your document's privacy.", link: "tools/pdf-to-image.html" },
+    { title: "Text File Combiner", category: "docs", desc: "Easily merge multiple plain text (.txt) files into a single, unified document. This lightweight and secure browser tool helps you organize notes, logs, or written content quickly, ensuring your data never leaves your personal computer.", link: "tools/txt-merger.html" },
+    { title: "Image to Text Reader (OCR)", category: "docs", desc: "Extract readable text from images, screenshots, and scanned documents effortlessly. Using advanced Optical Character Recognition, this tool processes visual data locally to ensure your sensitive documents remain private while making the text fully accessible.", link: "tools/image-to-text.html" },
+    { title: "Language Translator", category: "docs", desc: "Translate text and documents across more than 100 global languages instantly. This high-performance linguistic suite provides accurate, real-time translations with a clean, accessible interface, helping you overcome language barriers securely and easily.", link: "tools/translator.html" },
+    { title: "Image Format Converter", category: "visual", desc: "Convert your pictures between popular formats like JPG, PNG, and WebP losslessly. You can process single images or resize entire folders in bulk. The tool generates an organized ZIP archive entirely in your browser to protect your privacy.", link: "tools/professional-image-converter.html" },
+    { title: "Image to Icon Maker", category: "visual", desc: "Transform your standard graphics into production-ready computer icons (.ico). This professional workstation scales your images into high-fidelity icons for Windows folders and applications, delivering perfect transparency and quality securely.", link: "tools/image-to-icon-workstation.html" },
+    { title: "Text to Image Converter", category: "visual", desc: "Create professional visual content from plain text or bulk text files. This tool helps you generate clean, readable image files customized for easy sharing on social media or professional platforms, all processed securely on your own device.", link: "tools/text-to-image.html" },
+    { title: "Secure File Vault", category: "security", desc: "Lock and hide your sensitive files inside your browser using military-grade AES-256 encryption. This zero-knowledge vault requires your unique password to encrypt and decrypt data, ensuring absolute security against hackers and unauthorized access.", link: "tools/crypto-vault.html" },
+    { title: "Password Strength Checker", category: "security", desc: "Verify if your password is safe or has been exposed in global data breaches. This tool uses advanced k-Anonymity cryptographic protocols to check your password's integrity completely offline, guaranteeing your credential is never transmitted or stolen.", link: "tools/password-checker.html" },
+    { title: "Email Hack Checker", category: "security", desc: "Find out immediately if your personal email address has been compromised in any known dark web leak or public data breach. This enterprise-grade threat intelligence scanner checks your email integrity while maintaining strict zero-knowledge privacy.", link: "tools/global-osint-radar.html" },
+    { title: "Secure Text Clipboard", category: "security", desc: "Share secret text messages and sensitive strings instantly between devices using a secure 4-digit PIN. This cryptographic text vault features an automatic self-destruction mechanism upon retrieval to guarantee absolute data sovereignty and confidentiality.", link: "tools/universal-cloud-clipboard.html" },
+    { title: "Secure File Sharing", category: "security", desc: "Deploy large, classified files up to 1GB securely via our cloud payload transfer matrix. This tool generates encrypted, direct-access links for untraceable digital distribution, featuring zero-knowledge retention and automatic file destruction capabilities.", link: "tools/global-payload-drop.html" },
+    { title: "Private Video & Audio Chat", category: "security", desc: "Communicate securely with encrypted peer-to-peer video, audio, and text messaging. This zero-knowledge WebRTC platform ensures absolute privacy with no centralized data storage, telemetry, or surveillance, keeping your conversations completely confidential.", link: "tools/Sovereign-Nexus/sovereign-webrtc-nexus.html" },
+    { title: "Temporary Email Generator", category: "security", desc: "Deploy an untraceable, temporary email address instantly. This stealth inbox is perfect for securely receiving OTP verifications and shielding your primary email from spam, promotional tracking, and unwanted surveillance across the internet.", link: "tools/stealth-inbox-generator.html" },
+    { title: "QR Code Maker & Scanner", category: "security", desc: "Generate highly secure QR codes for websites, UPI payments, and WiFi networks, or scan existing codes using your camera. All cryptographic generation and optical decoding happen locally, ensuring your sensitive links and data remain 100% private.", link: "tools/professional-qr-suite.html" },
+    { title: "Website Accessibility Checker", category: "network", desc: "Evaluate web source code against strict WCAG accessibility rules and technical SEO standards. This deep-scan auditing engine inspects files line-by-line locally in your browser, helping developers build more inclusive and compliant digital experiences.", link: "tools/advanced-compliance-guardian.html" },
+    { title: "Website Network Analyzer", category: "network", desc: "Extract deep DNS routing records, network topology, and server telemetry for any target domain. This enterprise-grade domain intelligence utility provides cybersecurity professionals with a zero-knowledge workstation to dissect network architecture safely.", link: "tools/dns-analyzer.html" },
+    { title: "IP Location Tracker", category: "network", desc: "Pinpoint the exact geographical coordinates and network details of any IP address. This advanced forensic radar identifies ISP routing, VPN usage, and potential proxy threats with absolute zero-knowledge privacy, keeping your investigative queries untraceable.", link: "tools/network-threat-locator.html" },
+    { title: "GitHub Profile Analyzer", category: "network", desc: "Execute zero-knowledge scans to extract public software engineering telemetry from any GitHub developer. This reconnaissance engine parses repository metrics and professional footprints securely, providing actionable intelligence without tracking your requests.", link: "tools/github-intelligence.html" },
+    { title: "File Hidden Info Viewer", category: "network", desc: "Uncover hidden digital footprints embedded within your image and media files. This extreme metadata viewer performs deep byte-level scanning to extract EXIF data, camera details, and software signatures entirely offline for total forensic transparency.", link: "tools/extreme-metadata-viewer.html" },
+    { title: "Fake Data Generator", category: "network", desc: "Generate highly realistic, mathematically valid synthetic user profiles, including names and addresses. This tool provides safe mock data structures for enterprise QA, software testing, and penetration testing without exposing real user information.", link: "tools/synthetic-identity-engine.html" },
+    { title: "Age & Birthday Calculator", category: "daily", desc: "Calculate your exact chronological age in years, months, and days with absolute precision. This personalized dashboard tracks your life milestones and upcoming birthdays, delivering lightning-fast, accessible date analytics directly in your browser.", link: "tools/age-calculator.html" },
+    { title: "Live Weather Forecast", category: "daily", desc: "Access precise, real-time meteorological data and detailed atmospheric forecasts for any global location. This telemetry radar delivers accurate weather tracking through a highly accessible interface, ensuring you stay informed safely and effortlessly.", link: "tools/weather-telemetry.html" },
+    { title: "Digital Signature Maker", category: "daily", desc: "Create high-resolution, transparent PNG signatures locally without the need for physical scanning. This typographical generator eliminates background removal barriers, allowing you to digitally sign legal documents and PDFs securely and independently.", link: "tools/digital-signature-generator.html" }
 ];
 
 function createCardHTML(tool) {
     return `
-    <div class="tool-card" role="region" aria-label="${tool.title} tool">
+    <div class="feature-card" role="region" aria-label="${tool.title} tool">
         <h3>${tool.title}</h3>
-        <p>${tool.desc}</p>
-        <a href="${tool.link}" class="tool-link">Open Tool</a>
+        <p class="justify-text" style="flex-grow: 1; margin-bottom: 20px;">${tool.desc}</p>
+        <a href="${tool.link}" class="btn">Open Tool</a>
     </div>`;
 }
 
@@ -595,10 +180,12 @@ function changeTabs(e) {
     parent.querySelectorAll('[aria-selected="true"]').forEach(t => {
         t.setAttribute("aria-selected", false);
         t.setAttribute("tabindex", -1);
+        t.style.backgroundColor = "#64748b";
     });
 
     target.setAttribute("aria-selected", true);
     target.setAttribute("tabindex", 0);
+    target.style.backgroundColor = "var(--primary-blue)";
     tabFocus = Array.from(tabs).indexOf(target);
 
     grandparent.querySelectorAll('[role="tabpanel"]').forEach(p => p.setAttribute("aria-hidden", true));
@@ -611,7 +198,7 @@ function changeTabs(e) {
 
 function showAllCardsInActivePanel() {
     const activePanel = document.querySelector('[role="tabpanel"][aria-hidden="false"]');
-    const cards = activePanel.querySelectorAll('.tool-card');
+    const cards = activePanel.querySelectorAll('.feature-card');
     cards.forEach(card => card.style.display = "flex");
 }
 
@@ -632,7 +219,7 @@ function executeSearch() {
     }
 
     const activePanel = document.querySelector('#panel-all');
-    const cards = activePanel.querySelectorAll('.tool-card');
+    const cards = activePanel.querySelectorAll('.feature-card');
     let foundCount = 0;
 
     cards.forEach(card => {
@@ -664,5 +251,7 @@ document.getElementById("toolSearch").addEventListener("keydown", function(e) {
     }
 });
 </script>
+<script src="components/header.js"></script>
+<script src="components/footer.js"></script>
 </body>
 </html>

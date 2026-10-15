@@ -6,121 +6,112 @@
 <link rel="stylesheet" href="../css/style.css">
 <meta name="description" content="Discover professional NVDA add-ons developed by Accessible Tech Labs India. Access our collection of officially listed and high-quality screen reader enhancements designed to improve accessibility and productivity for users worldwide.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../icons/favicon-16x16.png">
+<meta name="theme-color" content="#005a9c">
 </head>
 <body>
 
 <a class="skip-link" href="#main">Skip to main content</a>
 
-<header role="banner">
-<h1>Accessible Tech Labs India</h1>
-<nav aria-label="Main navigation">
-<a href="../index.html" accesskey="h">Home</a>
-<a href="../software.html" accesskey="s">Software</a>
-<a href="../Addons/Addons.html" accesskey="n">NVDA Add-ons</a>
-<a href="../tools.html" accesskey="t">Tools</a>
-<a href="../Games.html" accesskey="g">Games</a>
-<a href="../training.html" accesskey="r">Training</a>
-<a href="../support.html" accesskey="d">Support Us</a>
-<a href="../about.html" accesskey="a">About</a>
-<a href="../contact.html" accesskey="c">Contact</a>
-</nav>
-</header>
+<atli-header path="../" active="addons"></atli-header>
+<main id="main" class="main-container">
 
-<main id="main">
-
-<div class="brand-description" role="region" aria-label="About our Add-ons">
-<h2>Official NVDA Add-ons Repository</h2>
-<p>
+<section class="card" role="region" aria-labelledby="addons-heading">
+<h2 id="addons-heading" class="section-header mt-0">Official NVDA Add-ons Repository</h2>
+<p class="justify-text">
 Welcome to the exclusive and official NVDA Add-on repository hosted by Accessible Tech Labs India. This dedicated platform serves as the central hub for our premium, enterprise-grade accessibility extensions. We are profoundly committed to empowering the visually impaired community through cutting-edge software engineering. Every add-on presented in this catalog has been meticulously crafted from the ground up to resolve real-world digital challenges, eliminating technological barriers and fostering an environment of absolute digital independence for all screen reader users.
 </p>
-<p>
+<p class="justify-text">
 Quality, stability, and security are the cornerstones of our development process. We take immense pride in stating that our flagship utilities undergo rigorous testing and code validation by international accessibility experts. The add-ons featured here are officially vetted, approved, and available directly on the global NVDA Add-on Store. This prestigious certification guarantees that our user base receives secure, highly optimized, and robust tools that integrate seamlessly into their daily workflows without compromising system integrity.
 </p>
-<p>
+<p class="justify-text mb-0">
 We firmly believe that high-end accessibility should never come at the cost of system performance or user privacy. Therefore, our add-ons are engineered with lightweight, high-speed architectures that ensure absolute zero latency during screen reader execution. We maintain strict data sovereignty protocols, ensuring our tools operate completely locally on your machine. There is no invasive telemetry, no hidden data collection, and no external dependencies. Explore our professional catalog below to discover powerful utilities that will redefine, accelerate, and elevate your entire NVDA screen reading experience.
 </p>
+</section>
+
+<section class="card">
+<h2 class="section-header mt-0">Search Official Add-ons</h2>
+<label for="addonSearch" class="input-label">Type add-on name or keyword...</label>
+<input type="text" id="addonSearch" placeholder="Search Add-ons..." aria-label="Search Add-ons">
+<div class="control-row" style="margin-top: 20px;">
+<button class="btn" onclick="executeSearch()">Search</button>
+<button class="btn" onclick="clearSearch()" style="background-color: #64748b; margin-left: 10px;">Clear</button>
 </div>
+<p id="searchStatus" aria-live="polite" style="color: #28a745; font-weight: bold; margin-top: 15px; font-size: 1.1rem;"></p>
+</section>
 
-<div class="search-container">
-<label for="addonSearch">Search Official Add-ons</label>
-<input type="text" id="addonSearch" placeholder="Type add-on name or keyword..." aria-label="Search Add-ons">
-<button class="btn-search" onclick="executeSearch()">Search</button>
-<button class="btn-clear" onclick="clearSearch()">Clear</button>
-<p id="searchStatus" aria-live="polite"></p>
-</div>
+<div class="features-grid" id="addonList">
 
-<div class="addon-grid" id="addonList">
-
-<div class="addon-card" role="region" aria-label="ATL Productivity Suite">
-<span class="store-badge">Official Store Approved</span>
-<h3>ATL Productivity Suite</h3>
-<p>
+<div class="feature-card" role="region" aria-label="ATL Productivity Suite">
+<h3 class="mt-0">ATL Productivity Suite</h3>
+<p style="color: #28a745; font-weight: bold; margin-top: 0;">[ Official Store Approved ]</p>
+<p class="justify-text" style="flex-grow: 1; margin-bottom: 20px;">
 The ATL Productivity Suite is an enterprise-grade accessibility extension meticulously engineered for the NVDA community. This sophisticated utility features an advanced system health dashboard, delivering real-time auditory feedback on battery status, RAM utilization, and storage capacity. Integrated with an industrial-strength system cleaner and custom NVDA shortcuts, this suite is designed to maximize computational efficiency while maintaining absolute data privacy and a lightweight system footprint.
 </p>
-<a href="atl_productivity_suite.html" aria-label="View professional details and download ATL Productivity Suite">View Details & Download</a>
+<a href="atl_productivity_suite.html" class="btn" aria-label="View professional details and download ATL Productivity Suite">View Details & Download</a>
 </div>
+
+</div>
+
 </main>
-<footer role="contentinfo">
-<p>
-<a href="../privacy.html" accesskey="p">Privacy Policy</a> | 
-<a href="../support-system/index.html">Report Issue / Feedback</a> | 
-<a href="../support-system/track.html">Track Ticket Status</a>
-</p>
-<p>© 2026 Accessible Tech Labs India</p>
-</footer>
+
+<atli-footer path="../"></atli-footer>
 <script>
 function showAllAddons() {
-let cards = document.getElementsByClassName("addon-card");
-for (let i = 0; i < cards.length; i++) {
-cards[i].style.display = "block";
-}
+    let cards = document.getElementsByClassName("feature-card");
+    for (let i = 0; i < cards.length; i++) {
+        cards[i].style.display = "flex";
+    }
 }
 
 function executeSearch() {
-let input = document.getElementById("addonSearch");
-let filter = input.value.toLowerCase().trim();
-let cards = document.getElementsByClassName("addon-card");
-let status = document.getElementById("searchStatus");
+    let input = document.getElementById("addonSearch");
+    let filter = input.value.toLowerCase().trim();
+    let cards = document.getElementsByClassName("feature-card");
+    let status = document.getElementById("searchStatus");
 
-if (filter === "") {
-showAllAddons();
-status.innerText = "";
-return;
-}
+    if (filter === "") {
+        showAllAddons();
+        status.innerText = "";
+        return;
+    }
 
-let found = false;
-let count = 0;
+    let found = false;
+    let count = 0;
 
-for (let i = 0; i < cards.length; i++) {
-let text = cards[i].innerText.toLowerCase();
-if (text.includes(filter)) {
-cards[i].style.display = "block";
-found = true;
-count++;
-} else {
-cards[i].style.display = "none";
-}
-}
+    for (let i = 0; i < cards.length; i++) {
+        let text = cards[i].innerText.toLowerCase();
+        if (text.includes(filter)) {
+            cards[i].style.display = "flex";
+            found = true;
+            count++;
+        } else {
+            cards[i].style.display = "none";
+        }
+    }
 
-if (found) {
-status.innerText = "Search completed. " + count + " add-on(s) found.";
-} else {
-status.innerText = "No add-ons found matching your search.";
-}
+    if (found) {
+        status.innerText = "Search completed. " + count + " add-on(s) found.";
+    } else {
+        status.innerText = "No add-ons found matching your search.";
+    }
 }
 
 function clearSearch() {
-document.getElementById("addonSearch").value = "";
-showAllAddons();
-document.getElementById("searchStatus").innerText = "Search cleared. Displaying all add-ons.";
+    document.getElementById("addonSearch").value = "";
+    showAllAddons();
+    document.getElementById("searchStatus").innerText = "Search cleared. Displaying all add-ons.";
 }
 
 document.getElementById("addonSearch").addEventListener("keydown", function(e) {
-if (e.key === "Enter") {
-executeSearch();
-}
+    if (e.key === "Enter") {
+        executeSearch();
+    }
 });
 </script>
-
+<script src="../components/header.js"></script>
+<script src="../components/footer.js"></script>
 </body>
 </html>

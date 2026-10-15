@@ -6,88 +6,75 @@
 <link rel="stylesheet" href="css/style.css">
 <meta name="description" content="Explore a diverse collection of high-quality, fully accessible software designed for everyone. At Accessible Tech Labs India, we specialize in creating inclusive digital solutions that combine professional performance with seamless usability.">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+<meta name="theme-color" content="#005a9c">
 </head>
 
 <body>
 
 <a class="skip-link" href="#main">Skip to main content</a>
-
-<header>
-<h1>Accessible Tech Labs India</h1>
-<nav aria-label="Main navigation">
-<a href="index.html" accesskey="h">Home</a>
-<a href="software.html" accesskey="s">Software</a>
-<a href="Addons/Addons.html" accesskey="n">NVDA Add-ons</a>
-<a href="tools.html" accesskey="t">Tools</a>
-<a href="Games.html" accesskey="g">Games</a>
-<a href="training.html" accesskey="r">Training</a>
-<a href="support.html" accesskey="d">Support Us</a>
-<a href="about.html" accesskey="a">About</a>
-<a href="contact.html" accesskey="c">Contact</a>
-</nav>
-</header>
-
+<atli-header path="" active="software"></atli-header>
 <main id="main" class="main-container">
 
-<section class="manifesto-box" role="region" aria-labelledby="standards-heading">
-<h2 id="standards-heading">The Gold Standard of Inclusive Desktop Engineering</h2>
-<p>
+<section class="card" role="region" aria-labelledby="standards-heading">
+<h2 id="standards-heading" class="section-header mt-0">The Gold Standard of Inclusive Desktop Engineering</h2>
+<p class="justify-text">
 Welcome to the official digital distribution hub of Accessible Tech Labs India. Our desktop software suite represents the pinnacle of inclusive design, engineered specifically for high-performance offline environments with a strict "Screen Reader First" philosophy. Security and User Sovereignty are our non-negotiable pillars. We employ a Zero-Knowledge architecture, meaning your sensitive documents, personal data, and operational logs never leave your local machine.
 </p>
-<p>
+<p class="justify-text">
 <strong>Important Platform Update:</strong> Accessible Tech Labs India has officially and permanently discontinued all command-line interface (CLI) applications. This includes the complete deprecation of the ATL Package Manager, Run History Maintenance, System Diagnosis Engine, SystemCore Manager, Temporary Files Maintenance, Text To Audio Converter, Website Blocker, and Wifi Password Finder. Moving forward, we are operating strictly with native, high-performance graphical Windows applications. Currently, our portfolio consists of exactly three flagship applications. Our distribution strategy has also evolved: we now exclusively feature and distribute software that is officially certified and published on the Microsoft Store, ensuring maximum security, reliability, and seamless automatic updates for our users.
 </p>
-<p>
+<p class="justify-text mb-0">
 <strong>A Critical Security Advisory:</strong> This platform and the Microsoft Store are the ONLY official and authorized sources for software developed by Accessible Tech Labs India. We strongly advise our global user community to exercise extreme caution against unauthorized third-party distributors to prevent compromised code or malicious scripts. Trust the official laboratory for guaranteed reliability and experience the power of professional-grade tools where accessibility meets absolute security.
 </p>
 </section>
 
-<div class="search-container">
-<label for="softwareSearch">Intelligent Software Search</label>
-<input type="text" id="softwareSearch" placeholder="Type to search all enterprise software..." aria-label="Search software">
-<button class="btn-action" onclick="searchSoftware()">Search Engine</button>
-<button class="btn-action btn-clear" onclick="clearSearch()">Clear Filters</button>
-<p id="searchStatus" aria-live="polite" style="width: 100%; color: #3fb950; font-weight: bold; margin: 10px 0 0 0;"></p>
+<section class="card">
+<h2 class="section-header mt-0">Intelligent Software Search</h2>
+<label for="softwareSearch" style="display: block; font-weight: bold; margin-bottom: 10px; color: var(--primary-blue);">Type to search all enterprise software...</label>
+<input type="text" id="softwareSearch" placeholder="Search software..." aria-label="Search software">
+<div style="margin-top: 20px;">
+<button class="btn" onclick="searchSoftware()">Search Engine</button>
+<button class="btn" onclick="clearSearch()" style="background-color: #64748b; margin-left: 10px;">Clear Filters</button>
 </div>
+<p id="searchStatus" aria-live="polite" style="color: #28a745; font-weight: bold; margin-top: 15px; font-size: 1.1rem;"></p>
+</section>
 
-<div class="tools-grid">
+<h2 class="section-header">Active Enterprise Software</h2>
 
-<div class="tool-card" role="region" aria-label="ATL Media Downloader">
+<div class="features-grid">
+
+<div class="feature-card" role="region" aria-label="ATL Media Downloader">
 <h3>ATL Media Downloader</h3>
-<p>
+<p class="justify-text" style="flex-grow: 1; margin-bottom: 20px;">
 The flagship multimedia platform developed by Accessible Tech Labs India. ATL Media Downloader combines intelligent media discovery, real VLC-powered playback, advanced channel and playlist downloading, automatic updates, and enterprise-grade performance into a single professional application.
 </p>
-<a href="software/youtube-downloader/Media Downloader.html" class="tool-link">Open ATL Media Downloader</a>
+<a href="software/youtube-downloader/Media Downloader.html" class="btn">Open ATL Media Downloader</a>
 </div>
 
-<div class="tool-card" role="region" aria-label="ImageMaster Studio">
+<div class="feature-card" role="region" aria-label="ImageMaster Studio">
 <h3>ImageMaster Studio</h3>
-<p>
+<p class="justify-text" style="flex-grow: 1; margin-bottom: 20px;">
 The world's most comprehensive accessibility-first image processing suite. It integrates an unprecedented arsenal of 50 powerful, smart media tools—from basic resizing and format conversion to advanced artistic filters and low-vision enhancers—into a single, unified, and 100% free offline platform.
 </p>
-<a href="software/ImageMasterStudio/ImageMasterStudio.html" class="tool-link">Open ImageMaster Studio</a>
+<a href="software/ImageMasterStudio/ImageMasterStudio.html" class="btn">Open ImageMaster Studio</a>
 </div>
 
-<div class="tool-card" role="region" aria-label="Media Composer Engine">
+<div class="feature-card" role="region" aria-label="Media Composer Engine">
 <h3>Media Composer Engine</h3>
-<p>The next-generation, premium media processing suite. Engineered with strict accessibility, it empowers users with over 20 advanced, smart media tools including AI track separation, 8D spatial audio, and studio-grade cinematic recording completely offline.</p>
-<a href="software/Media Composer Engine/Media Composer Engine.html" class="tool-link">Open Media Composer Engine</a>
-</div>
-
-</div>
-
-</main>
-<footer role="contentinfo">
-<p>
-<a href="privacy.html" accesskey="p">Privacy Policy</a> | 
-<a href="support-system/index.html">Report Issue / Feedback</a> | 
-<a href="support-system/track.html">Track Ticket Status</a>
+<p class="justify-text" style="flex-grow: 1; margin-bottom: 20px;">
+The next-generation, premium media processing suite. Engineered with strict accessibility, it empowers users with over 20 advanced, smart media tools including AI track separation, 8D spatial audio, and studio-grade cinematic recording completely offline.
 </p>
-<p>© 2026 Accessible Tech Labs India</p>
-</footer>
+<a href="software/Media Composer Engine/Media Composer Engine.html" class="btn">Open Media Composer Engine</a>
+</div>
+</div>
+</main>
+<atli-footer path=""></atli-footer>
 <script>
 function resetSearchVisibility() {
-    const cards = document.querySelectorAll('.tool-card');
+    const cards = document.querySelectorAll('.feature-card');
     cards.forEach(card => card.style.display = "flex");
 }
 
@@ -102,7 +89,7 @@ function searchSoftware() {
         return;
     }
 
-    const cards = document.querySelectorAll('.tool-card');
+    const cards = document.querySelectorAll('.feature-card');
     let foundCount = 0;
 
     cards.forEach(card => {
@@ -134,6 +121,7 @@ document.getElementById("softwareSearch").addEventListener("keydown", function(e
     }
 });
 </script>
-
+<script src="components/header.js"></script>
+<script src="components/footer.js"></script>
 </body>
 </html>

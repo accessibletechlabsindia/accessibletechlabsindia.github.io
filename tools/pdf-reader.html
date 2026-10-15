@@ -24,21 +24,7 @@ background: #fff3a0;
 
 <a class="skip-link" href="#main">Skip to main content</a>
 
-<header>
-<h1>Accessible Tech Labs India</h1>
-<nav aria-label="Main navigation">
-<a href="../index.html" accesskey="h">Home</a>
-<a href="../software.html" accesskey="s">Software</a>
-<a href="../Addons/Addons.html" accesskey="n">NVDA Add-ons</a>
-<a href="../tools.html" accesskey="t">Tools</a>
-<a href="../Games.html" accesskey="g">Games</a>
-<a href="../training.html" accesskey="r">Training</a>
-<a href="../support.html" accesskey="d">Support Us</a>
-<a href="../about.html" accesskey="a">About</a>
-<a href="../contact.html" accesskey="c">Contact</a>
-</nav>
-</header>
-
+<atli-header path="../" active="tools"></atli-header>
 <main id="main">
 
 <h2>Advanced Accessible PDF Reader</h2>
@@ -98,14 +84,7 @@ This professional browser based PDF reader is designed for blind and low vision 
 <div id="textArea" style="min-height:300px;line-height:1.5;"></div>
 
 </main>
-<footer role="contentinfo">
-<p>
-<a href="../privacy.html" accesskey="p">Privacy Policy</a> | 
-<a href="../support-system/index.html">Report Issue / Feedback</a> | 
-<a href="../support-system/track.html">Track Ticket Status</a>
-</p>
-<p>© 2026 Accessible Tech Labs India</p>
-</footer>
+<atli-footer path="../"></atli-footer>
 <script>
 pdfjsLib.GlobalWorkerOptions.workerSrc="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js";
 
@@ -308,5 +287,7 @@ document.getElementById("largeUi").onclick = () => {
     announce(large ? "Large user interface enabled" : "Large user interface disabled");
 };
 </script>
+<script src="../components/header.js"></script>
+<script src="../components/footer.js"></script>
 </body>
 </html>
