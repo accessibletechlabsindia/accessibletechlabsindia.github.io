@@ -359,3 +359,26 @@ footer a {
     color: var(--primary-blue);
     margin: 0 10px;
 }
+@media screen and (max-width: 768px) {
+    header, .main-nav {
+        position: static;
+        padding: 10px 5%;
+    }
+    header h1 {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+    }
+    nav {
+        gap: 8px;
+    }
+    nav a {
+        font-size: 0.95rem;
+        padding: 6px 10px;
+    }
+    .skip-link {
+        top: -100px;
+    }
+    .skip-link:focus {
+        top: 0;
+    }
+}
