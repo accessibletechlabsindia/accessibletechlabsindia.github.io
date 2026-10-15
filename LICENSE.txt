@@ -1,0 +1,37 @@
+ACCESSIBLE TECH LABS INDIA PUBLIC SOFTWARE LICENSE
+Version 1.0, October 2026
+
+Copyright (c) 2026 Krishna Kumar, Accessible Tech Labs India.
+All Rights Reserved globally.
+
+TERMS AND CONDITIONS FOR ACCESS, USAGE, INSPECTION, AND DISTRIBUTION
+
+1. DEFINITIONS AND JURISDICTIONAL SCOPE
+"Software" encompasses all client-side source code, markup, styles, scripts, architectural models, and related digital assets developed by Accessible Tech Labs India and published within this repository.
+"Author" and "Licensor" refer exclusively to Krishna Kumar, Founder, Lead Developer, and System Architect of Accessible Tech Labs India, alongside recognized core contributors.
+"Licensee" refers to any individual, researcher, student, or organization exercising permissions granted under this License.
+This License is governed by and construed in accordance with the substantive laws of the Republic of India, specifically under the Indian Copyright Act, 1957, and reciprocal international protections guaranteed under the Berne Convention for the Protection of Literary and Artistic Works.
+
+2. GRANT OF COMPLIANT ACCESS
+Subject to strict compliance with the terms herein, the Author hereby grants Licensee a free, non-exclusive, non-transferable, revocable license to access, run, inspect, execute locally, and utilize the Software solely for personal, assistive, non-commercial educational, and academic research purposes.
+
+3. MANDATORY ATTRIBUTION COVENANT
+Under no circumstances may the Software, in whole or in part, be executed, mirrored, or demonstrated without retaining the full copyright notice, legal terms, and explicit attribution identifying "Krishna Kumar" as the Founder and System Architect, and "Accessible Tech Labs India" as the originating engineering body.
+
+4. ABSOLUTE PROHIBITION OF RE-BRANDING, PLAGIARISM, AND COMMERCE
+Licensee is categorically prohibited from:
+(a) Obscuring, altering, replacing, or deleting any authorship mark, identity string, or logo associated with Accessible Tech Labs India or Krishna Kumar.
+(b) Publishing, redistributing, or claiming original authorship over the Software under any altered organizational banner, corporate name, or commercial umbrella.
+(c) Monetizing, charging access fees, wrapping behind paid subscriptions, or bundling the Software within ad-supported platforms without prior, explicit, sealed commercial agreements from the Author.
+
+5. RESERVATION OF PROPRIETARY DESKTOP ASSETS
+This License governs strictly the open client-side web tools, DOM wrappers, and user interfaces within this public repository. It confers zero license, access, or rights to the compiled binary source codes, algorithms, or assemblies of proprietary desktop suites distributed through the Microsoft Store (including ATL Media Downloader, ImageMaster Studio, and Media Composer Engine), which remain strictly governed by their independent Enterprise End-User License Agreements (EULA).
+
+6. ZERO-KNOWLEDGE ARCHITECTURAL COVENANT
+The Software operates on a strict zero-knowledge, local hardware execution model. The Author provides no warranty, infrastructure, or capability to retrieve lost local cryptographic keys, forgotten vault passwords, or purged ephemeral payloads. Operational security and independent file redundancy remain the sole burden of the user.
+
+7. TERMINATION AND REMEDIES
+Any breach of Section 3, 4, or 5 shall immediately and automatically terminate all permissions granted under this License without prior notice. Upon termination, Licensee must immediately destroy all retained digital copies of the Software. The Author reserves all statutory rights to pursue damages, injunctive relief, and DMCA enforcement against infringing entities.
+
+8. DISCLAIMER OF WARRANTY AND LIMITATION OF LIABILITY
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. IN NO EVENT SHALL KRISHNA KUMAR, CORE CONTRIBUTORS, OR ACCESSIBLE TECH LABS INDIA BE LIABLE FOR ANY CLAIM, DAMAGES, LOSS OF DATA, SYSTEM INSTABILITY, OR OTHER LIABILITY ARISING FROM THE RUNTIME USE OR INABILITY TO USE THIS SOFTWARE.
