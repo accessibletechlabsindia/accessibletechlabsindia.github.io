@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Course Registration (Batch 3) - Accessible Tech Labs India</title>
+<meta name="description" content="Register for the Free Basic Computer and Cyber Safety Awareness Course Batch 3 by Accessible Tech Labs India. Empowering visually impaired learners with digital independence.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../icons/favicon-16x16.png">
+<meta name="theme-color" content="#005a9c">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+<atli-header path="../" active="training"></atli-header>
+
+<main id="main" class="main-container">
+
+<section class="card" aria-labelledby="course-info-heading">
+<h2 id="course-info-heading" class="section-header mt-0">Free Basic Computer & Cyber Safety Awareness Course (Batch 3)</h2>
+<p class="justify-text">
+Welcome to the official registration portal for Batch 3 organized by Accessible Tech Labs India. This two-month comprehensive training program is engineered specifically to empower blind, low-vision, and sighted learners with essential digital independence, precision keyboard workflows, and defensive cyber security skills.
+</p>
+<div class="voluntary-box" role="region" aria-label="Course Specifications">
+<h3 class="mt-0" style="color: var(--primary-blue-dark);">Batch 3 Operational Parameters</h3>
+<ul style="line-height: 1.8; margin-bottom: 0;">
+<li><strong>Course Duration:</strong> 15 November 2026 to 15 January 2027</li>
+<li><strong>Class Timings:</strong> 5:00 PM to 6:30 PM IST (Monday to Saturday)</li>
+<li><strong>Mode of Instruction:</strong> Google Meet (Live Sessions in Hindi)</li>
+<li><strong>Weekly Assessments:</strong> Conducted every Saturday</li>
+<li><strong>Class Recordings:</strong> Distributed securely via Google Drive</li>
+<li><strong>Certification:</strong> Official Certificate of Completion issued upon assessment qualification</li>
+<li><strong>Fee:</strong> 100% Free of Cost (Zero Tuition, Zero Hidden Charges)</li>
+</ul>
+</div>
+</section>
+
+<div class="disclaimer-box center-text" id="closedContainer" style="display: none;" role="alert" tabindex="-1">
+<h3 class="mt-0" style="font-size: 1.8rem; color: #856404;">Registration Closed for Batch 3</h3>
+<p style="font-size: 1.2rem; margin-bottom: 15px;" id="closedMessageText">Registration has officially concluded for Batch 3 as the scheduled deadline has passed.</p>
+<p style="margin-bottom: 0;">For inquiries or information regarding future batch enrollments, please contact our administrative desk at: <a href="mailto:accessibletechlabsindia@gmail.com" style="font-weight: bold; color: var(--primary-blue);">accessibletechlabsindia@gmail.com</a></p>
+</div>
+
+<div class="card" id="formContainer">
+<h2 id="formHeading" class="mt-0" tabindex="-1">Student Admission Application Form</h2>
+<p class="justify-text" style="color: #64748b;">Please review and complete all required parameters accurately. Your confirmation and joining instructions will be transmitted to your registered contact credentials.</p>
+
+<form id="admissionForm" aria-labelledby="formHeading">
+
+<label for="fullName"><strong>1. Full Name *</strong></label>
+<input type="text" id="fullName" placeholder="Enter your full name..." required aria-required="true" oninput="toggleClearButton()">
+<br><br>
+
+<label for="mobileNumber"><strong>2. Primary Mobile Number (Calling) *</strong></label>
+<input type="tel" id="mobileNumber" placeholder="e.g. 9876543210" pattern="[0-9]{10}" required aria-required="true" oninput="toggleClearButton()">
+<br><br>
+
+<label for="whatsappNumber"><strong>3. Active WhatsApp Number *</strong></label>
+<input type="tel" id="whatsappNumber" placeholder="Enter WhatsApp number for batch updates..." pattern="[0-9]{10}" required aria-required="true" oninput="toggleClearButton()">
+<br><br>
+
+<label for="emailAddress"><strong>4. Email Address *</strong></label>
+<input type="email" id="emailAddress" placeholder="name@example.com" required aria-required="true" oninput="toggleClearButton()">
+<br><br>
+
+<label for="genderSelect"><strong>5. Gender *</strong></label>
+<select id="genderSelect" required aria-required="true" onchange="toggleClearButton()">
+<option value="">Select Gender</option>
+<option value="Male">Male</option>
+<option value="Female">Female</option>
+<option value="Prefer Not to Say">Prefer Not to Say</option>
+</select>
+<br><br>
+
+<label for="userAge"><strong>6. Age *</strong></label>
+<input type="number" id="userAge" min="10" max="100" placeholder="Enter your age in years..." required aria-required="true" oninput="toggleClearButton()">
+<br><br>
+
+<label for="userState"><strong>7. State *</strong></label>
+<input type="text" id="userState" placeholder="Enter your State..." required aria-required="true" oninput="toggleClearButton()">
+<br><br>
+
+<label for="userDistrict"><strong>8. District *</strong></label>
+<input type="text" id="userDistrict" placeholder="Enter your District..." required aria-required="true" oninput="toggleClearButton()">
+<br><br>
+
+<label for="userCity"><strong>9. City, Town, or Village Name *</strong></label>
+<input type="text" id="userCity" placeholder="Enter your City/Town/Village..." required aria-required="true" oninput="toggleClearButton()">
+<br><br>
+
+<label for="visionStatus"><strong>10. Vision Status *</strong></label>
+<select id="visionStatus" required aria-required="true" onchange="toggleClearButton()">
+<option value="">Select Vision Status</option>
+<option value="Blind (No Vision)">Blind (No Vision)</option>
+<option value="Low Vision (Partially Sighted)">Low Vision (Partially Sighted)</option>
+<option value="Sighted">Sighted</option>
+</select>
+<br><br>
+
+<label for="primaryDevice"><strong>11. Primary Device Used for Learning *</strong></label>
+<select id="primaryDevice" required aria-required="true" onchange="toggleClearButton()">
+<option value="">Select Primary Device</option>
+<option value="Laptop">Laptop</option>
+<option value="Desktop Computer">Desktop Computer</option>
+<option value="Android Smartphone">Android Smartphone</option>
+<option value="iPhone">iPhone</option>
+<option value="More Than One Device">More Than One Device</option>
+</select>
+<br><br>
+
+<label for="computerKnowledge"><strong>12. Do You Have Basic Computer Knowledge? *</strong></label>
+<select id="computerKnowledge" required aria-required="true" onchange="toggleClearButton()">
+<option value="">Select Knowledge Level</option>
+<option value="No Previous Knowledge">No Previous Knowledge (Absolute Beginner)</option>
+<option value="Basic Knowledge">Basic Knowledge</option>
+<option value="Intermediate Knowledge">Intermediate Knowledge</option>
+</select>
+<br><br>
+
+<label for="priorTraining"><strong>13. Have You Attended Any Computer Training Program Before? *</strong></label>
+<select id="priorTraining" required aria-required="true" onchange="toggleClearButton()">
+<option value="">Select Option</option>
+<option value="Yes">Yes</option>
+<option value="No">No</option>
+</select>
+<br><br>
+
+<label for="joinReason"><strong>14. What Is Your Primary Reason for Joining This Course? *</strong></label>
+<textarea id="joinReason" placeholder="Explain how this course will assist your academic, career, or daily accessibility objectives..." required aria-required="true" style="min-height: 120px;" oninput="toggleClearButton()"></textarea>
+<br><br>
+
+<label for="referralSource"><strong>15. How Did You Learn About This Course? *</strong></label>
+<select id="referralSource" required aria-required="true" onchange="toggleClearButton()">
+<option value="">Select Source</option>
+<option value="YouTube">YouTube</option>
+<option value="WhatsApp">WhatsApp</option>
+<option value="Telegram">Telegram</option>
+<option value="Facebook">Facebook</option>
+<option value="Friend or Relative">Friend or Relative</option>
+<option value="Other">Other</option>
+</select>
+<br><br>
+
+<label for="regularAttendance"><strong>16. Are You Willing to Attend Classes Regularly Throughout the Course Duration? *</strong></label>
+<select id="regularAttendance" required aria-required="true" onchange="toggleClearButton()">
+<option value="">Select Willingness</option>
+<option value="Yes">Yes (Committed to complete duration)</option>
+<option value="I Will Try My Best">I Will Try My Best</option>
+<option value="No">No</option>
+</select>
+<br><br>
+
+<div class="protocol-box" style="margin-bottom: 25px; border-left: 6px solid var(--danger-red);">
+<h3 class="protocol-title" style="color: var(--danger-red);">Code of Conduct, Disciplinary Policy, and Legal Declaration</h3>
+<p class="justify-text" style="font-size: 1rem; color: #334155; margin-bottom: 12px;">
+1. <strong>Strict Disciplinary Authority:</strong> Accessible Tech Labs India maintains an uncompromising zero-tolerance policy against misconduct, abusive language, harassment, unauthorized disturbances, or unethical behavior during live sessions and inside official community channels.
+</p>
+<p class="justify-text" style="font-size: 1rem; color: #334155; margin-bottom: 12px;">
+2. <strong>Immediate Expulsion Rights:</strong> Accessible Tech Labs India reserves the absolute, unilateral authority to immediately terminate the admission, revoke batch access, cancel certificate eligibility, and permanently expel any participant found violating decorum or acting against community welfare, without prior warning or explanation.
+</p>
+<p class="justify-text" style="font-size: 1rem; color: #334155; margin-bottom: 15px;">
+3. <strong>Ethical Knowledge Usage:</strong> You explicitly pledge that all cyber safety, network defense, and technical concepts acquired during this program will be used exclusively for defensive, educational, legal, and self-empowerment purposes.
+</p>
+<div style="display: flex; align-items: flex-start; gap: 12px; margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border-color);">
+<input type="checkbox" id="declarationCheck" style="width: 24px; height: 24px; margin-top: 3px;" required aria-required="true" onchange="toggleClearButton()">
+<label for="declarationCheck" style="font-weight: bold; cursor: pointer; color: var(--primary-blue-dark); line-height: 1.5;">I have read, understood, and unconditionally accept the Disciplinary Code of Conduct. I acknowledge that Accessible Tech Labs India reserves the full right to expel me from the course at any time in case of misconduct or policy violations. *</label>
+</div>
+</div>
+
+<div style="display: flex; gap: 15px; flex-wrap: wrap;">
+<button type="submit" id="submitBtn" class="btn" style="flex: 2; padding: 18px; font-size: 1.2rem;">Submit Admission Application</button>
+<button type="button" id="clearBtn" class="btn" style="flex: 1; padding: 18px; font-size: 1.2rem; background-color: var(--danger-red); display: none;" onclick="confirmFormReset()">Clear Form</button>
+</div>
+
+</form>
+</div>
+
+<div class="transparency-box center-text" id="successContainer" tabindex="-1" aria-live="assertive" style="display: none;">
+<h3 class="mt-0" style="font-size: 2.2rem; color: #155724;">Registration Successfully Confirmed!</h3>
+<p style="font-size: 1.2rem; font-weight: bold;">Thank you for registering for Batch 3 with Accessible Tech Labs India.</p>
+<p class="justify-text">
+An official confirmation dossier containing your course schedule has been dispatched to your email address. Prior to 15 November 2026, the administrative desk will transmit the official Google Meet session joining credentials to your registered WhatsApp network and email inbox.
+</p>
+<div style="margin: 30px 0;">
+<a href="../training.html" class="btn">Return to Training Curriculum</a>
+<a href="../index.html" class="btn" style="background-color: #64748b; margin-left: 10px;">Return to Home Portal</a>
+</div>
+</div>
+
+</main>
+
+<div id="srStatus" class="live-status" aria-live="assertive"></div>
+<div id="toast" class="live-status" aria-live="assertive"></div>
+
+<atli-footer path="../"></atli-footer>
+<script src="../components/header.js"></script>
+<script src="../components/footer.js"></script>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbyk-5aKBFqRb8QGEMdZfSgFbqvugGU0YumfyfQFT51dPwlc6-UDcsfIV-20jSU_vE4k/exec";
+
+function announceSR(msg) {
+    const el = document.getElementById("srStatus");
+    el.innerText = "";
+    setTimeout(() => { el.innerText = msg; }, 50);
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+    checkRegistrationDeadline();
+});
+
+function checkRegistrationDeadline() {
+    const closingDate = new Date(2026, 10, 15, 0, 0, 0);
+    const currentDate = new Date();
+
+    if (currentDate >= closingDate) {
+        enforceClosureUI("Registration for Batch 3 officially closed on 15 November 2026.");
+        return;
+    }
+
+    fetch(API_URL + "?action=checkStatus")
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "closed") {
+            enforceClosureUI(data.message);
+        }
+    })
+    .catch(() => {});
+}
+
+function enforceClosureUI(msg) {
+    document.getElementById("formContainer").style.display = "none";
+    const closedBox = document.getElementById("closedContainer");
+    if (msg) document.getElementById("closedMessageText").innerText = msg;
+    closedBox.style.display = "block";
+    closedBox.focus();
+    announceSR("Notice: Registration for Batch 3 is closed.");
+}
+
+function toggleClearButton() {
+    const form = document.getElementById("admissionForm");
+    const clearBtn = document.getElementById("clearBtn");
+    let hasData = false;
+
+    for (let i = 0; i < form.elements.length; i++) {
+        const el = form.elements[i];
+        if (el.type !== "button" && el.type !== "submit" && el.value.trim() !== "") {
+            if (el.type === "checkbox" && !el.checked) continue;
+            hasData = true;
+            break;
+        }
+    }
+
+    clearBtn.style.display = hasData ? "block" : "none";
+}
+
+function confirmFormReset() {
+    const confirmation = "Warning: Are you sure you want to clear all entered registration details? This action cannot be undone.";
+    if (confirm(confirmation)) {
+        document.getElementById("admissionForm").reset();
+        toggleClearButton();
+        announceSR("Application form cleared successfully.");
+        document.getElementById("fullName").focus();
+    } else {
+        announceSR("Action cancelled. Form details retained.");
+    }
+}
+
+document.getElementById("admissionForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const btn = document.getElementById("submitBtn");
+    const clearBtn = document.getElementById("clearBtn");
+
+    btn.disabled = true;
+    clearBtn.style.display = "none";
+    btn.innerText = "Submitting application, please wait...";
+    announceSR("Submitting your application to the admissions database. Please wait.");
+
+    const payload = {
+        name: document.getElementById("fullName").value.trim(),
+        mobile: document.getElementById("mobileNumber").value.trim(),
+        whatsapp: document.getElementById("whatsappNumber").value.trim(),
+        email: document.getElementById("emailAddress").value.trim(),
+        gender: document.getElementById("genderSelect").value,
+        age: document.getElementById("userAge").value,
+        state: document.getElementById("userState").value.trim(),
+        district: document.getElementById("userDistrict").value.trim(),
+        city: document.getElementById("userCity").value.trim(),
+        vision: document.getElementById("visionStatus").value,
+        device: document.getElementById("primaryDevice").value,
+        knowledge: document.getElementById("computerKnowledge").value,
+        attended: document.getElementById("priorTraining").value,
+        reason: document.getElementById("joinReason").value.trim(),
+        learnSource: document.getElementById("referralSource").value,
+        attendWillingness: document.getElementById("regularAttendance").value,
+        declaration: document.getElementById("declarationCheck").checked ? "Accepted" : "Declined"
+    };
+
+    fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify(payload)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success") {
+            document.getElementById("formContainer").style.display = "none";
+            const successBox = document.getElementById("successContainer");
+            successBox.style.display = "block";
+            successBox.focus();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            announceSR("Application confirmed. Email notification dispatched.");
+        } else if (data.status === "closed") {
+            enforceClosureUI(data.message);
+        } else {
+            btn.disabled = false;
+            btn.innerText = "Submit Admission Application";
+            toggleClearButton();
+            alert("Submission error: " + (data.message || "Failed to process application."));
+            announceSR("Error occurred during submission. Please try again.");
+        }
+    })
+    .catch(() => {
+        btn.disabled = false;
+        btn.innerText = "Submit Admission Application";
+        toggleClearButton();
+        alert("Network error: Unable to connect to admissions database. Please verify your connection.");
+        announceSR("Network error. Application submission failed.");
+    });
+});
+</script>
+</body>
+</html>

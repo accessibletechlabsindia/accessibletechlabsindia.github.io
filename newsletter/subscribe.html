@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Official Dispatch Network - Accessible Tech Labs India</title>
+<meta name="description" content="Subscribe to official announcements, zero-knowledge software releases, NVDA add-on updates, and free cyber safety training batches from Accessible Tech Labs India.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../icons/favicon-16x16.png">
+<meta name="theme-color" content="#005a9c">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+<atli-header path="../" active=""></atli-header>
+
+<main id="main" class="main-container">
+
+<section class="card" aria-labelledby="dispatch-title">
+<h2 id="dispatch-title" class="section-header mt-0">ATLI Official Dispatch Network</h2>
+<p class="justify-text">
+Welcome to the direct broadcasting registry of Accessible Tech Labs India. By enrolling your credentials into this dispatch channel, you receive verified administrative alerts whenever our laboratory deploys new zero-knowledge web utilities, publishes certified Microsoft Store desktop suites, releases updated NVDA screen reader add-ons, or inaugurates upcoming free Cyber Safety Training batches.
+</p>
+<div class="transparency-box" role="region" aria-label="Live Subscriber Metrics">
+<p style="font-size: 1.25rem; font-weight: bold; margin: 0; color: #155724; text-align: center;" id="subscriberCounterText" aria-live="polite">
+Loading verified subscriber registry...
+</p>
+</div>
+</section>
+
+<div class="voluntary-box" role="region" aria-labelledby="ethics-heading">
+<h3 id="ethics-heading" class="mt-0" style="color: var(--primary-blue-dark);">Data Sovereignty & Dispatch Privacy Charter</h3>
+<p class="justify-text" style="font-size: 1.05rem; line-height: 1.8;">
+Accessible Tech Labs India operates on an irrevocable covenant of absolute user sovereignty. Modern technology conglomerates routinely monetize subscriber directories by harvesting behavioral engagement, injecting tracking pixels, and licensing lists to third-party advertising brokers. We categorically condemn this surveillance paradigm.
+</p>
+<p class="justify-text" style="font-size: 1.05rem; line-height: 1.8;">
+When you subscribe to this dispatch channel, your email address is isolated exclusively within our encrypted administrative database. We enforce strict data minimization: we do not log IP addresses, we do not embed clandestine read-tracking telemetry, and we never monetize recipient records. Transmissions are dispatched solely for critical engineering releases, security vulnerability disclosures, and educational admissions. Every broadcast incorporates an instant, one-click automated unsubscription mechanism, empowering you with permanent control over your communications.
+</p>
+</div>
+
+<div class="disclaimer-box center-text" id="unsubNotificationBox" style="display: none;" role="alert" tabindex="-1">
+<h3 class="mt-0" style="font-size: 1.8rem; color: #856404;">Subscription Successfully Deactivated</h3>
+<p style="font-size: 1.15rem; margin-bottom: 20px;">You have been removed from our active dispatch queue. We respect your digital boundaries and no further communications will be transmitted to your inbox.</p>
+<button type="button" class="btn" onclick="reactivateSubscription()" id="resubBtn">Re-Subscribe with One Click</button>
+</div>
+
+<div class="card" id="subscriptionCard">
+<h2 id="formHeading" class="mt-0" tabindex="-1">Enroll in Laboratory Dispatches</h2>
+<form id="subscribeForm" aria-labelledby="formHeading">
+<label for="subscriberEmail" class="input-label" style="display: block; font-weight: bold; margin-bottom: 10px; color: var(--primary-blue);">Enter Your Official Email Address *</label>
+<input type="email" id="subscriberEmail" placeholder="name@example.com" required aria-required="true" autocomplete="email">
+<br><br>
+<button type="submit" id="subSubmitBtn" class="btn" style="width: 100%; padding: 18px; font-size: 1.2rem;">Subscribe to Dispatches</button>
+</form>
+<p id="subscriptionFeedback" aria-live="polite" style="font-weight: bold; margin-top: 20px; font-size: 1.15rem; text-align: center;"></p>
+</div>
+
+</main>
+
+<div id="srStatus" class="live-status" aria-live="assertive"></div>
+<atli-footer path="../"></atli-footer>
+<script src="../components/header.js"></script>
+<script src="../components/footer.js"></script>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbyBHTYi5T152YdnP8I42CvgUv5qvZqNnt7Sq7Z-AkFFdCn7ZnHzbiAxSPBmsYhjAzuD0Q/exec";
+let pendingUnsubEmail = "";
+
+function announceSR(msg) {
+    const el = document.getElementById("srStatus");
+    el.innerText = "";
+    setTimeout(() => { el.innerText = msg; }, 50);
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+    loadLiveSubscriberMetrics();
+    handleQueryParameters();
+});
+
+function loadLiveSubscriberMetrics() {
+    const counterLabel = document.getElementById("subscriberCounterText");
+    const cachedCount = localStorage.getItem("atli_sub_count_cache");
+    
+    if (cachedCount) {
+        counterLabel.innerText = "Join " + cachedCount + "+ verified professionals receiving official ATLI engineering dispatches.";
+    }
+    
+    fetch(API_URL + "?action=getSubscriberCount&_t=" + Date.now())
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success" && data.count !== undefined) {
+            localStorage.setItem("atli_sub_count_cache", data.count);
+            counterLabel.innerText = "Join " + data.count + "+ verified professionals receiving official ATLI engineering dispatches.";
+        }
+    })
+    .catch(() => {});
+}
+
+function handleQueryParameters() {
+    const params = new URLSearchParams(window.location.search);
+    const action = params.get("action");
+    const email = params.get("email");
+    
+    if (action === "unsubscribed") {
+        pendingUnsubEmail = email ? decodeURIComponent(email) : "";
+        document.getElementById("subscriptionCard").style.display = "none";
+        const box = document.getElementById("unsubNotificationBox");
+        box.style.display = "block";
+        box.focus();
+        announceSR("Notice: Your email has been unsubscribed from ATLI updates.");
+    }
+}
+
+function reactivateSubscription() {
+    if (!pendingUnsubEmail) {
+        document.getElementById("unsubNotificationBox").style.display = "none";
+        document.getElementById("subscriptionCard").style.display = "block";
+        document.getElementById("subscriberEmail").focus();
+        return;
+    }
+    
+    const btn = document.getElementById("resubBtn");
+    btn.disabled = true;
+    btn.innerText = "Reactivating...";
+    announceSR("Reactivating your subscription. Please wait.");
+    
+    fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify({
+            action: "subscribe",
+            email: pendingUnsubEmail
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        btn.disabled = false;
+        btn.innerText = "Re-Subscribe with One Click";
+        document.getElementById("unsubNotificationBox").style.display = "none";
+        document.getElementById("subscriptionCard").style.display = "block";
+        const fb = document.getElementById("subscriptionFeedback");
+        fb.style.color = "var(--success-green)";
+        fb.innerText = data.message || "Your subscription has been successfully reactivated.";
+        announceSR(fb.innerText);
+        loadLiveSubscriberMetrics();
+    })
+    .catch(() => {
+        btn.disabled = false;
+        btn.innerText = "Re-Subscribe with One Click";
+        alert("Network error: Unable to reactivate subscription.");
+        announceSR("Network error occurred.");
+    });
+}
+
+document.getElementById("subscribeForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const btn = document.getElementById("subSubmitBtn");
+    const input = document.getElementById("subscriberEmail");
+    const feedback = document.getElementById("subscriptionFeedback");
+    
+    btn.disabled = true;
+    btn.innerText = "Securing enrollment, please wait...";
+    feedback.innerText = "";
+    announceSR("Registering your email in the dispatch network. Please wait.");
+    
+    fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify({
+            action: "subscribe",
+            email: input.value.trim()
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        btn.disabled = false;
+        btn.innerText = "Subscribe to Dispatches";
+        
+        if (data.status === "success" || data.status === "resubscribed") {
+            feedback.style.color = "var(--success-green)";
+            feedback.innerText = data.message;
+            input.value = "";
+            loadLiveSubscriberMetrics();
+            announceSR(data.message);
+        } else if (data.status === "exists") {
+            feedback.style.color = "var(--primary-blue)";
+            feedback.innerText = data.message;
+            announceSR(data.message);
+        } else {
+            feedback.style.color = "var(--danger-red)";
+            feedback.innerText = data.message || "Subscription could not be processed.";
+            announceSR(feedback.innerText);
+        }
+    })
+    .catch(() => {
+        btn.disabled = false;
+        btn.innerText = "Subscribe to Dispatches";
+        feedback.style.color = "var(--danger-red)";
+        feedback.innerText = "Network error: Unable to connect to registry API.";
+        announceSR("Network error. Subscription failed.");
+    });
+});
+</script>
+</body>
+</html>

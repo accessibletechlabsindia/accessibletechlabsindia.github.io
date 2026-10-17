@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Admin Dispatch Terminal - Accessible Tech Labs India</title>
+<meta name="description" content="Centralized administrative dispatch console for Accessible Tech Labs India. Authorize, compose, and execute mass communications to the subscriber registry.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../css/style.css">
+<link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../icons/favicon-16x16.png">
+<meta name="theme-color" content="#005a9c">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+<atli-header path="../" active=""></atli-header>
+
+<main id="main" class="main-container">
+
+<section class="card" aria-labelledby="console-heading">
+<h2 id="console-heading" class="section-header mt-0">Centralized Dispatch Terminal</h2>
+<p class="justify-text mb-0">
+This secure administration console empowers authorized core engineers to compose, proof, and dispatch verified communications, release dossiers, and educational updates directly across the subscriber registry. Access requires a valid 16-character team security key.
+</p>
+</section>
+
+<div class="card" id="gateCard">
+<h2 id="gateTitle" class="mt-0" tabindex="-1">Team Member Authentication Gate</h2>
+<label for="adminKeyInput" class="input-label" style="display: block; font-weight: bold; margin-bottom: 10px; color: var(--primary-blue);">Enter 16-Character Administrative Key *</label>
+<div style="display: flex; gap: 10px; flex-wrap: wrap;">
+<input type="password" id="adminKeyInput" placeholder="Paste 16-character security key..." required aria-required="true" style="flex: 1;" autocomplete="off">
+<button type="button" class="btn" id="toggleKeyBtn" onclick="toggleKeyVisibility()" style="background-color: #64748b;">Show</button>
+</div>
+<br>
+<button type="button" class="btn" id="loginBtn" onclick="unlockTerminal()" style="width: 100%; padding: 18px; font-size: 1.2rem;">Authenticate & Unlock Terminal</button>
+</div>
+
+<div id="terminalArea" style="display: none;">
+
+<div class="transparency-box" style="margin-top: 0; margin-bottom: 30px;">
+<div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 15px;">
+<h3 style="margin: 0; font-size: 1.3rem; color: #155724;" id="operatorNameLabel">Authenticated Operator: Authorized</h3>
+<button type="button" class="btn" onclick="terminateTerminalSession()" style="background-color: var(--danger-red); padding: 10px 20px;">Lock Terminal</button>
+</div>
+<div class="features-grid" style="margin-bottom: 0;">
+<div class="feature-card center-text" style="padding: 15px;">
+<h4 style="margin: 0; color: var(--primary-blue-dark);">Active Subscribers</h4>
+<p style="font-size: 1.8rem; font-weight: 800; color: var(--primary-blue); margin: 5px 0 0 0;" id="statActiveSubscribers">0</p>
+</div>
+<div class="feature-card center-text" style="padding: 15px;">
+<h4 style="margin: 0; color: var(--primary-blue-dark);">Dispatches Sent Today</h4>
+<p style="font-size: 1.8rem; font-weight: 800; color: #155724; margin: 5px 0 0 0;" id="statSentToday">0</p>
+</div>
+<div class="feature-card center-text" style="padding: 15px;">
+<h4 style="margin: 0; color: var(--primary-blue-dark);">Remaining Daily Quota</h4>
+<p style="font-size: 1.8rem; font-weight: 800; color: var(--warning-orange); margin: 5px 0 0 0;" id="statRemainingQuota">0</p>
+</div>
+</div>
+</div>
+
+<div class="card">
+<h2 class="mt-0" id="composeHeading" tabindex="-1">Compose Official Dispatch</h2>
+
+<form id="broadcastForm" aria-labelledby="composeHeading">
+
+<label for="broadcastSubject"><strong>1. Transmission Subject Line *</strong></label>
+<input type="text" id="broadcastSubject" placeholder="e.g. Official Update: ATLI Tool Release or Course Admission" required aria-required="true">
+<br><br>
+
+<label for="broadcastMessage"><strong>2. Dispatch Message Body *</strong></label>
+<textarea id="broadcastMessage" placeholder="Type your full transmission message here... Line breaks create clean paragraphs. Lines beginning with a dash (- ) automatically render as bullet points." required aria-required="true" style="min-height: 220px;"></textarea>
+<br><br>
+
+<div class="protocol-box" style="margin-bottom: 25px;">
+<div style="display: flex; align-items: center; gap: 10px;">
+<input type="checkbox" id="includeLinksCheck" style="width: 22px; height: 22px; cursor: pointer;" onchange="toggleLinksSection()">
+<label for="includeLinksCheck" style="font-weight: bold; cursor: pointer; color: var(--primary-blue-dark);">Attach Interactive Action Buttons / Web Links</label>
+</div>
+
+<div id="linksContainer" style="display: none; margin-top: 20px;">
+<div id="linkEntries"></div>
+<button type="button" class="btn" id="addMoreLinkBtn" onclick="addNewLinkEntry()" style="background-color: #64748b; padding: 12px 24px; display: none;">+ Add Another Action Link</button>
+</div>
+</div>
+
+<div class="protocol-box" style="margin-bottom: 25px;">
+<label for="attachmentFile" style="font-weight: bold; color: var(--primary-blue-dark);"><strong>3. Optional File Attachment (Max 10 MB)</strong></label>
+<p style="font-size: 0.95rem; color: #64748b; margin: 5px 0 10px 0;">Supported formats: PDF, ZIP, PNG, JPG, MP3, TXT, DOCX.</p>
+<input type="file" id="attachmentFile" accept=".pdf,.zip,.png,.jpg,.jpeg,.mp3,.txt,.docx" onchange="validateAttachmentSize()">
+<p id="attachmentSizeNotice" style="font-size: 0.95rem; font-weight: bold; margin-top: 8px; color: var(--primary-blue);"></p>
+</div>
+
+<div style="display: flex; gap: 15px; flex-wrap: wrap;">
+<button type="button" id="openTestModalBtn" class="btn" style="flex: 1; min-width: 220px; background-color: #0ea5e9; padding: 18px; font-size: 1.15rem;" onclick="openTestModal()">Send Test Dispatch</button>
+<button type="submit" id="broadcastBtn" class="btn" style="flex: 2; min-width: 260px; padding: 18px; font-size: 1.15rem;">Dispatch Broadcast to All Subscribers</button>
+</div>
+
+</form>
+
+<div id="dispatchProgressCard" style="display: none; margin-top: 25px; padding: 20px; background-color: #f0f7ff; border-radius: 8px; border: 1px solid #b8daff;" aria-live="assertive">
+<p id="progressStatusText" style="font-weight: bold; color: var(--primary-blue-dark); margin: 0; font-size: 1.15rem;">Processing transmission...</p>
+</div>
+
+</div>
+
+</div>
+
+<div class="card" id="testEmailModal" style="display: none; margin-top: 25px; border: 3px solid var(--primary-blue);" role="dialog" aria-labelledby="testModalTitle">
+<h3 class="mt-0" id="testModalTitle" style="color: var(--primary-blue);">Send Test Email</h3>
+<p style="margin-bottom: 15px;">Enter the recipient email address to verify formatting and attachments before launching full broadcast:</p>
+<label for="testTargetEmail" style="display: block; font-weight: bold; margin-bottom: 8px;">Test Recipient Email *</label>
+<input type="email" id="testTargetEmail" placeholder="test@example.com" required>
+<br><br>
+<div style="display: flex; gap: 15px; flex-wrap: wrap;">
+<button type="button" class="btn" id="executeTestBtn" onclick="dispatchTestTransmission()" style="background-color: var(--success-green); padding: 12px 25px;">Send Test Now</button>
+<button type="button" class="btn" onclick="closeTestModal()" style="background-color: #64748b; padding: 12px 25px;">Cancel</button>
+</div>
+</div>
+
+</main>
+
+<div id="srStatus" class="live-status" aria-live="assertive"></div>
+<atli-footer path="../"></atli-footer>
+<script src="../components/header.js"></script>
+<script src="../components/footer.js"></script>
+
+<script>
+const API_URL = "https://script.google.com/macros/s/AKfycbyBHTYi5T152YdnP8I42CvgUv5qvZqNnt7Sq7Z-AkFFdCn7ZnHzbiAxSPBmsYhjAzuD0Q/exec";
+let activeAdminKey = "";
+let activeOperatorTitle = "";
+let linkCounter = 0;
+
+function announceSR(msg) {
+    const el = document.getElementById("srStatus");
+    el.innerText = "";
+    setTimeout(() => { el.innerText = msg; }, 50);
+}
+
+function toggleKeyVisibility() {
+    const inp = document.getElementById("adminKeyInput");
+    const btn = document.getElementById("toggleKeyBtn");
+    if (inp.type === "password") {
+        inp.type = "text";
+        btn.innerText = "Hide";
+        announceSR("Key visible.");
+    } else {
+        inp.type = "password";
+        btn.innerText = "Show";
+        announceSR("Key hidden.");
+    }
+}
+
+function unlockTerminal() {
+    const key = document.getElementById("adminKeyInput").value.trim();
+    if (!key) {
+        alert("Authentication required: Please paste your 16-character administrative key.");
+        return;
+    }
+    
+    const btn = document.getElementById("loginBtn");
+    btn.disabled = true;
+    btn.innerText = "Authenticating...";
+    announceSR("Authenticating operator credentials.");
+    
+    fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify({
+            action: "authenticate",
+            key: key
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        btn.disabled = false;
+        btn.innerText = "Authenticate & Unlock Terminal";
+        
+        if (data.status === "success") {
+            activeAdminKey = key;
+            activeOperatorTitle = data.operator;
+            document.getElementById("operatorNameLabel").innerText = "Authenticated Operator: " + data.operator;
+            updateTelemetryDisplay(data.metrics);
+            
+            document.getElementById("gateCard").style.display = "none";
+            document.getElementById("terminalArea").style.display = "block";
+            document.getElementById("composeHeading").focus();
+            announceSR("Terminal unlocked. Welcome " + data.operator);
+        } else {
+            alert(data.message || "Authentication failure. Access denied.");
+            announceSR("Authentication failure.");
+        }
+    })
+    .catch(() => {
+        btn.disabled = false;
+        btn.innerText = "Authenticate & Unlock Terminal";
+        alert("Network error: Unable to verify administrative credentials.");
+        announceSR("Network error occurred.");
+    });
+}
+
+function updateTelemetryDisplay(metrics) {
+    if (!metrics) return;
+    document.getElementById("statActiveSubscribers").innerText = metrics.activeCount !== undefined ? metrics.activeCount : "0";
+    document.getElementById("statSentToday").innerText = metrics.sentToday !== undefined ? metrics.sentToday : "0";
+    document.getElementById("statRemainingQuota").innerText = metrics.remainingQuota !== undefined ? metrics.remainingQuota : "0";
+    localStorage.setItem("atli_sub_count_cache", metrics.activeCount);
+}
+
+function terminateTerminalSession() {
+    activeAdminKey = "";
+    activeOperatorTitle = "";
+    document.getElementById("broadcastForm").reset();
+    document.getElementById("includeLinksCheck").checked = false;
+    toggleLinksSection();
+    document.getElementById("testEmailModal").style.display = "none";
+    document.getElementById("terminalArea").style.display = "none";
+    document.getElementById("gateCard").style.display = "block";
+    document.getElementById("adminKeyInput").value = "";
+    document.getElementById("gateTitle").focus();
+    announceSR("Terminal locked. Session terminated.");
+}
+
+function toggleLinksSection() {
+    const check = document.getElementById("includeLinksCheck");
+    const container = document.getElementById("linksContainer");
+    const entries = document.getElementById("linkEntries");
+    
+    if (check.checked) {
+        container.style.display = "block";
+        if (entries.children.length === 0) {
+            linkCounter = 0;
+            addNewLinkEntry();
+        }
+        announceSR("Link section enabled.");
+    } else {
+        container.style.display = "none";
+        entries.innerHTML = "";
+        document.getElementById("addMoreLinkBtn").style.display = "none";
+        linkCounter = 0;
+    }
+}
+
+function addNewLinkEntry() {
+    linkCounter++;
+    const currentId = linkCounter;
+    const entries = document.getElementById("linkEntries");
+    const div = document.createElement("div");
+    div.className = "link-row";
+    div.id = "linkRow_" + currentId;
+    div.style.cssText = "display: flex; gap: 15px; margin-bottom: 15px; flex-wrap: wrap; align-items: flex-end; border-bottom: 1px dashed var(--border-color); padding-bottom: 15px;";
+    
+    div.innerHTML = `
+        <div style="flex: 1; min-width: 200px;">
+            <label for="linkTitle_${currentId}" style="display:block; font-weight:bold; margin-bottom:5px;">Button Title *</label>
+            <input type="text" id="linkTitle_${currentId}" class="link-title" placeholder="e.g. Launch Web Tool" required aria-required="true" oninput="validateLinkInputs()">
+        </div>
+        <div style="flex: 2; min-width: 260px;">
+            <label for="linkUrl_${currentId}" style="display:block; font-weight:bold; margin-bottom:5px;">Paste Link / Web Address *</label>
+            <input type="url" id="linkUrl_${currentId}" class="link-url" placeholder="https://accessibletechlabsindia.github.io/..." required aria-required="true" oninput="validateLinkInputs()">
+        </div>
+        ${currentId > 1 ? `<button type="button" class="btn" style="background-color: var(--danger-red); padding: 15px 20px;" onclick="removeLinkEntry('${currentId}')">Remove</button>` : ''}
+    `;
+    
+    entries.appendChild(div);
+    validateLinkInputs();
+    
+    const newTitleInput = document.getElementById("linkTitle_" + currentId);
+    if (newTitleInput) {
+        newTitleInput.focus();
+    }
+}
+
+function removeLinkEntry(id) {
+    const el = document.getElementById("linkRow_" + id);
+    if (el) {
+        el.remove();
+        validateLinkInputs();
+        announceSR("Action link removed.");
+    }
+}
+
+function validateLinkInputs() {
+    const rows = document.querySelectorAll(".link-row");
+    const addBtn = document.getElementById("addMoreLinkBtn");
+    
+    if (rows.length === 0) {
+        addBtn.style.display = "none";
+        return;
+    }
+    
+    let allValid = true;
+    rows.forEach(row => {
+        const title = row.querySelector(".link-title").value.trim();
+        const url = row.querySelector(".link-url").value.trim();
+        if (!title || !url) {
+            allValid = false;
+        }
+    });
+    
+    addBtn.style.display = allValid ? "inline-block" : "none";
+}
+
+function validateAttachmentSize() {
+    const fileInput = document.getElementById("attachmentFile");
+    const notice = document.getElementById("attachmentSizeNotice");
+    if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        const sizeMb = (file.size / (1024 * 1024)).toFixed(2);
+        if (file.size > 10 * 1024 * 1024) {
+            alert("Payload violation: Attachment exceeds 10 MB. Please select a smaller payload.");
+            fileInput.value = "";
+            notice.innerText = "";
+            return;
+        }
+        notice.innerText = "Attachment ready: " + file.name + " (" + sizeMb + " MB)";
+    } else {
+        notice.innerText = "";
+    }
+}
+
+function getBase64Payload(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            const result = reader.result;
+            const base64 = result.split(",")[1];
+            resolve(base64);
+        };
+        reader.onerror = err => reject(err);
+    });
+}
+
+function harvestLinkEntries() {
+    const linkList = [];
+    if (document.getElementById("includeLinksCheck").checked) {
+        const rows = document.querySelectorAll(".link-row");
+        rows.forEach(row => {
+            const t = row.querySelector(".link-title").value.trim();
+            const u = row.querySelector(".link-url").value.trim();
+            if (t && u) {
+                linkList.push({ title: t, url: u });
+            }
+        });
+    }
+    return linkList;
+}
+
+async function packagePayload(isTestMode, testEmailAddress) {
+    const subj = document.getElementById("broadcastSubject").value.trim();
+    const msg = document.getElementById("broadcastMessage").value.trim();
+    const links = harvestLinkEntries();
+    
+    let attachObj = null;
+    const fileInput = document.getElementById("attachmentFile");
+    if (fileInput.files.length > 0) {
+        const f = fileInput.files[0];
+        const b64 = await getBase64Payload(f);
+        attachObj = {
+            filename: f.name,
+            mimeType: f.type || "application/octet-stream",
+            base64: b64
+        };
+    }
+    
+    return {
+        action: "broadcast",
+        adminKey: activeAdminKey,
+        isTest: isTestMode,
+        testEmail: testEmailAddress || "",
+        subject: subj,
+        message: msg,
+        links: links,
+        attachment: attachObj
+    };
+}
+
+function openTestModal() {
+    const subj = document.getElementById("broadcastSubject").value.trim();
+    const msg = document.getElementById("broadcastMessage").value.trim();
+    
+    if (!subj || !msg) {
+        alert("Validation error: Complete the Subject and Message body before requesting a test.");
+        return;
+    }
+    
+    const modal = document.getElementById("testEmailModal");
+    modal.style.display = "block";
+    document.getElementById("testTargetEmail").focus();
+    announceSR("Test email modal opened. Enter destination email address.");
+}
+
+function closeTestModal() {
+    document.getElementById("testEmailModal").style.display = "none";
+    document.getElementById("openTestModalBtn").focus();
+    announceSR("Test modal closed.");
+}
+
+async function dispatchTestTransmission() {
+    const targetEmail = document.getElementById("testTargetEmail").value.trim();
+    if (!targetEmail || targetEmail.indexOf("@") === -1) {
+        alert("Validation error: Enter a valid destination email address.");
+        return;
+    }
+    
+    const sendBtn = document.getElementById("executeTestBtn");
+    sendBtn.disabled = true;
+    sendBtn.innerText = "Transmitting...";
+    announceSR("Sending test dispatch. Please wait.");
+    
+    try {
+        const payload = await packagePayload(true, targetEmail);
+        const res = await fetch(API_URL, {
+            method: "POST",
+            body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        
+        sendBtn.disabled = false;
+        sendBtn.innerText = "Send Test Now";
+        
+        if (data.status === "success") {
+            alert("Test Delivered: " + data.message);
+            closeTestModal();
+            announceSR("Test dispatch delivered successfully.");
+        } else {
+            alert("Test Failure: " + (data.message || "Could not dispatch test."));
+            announceSR("Test dispatch failed.");
+        }
+    } catch (err) {
+        sendBtn.disabled = false;
+        sendBtn.innerText = "Send Test Now";
+        alert("Network error: Unable to communicate with dispatch API.");
+    }
+}
+
+document.getElementById("broadcastForm").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    
+    const confirmation = "CRITICAL CONFIRMATION: You are about to dispatch this official broadcast to ALL active subscribers in the registry.\n\nOperator: " + activeOperatorTitle + "\n\nDo you authorize this transmission?";
+    if (!confirm(confirmation)) {
+        return;
+    }
+    
+    const broadcastBtn = document.getElementById("broadcastBtn");
+    const openTestBtn = document.getElementById("openTestModalBtn");
+    const progCard = document.getElementById("dispatchProgressCard");
+    const progText = document.getElementById("progressStatusText");
+    
+    broadcastBtn.disabled = true;
+    openTestBtn.disabled = true;
+    progCard.style.display = "block";
+    progText.innerText = "Executing broadcast sequence across subscriber registry. Please do not close this window...";
+    announceSR("Executing broadcast transmission across subscriber queue. Please wait.");
+    
+    try {
+        const payload = await packagePayload(false, "");
+        const res = await fetch(API_URL, {
+            method: "POST",
+            body: JSON.stringify(payload)
+        });
+        const data = await res.json();
+        
+        broadcastBtn.disabled = false;
+        openTestBtn.disabled = false;
+        progCard.style.display = "none";
+        
+        if (data.status === "success") {
+            alert("Broadcast Finalized: " + data.message);
+            announceSR("Broadcast finalized successfully.");
+            document.getElementById("broadcastForm").reset();
+            document.getElementById("includeLinksCheck").checked = false;
+            toggleLinksSection();
+            document.getElementById("attachmentSizeNotice").innerText = "";
+            if (data.metrics) {
+                updateTelemetryDisplay(data.metrics);
+            }
+        } else {
+            alert("Broadcast Aborted: " + (data.message || "Dispatch failure."));
+            announceSR("Broadcast aborted.");
+        }
+    } catch (err) {
+        broadcastBtn.disabled = false;
+        openTestBtn.disabled = false;
+        progCard.style.display = "none";
+        alert("Network error: Transmission interrupted.");
+    }
+});
+</script>
+</body>
+</html>

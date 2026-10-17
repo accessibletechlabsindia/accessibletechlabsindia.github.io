@@ -4,13 +4,16 @@ class AtliFooter extends HTMLElement {
         let activePage = this.getAttribute("active") || "";
         this.innerHTML = `
         <footer role="contentinfo">
-        <p>
-        <a href="${p}privacy.html" accesskey="p" class="${activePage === 'privacy' ? 'active-link' : ''}">Privacy Policy</a> | 
-        <a href="${p}LICENSE.txt">Read ATLI Public License (v1.0)</a> | 
-        <a href="${p}support-system/index.html">Report Issue / Feedback</a> | 
-        <a href="${p}support-system/track.html">Track Ticket Status</a>
-        </p>
-        <p>© 2026 Accessible Tech Labs India</p>
+        <nav aria-label="Footer Navigation">
+        <ul style="list-style: none; padding: 0; margin: 0 0 15px 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 12px 24px;">
+        <li><a href="${p}privacy.html" accesskey="p" class="${activePage === 'privacy' ? 'active-link' : ''}">Privacy Policy</a></li>
+        <li><a href="${p}LICENSE.txt">Read ATLI Public License (v1.0)</a></li>
+        <li><a href="${p}newsletter/subscribe.html">Subscribe to Official Dispatches</a></li>
+        <li><a href="${p}support-system/index.html">Report Issue / Feedback</a></li>
+        <li><a href="${p}support-system/track.html">Track Ticket Status</a></li>
+        </ul>
+        </nav>
+        <p style="margin: 0;">© 2026 Accessible Tech Labs India</p>
         </footer>
         `;
     }
