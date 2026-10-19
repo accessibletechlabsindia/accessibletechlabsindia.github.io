@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ATL USB Protector | Accessible Tech Labs India</title>
+<link rel="stylesheet" href="../css/style.css">
+<meta name="description" content="Secure your PC from unauthorized USB threats with ATL USB Protector for NVDA. Enterprise-grade, accessibility-first USB security add-on featuring auto-eject, registry-level read-only locks, trusted drive whitelisting, and zero-knowledge privacy.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="apple-touch-icon" sizes="180x180" href="../icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../icons/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="../icons/favicon-16x16.png">
+<meta name="theme-color" content="#005a9c">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<atli-header path="../" active="addons"></atli-header>
+<main id="main" class="main-container">
+
+<section class="card center-text" aria-labelledby="addon-main-title">
+<h2 id="addon-main-title" class="section-header mt-0">ATL USB Protector [ Version 1.1 Stable ]</h2>
+<p class="justify-text">
+The ATL USB Protector is an enterprise-grade, accessibility-first endpoint security extension engineered specifically for the NVDA screen reader community by Accessible Tech Labs India. Designed for visually impaired professionals, researchers, students, and power users, this add-on operates as an autonomous digital sentry running silently in your system background. It intercepts removable storage media the microsecond they interface with your hardware, deploying instant protective counter-measures to guarantee 100% data sovereignty, malware defense, and operational integrity.
+</p>
+<div class="control-row center-text" style="margin-top: 25px;">
+<a href="https://github.com/accessibletechlabsindia/atl-usb-protector/releases/download/v1.1/atl_usb_protector.nvda-addon" class="btn" aria-label="Direct Download ATL USB Protector version 1.1">Download Latest Add-on (.nvda-addon)</a>
+</div>
+</section>
+
+<div class="voluntary-box" role="region" aria-labelledby="threat-heading">
+<h3 id="threat-heading" class="mt-0">The Critical Security Void: Why USB Protection Matters</h3>
+<p class="justify-text">
+Visually impaired computer users face unique and severe cybersecurity risks when connecting external flash drives, memory cards, or external hard disks. Mainstream operating systems typically rely on visual popups and toast banners to notify users of drive status. Malicious actors exploit this gap through dangerous attack vectors including silent Autorun worms, BadUSB keystroke injection hardware, Trojan exfiltration payloads, and unauthorized data copying.
+</p>
+<p class="justify-text mb-0">
+Without visual verification, a screen reader user cannot instantly know what files are executing or whether a connected drive is attempting to siphon sensitive personal documents. ATL USB Protector fundamentally closes this vulnerability. By binding deep Windows operating system APIs directly to NVDA speech channels, the add-on delivers real-time auditory awareness and automated hardware defense without requiring sighted assistance.
+</p>
+</div>
+
+<section class="card" aria-labelledby="capabilities-heading">
+<h3 id="capabilities-heading" class="section-header mt-0">Core Security Architecture & Features</h3>
+<p class="justify-text">
+Every component of ATL USB Protector has been engineered from the ground up for high-speed responsiveness, absolute zero-latency execution, and zero background data tracking. The suite includes:
+</p>
+
+<div class="features-grid">
+
+<div class="feature-card">
+<h4 class="mt-0">1. Instant Auto-Eject (Maximum Defense)</h4>
+<p class="justify-text mb-0">
+When configured to Auto-Eject, the engine dismounts and physically ejects any unrecognized USB storage drive the moment it is plugged into any physical port. The operating system is prevented from even mounting the file system, eliminating any possibility of malicious script execution or unauthorized drive access.
+</p>
+</div>
+
+<div class="feature-card">
+<h4 class="mt-0">2. Registry Read-Only Protection</h4>
+<p class="justify-text mb-0">
+Enforces low-level Windows Registry StorageDevicePolicies directly on connected storage endpoints. This locks unauthorized USB drives into a strict Read-Only environment. You can safely open and inspect files on the drive, but malicious code cannot write to your system drive and unauthorized users cannot extract data from your PC.
+</p>
+</div>
+
+<div class="feature-card">
+<h4 class="mt-0">3. 10-Second Auditory Grace Period</h4>
+<p class="justify-text mb-0">
+Inserting an unknown USB triggers an immediate high-priority spoken alert. The add-on provides a smart 10-second auditory countdown grace window. Pressing the dedicated Alt+A hotkey within this window instantly whitelists the device and records its hardware serial signature into your Trusted List without opening complex settings dialogs.
+</p>
+</div>
+
+<div class="feature-card">
+<h4 class="mt-0">4. Permanent Trusted Drive Vault</h4>
+<p class="justify-text mb-0">
+Easily manage your authorized personal storage hardware. Once a flash drive, external SSD, or backup disk is registered into your Trusted List, it bypasses all security blocks and mounts seamlessly with standard read-and-write permissions every single time.
+</p>
+</div>
+
+<div class="feature-card">
+<h4 class="mt-0">5. One-Click Global Emergency Unlock</h4>
+<p class="justify-text mb-0">
+If your workstation has applied strict Read-Only registry locks across USB channels, you can instantly restore all system ports back to factory read-and-write defaults. A dedicated Global Unlock control is situated right inside the settings GUI for emergency operational recovery.
+</p>
+</div>
+
+<div class="feature-card">
+<h4 class="mt-0">6. Native NVDA Preferences Integration</h4>
+<p class="justify-text mb-0">
+Fully accessible configuration GUI built directly into NVDA Menu -> Preferences -> Settings -> ATL USB Protector. The interface employs intelligent dynamic visibility, hiding secondary parameters when master protection is deactivated to ensure an uncluttered screen-reading workflow.
+</p>
+</div>
+
+</div>
+</section>
+
+<section class="card" aria-labelledby="commands-heading">
+<h3 id="commands-heading" class="section-header mt-0">Keyboard Gestures & Operational Commands</h3>
+<p class="justify-text">
+True digital independence requires frictionless keyboard command execution. ATL USB Protector provides standardized shortcuts that operate system-wide:
+</p>
+
+<table>
+<thead>
+<tr>
+<th scope="col">Command / Workflow</th>
+<th scope="col">Keyboard Shortcut</th>
+<th scope="col">Functional Outcome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Quick Whitelist (Add to Trusted)</strong></td>
+<td><strong>Alt + A</strong></td>
+<td>Registers the newly inserted USB drive into the Trusted Vault during the active 10-second auditory grace period.</td>
+</tr>
+<tr>
+<td><strong>Access Configuration GUI</strong></td>
+<td><strong>NVDA + N</strong></td>
+<td>Opens the NVDA menu. Navigate to Preferences -> Settings -> ATL USB Protector to adjust default security actions and manage trusted hardware.</td>
+</tr>
+</tbody>
+</table>
+
+<div class="disclaimer-box" style="margin-top: 20px; margin-bottom: 0;">
+<strong>Administrative Security Note:</strong> Applying low-level Registry Read-Only locks or engaging the Global Unlock protocol invokes standard Windows User Account Control (UAC) elevation dialogs. This guarantees that no unauthorized background software can manipulate your system security policies without your explicit permission.
+</div>
+</section>
+
+<section class="card center-text" aria-labelledby="archives-heading">
+<h3 id="archives-heading" class="section-header mt-0">Previous Releases & Source Archives</h3>
+<p class="justify-text">
+Accessible Tech Labs India maintains total engineering transparency. If you need to review past package iterations, inspect commit histories, or study historical security updates, our public release archives are permanently maintained:
+</p>
+<div style="margin-top: 25px;">
+<a href="https://github.com/accessibletechlabsindia/atl-usb-protector/releases" class="btn" target="_blank" rel="noopener">Browse GitHub Releases Archive</a>
+</div>
+</section>
+
+<section class="card" aria-labelledby="ecosystem-heading">
+<h3 id="ecosystem-heading" class="section-header mt-0">Official Ecosystem Repositories & Verification</h3>
+<p class="justify-text">
+Verify the authenticity of this security add-on through our official global distribution channels:
+</p>
+
+<div class="features-grid">
+
+<div class="feature-card">
+<h4 class="mt-0">NVDA Global Add-on Store</h4>
+<p class="justify-text" style="flex-grow: 1; margin-bottom: 20px;">
+Officially vetted, approved, and hosted on the stable channel of the international NV Access Add-on Store for worldwide deployment.
+</p>
+<a href="https://addonstore.nvaccess.org/?channel=stable&language=en&apiVersion=2025.3.3&addonId=atl_usb_protector" class="btn" target="_blank" rel="noopener">Open Store Listing</a>
+</div>
+
+<div class="feature-card">
+<h4 class="mt-0">Community Review & Vetting</h4>
+<p class="justify-text" style="flex-grow: 1; margin-bottom: 20px;">
+Inspect the formal code review, packaging feedback, and verification discussions conducted by international accessibility specialists.
+</p>
+<a href="https://github.com/nvaccess/addon-datastore/discussions/12274" class="btn" target="_blank" rel="noopener">Read Technical Review</a>
+</div>
+
+<div class="feature-card">
+<h4 class="mt-0">Central GitHub Repository</h4>
+<p class="justify-text" style="flex-grow: 1; margin-bottom: 20px;">
+Track new release branches, submit security bug reports, read deployment documentation, or contribute to ongoing development.
+</p>
+<a href="https://github.com/accessibletechlabsindia/atl-usb-protector" class="btn" target="_blank" rel="noopener">Open Project Repository</a>
+</div>
+
+<div class="feature-card">
+<h4 class="mt-0">Inspect Python Source Code</h4>
+<p class="justify-text" style="flex-grow: 1; margin-bottom: 20px;">
+Explore the pure Python codebase, WMI hardware event hooks, Windows Registry handlers, and wxPython GUI dialog implementations.
+</p>
+<a href="https://github.com/accessibletechlabsindia/atl-usb-protector" class="btn" target="_blank" rel="noopener">Examine Source Code</a>
+</div>
+
+</div>
+</section>
+
+<section class="transparency-box" aria-labelledby="licensing-heading">
+<h3 id="licensing-heading" class="mt-0">Software License & Open Source Commitment</h3>
+<p class="justify-text">
+ATL USB Protector is free and open-source software distributed under the terms of the GNU General Public License Version 2.0 (GPL-2.0). Accessible Tech Labs India firmly upholds the principle that foundational cybersecurity and accessibility tools must belong to the global community. You possess the irrevocable legal freedom to inspect, run, modify, distribute, and enhance this software without proprietary restrictions.
+</p>
+<div class="center-text" style="margin-top: 20px;">
+<a href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.html" class="btn" target="_blank" rel="noopener">Read Full GPL-2.0 License</a>
+</div>
+</section>
+
+</main>
+<atli-footer path="../"></atli-footer>
+<script src="../components/header.js"></script>
+<script src="../components/footer.js"></script>
+</body>
+</html>
