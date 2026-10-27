@@ -24,10 +24,10 @@ Welcome to the central support management dashboard for Accessible Tech Labs Ind
 <div class="card" id="loginCard">
 <h2 id="loginHeading" class="mt-0" tabindex="-1">Team Member Login</h2>
 <p><strong>Enter Your 16-Character Security Key *</strong></p>
-<input type="password" id="memberKeyInput" placeholder="Paste your 16-character key here..." required aria-required="true" autocomplete="off">
+<input type="password" id="memberKeyInput" placeholder="Paste your 16-character key here..." required aria-required="true" autocomplete="off" onkeydown="if(event.key==='Enter') authenticateMember()">
 <br><br>
 <button class="btn" id="showKeyBtn" onclick="toggleKeyVisibility()">Show</button>
-<button class="btn" onclick="authenticateMember()">Login to Dashboard</button>
+<button class="btn" id="loginSubmitBtn" onclick="authenticateMember()">Login to Dashboard</button>
 </div>
 
 <div class="card" id="terminalCard" style="display: none;">
@@ -38,7 +38,7 @@ Welcome to the central support management dashboard for Accessible Tech Labs Ind
 <button class="btn" onclick="terminateSession()" style="background-color: var(--danger-red);">Logout</button>
 <br><br>
 
-<div style="margin-bottom: 20px;">
+<div id="tabRow" style="margin-bottom: 20px;">
 <button class="btn" id="tabActiveBtn" onclick="switchFilterView('active')">Active Tickets</button>
 <button class="btn" id="tabClosedBtn" onclick="switchFilterView('closed')" style="background-color: #64748b;">Closed Tickets</button>
 </div>
@@ -66,14 +66,6 @@ let allFetchedTickets = [];
 let currentFilter = "active";
 let activeOpenTicketId = null;
 let toastTimer;
-
-const TEAM_KEYS_MAP = {
-    "K9xM2pL8vQ4wR7tY": "Krishna Kumar",
-    "A3bN7kE5zT9yU2wX": "Anil Saini",
-    "S8jF4hV1mC6nD3pQ": "Sumit Kumar",
-    "G5tL9rW2xK8sP4vB": "Gauri",
-    "H2yD6mZ9bV3cX7eR": "Haseena"
-};
 
 function announceSR(msg) {
     const el = document.getElementById("srStatus");
@@ -110,18 +102,39 @@ function authenticateMember() {
         showToast("Please enter your 16-character security key.");
         return;
     }
-    const mem = TEAM_KEYS_MAP[key];
-    if (!mem) {
-        showToast("Invalid security key. Access denied.");
-        return;
-    }
-    authenticatedUser = mem;
-    authenticatedKey = key;
-    document.getElementById("loginCard").style.display = "none";
-    document.getElementById("terminalCard").style.display = "block";
-    document.getElementById("currentEngineerBadge").innerText = authenticatedUser;
-    showToast("Logged in successfully as " + authenticatedUser);
-    loadAllTickets();
+    const btn = document.getElementById("loginSubmitBtn");
+    btn.disabled = true;
+    btn.innerText = "Authenticating...";
+    announceSR("Authenticating security key. Please wait.");
+
+    fetch(API_URL, {
+        method: "POST",
+        body: JSON.stringify({
+            action: "authenticate",
+            key: key
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        btn.disabled = false;
+        btn.innerText = "Login to Dashboard";
+        if (data.status === "success" && data.memberName) {
+            authenticatedUser = data.memberName;
+            authenticatedKey = key;
+            document.getElementById("loginCard").style.display = "none";
+            document.getElementById("terminalCard").style.display = "block";
+            document.getElementById("currentEngineerBadge").innerText = authenticatedUser;
+            showToast("Logged in successfully as " + authenticatedUser);
+            loadAllTickets();
+        } else {
+            showToast(data.message || "Invalid security key. Access denied.");
+        }
+    })
+    .catch(err => {
+        btn.disabled = false;
+        btn.innerText = "Login to Dashboard";
+        showToast("Network error: Unable to verify security credentials.");
+    });
 }
 
 function terminateSession() {
@@ -386,7 +399,7 @@ function renderFilteredTickets() {
                             <option value="Anil Saini">Anil Saini</option>
                             <option value="Sumit Kumar">Sumit Kumar</option>
                             <option value="Gauri">Gauri</option>
-                            <option value="Haseena">Haseena</option>
+                            <option value="Mayank">Mayank</option>
                         </select>
                         <p><strong>Reason for Transfer *</strong></p>
                         <textarea id="transReason_${t["Ticket ID"]}" placeholder="Explain why you are transferring this ticket..."></textarea>
