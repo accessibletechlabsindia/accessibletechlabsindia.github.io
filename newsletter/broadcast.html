@@ -256,7 +256,7 @@ function addNewLinkEntry() {
         </div>
         <div style="flex: 2; min-width: 260px;">
             <label for="linkUrl_${currentId}" style="display:block; font-weight:bold; margin-bottom:5px;">Paste Link / Web Address *</label>
-            <input type="url" id="linkUrl_${currentId}" class="link-url" placeholder="https://accessibletechlabsindia.github.io/..." required aria-required="true" oninput="validateLinkInputs()">
+            <input type="url" id="linkUrl_${currentId}" class="link-url" placeholder="https://accessibletechlabsindia.org/..." required aria-required="true" oninput="validateLinkInputs()">
         </div>
         ${currentId > 1 ? `<button type="button" class="btn" style="background-color: var(--danger-red); padding: 15px 20px;" onclick="removeLinkEntry('${currentId}')">Remove</button>` : ''}
     `;
