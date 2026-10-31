@@ -26,7 +26,8 @@ Welcome to the official registration portal for Batch 3 organized by Accessible 
 <div class="voluntary-box" role="region" aria-label="Course Specifications">
 <h3 class="mt-0" style="color: var(--primary-blue-dark);">Batch 3 Operational Parameters</h3>
 <ul style="line-height: 1.8; margin-bottom: 0;">
-<li><strong>Course Duration:</strong> 1 November 2026 to 16 February 2027</li>
+<li><strong>Registration Window:</strong> Officially Active from 1 November 2026</li>
+<li><strong>Course Duration (3 Months):</strong> 16 November 2026 to 16 February 2027</li>
 <li><strong>Class Timings:</strong> 5:00 PM to 6:00 PM IST (Monday to Saturday)</li>
 <li><strong>Mode of Instruction:</strong> Google Meet (Live Sessions in Hindi)</li>
 <li><strong>Weekly Assessments:</strong> Conducted every Saturday</li>
@@ -40,7 +41,7 @@ Welcome to the official registration portal for Batch 3 organized by Accessible 
 <div class="disclaimer-box center-text" id="closedContainer" style="display: none;" role="alert" tabindex="-1">
 <h3 class="mt-0" style="font-size: 1.8rem; color: #856404;">Registration Notice for Batch 3</h3>
 <p style="font-size: 1.2rem; margin-bottom: 15px;" id="closedMessageText">Registration is currently not active.</p>
-<p style="margin-bottom: 0;">For inquiries or information regarding future batch enrollments, please contact our administrative desk at: <a href="mailto:accessibletechlabsindia@gmail.com" style="font-weight: bold; color: var(--primary-blue);">accessibletechlabsindia@gmail.com</a></p>
+<p style="margin-bottom: 0;">For inquiries or assistance, connect directly through our <a href="../contact.html" style="font-weight: bold; color: var(--primary-blue); text-decoration: underline;">Contact & Support Center</a> or email: <a href="mailto:kirshnakumar6644@gmail.com" style="font-weight: bold; color: var(--primary-blue);">kirshnakumar6644@gmail.com</a></p>
 </div>
 
 <div class="card" id="formContainer">
@@ -180,7 +181,10 @@ Welcome to the official registration portal for Batch 3 organized by Accessible 
 <h3 class="mt-0" style="font-size: 2.2rem; color: #155724;">Registration Successfully Confirmed!</h3>
 <p style="font-size: 1.2rem; font-weight: bold;">Thank you for registering for Batch 3 with Accessible Tech Labs India.</p>
 <p class="justify-text">
-An official confirmation dossier containing your course schedule has been dispatched to your email address. Prior to 1 November 2026, the administrative desk will transmit the official Google Meet session joining credentials to your registered WhatsApp network and email inbox.
+An official confirmation dossier containing your complete course schedule has been dispatched to your email address. Prior to 16 November 2026, the administrative desk will transmit the official Google Meet session joining credentials to your registered WhatsApp network and email inbox.
+</p>
+<p class="justify-text">
+If you have any questions or require special technical assistance, please reach out to our team via our <a href="../contact.html" style="font-weight: bold; color: var(--primary-blue); text-decoration: underline;">Contact & Support Portal</a>.
 </p>
 <div style="margin: 30px 0;">
 <a href="../training.html" class="btn">Return to Training Curriculum</a>
@@ -263,12 +267,12 @@ function confirmFormReset() {
 document.getElementById("admissionForm").addEventListener("submit", function(e) {
     e.preventDefault();
 
-    const openingDate = new Date(2026, 10, 1, 0, 0, 0);
+    const openingDate = new Date("2026-11-01T00:00:00+05:30");
     const currentDate = new Date();
 
     if (currentDate < openingDate) {
-        alert("Submission Restricted: Registration for Batch 3 officially opens on 1 November 2026 at 12:00 AM IST. Early submissions cannot be processed.");
-        announceSR("Notice: Registration for Batch 3 officially opens on 1 November 2026 at 12:00 AM IST. Early submissions cannot be processed.");
+        alert("Submission Restricted: Registration for Batch 3 officially opens on 1 November 2026 at 12:00 AM IST. Classes commence on 16 November 2026.");
+        announceSR("Notice: Registration for Batch 3 officially opens on 1 November 2026 at 12:00 AM IST. Classes commence on 16 November 2026.");
         return;
     }
 
