@@ -1,4 +1,4 @@
-var SHOW_ANNOUNCEMENT = true;
+var SHOW_ANNOUNCEMENT = false;
 
 document.addEventListener("DOMContentLoaded", function() {
     if (!SHOW_ANNOUNCEMENT) return;
